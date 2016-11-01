@@ -48,6 +48,7 @@ group :development do
   gem 'capistrano3-puma'
   gem 'capistrano-rbenv', '~> 2.0'
   gem 'capistrano-bundler', '~> 1.2'
+  gem 'capistrano-secrets-yml', '~> 1.0.0'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
