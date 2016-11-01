@@ -34,6 +34,3 @@ append :linked_dirs, 'log', 'tmp/pids', 'tmp/sockets' #, 'tmp/cache', 'public/sy
 
 # Default value for keep_releases is 5
 # set :keep_releases, 5
-
-# default is deploy
-set :user, "deployer"
