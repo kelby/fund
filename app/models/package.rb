@@ -1,6 +1,8 @@
 class Package < ApplicationRecord
   belongs_to :category
 
+  has_many :projects
+
   def self.set_packages
     ["Active Record DB Adapters",
     "Active Record Default Values",
