@@ -1,0 +1,3 @@
+class LaravelCategory < Category
+
+end

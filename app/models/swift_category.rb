@@ -1,0 +1,3 @@
+class SwiftCategory < Category
+
+end
