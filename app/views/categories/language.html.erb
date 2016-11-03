@@ -3,6 +3,14 @@
     <ul>
       <% @categories.each do |category| %>
         <li><%= category.name %></li>
+
+        <ul>
+          <% category.packages.each do |package| %>
+            <li>
+              <%= link_to package.name, package %>
+            </li>
+          <% end %>
+        </ul>
       <% end %>
 
     </ul>
