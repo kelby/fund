@@ -1,6 +1,8 @@
 class Category < ApplicationRecord
   validates_uniqueness_of :name, scope: :type
 
+  has_many :packages
+
   def self.set_rails_category
     ["Active Record Plugins",
     "Background Processing",
@@ -149,6 +151,7 @@ class Category < ApplicationRecord
       LaravelCategory.create(name: category, slug: Pinyin.t(category, splitter: '_'))
     end
   end
+
   def to_params
     self.slug
   end
