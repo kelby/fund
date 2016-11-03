@@ -21,7 +21,7 @@ class Package < ApplicationRecord
     "Rails Search",
     "Rails Tagging"].each do |package|
       next if package.blank?
-      category = Category.find_by(name: "Active Record Plugin")
+      category = Category.find_by(name: "Active Record Plugins")
 
       next if category.blank?
 
@@ -34,7 +34,7 @@ class Package < ApplicationRecord
     "Daemon Management",
     "Scheduling"].each do |package|
       next if package.blank?
-      category = Category.find_by(name: "Background Processin")
+      category = Category.find_by(name: "Background Processing")
 
       next if category.blank?
 
