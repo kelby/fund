@@ -1,2 +1,0 @@
-class RailsCategory < Category
-end

@@ -1,0 +1,3 @@
+class LaravelCatalog < Catalog
+
+end

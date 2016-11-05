@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 20161103154814) do
 
-  create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "catalogs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
     t.string   "slug"
     t.string   "type"
@@ -20,12 +20,12 @@ ActiveRecord::Schema.define(version: 20161103154814) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "packages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
     t.string   "slug"
-    t.integer  "category_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.integer  "catalog_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "projects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 20161103154814) do
     t.string   "website"
     t.string   "wiki"
     t.string   "source_code"
-    t.integer  "package_id"
+    t.integer  "category_id"
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
   end

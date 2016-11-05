@@ -11,8 +11,22 @@
 </p>
 
 <p>
-  <strong>Type:</strong>
-  <%= @category.type %>
+  <strong>Category:</strong>
+  <%= @category.catalog_id %>
+</p>
+
+<p>
+  <ul>
+    <% @category.projects.each do |project| %>
+      <li>
+        <%= link_to project.name, project %>
+        <br>
+        description: <%= project.description %>
+        <br>
+        website: <%= project.website %>
+      </li>
+    <% end %>
+  </ul>
 </p>
 
 <%= link_to 'Edit', edit_category_path(@category) %> |

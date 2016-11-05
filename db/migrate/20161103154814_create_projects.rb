@@ -6,7 +6,7 @@ class CreateProjects < ActiveRecord::Migration[5.0]
       t.string :website
       t.string :wiki
       t.string :source_code
-      t.integer :package_id
+      t.integer :category_id
 
       t.timestamps
     end

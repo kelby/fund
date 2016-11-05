@@ -1,10 +1,10 @@
-<%= form_for(package) do |f| %>
-  <% if package.errors.any? %>
+<%= form_for(catalog) do |f| %>
+  <% if catalog.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(package.errors.count, "error") %> prohibited this package from being saved:</h2>
+      <h2><%= pluralize(catalog.errors.count, "error") %> prohibited this catalog from being saved:</h2>
 
       <ul>
-      <% package.errors.full_messages.each do |message| %>
+      <% catalog.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
@@ -22,8 +22,8 @@
   </div>
 
   <div class="field">
-    <%= f.label :category_id %>
-    <%= f.number_field :category_id %>
+    <%= f.label :type %>
+    <%= f.text_field :type %>
   </div>
 
   <div class="actions">

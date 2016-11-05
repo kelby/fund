@@ -10,7 +10,7 @@
       <th>Website</th>
       <th>Wiki</th>
       <th>Source code</th>
-      <th>Package</th>
+      <th>Category</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -23,7 +23,7 @@
         <td><%= project.website %></td>
         <td><%= project.wiki %></td>
         <td><%= project.source_code %></td>
-        <td><%= project.package_id %></td>
+        <td><%= project.category_id %></td>
         <td><%= link_to 'Show', project %></td>
         <td><%= link_to 'Edit', edit_project_path(project) %></td>
         <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>

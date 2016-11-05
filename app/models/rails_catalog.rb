@@ -1,0 +1,2 @@
+class RailsCatalog < Catalog
+end

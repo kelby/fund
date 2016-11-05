@@ -5,14 +5,15 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :packages
+  resources :catalogs
   resources :categories
+
   get 'home/index'
 
   root 'home#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  get 'rails', to: "categories#rails"
-  get 'swift', to: "categories#swift"
-  get 'laravel', to: "categories#laravel"
+  get 'rails', to: "catalogs#rails"
+  get 'swift', to: "catalogs#swift"
+  get 'laravel', to: "catalogs#laravel"
 end
