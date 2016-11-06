@@ -7,6 +7,8 @@ class User < ApplicationRecord
 
   has_many :authentications
 
+  validates_presence_of :name
+
   def self.from_omniauth(access_token)
     provider = access_token.provider
     uid = access_token.uid
