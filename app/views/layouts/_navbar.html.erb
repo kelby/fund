@@ -35,6 +35,13 @@
           <li>
             <%= link_to "Google登录", user_google_oauth2_omniauth_authorize_path %>
           </li>
+        <% else %>
+          <li>
+            <%= link_to "Categories", categories_path %>
+          </li>
+          <li>
+            <%= link_to "Projects", projects_path %>
+          </li>
         <% end %>
 
         <li class="dropdown">
