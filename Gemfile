@@ -59,3 +59,8 @@ gem 'bootstrap-sass', '~> 3.3.6'
 gem 'chinese_pinyin'
 
 gem 'devise'
+
+# gem "font-awesome-rails"
+
+gem 'omniauth-github'
+gem "omniauth-google-oauth2"

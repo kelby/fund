@@ -12,5 +12,6 @@
  *
  * require_tree .
  *= require 'bootstrap-with-sticky-footer-navbar'
+ * require font-awesome
  *= require_self
  */
