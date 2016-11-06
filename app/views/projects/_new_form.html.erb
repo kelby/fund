@@ -1,0 +1,50 @@
+<%= form_for(project) do |f| %>
+  <% if project.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(project.errors.count, "error") %> prohibited this project from being saved:</h2>
+
+      <ul>
+      <% project.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field form-group">
+    <%= f.label :source_code %>
+    <%= f.text_field :source_code, placeholder: "项目所在的 GitHub 链接", class: "form-control" %>
+  </div>
+
+  <div class="field form-group">
+    <%= f.label :language %>
+
+    <%= select_tag :language, options_for_select([["Rails", 'rails'], ["Laravel", 'laravel'], ["Swift", 'swift']]), include_blank: true, class: "form-control" %>
+  </div>
+
+  <div class="field form-group">
+    <%= f.label :catalog_id %>
+
+    <%= select_tag :catalog_id, options_for_select([]), include_blank: true, disabled: true, class: "form-control" %>
+  </div>
+
+  <div class="field form-group">
+    <%= f.label :category_id %>
+
+    <% categories = Category.all %>
+
+    <%= select_tag "project[:category_id]", options_for_select(categories.collect { |p| [ p.name, p.id, {"class" => "hidden catalog-#{p.catalog_id}"} ] }), include_blank: true, disabled: true, class: "form-control", id: "project_category_id" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "提交", class: "btn btn-primary" %>
+  </div>
+<% end %>
+
+<%= select_tag :rails_catalog, options_for_select(RailsCatalog.all.collect { |p| [ p.name, p.id ] }), include_blank: true, class: "hidden" %>
+<%= select_tag :laravel_catalog, options_for_select(LaravelCatalog.all.collect { |p| [ p.name, p.id ] }), include_blank: true, class: "hidden" %>
+<%= select_tag :swift_catalog, options_for_select(SwiftCatalog.all.collect { |p| [ p.name, p.id ] }), include_blank: true, class: "hidden" %>
+
+<% content_for :javascripts do %>
+  <%= javascript_include_tag 'projects' %>
+<% end %>

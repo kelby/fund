@@ -4,8 +4,13 @@
     <title>Zhenkuan</title>
     <%= csrf_meta_tags %>
 
+    <!-- base css here -->
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <!-- more css here -->
+
+    <!-- more css here... -->
+
+    <!-- base js here -->
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
@@ -27,7 +32,7 @@
 
     <%= render "layouts/footer" %>
 
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <!-- more js here -->
+    <!-- more js here... -->
+    <%= content_for :javascripts %>
   </body>
 </html>

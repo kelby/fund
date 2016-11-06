@@ -1,5 +1,11 @@
 <h1>New Project</h1>
 
-<%= render 'form', project: @project %>
+<p>
+  仅需1秒即可提交你感兴趣的项目
+  <br>
+  请确保提交的项目是 Rails、Laravel、Swift 插件并且 GitHub 有 100 Star 以上
+</p>
+
+<%= render 'new_form', project: @project %>
 
 <%= link_to 'Back', projects_path %>
