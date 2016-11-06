@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   resources :projects do
     member do
       get :popularity
@@ -17,4 +16,11 @@ Rails.application.routes.draw do
   get 'rails', to: "catalogs#rails"
   get 'swift', to: "catalogs#swift"
   get 'laravel', to: "catalogs#laravel"
+
+  get 'account', to: "users#account"
+
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+
+  resources :users do
+  end
 end
