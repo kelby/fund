@@ -27,30 +27,47 @@
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
+        <% unless user_signed_in? %>
+          <li>
+            <%= link_to "GitHub登录", user_github_omniauth_authorize_path %>
+          </li>
 
-        <li>
-          <%= link_to "DevDocs", "http://doc.zhenkuan.li", target: "_blank" %>
-        </li>
-
-        <li>
-          <%= link_to "GitHub登录", user_github_omniauth_authorize_path %>
-        </li>
-
-        <li>
-          <%= link_to "Google登录", user_google_oauth2_omniauth_authorize_path %>
-        </li>
+          <li>
+            <%= link_to "Google登录", user_google_oauth2_omniauth_authorize_path %>
+          </li>
+        <% end %>
 
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">username <span class="caret"></span></a>
+          <% if user_signed_in? %>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+              <%= current_user.name %> <span class="caret"></span>
+            </a>
+          <% else %>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+              username <span class="caret"></span>
+            </a>
+          <% end %>
+
           <ul class="dropdown-menu">
             <li><a href="#">Action</a></li>
             <li><a href="#">Another action</a></li>
             <li><a href="#">Something else here</a></li>
+
             <li role="separator" class="divider"></li>
-            <li class="dropdown-header">Nav header</li>
-            <li><a href="#">Separated link</a></li>
-            <li><a href="#">One more separated link</a></li>
+
+            <% if user_signed_in? %>
+              <li>
+                <%= link_to "退出", destroy_user_session_path, method: :delete %>
+              </li>
+            <% else %>
+              <li><a href="#">Separated link</a></li>
+              <li><a href="#">One more separated link</a></li>
+            <% end %>
           </ul>
+        </li>
+
+        <li>
+          <%= link_to "DevDocs", "http://doc.zhenkuan.li", target: "_blank" %>
         </li>
       </ul>
     </div><!--/.nav-collapse -->
