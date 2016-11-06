@@ -38,7 +38,17 @@
 
   <div class="field">
     <%= f.label :category_id %>
-    <%= f.number_field :category_id %>
+    <%#= f.number_field :category_id %>
+
+    <% category = project.category %>
+
+    <% if category.present? %>
+      <% categories = category.class.all %>
+    <% else %>
+      <% categories = Category.all %>
+    <% end %>
+
+    <%= f.select :category_id, categories.collect { |p| [ p.name, p.id ] }, include_blank: true %>
   </div>
 
   <div class="actions">

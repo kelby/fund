@@ -23,7 +23,16 @@
 
   <div class="field">
     <%= f.label :catalog_id %>
-    <%= f.number_field :catalog_id %>
+
+    <% catalog = category.catalog %>
+
+    <% if catalog.present? %>
+      <% catalogs = catalog.class.all %>
+    <% else %>
+      <% catalogs = Catalog.all %>
+    <% end %>
+
+    <%= f.select :catalog_id, catalogs.collect { |p| [ p.name, p.id ] }, include_blank: true %>
   </div>
 
   <div class="actions">

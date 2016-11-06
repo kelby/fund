@@ -23,7 +23,10 @@
         <td><%= project.website %></td>
         <td><%= project.wiki %></td>
         <td><%= project.source_code %></td>
-        <td><%= project.category_id %></td>
+        <td>
+          <%= project.category_id %>
+          <%= project.category.name %>
+        </td>
         <td><%= link_to 'Show', project %></td>
         <td><%= link_to 'Edit', edit_project_path(project) %></td>
         <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
