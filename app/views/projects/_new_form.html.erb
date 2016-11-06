@@ -33,7 +33,7 @@
 
     <% categories = Category.all %>
 
-    <%= select_tag "project[:category_id]", options_for_select(categories.collect { |p| [ p.name, p.id, {"class" => "hidden catalog-#{p.catalog_id}"} ] }), include_blank: true, disabled: true, class: "form-control", id: "project_category_id" %>
+    <%= select_tag "project[category_id]", options_for_select(categories.collect { |p| [ p.name, p.id, {"class" => "hidden catalog-#{p.catalog_id}"} ] }), include_blank: true, disabled: true, class: "form-control" %>
   </div>
 
   <div class="actions">
