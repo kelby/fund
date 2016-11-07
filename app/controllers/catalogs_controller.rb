@@ -3,19 +3,19 @@ class CatalogsController < ApplicationController
 
   # GET
   def rails
-    @catalogs = RailsCatalog.all
+    @catalogs = RailsCatalog.all.includes(:categories)
 
     render :language
   end
 
   def swift
-    @catalogs = SwiftCatalog.all
+    @catalogs = SwiftCatalog.all.includes(:categories)
 
     render :language
   end
 
   def laravel
-    @catalogs = LaravelCatalog.all
+    @catalogs = LaravelCatalog.all.includes(:categories)
 
     render :language
   end

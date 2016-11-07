@@ -1,2 +1,30 @@
 <h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+
+<div class="row">
+  <div class="col-md-4">
+  <div class="panel panel-default">
+    <div class="panel-heading">Rails</div>
+    <div class="panel-body">
+      <%= render partial: "home/catalog", as: :catalog, collection: RailsCatalog.all.includes(:categories) %>
+    </div>
+  </div>
+  </div>
+
+  <div class="col-md-4">
+  <div class="panel panel-default">
+    <div class="panel-heading">Laravel</div>
+    <div class="panel-body">
+      <%= render partial: "home/catalog", as: :catalog, collection: LaravelCatalog.all.includes(:categories) %>
+    </div>
+  </div>
+  </div>
+
+  <div class="col-md-4">
+  <div class="panel panel-default">
+    <div class="panel-heading">Swift</div>
+    <div class="panel-body">
+      <%= render partial: "home/catalog", as: :catalog, collection: SwiftCatalog.all.includes(:categories) %>
+    </div>
+  </div>
+  </div>
+</div>

@@ -27,6 +27,13 @@
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
+        <li>
+          <%= link_to "Categories", categories_path %>
+        </li>
+        <li>
+          <%= link_to "Projects", projects_path %>
+        </li>
+
         <% unless user_signed_in? %>
           <li>
             <%= link_to "GitHub登录", user_github_omniauth_authorize_path %>
@@ -34,13 +41,6 @@
 
           <li>
             <%= link_to "Google登录", user_google_oauth2_omniauth_authorize_path %>
-          </li>
-        <% else %>
-          <li>
-            <%= link_to "Categories", categories_path %>
-          </li>
-          <li>
-            <%= link_to "Projects", projects_path %>
           </li>
         <% end %>
 

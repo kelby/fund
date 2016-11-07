@@ -1,0 +1,13 @@
+<div class="media">
+  <div class="media-left media-middle">
+    <strong>
+      <%= link_to catalog.name, catalog_path(catalog) %>
+    </strong>
+  </div>
+
+  <div class="media-body">
+    <% catalog.categories.each do |category| %>
+      <%= link_to category.name, category %>
+    <% end %>
+  </div>
+</div>
