@@ -1,0 +1,7 @@
+omniauth:
+  github:
+    client_id: ''
+    client_secret: ''
+  google_oauth2:
+    client_id: ''
+    client_secret: ''
