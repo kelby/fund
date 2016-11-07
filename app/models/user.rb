@@ -21,13 +21,13 @@ class User < ApplicationRecord
       user = User.where(:email => info["email"]).first
 
       if user.blank?
-        user = User.create(name: info["name"],
+        user = User.create!(name: info["name"],
            email: info["email"],
            password: Devise.friendly_token[0, 20]
         )
       end
 
-      user.authentications.create(provider: provider,
+      user.authentications.create!(provider: provider,
         uid: uid,
         info: info,
         extra: extra)
