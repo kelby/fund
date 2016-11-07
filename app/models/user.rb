@@ -21,10 +21,14 @@ class User < ApplicationRecord
       user = User.where(:email => info["email"]).first
 
       if user.blank?
-        user = User.create!(name: info["name"],
+        user = User.new(name: info["name"],
            email: info["email"],
            password: Devise.friendly_token[0, 20]
         )
+
+        user.set_name_from(info)
+
+        user.save!
       end
 
       user.authentications.create!(provider: provider,
@@ -36,5 +40,26 @@ class User < ApplicationRecord
     end
 
     user
+  end
+
+  def set_name_by_nickname(nickname)
+    if self.name.blank?
+      if nickname.present?
+        self.name = nickname
+      end
+    end
+  end
+
+  def set_name_by_fullname(first_name, last_name)
+    if self.name.blank?
+      if first_name.present? || last_name.present?
+        self.name = "#{first_name}#{last_name}"
+      end
+    end
+  end
+
+  def set_name_from(info)
+    set_name_by_nickname(info['nickname'])
+    set_name_by_fullname(info['first_name'], info['last_name'])
   end
 end
