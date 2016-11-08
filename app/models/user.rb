@@ -43,23 +43,19 @@ class User < ApplicationRecord
   end
 
   def set_name_by_nickname(nickname)
-    if self.name.blank?
-      if nickname.present?
-        self.name = nickname
-      end
+    if nickname.present?
+      self.name = nickname
     end
   end
 
   def set_name_by_fullname(first_name, last_name)
-    if self.name.blank?
-      if first_name.present? || last_name.present?
-        self.name = "#{first_name}#{last_name}"
-      end
+    if first_name.present? || last_name.present?
+      self.name = "#{first_name}#{last_name}"
     end
   end
 
   def set_name_from(info)
     set_name_by_nickname(info['nickname'])
-    set_name_by_fullname(info['first_name'], info['last_name'])
+    set_name_by_fullname(info['first_name'], info['last_name']) if self.name.blank?
   end
 end
