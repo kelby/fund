@@ -60,7 +60,7 @@ gem 'chinese_pinyin'
 
 gem 'devise'
 
-# gem "font-awesome-rails"
+gem "font-awesome-rails"
 
 gem 'omniauth-github'
 gem "omniauth-google-oauth2"

@@ -13,6 +13,6 @@
  * require_tree .
  *= require 'bootstrap-with-sticky-footer-navbar'
  *= require 'ie10-viewport-bug-workaround'
- * require font-awesome
+ *= require font-awesome
  *= require_self
  */
