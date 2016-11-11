@@ -7,11 +7,31 @@ class Project < ApplicationRecord
   has_one :pod_info
   has_one :package_info
 
+  enum identity: {unknow: 0, gem: 2, package: 4, pod: 4}
+
   validates_presence_of :source_code
   validates_presence_of :category_id
 
   after_commit :logic_set_gem_info, on: :create
   after_commit :logic_set_pod_info, on: :create
+  after_commit :logic_set_package_info, on: :create
+
+  def valid_identity?
+    self.category.present? & self.category.catalog.present?
+  end
+
+  def set_project_type
+    case self.category.catalog.type
+    when "RailsCatalog"
+      self.identity = 'gem'
+    when "LaravelCatalog"
+      self.identity = 'package'
+    when "SwiftCatalog"
+      self.identity = 'pod'
+    else
+      #
+    end
+  end
 
   def logic_set_gem_info
   end

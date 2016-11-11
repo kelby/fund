@@ -1,6 +1,7 @@
 class PodInfo < ApplicationRecord
   # from https://cocoapods.org/
   # xxx.podspec.json
+  # http://metrics.cocoapods.org/api/v1/pods/ORStackView
 
   # name, version
   # author, author_twitter
@@ -26,4 +27,7 @@ class PodInfo < ApplicationRecord
 
 
   belongs_to :project
+
+  def self.set_pod_info
+  end
 end
