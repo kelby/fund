@@ -7,10 +7,19 @@
     <!-- base css here -->
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
 
-    <!-- more css here... -->
+    <!-- layout_css_link_yield -->
+    <%= yield(:layout_css_link_yield) %>
+    <!-- content_css_link_yield -->
+    <%= yield(:content_css_link_yield) %>
+
+    <!-- more css here. -->
+
 
     <!-- base js here -->
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <!-- layout_js_link_yield -->
+    <%= yield(:layout_js_link_yield) %>
   </head>
 
   <body>
@@ -18,7 +27,7 @@
     <%= render "layouts/navbar" %>
 
     <!-- Begin page content -->
-    <div class="container">
+    <div class="container <%= params[:controller] %>">
       <% if flash[:notice].present? %>
         <p class="notice"><%= notice %></p>
       <% end %>
