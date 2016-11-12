@@ -1,5 +1,5 @@
 class PackageInfo < ApplicationRecord
-  # from https://packagist.org/search/?tags=laravel
+  # https://packagist.org/search/?tags=laravel
   # https://packagist.org/packages/[vendor]/[package].json
 
 
@@ -35,6 +35,27 @@ class PackageInfo < ApplicationRecord
   # Issues_url, Source_url
   # Installs, Dependents, Suggesters
   # Stars, Watchers, Forks, Open Issues
+  serialize :others, JSON
 
   belongs_to :project
+
+
+  API_URL = "https://packagist.org/packages/vendor/package.json"
+  def get_package_info(vendor, package)
+    url = "#{PackageInfo::API_URL.gsub('vendor', vendor).gsub('package', package)}"
+
+    api_content = open(url).read
+
+    json_content = JSON.parse(api_content)
+    json_content
+  end
+
+  def set_package_info(vendor, package)
+    json_content = get_package_info(vendor, package)
+
+    package_info = json_content['package']
+    # self.total_downloads = json_content['downloads']
+
+    self.others = package_info
+  end
 end

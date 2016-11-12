@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161111061454) do
+ActiveRecord::Schema.define(version: 20161111233201) do
 
   create_table "authentications", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "provider"
@@ -40,13 +40,14 @@ ActiveRecord::Schema.define(version: 20161111061454) do
 
   create_table "gem_infos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "project_id"
-    t.decimal  "total_downloads", precision: 10
+    t.decimal  "total_downloads",               precision: 10
     t.integer  "releases"
     t.string   "current_version"
     t.datetime "released"
     t.datetime "first_release"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
+    t.text     "others",          limit: 65535
   end
 
   create_table "github_infos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -60,24 +61,26 @@ ActiveRecord::Schema.define(version: 20161111061454) do
 
   create_table "package_infos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "project_id"
-    t.decimal  "total_downloads", precision: 10
+    t.decimal  "total_downloads",               precision: 10
     t.integer  "releases"
     t.string   "current_version"
     t.datetime "released"
     t.datetime "first_release"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
+    t.text     "others",          limit: 65535
   end
 
   create_table "pod_infos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "project_id"
-    t.decimal  "total_downloads", precision: 10
+    t.decimal  "total_downloads",               precision: 10
     t.integer  "releases"
     t.string   "current_version"
     t.datetime "released"
     t.datetime "first_release"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
+    t.text     "others",          limit: 65535
   end
 
   create_table "projects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

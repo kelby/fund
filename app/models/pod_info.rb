@@ -25,9 +25,33 @@ class PodInfo < ApplicationRecord
   # Podspec
   # Documentation, GitHub Repo, Page on CocoaPods.org
 
+  # store :others, accessors: [ :color, :homepage ], coder: JSON
+  serialize :others, JSON
+
+  API_URL = "http://metrics.cocoapods.org/api/v1/pods/"
+
 
   belongs_to :project
 
-  def self.set_pod_info
+  def get_api_info(name)
+    url = "#{API_URL}#{name}"
+
+    api_response = open(url).read
+
+    json_content = JSON.parse(api_response)
+
+    json_content
+  end
+
+  def set_pod_info(name)
+    json_content = get_api_info(name)
+
+    # self.total_downloads = json_content['xxx']
+    # self.releases = json_content['xxx']
+    # self.current_version = json_content['xxx']
+    # self.released = json_content['xxx']
+    # self.first_release = json_content['xxx']
+
+    self.others = json_content
   end
 end
