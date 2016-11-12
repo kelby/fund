@@ -36,7 +36,7 @@ class GemInfo < ApplicationRecord
   end
 
   def set_gem_info(name)
-    json_content = JSON.parse(api_content)
+    json_content = get_gem_info(name)
 
     self.total_downloads = json_content['downloads']
     # self.releases = json_content['xxx']
