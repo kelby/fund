@@ -44,7 +44,7 @@ class CatalogsController < ApplicationController
 
     respond_to do |format|
       if @catalog.save
-        format.html { redirect_to @catalog, notice: 'Catalog was successfully created.' }
+        format.html { redirect_to catalog_path(@catalog), notice: 'Catalog was successfully created.' }
       else
         format.html { render :new }
       end
@@ -55,7 +55,7 @@ class CatalogsController < ApplicationController
   def update
     respond_to do |format|
       if @catalog.update(catalog_params)
-        format.html { redirect_to @catalog, notice: 'Catalog was successfully updated.' }
+        format.html { redirect_to catalog_path(@catalog), notice: 'Catalog was successfully updated.' }
       else
         format.html { render :edit }
       end

@@ -1,4 +1,10 @@
-<%= form_for(catalog) do |f| %>
+<% if catalog.new_record? %>
+  <% url = catalogs_path %>
+<% else %>
+  <% url = catalog_path(catalog) %>
+<% end %>
+
+<%= form_for catalog, url: url do |f| %>
   <% if catalog.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(catalog.errors.count, "error") %> prohibited this catalog from being saved:</h2>
@@ -23,7 +29,7 @@
 
   <div class="field">
     <%= f.label :type %>
-    <%= f.text_field :type %>
+    <%= f.select :type, options_for_select(['RailsCatalog', 'LaravelCatalog', 'SwiftCatalog'], catalog.type), {include_blank: true}, {required: true} %>
   </div>
 
   <div class="actions">

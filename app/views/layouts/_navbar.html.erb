@@ -28,6 +28,10 @@
 
       <ul class="nav navbar-nav navbar-right">
         <li>
+          <%= link_to "Catalogs", catalogs_path %>
+        </li>
+
+        <li>
           <%= link_to "Categories", categories_path %>
         </li>
         <li>
@@ -71,10 +75,6 @@
               <li><a href="#">One more separated link</a></li>
             <% end %>
           </ul>
-        </li>
-
-        <li>
-          <%= link_to "DevDocs", "http://doc.zhenkuan.li", target: "_blank" %>
         </li>
       </ul>
     </div><!--/.nav-collapse -->
