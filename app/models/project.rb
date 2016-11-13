@@ -89,9 +89,9 @@ class Project < ApplicationRecord
   end
 
   def set_raking_data
-    self.subscribers_count = fetch_info_from_github["subscribers_count"]
-    self.watchers_count = fetch_info_from_github["watchers_count"]
-    self.forks_count = fetch_info_from_github["forks_count"]
+    self.github_info.subscribers_count = fetch_info_from_github["subscribers_count"]
+    self.github_info.watchers_count = fetch_info_from_github["watchers_count"]
+    self.github_info.forks_count = fetch_info_from_github["forks_count"]
 
     # self.last_updated_at = fetch_info_from_github["updated_at"]
     # self.updated_at = Time.now
