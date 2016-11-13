@@ -51,7 +51,7 @@ class Project < ApplicationRecord
   def fetch_info_from_github
     url = convert_github_to_repo_url
 
-    url += "?client_id=#{Setting.github_token}&client_secret=#{Setting.github_secret}"
+    url += "?client_id=#{Settings.github_token}&client_secret=#{Settings.github_secret}"
 
     @json ||= Timeout.timeout(10) do
       open(url).read
