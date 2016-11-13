@@ -22,7 +22,9 @@ class CatalogsController < ApplicationController
 
   # GET /catalogs
   def index
-    @catalogs = Catalog.all
+    @rails_catalogs = RailsCatalog.all
+    @laravel_catalogs = LaravelCatalog.all
+    @swift_catalogs = SwiftCatalog.all
   end
 
   # GET /catalogs/1

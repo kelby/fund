@@ -13,6 +13,9 @@
 class Catalog < ApplicationRecord
   validates_uniqueness_of :name, scope: :type
 
+  validates_presence_of :name
+  validates_presence_of :type
+
   has_many :categories
 
   def self.set_rails_catalog
