@@ -40,6 +40,9 @@ GEM
       tzinfo (~> 1.1)
     airbrussh (1.1.1)
       sshkit (>= 1.6.1, != 1.7.0)
+    annotate (2.7.1)
+      activerecord (>= 3.2, < 6.0)
+      rake (>= 10.4, < 12.0)
     arel (7.1.4)
     autoprefixer-rails (6.5.1.1)
       execjs
@@ -235,6 +238,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  annotate
   bootstrap-sass (~> 3.3.6)
   byebug
   cancancan (~> 1.10)

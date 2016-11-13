@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: gem_infos
+#
+#  id              :integer          not null, primary key
+#  project_id      :integer
+#  total_downloads :decimal(10, )
+#  releases        :integer
+#  current_version :string(255)
+#  released        :datetime
+#  first_release   :datetime
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  others          :text(65535)
+#
+
 class GemInfo < ApplicationRecord
   # from https://rubygems.org/
   # http://guides.rubygems.org/rubygems-org-api/

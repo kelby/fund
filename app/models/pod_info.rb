@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: pod_infos
+#
+#  id              :integer          not null, primary key
+#  project_id      :integer
+#  total_downloads :decimal(10, )
+#  releases        :integer
+#  current_version :string(255)
+#  released        :datetime
+#  first_release   :datetime
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  others          :text(65535)
+#
+
 class PodInfo < ApplicationRecord
   # from https://cocoapods.org/
   # xxx.podspec.json

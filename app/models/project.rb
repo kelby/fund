@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: projects
+#
+#  id          :integer          not null, primary key
+#  name        :string(255)
+#  description :text(65535)
+#  website     :string(255)
+#  wiki        :string(255)
+#  source_code :string(255)
+#  category_id :integer
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  identity    :integer          default("unknow")
+#
+
 class Project < ApplicationRecord
   belongs_to :category
 
