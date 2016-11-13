@@ -76,6 +76,11 @@ class Project < ApplicationRecord
     parse_json = JSON.parse @json
   end
 
+  def set_github_others_info
+    self.github_info.others = fetch_info_from_github.except('name', 'description',
+      'subscribers_count', 'watchers_count', 'forks_count')
+  end
+
   def set_name
     self.name = fetch_info_from_github["name"]
   end
