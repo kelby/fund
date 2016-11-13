@@ -2,8 +2,7 @@
   <%= stylesheet_link_tag 'projects' %>
 <% end %>
 
-<!-- <div class="expanded clearfix"> -->
-  <div class="row">
+<div class="row">
 
   <div class="readme-content col-sm-9 col-xs-12">
     <div class="inline-headline">
@@ -281,7 +280,86 @@
     </ul>
   </div>
 
+</div>
 
+<div class="row">
+  <!-- GitHub Info -->
+  <% if @project.github_info.present? %>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        GitHub Info
+      </div>
 
-  </div>
-<!-- </div> -->
+      <div class="panel-body">
+        <ul>
+          <% @project.github_info.attributes.each_pair do |key, value| %>
+            <li>
+              <strong><%= key %>:</strong>
+              <%= value %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <!-- Package Info -->
+  <% if @project.package_info.present? %>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Package Info
+      </div>
+
+      <div class="panel-body">
+        <ul>
+          <% @project.package_info.attributes.each_pair do |key, value| %>
+            <li>
+              <strong><%= key %>:</strong>
+              <%= value %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <!-- Pod Info -->
+  <% if @project.pod_info.present? %>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Pod Info
+      </div>
+
+      <div class="panel-body">
+        <ul>
+          <% @project.pod_info.attributes.each_pair do |key, value| %>
+            <li>
+              <strong><%= key %>:</strong>
+              <%= value %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <!-- Gem Info -->
+  <% if @project.gem_info.present? %>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Gem Info
+      </div>
+
+      <div class="panel-body">
+        <ul>
+          <% @project.gem_info.attributes.each_pair do |key, value| %>
+            <li>
+              <strong><%= key %>:</strong>
+              <%= value %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+</div>
