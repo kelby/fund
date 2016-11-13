@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161111233201) do
+ActiveRecord::Schema.define(version: 20161113015027) do
 
   create_table "authentications", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "provider"
@@ -55,8 +55,9 @@ ActiveRecord::Schema.define(version: 20161111233201) do
     t.integer  "subscribers_count"
     t.integer  "watchers_count"
     t.integer  "forks_count"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.text     "others",            limit: 65535
   end
 
   create_table "package_infos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -93,6 +94,7 @@ ActiveRecord::Schema.define(version: 20161111233201) do
     t.datetime "created_at",                            null: false
     t.datetime "updated_at",                            null: false
     t.integer  "identity",                  default: 0
+    t.text     "author",      limit: 65535
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
