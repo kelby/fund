@@ -71,7 +71,7 @@ class PackageInfo < ApplicationRecord
 
     _content = JSON.parse(content)
 
-    self.others['composer'] = _content
+    # self.others['composer'] = _content
 
     _content['name'].split('/')
   end
