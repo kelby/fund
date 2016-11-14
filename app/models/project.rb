@@ -23,7 +23,7 @@ class Project < ApplicationRecord
   has_one :pod_info
   has_one :package_info
 
-  enum identity: {unknow: 0, gem: 2, package: 4, pod: 4}
+  enum identity: {unknow: 0, gem: 2, package: 4, pod: 6}
 
   validates_presence_of :source_code
   # validates_presence_of :category_id
@@ -36,17 +36,15 @@ class Project < ApplicationRecord
 
   after_commit :set_github_info, on: :create
 
-  after_create :build_github_info
+  # after_create :build_github_info
 
   before_validation :set_github_identity
 
   API_GITHUB = "https://api.github.com/"
 
-  def build_github_info
-    self.build_github_info
-  end
-
   def set_github_info
+    self.build_github_info
+
     self.set_description
     self.set_github_others_info
     self.set_raking_data
