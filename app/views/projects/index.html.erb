@@ -25,7 +25,10 @@
         <td><%= project.source_code %></td>
         <td>
           <%= project.category_id %>
-          <%= project.category.name %>
+
+          <% if project.category.present? %>
+            <%= project.category.name %>
+          <% end %>
         </td>
         <td><%= link_to 'Show', project %></td>
         <td><%= link_to 'Edit', edit_project_path(project) %></td>
