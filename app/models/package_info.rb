@@ -18,6 +18,9 @@ class PackageInfo < ApplicationRecord
   # https://packagist.org/search/?tags=laravel
   # https://packagist.org/packages/[vendor]/[package].json
 
+  # https://api.github.com/
+  # /repos/:owner/:repo/contents/:path
+
 
   # {
   #   "package": {
@@ -55,10 +58,29 @@ class PackageInfo < ApplicationRecord
 
   belongs_to :project
 
+  COMPOSER_URL = "https://api.github.com/repos/:owner/:repo/contents/:path"
 
-  API_URL = "https://packagist.org/packages/vendor/package.json"
-  def get_package_info(vendor, package)
-    url = "#{PackageInfo::API_URL.gsub('vendor', vendor).gsub('package', package)}"
+  def get_vendor_and_package(author, name)
+    path = "composer.json"
+
+    url = "#{PackageInfo::COMPOSER_URL.gsub(/:owner/, author).gsub(/:repo/, name).gsub(/:path/, path)}"
+
+    composer = JSON.parse(open(url).read)
+
+    content = Base64.decode64(composer['content'])
+
+    _content = JSON.parse(content)
+
+    self.others['composer'] = _content
+
+    _content['name'].split('/')
+  end
+
+  API_URL = "https://packagist.org/packages/[vendor]/[package].json"
+  def get_package_info(author, name)
+    vendor, package = get_vendor_and_package(author, name)
+
+    url = PackageInfo::API_URL.gsub(/\[vendor\]/, vendor).gsub(/\[package\]/, package)
 
     api_content = open(url).read
 
