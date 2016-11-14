@@ -70,3 +70,6 @@ gem 'cancancan', '~> 1.10'
 gem 'config'
 
 gem 'annotate'
+
+
+gem 'rails_admin', '~> 1.0'
