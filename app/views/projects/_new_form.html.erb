@@ -36,6 +36,8 @@
     <%= select_tag "project[category_id]", options_for_select(categories.collect { |p| [ p.name, p.id, {"class" => "hidden catalog-#{p.catalog_id}"} ] }), include_blank: true, disabled: true, class: "form-control" %>
   </div>
 
+  <%= f.hidden_field :identity %>
+
   <div class="actions">
     <%= f.submit "提交", class: "btn btn-primary" %>
   </div>

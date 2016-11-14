@@ -2,7 +2,11 @@
   <div class="col-md-9">
     <ul>
       <% @catalogs.each do |catalog| %>
-        <li><%= catalog.name %></li>
+        <li>
+          <%= link_to catalog_path(catalog) do %>
+            <%= catalog.name %>
+          <% end %>
+        </li>
 
         <ul>
           <% catalog.categories.each do |category| %>

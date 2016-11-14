@@ -18,6 +18,22 @@ $(document).on("change", "#language", function() {
   $("#project_category_id option:first").removeClass('hidden')
 })
 
+$(document).on("change", "#language", function() {
+  var identity = $(this).val()
+
+  var project_identity = $("#project_identity")
+
+  if (identity == 'rails') {
+    project_identity.val('gem')
+  } else if (identity == 'laravel') {
+    project_identity.val('package')
+  } else if (identity == 'swift') {
+    project_identity.val('pod')
+  } else {
+    project_identity.val('unknow')
+  }
+})
+
 $(document).on("change", "#catalog_id", function() {
   var catalog = $(this).val()
 

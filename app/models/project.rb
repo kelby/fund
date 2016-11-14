@@ -34,6 +34,8 @@ class Project < ApplicationRecord
   after_commit :logic_set_pod_info, on: :create
   after_commit :logic_set_package_info, on: :create
 
+  after_commit :set_github_info, on: :create
+
   after_initialize :build_github_info
 
   before_validation :set_github_identity
@@ -43,6 +45,14 @@ class Project < ApplicationRecord
   # def build_github_info
   #   self.build_github_info
   # end
+
+  def set_github_info
+    self.set_description
+    self.set_github_others_info
+    self.set_raking_data
+
+    self.github_info.save
+  end
 
   def split_github
     split_github = self.source_code.split("/")
@@ -120,6 +130,11 @@ class Project < ApplicationRecord
   end
 
   def logic_set_gem_info
+    if self.gem?
+      self.set_gem_info
+    end
+
+    true
   end
 
   def set_gem_info
@@ -143,14 +158,28 @@ class Project < ApplicationRecord
   end
 
   def logic_set_pod_info
+    if self.pod?
+      self.set_pod_info
+    end
   end
 
   def set_pod_info
+    _pod_info = self.build_pod_info
+
+    _pod_info.set_pod_info(self.name)
+    _pod_info.save
   end
 
   def logic_set_package_info
+    if self.package?
+      self.set_package_info
+    end
   end
 
   def set_package_info
+    _package_info = self.build_package_info
+
+    _package_info.set_package_info(self.author, self.name)
+    _package_info.save
   end
 end
