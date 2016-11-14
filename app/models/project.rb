@@ -36,15 +36,15 @@ class Project < ApplicationRecord
 
   after_commit :set_github_info, on: :create
 
-  after_initialize :build_github_info
+  after_create :build_github_info
 
   before_validation :set_github_identity
 
   API_GITHUB = "https://api.github.com/"
 
-  # def build_github_info
-  #   self.build_github_info
-  # end
+  def build_github_info
+    self.build_github_info
+  end
 
   def set_github_info
     self.set_description
