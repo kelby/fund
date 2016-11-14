@@ -17,22 +17,22 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :name %>
-    <%= f.text_field :name %>
+    <%= f.text_field :name, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :slug %>
-    <%= f.text_field :slug %>
+    <%= f.text_field :slug, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="">
     <%= f.label :type %>
-    <%= f.select :type, options_for_select(['RailsCatalog', 'LaravelCatalog', 'SwiftCatalog'], catalog.type), {include_blank: true}, {required: true} %>
+    <%= f.select :type, options_for_select(['RailsCatalog', 'LaravelCatalog', 'SwiftCatalog'], catalog.type), {include_blank: true}, {required: true, class: "form-control"} %>
   </div>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "提交", class: "btn btn-primary" %>
   </div>
 <% end %>
