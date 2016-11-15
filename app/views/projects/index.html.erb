@@ -7,7 +7,7 @@
   </small>
 </h1>
 
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>Name</th>
@@ -16,14 +16,19 @@
       <th>Wiki</th>
       <th>Source code</th>
       <th>Category</th>
-      <th colspan="3"></th>
+      <th colspan="2"></th>
     </tr>
   </thead>
 
   <tbody>
     <% @projects.each do |project| %>
       <tr>
-        <td><%= project.name %></td>
+        <td>
+          <%= link_to project do %>
+            <%= project.name %>
+          <% end %>
+        </td>
+
         <td><%= project.description %></td>
         <td><%= project.website %></td>
         <td><%= project.wiki %></td>
@@ -35,7 +40,7 @@
             <%= project.category.name %>
           <% end %>
         </td>
-        <td><%= link_to 'Show', project %></td>
+
         <td><%= link_to 'Edit', edit_project_path(project) %></td>
         <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>

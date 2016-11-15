@@ -167,6 +167,10 @@ class Catalog < ApplicationRecord
     end
   end
 
+  def set_slug
+    self.slug = Pinyin.t(self.name, splitter: '_')
+  end
+
   def to_params
     self.slug
   end
