@@ -1,0 +1,214 @@
+<div class="readme-content col-sm-9 col-xs-12">
+  <div class="inline-headline">
+    <h1 class="">
+      <%= link_to project.name, project %>
+      <span class="text-muted"><%= info.current_version %></span>
+    </h1>
+  </div>
+
+
+  <ul class="attribution">
+    <li>By</li>
+    <li><%= info.others['authors'] %></li>
+
+    <!-- <li class="twitter">
+      <i class="fa fa-twitter"></i>
+      <a href="https://twitter.com/orta">orta</a>
+    </li> -->
+  </ul>
+
+
+  <nav>
+    <ul>
+      <li class="github-link">
+        <i class="fa fa-github"></i>
+
+        <a class="hidden-xs" href="<%= github.others['html_url'] %>">
+          <%= github.others['full_name'] %>
+        </a>
+      </li>
+
+      <li class="metadata pull-right quality_indicator quality_4">
+        <%= link_to popularity_project_path(project) do %>
+          popularity
+        <% end %>
+      </li>
+    </ul>
+  </nav>
+
+
+  <div class="clearfix"></div>
+
+
+
+  <div class="tab-content">
+    <div class="tab-pane active" id="readme">
+      <%= github.others['readme'] %>
+    </div>
+    <div class="tab-pane" id="changelog_content"></div>
+  </div>
+</div>
+
+
+<div class="sideline col-sm-3 col-xs-12">
+  <h1 class="visible-xs inline-headline">
+    <a href="/pods/ORStackView">ORStackView</a> <span>3.0.1</span>
+  </h1>
+
+  <h3></h3>
+
+  <table class="header">
+    <tbody>
+    <tr>
+      <td><span class="hidden-lg-span">Docs</span><span class="visible-lg-span">Documented</span>
+      </td>
+      <td>✓</td>
+    </tr>
+    <tr>
+      <td><span class="hidden-lg-span">Tests</span><span class="visible-lg-span">Tested</span>
+      </td>
+      <td>✓</td>
+    </tr>
+    <tr>
+      <td><span class="hidden-lg-span">Lang</span><span class="visible-lg-span">Language</span>
+      </td>
+      <td><span class="hidden-lg-span">Obj-C</span><span class="visible-lg-span">Objective C</span>
+      </td>
+    </tr>
+    <tr>
+      <td>License</td>
+      <td><a href="http://opensource.org/licenses/MIT">MIT</a>
+      </td>
+    </tr>
+    <tr>
+      <td><span class="hidden-lg-span">Released</span><span class="visible-lg-span">Last Release</span>
+      </td>
+      <td>May 2015</td>
+    </tr>
+    </tbody>
+  </table>
+
+
+  <p>Maintained by <a href="/owners/4">Orta Therox</a>, <a href="/owners/752">Ash Furrow</a>.</p>
+
+
+  <hr>
+
+
+  <h3>Downloads</h3>
+  <table class="inset">
+    <tbody>
+    <tr>
+      <td>Total</td>
+      <td>45,275</td>
+    </tr>
+    <tr>
+      <td>Week</td>
+      <td>963</td>
+    </tr>
+    <tr>
+      <td>Month</td>
+      <td>3,750</td>
+    </tr>
+    </tbody>
+  </table>
+
+
+  <h3>Installs</h3>
+  <table class="inset">
+    <tbody>
+    <tr>
+      <td>Apps</td>
+      <td>3,287</td>
+    </tr>
+    <tr>
+      <td><span class="hidden-lg-span">Apps Week</span><span class="visible-lg-span">Apps This Week</span>
+      </td>
+      <td>112</td>
+    </tr>
+    <tr>
+      <td>Pod Tries</td>
+      <td>19</td>
+    </tr>
+    <tr>
+      <td>Test Targets</td>
+      <td>115</td>
+    </tr>
+    <tr>
+      <td><span class="hidden-lg-span">Test Week</span><span class="visible-lg-span">Tests This week</span>
+      </td>
+      <td>13</td>
+    </tr>
+    </tbody>
+  </table>
+  <sub>powered by <a href="https://segment.com">Segment</a></sub>
+
+
+  <hr>
+
+
+  <h3>GitHub</h3>
+  <table class="inset">
+    <tbody>
+      <tr>
+        <td>Stars</td>
+        <td class="pull-right"><%= github.subscribers_count %></td>
+      </tr>
+
+      <tr>
+        <td>Watchers</td>
+        <td class="pull-right"><%= github.watchers_count %></td>
+      </tr>
+
+      <tr>
+        <td>Forks</td>
+        <td class="pull-right"><%= github.forks_count %></td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <hr>
+
+
+  <h3>Code</h3>
+  <table class="inset">
+    <tbody>
+    <tr>
+      <td>Files</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <td><span class="hidden-lg-span">Size</span><span class="visible-lg-span">Integration Size</span>
+      </td>
+      <td>72 kb</td>
+    </tr>
+    <tr>
+      <td><span class="hidden-lg-span">LOC</span><span class="visible-lg-span">Lines of Code</span>
+      </td>
+      <td>398</td>
+    </tr>
+    </tbody>
+  </table>
+
+
+
+  <hr>
+
+
+  <ul class="links">
+    <li>
+      <a href="https://github.com/CocoaPods/Specs/blob/master/Specs/ORStackView/3.0.1/ORStackView.podspec.json">See
+      Podspec</a>
+    </li>
+    <li>
+      <a href="http://cocoadocs.org/docsets/ORStackView/3.0.1">Documentation</a>
+    </li>
+    <li>
+      <a href="https://github.com/orta/ORStackView">GitHub Repo</a>
+    </li>
+    <li>
+      <a href="https://cocoapods.org/pods/ORStackView">Page on CocoaPods.org</a>
+    </li>
+  </ul>
+</div>
