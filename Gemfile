@@ -73,3 +73,5 @@ gem 'annotate'
 
 
 gem 'rails_admin', '~> 1.0'
+
+gem 'redcarpet'

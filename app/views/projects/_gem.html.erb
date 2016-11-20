@@ -43,7 +43,7 @@
 
   <div class="tab-content">
     <div class="tab-pane active" id="readme">
-      <%= github.readme %>
+      <%= sanitize(Markdown.render github.readme) %>
     </div>
     <div class="tab-pane" id="changelog_content"></div>
   </div>
