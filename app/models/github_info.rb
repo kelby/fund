@@ -9,6 +9,7 @@
 #  forks_count       :integer
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
+#  others            :text(65535)
 #
 
 class GithubInfo < ApplicationRecord
@@ -59,6 +60,6 @@ class GithubInfo < ApplicationRecord
   end
 
   def set_readme
-    self.others['readme'] = Base64.decode64(fetch_reade_from_github["content"].presence || "")
+    self.readme = Base64.decode64(fetch_reade_from_github["content"].presence || "")
   end
 end

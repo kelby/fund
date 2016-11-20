@@ -12,6 +12,7 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  identity    :integer          default("unknow")
+#  author      :text(65535)
 #
 
 class Project < ApplicationRecord

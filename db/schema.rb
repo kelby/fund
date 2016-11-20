@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161114015918) do
+ActiveRecord::Schema.define(version: 20161120035324) do
 
   create_table "authentications", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "provider"
@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(version: 20161114015918) do
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
     t.text     "others",            limit: 65535
+    t.text     "readme",            limit: 65535
   end
 
   create_table "package_infos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
