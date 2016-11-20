@@ -36,12 +36,17 @@ class Project < ApplicationRecord
   after_commit :logic_set_package_info, on: :create
 
   after_commit :set_github_info, on: :create
+  after_commit :set_readme, on: :create
 
   # after_create :build_github_info
 
   before_validation :set_github_identity
 
   API_GITHUB = "https://api.github.com/"
+
+  def set_readme
+    self.github_info.set_readme
+  end
 
   def set_github_info
     self.build_github_info

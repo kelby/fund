@@ -28,6 +28,9 @@
           <ul>
             <li>
               keys: <%= @project.github_info.attributes.keys %>
+
+              <br>
+              others: <%= @project.github_info.others.keys %>
             </li>
 
             <% @project.github_info.attributes.each_pair do |key, value| %>
@@ -52,6 +55,9 @@
           <ul>
             <li>
               keys: <%= @project.package_info.attributes.keys %>
+
+              <br>
+              others: <%= @project.package_info.others.keys %>
             </li>
 
             <% @project.package_info.attributes.each_pair do |key, value| %>
@@ -76,6 +82,9 @@
           <ul>
             <li>
               keys: <%= @project.pod_info.attributes.keys %>
+
+              <br>
+              others: <%= @project.pod_info.others.keys %>
             </li>
 
             <% @project.pod_info.attributes.each_pair do |key, value| %>
@@ -100,6 +109,9 @@
           <ul>
             <li>
               keys: <%= @project.gem_info.attributes.keys %>
+
+              <br>
+              others: <%= @project.gem_info.others.keys %>
             </li>
 
             <% @project.gem_info.attributes.each_pair do |key, value| %>

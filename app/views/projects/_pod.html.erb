@@ -1,19 +1,22 @@
 <div class="readme-content col-sm-9 col-xs-12">
   <div class="inline-headline">
     <h1 class="">
-      <a href="/pods/ORStackView">ORStackView</a>
-      <span class="text-muted">3.0.1</span>
+      <%= link_to project.name, project %>
+      <!-- <a href="/pods/ORStackView">ORStackView</a> -->
+      <!-- <span class="text-muted">3.0.1</span> -->
+      <span class="text-muted"><%= info.current_version %></span>
     </h1>
   </div>
 
 
   <ul class="attribution">
     <li>By</li>
-    <li>Orta Therox</li>
-    <li class="twitter">
+    <!-- <li>Orta Therox</li> -->
+    <li><%= github.others['owner']['login'] %></li>
+    <!-- <li class="twitter">
       <i class="fa fa-twitter"></i>
       <a href="https://twitter.com/orta">orta</a>
-    </li>
+    </li> -->
   </ul>
 
 
@@ -22,27 +25,18 @@
       <li class="github-link">
         <i class="fa fa-github"></i>
 
-        <a class="hidden-xs" href="https://github.com/orta/ORStackView">orta/ORStackView</a>
+        <a class="hidden-xs" href="<%= github.others['html_url'] %>">
+          <%= github.others['full_name'] %>
+        </a>
 
-        <a class="visible-xs" href="https://github.com/orta/ORStackView">GitHub
-        Repo</a>
       </li>
 
-      <li class="metadata pull-right quality_indicator quality_4"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?-->
-        <a href="/pods/ORStackView/quality">
-          <svg width="30px" height="29px" viewBox="0 0 30 29" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
-            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-              <g id="pod" sketch:type="MSLayerGroup">
-                <rect id="bg" fill-opacity="0.0341372283" fill="#000000" sketch:type="MSShapeGroup" x="0" y="0" width="30" height="29" rx="8"></rect>
-                <path d="M14.8945416,1.48101993 C13.1855416,1.48101993 9.54654156,1.88101993 9.54654156,3.98801993 C9.54654156,6.32001993 13.0965416,11.2720199 14.8945416,11.2720199 C16.6925416,11.2720199 20.2425416,6.32001993 20.2425416,3.98801993 C20.2425416,1.88101993 16.6035416,1.48101993 14.8945416,1.48101993" id="top" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
-                <path d="M2.62992103,10.8751496 C2.10192103,12.5001496 1.35792103,16.0841496 3.36292103,16.7351496 C5.57992103,17.4561496 11.385921,15.6101496 11.941921,13.9001496 C12.496921,12.1901496 8.88492103,7.28414965 6.66792103,6.56414965 C4.66192103,5.91314965 3.15792103,9.24914965 2.62992103,10.8751496" id="left" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
-                <path d="M7.21553078,25.7032179 C8.59853078,26.7082179 11.7765308,28.5232179 13.0155308,26.8172179 C14.3855308,24.9312179 14.4245308,18.8392179 12.9695308,17.7822179 C11.5155308,16.7252179 5.73353078,18.6442179 4.36353078,20.5312179 C3.12253078,22.2372179 5.83153078,24.6982179 7.21553078,25.7032179" id="bottom-left" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
-                <path d="M22.8835437,25.7032256 C24.2665437,24.6982256 26.9745437,22.2372256 25.7355437,20.5302256 C24.3655437,18.6442256 18.5835437,16.7252256 17.1285437,17.7822256 C15.6745437,18.8392256 15.7125437,24.9312256 17.0825437,26.8162256 C18.3225437,28.5232256 21.5005437,26.7082256 22.8835437,25.7032256" id="bottom-right" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
-                <path d="M27.4157447,10.876149 C26.8877447,9.24914899 25.3837447,5.91314899 23.3777447,6.56414899 C21.1607447,7.28414899 17.5487447,12.190149 18.1037447,13.900149 C18.6607447,15.610149 24.4657447,17.456149 26.6837447,16.735149 C28.6887447,16.084149 27.9447447,12.501149 27.4157447,10.876149" id="right" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
-              </g>
-            </g>
-          </svg>
-        </a>
+
+
+      <li class="metadata pull-right quality_indicator quality_4">
+        <%= link_to popularity_project_path(project) do %>
+          popularity
+        <% end %>
       </li>
     </ul>
   </nav>
@@ -54,55 +48,18 @@
 
   <div class="tab-content">
     <div class="tab-pane active" id="readme">
-
-      <p></p>
-
-      <p>Makes setting up a collection of stacked views simple.
-        Uses <a href="https://github.com/dkduck/FLKAutoLayout">FLKAutoLayout</a> to simplify the API, you should
-        probably be using it anyway. Depending on demand this can be switched out. If you're interested in more
-        information you can read
-        <a href="https://github.com/orta/ORStackView/blob/master/Classes/ios/ORStackView.h">ORStackView.h</a>
-      </p>
-
-
-      <h3>
-        <a id="user-content-orstackview-1" class="anchor" href="#orstackview-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ORStackView
-      </h3>
-
-
-      <h2>
-        <a id="user-content-license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License
-      </h2>
-
-
-      <p>ORStackView is available under the MIT license. See the LICENSE file for more info.</p>
-
-      <p>ORStackView is available under the MIT license. See the LICENSE file for more info.</p>
-
-      <p>ORStackView is available under the MIT license. See the LICENSE file for more info.</p>
-
-      <p>ORStackView is available under the MIT license. See the LICENSE file for more info.</p>
-
-
-      <p>ORStackView is available under the MIT license. See the LICENSE file for more info.</p>
-
-
-      <p>ORStackView is available under the MIT license. See the LICENSE file for more info.</p>
-      <p>ORStackView is available under the MIT license. See the LICENSE file for more info.</p>
-      <p>ORStackView is available under the MIT license. See the LICENSE file for more info.</p>
-      <p>ORStackView is available under the MIT license. See the LICENSE file for more info.</p>
-
-      <% 20.times do %>
-              <p>ORStackView is available under the MIT license. See the LICENSE file for more info.</p>
-              <% end %>
+      <% if github.readme.present? %>
+        <%= sanitize(Markdown.render github.readme) %>
+      <% end %>
     </div>
+
     <div class="tab-pane" id="changelog_content"></div>
   </div>
 </div>
 
 
 <div class="sideline col-sm-3 col-xs-12">
-  <h1 class="visible-xs inline-headline">
+  <!-- <h1 class="visible-xs inline-headline">
     <a href="/pods/ORStackView">ORStackView</a> <span>3.0.1</span>
   </h1>
 
@@ -143,7 +100,7 @@
   <p>Maintained by <a href="/owners/4">Orta Therox</a>, <a href="/owners/752">Ash Furrow</a>.</p>
 
 
-  <hr>
+  <hr> -->
 
 
   <h3>Downloads</h3>
@@ -151,21 +108,21 @@
     <tbody>
     <tr>
       <td>Total</td>
-      <td>45,275</td>
+      <td><%= number_with_delimiter info.others['stats']['download_total'] %></td>
     </tr>
     <tr>
       <td>Week</td>
-      <td>963</td>
+      <td><%= number_with_delimiter info.others['stats']['download_week'] %></td>
     </tr>
     <tr>
       <td>Month</td>
-      <td>3,750</td>
+      <td><%= number_with_delimiter info.others['stats']['download_month'] %></td>
     </tr>
     </tbody>
   </table>
 
 
-  <h3>Installs</h3>
+  <!-- <h3>Installs</h3>
   <table class="inset">
     <tbody>
     <tr>
@@ -192,47 +149,35 @@
     </tr>
     </tbody>
   </table>
-  <sub>powered by <a href="https://segment.com">Segment</a></sub>
+  <sub>powered by <a href="https://segment.com">Segment</a></sub> -->
 
 
   <hr>
-
 
   <h3>GitHub</h3>
   <table class="inset">
     <tbody>
-    <tr>
-      <td>Stars</td>
-      <td>407</td>
-    </tr>
-    <tr>
-      <td>Watchers</td>
-      <td>12</td>
-    </tr>
-    <tr>
-      <td>Forks</td>
-      <td>28</td>
-    </tr>
-    <tr>
-      <td>Issues</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <td>Contributors</td>
-      <td>11</td>
-    </tr>
-    <tr>
-      <td>Pull Requests</td>
-      <td>1</td>
-    </tr>
+      <tr>
+        <td>Stars</td>
+        <td class="pull-right"><%= github.subscribers_count %></td>
+      </tr>
+
+      <tr>
+        <td>Watchers</td>
+        <td class="pull-right"><%= github.watchers_count %></td>
+      </tr>
+
+      <tr>
+        <td>Forks</td>
+        <td class="pull-right"><%= github.forks_count %></td>
+      </tr>
     </tbody>
   </table>
 
+  <!-- <hr> -->
 
-  <hr>
 
-
-  <h3>Code</h3>
+  <!-- <h3>Code</h3>
   <table class="inset">
     <tbody>
     <tr>
@@ -250,7 +195,7 @@
       <td>398</td>
     </tr>
     </tbody>
-  </table>
+  </table> -->
 
 
 
@@ -258,18 +203,18 @@
 
 
   <ul class="links">
-    <li>
+    <!-- <li>
       <a href="https://github.com/CocoaPods/Specs/blob/master/Specs/ORStackView/3.0.1/ORStackView.podspec.json">See
       Podspec</a>
     </li>
     <li>
       <a href="http://cocoadocs.org/docsets/ORStackView/3.0.1">Documentation</a>
+    </li> -->
+    <li>
+      <%= link_to "GitHub Repo", github.others['html_url'] %>
     </li>
     <li>
-      <a href="https://github.com/orta/ORStackView">GitHub Repo</a>
-    </li>
-    <li>
-      <a href="https://cocoapods.org/pods/ORStackView">Page on CocoaPods.org</a>
+      <%= link_to "Page on CocoaPods.org", "https://cocoapods.org/pods/#{project.name}" %>
     </li>
   </ul>
 </div>
