@@ -15,7 +15,7 @@
   <% end %>
 </div>
 
-<% unless Rails.env.production? %>
+<%# unless Rails.env.production? %>
   <div class="row">
     <!-- GitHub Info -->
     <% if @project.github_info.present? %>
@@ -26,6 +26,10 @@
 
         <div class="panel-body">
           <ul>
+            <li>
+              keys: <%= @project.github_info.attributes.keys %>
+            </li>
+
             <% @project.github_info.attributes.each_pair do |key, value| %>
               <li>
                 <strong><%= key %>:</strong>
@@ -46,6 +50,10 @@
 
         <div class="panel-body">
           <ul>
+            <li>
+              keys: <%= @project.package_info.attributes.keys %>
+            </li>
+
             <% @project.package_info.attributes.each_pair do |key, value| %>
               <li>
                 <strong><%= key %>:</strong>
@@ -66,6 +74,10 @@
 
         <div class="panel-body">
           <ul>
+            <li>
+              keys: <%= @project.pod_info.attributes.keys %>
+            </li>
+
             <% @project.pod_info.attributes.each_pair do |key, value| %>
               <li>
                 <strong><%= key %>:</strong>
@@ -86,6 +98,10 @@
 
         <div class="panel-body">
           <ul>
+            <li>
+              keys: <%= @project.gem_info.attributes.keys %>
+            </li>
+
             <% @project.gem_info.attributes.each_pair do |key, value| %>
               <li>
                 <strong><%= key %>:</strong>
@@ -97,4 +113,4 @@
       </div>
     <% end %>
   </div>
-<% end %>
+<%# end %>
