@@ -1,9 +1,22 @@
+<ol class="breadcrumb">
+  <li>
+    <% url = @catalog.type.downcase.gsub(/catalog$/, '_path') %>
+
+    <%= link_to eval(url) do %>
+      <%= @catalog.type %>
+    <% end %>
+  </li>
+
+  <li class="active">
+    <%= @catalog.name %>
+  </li>
+</ol>
+
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
+<h1>
   <%= @catalog.name %>
-</p>
+</h1>
 
 <p>
   <strong>Slug:</strong>
@@ -14,6 +27,17 @@
   <strong>Type:</strong>
   <%= @catalog.type %>
 </p>
+
+<h2>Categories: <small><%= @catalog.categories.count %></small></h2>
+<br>
+
+<ul>
+  <% @catalog.categories.each do |category| %>
+    <li>
+      <%= link_to category.name, category %>
+    </li>
+  <% end %>
+</ul>
 
 <%= link_to 'Edit', edit_catalog_path(@catalog) %> |
 <%= link_to 'Back', catalogs_path %>
