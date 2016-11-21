@@ -61,17 +61,22 @@ class PackageInfo < ApplicationRecord
   COMPOSER_URL = "https://api.github.com/repos/:owner/:repo/contents/:path"
 
   def get_vendor_and_package(author, name)
-    path = "composer.json"
+    if self.others['composer'].present?
+      _content = self.others['composer']
+    else
+      path = "composer.json"
 
-    url = "#{PackageInfo::COMPOSER_URL.gsub(/:owner/, author).gsub(/:repo/, name).gsub(/:path/, path)}"
+      url = "#{PackageInfo::COMPOSER_URL.gsub(/:owner/, author).gsub(/:repo/, name).gsub(/:path/, path)}"
 
-    composer = JSON.parse(open(url).read)
+      composer = JSON.parse(open(url).read)
 
-    content = Base64.decode64(composer['content'])
+      content = Base64.decode64(composer['content'])
 
-    _content = JSON.parse(content)
+      self.others ||= {}
+      self.others['composer'] = _content
 
-    # self.others['composer'] = _content
+      _content = JSON.parse(content)
+    end
 
     _content['name'].split('/')
   end
@@ -88,12 +93,31 @@ class PackageInfo < ApplicationRecord
     json_content
   end
 
+  REGEX = /(^dev-)|(-dev$)/
+
   def set_package_info(vendor, package)
     json_content = get_package_info(vendor, package)
 
     package_info = json_content['package']
     # self.total_downloads = json_content['downloads']
 
-    self.others = package_info
+    package_info["version"] = {}
+    # bebugger
+    # binding.pry
+    regex = /(^dev-)|(-dev$)/
+
+    key, value = package_info["versions"].select{|key, _| (key =~ PackageInfo::REGEX)}.first
+    package_info["version"][key] = value
+    key, value = package_info["versions"].select{|key, _| !(key =~ PackageInfo::REGEX)}.first
+    package_info["version"][key] = value
+
+    # package_info["version"].merge(   package_info["versions"].select{|key, _| (key =~ /(^dev-)|(-dev$)/)   }.first)
+    # package_info["version"].merge(   package_info["versions"].select{|key, _| !(key =~ /(^dev-)|(-dev$)/)   }.first)
+
+    self.others = package_info.except("versions")
+  end
+
+  def get_version
+    self.others['version'].keys.select{|key| !(key =~ PackageInfo::REGEX) }.first
   end
 end

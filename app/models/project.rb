@@ -36,7 +36,7 @@ class Project < ApplicationRecord
   after_commit :logic_set_package_info, on: :create
 
   after_commit :set_github_info, on: :create
-  after_commit :set_readme, on: :create
+  # after_commit :set_readme, on: :create
 
   # after_create :build_github_info
 
@@ -55,6 +55,9 @@ class Project < ApplicationRecord
     self.set_github_others_info
     self.set_raking_data
 
+    self.github_info.save
+
+    self.set_readme
     self.github_info.save
   end
 
