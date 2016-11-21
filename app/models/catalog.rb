@@ -18,6 +18,8 @@ class Catalog < ApplicationRecord
 
   has_many :categories
 
+  before_create :set_slug
+
   def self.set_rails_catalog
     ["Active Record Plugins",
     "Background Processing",
