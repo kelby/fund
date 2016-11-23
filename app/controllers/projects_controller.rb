@@ -1,6 +1,10 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy, :popularity]
 
+  def search
+    @projects = Project.where("name LIKE ?", "%#{params[:q]}%")
+  end
+
   def popularity
   end
 

@@ -82,6 +82,15 @@
           </ul>
         </li>
       </ul>
+
+      <%= form_tag search_projects_path, method: :get, class: "navbar-form navbar-right" do %>
+        <div class="form-group">
+          <%= text_field_tag :q, params[:q], placeholder: "项目名字、简述", class: "form-control" %>
+        </div>
+
+        <%#= submit_tag "搜索", class "btn btn-success" %>
+        <%= submit_tag "搜索", class: "btn btn-success" %>
+      <% end %>
     </div><!--/.nav-collapse -->
   </div>
 </nav>

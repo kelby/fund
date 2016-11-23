@@ -4,6 +4,10 @@ Rails.application.routes.draw do
     member do
       get :popularity
     end
+
+    collection do
+      get :search
+    end
   end
 
   resources :catalogs

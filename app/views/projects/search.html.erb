@@ -1,0 +1,43 @@
+<div class="x">
+  <ul class="nav nav-tabs">
+    <li role="presentation" class="active">
+      <a href="#">全部</a>
+    </li>
+
+    <li role="presentation">
+      <a href="#">Gem</a>
+    </li>
+
+    <li role="presentation">
+      <a href="#">Package</a>
+    </li>
+
+    <li role="presentation">
+      <a href="#">Pod</a>
+    </li>
+  </ul>
+</div>
+
+<div class="y">
+  找到约 6,470 条结果 （用时 0.56 秒） 
+</div>
+
+<div class="z">
+  <ul>
+    <% @projects.each do |project| %>
+      <li>
+        <div>
+          <%= link_to project.name, project %>
+        </div>
+
+        <div>
+          <%= link_to (url_for project), (url_for project) %>
+        </div>
+
+        <div>
+          <%= project.description %>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+</div>
