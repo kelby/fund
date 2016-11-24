@@ -61,7 +61,7 @@ class PackageInfo < ApplicationRecord
   COMPOSER_URL = "https://api.github.com/repos/:owner/:repo/contents/:path"
 
   def get_vendor_and_package(author, name)
-    if self.others['composer'].present?
+    if self.others.present? && self.others['composer'].present?
       _content = self.others['composer']
     else
       path = "composer.json"

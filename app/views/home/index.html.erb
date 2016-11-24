@@ -3,27 +3,59 @@
 <div class="row">
   <div class="col-md-4">
   <div class="panel panel-default">
-    <div class="panel-heading">Rails</div>
+    <div class="panel-heading">
+      <%= link_to rails_path do %>
+        Rails
+      <% end %>
+
+      <section class="pull-right">
+        <%= RailsCatalog.count %>
+      </section>
+    </div>
     <div class="panel-body">
-      <%= render partial: "home/catalog", as: :catalog, collection: RailsCatalog.all.includes(:categories) %>
+      <ul class="list-group row">
+        <%= render partial: "home/catalog", as: :catalog, collection: RailsCatalog.all.includes(:categories) %>
+      </ul>
     </div>
   </div>
   </div>
 
   <div class="col-md-4">
   <div class="panel panel-default">
-    <div class="panel-heading">Laravel</div>
+    <div class="panel-heading">
+      <%= link_to laravel_path do %>
+        Laravel
+      <% end %>
+
+      <section class="pull-right">
+        <%= LaravelCatalog.count %>
+      </section>
+    </div>
+
     <div class="panel-body">
-      <%= render partial: "home/catalog", as: :catalog, collection: LaravelCatalog.all.includes(:categories) %>
+      <ul class="list-group row">
+        <%= render partial: "home/catalog", as: :catalog, collection: LaravelCatalog.all.includes(:categories) %>
+      </ul>
     </div>
   </div>
   </div>
 
   <div class="col-md-4">
   <div class="panel panel-default">
-    <div class="panel-heading">Swift</div>
+    <div class="panel-heading">
+      <%= link_to swift_path do %>
+        Swift
+      <% end %>
+
+      <section class="pull-right">
+        <%= SwiftCatalog.count %>
+      </section>
+    </div>
+
     <div class="panel-body">
-      <%= render partial: "home/catalog", as: :catalog, collection: SwiftCatalog.all.includes(:categories) %>
+      <ul class="list-group row">
+        <%= render partial: "home/catalog", as: :catalog, collection: SwiftCatalog.all.includes(:categories) %>
+      </ul>
     </div>
   </div>
   </div>

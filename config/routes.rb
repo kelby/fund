@@ -7,6 +7,9 @@ Rails.application.routes.draw do
 
     collection do
       get :search
+      get :search_gem, to: "projects#search", type: 'gem'
+      get :search_package, to: "projects#search", type: 'package'
+      get :search_pod, to: "projects#search", type: 'pod'
     end
   end
 

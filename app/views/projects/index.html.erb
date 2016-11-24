@@ -1,53 +1,32 @@
-<p id="notice"><%= notice %></p>
+<% @projects.each_slice(3).each do |projects| %>
+  <div class="row">
+    <% projects.each do |project| %>
+      <div class="col-md-4">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <%= link_to project do %>
+              <%= project.name %>
+            <% end %>
+          </div>
 
-<h1>
-  Projects
-  <small>
-    <%= link_to 'New Project', new_project_path %>
-  </small>
-</h1>
+          <div class="panel-body">
+            <%= project.description %>
+          </div>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Website</th>
-      <th>Wiki</th>
-      <th>Source code</th>
-      <th>Category</th>
-      <th colspan="2"></th>
-    </tr>
-  </thead>
+          <div class="panel-footer">
+            <i class="fa fa-eye"></i>
+            <%= project.github_info.watchers_count %>
 
-  <tbody>
-    <% @projects.each do |project| %>
-      <tr>
-        <td>
-          <%= link_to project do %>
-            <%= project.name %>
-          <% end %>
-        </td>
+            <i class="fa fa-star-o"></i>
+            <%= project.github_info.subscribers_count %>
 
-        <td><%= project.description %></td>
-        <td><%= project.website %></td>
-        <td><%= project.wiki %></td>
-        <td><%= project.source_code %></td>
-        <td>
-          <%= project.category_id %>
-
-          <% if project.category.present? %>
-            <%= project.category.name %>
-          <% end %>
-        </td>
-
-        <td><%= link_to 'Edit', edit_project_path(project) %></td>
-        <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+            <i class="fa fa-code-fork"></i>
+            <%= project.github_info.forks_count %>
+          </div>
+        </div>
+      </div>
     <% end %>
-  </tbody>
-</table>
+  </div>
 
-<br>
-
-<%= link_to 'New Project', new_project_path %>
+  <hr>
+<% end %>

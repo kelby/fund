@@ -1,25 +1,33 @@
 <div class="x">
   <ul class="nav nav-tabs">
-    <li role="presentation" class="active">
-      <a href="#">全部</a>
+    <li class="<%= active_tab(search_projects_path) %>">
+      <%= link_to search_projects_path(q: params[:q]) do %>
+        全部
+      <% end %>
     </li>
 
-    <li role="presentation">
-      <a href="#">Gem</a>
+    <li class="<%= active_tab(search_gem_projects_path) %>">
+      <%= link_to search_gem_projects_path(q: params[:q]) do %>
+        Gem
+      <% end %>
     </li>
 
-    <li role="presentation">
-      <a href="#">Package</a>
+    <li class="<%= active_tab(search_package_projects_path) %>">
+      <%= link_to search_package_projects_path(q: params[:q]) do %>
+        Package
+      <% end %>
     </li>
 
-    <li role="presentation">
-      <a href="#">Pod</a>
+    <li class="<%= active_tab(search_pod_projects_path) %>">
+      <%= link_to search_pod_projects_path(q: params[:q]) do %>
+        Pod
+      <% end %>
     </li>
   </ul>
 </div>
 
 <div class="y">
-  找到约 6,470 条结果 （用时 0.56 秒） 
+  搜索 "<%= params[:q] %>"，找到约 <%= @projects.size %> 条结果
 </div>
 
 <div class="z">

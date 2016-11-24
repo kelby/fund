@@ -2,7 +2,13 @@ class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy, :popularity]
 
   def search
-    @projects = Project.where("name LIKE ?", "%#{params[:q]}%")
+    projects = Project.all
+
+    if params[:type].present?
+      projects = projects.where(identity: params[:type])
+    end
+
+    @projects = projects.where("name LIKE ?", "%#{params[:q]}%")
   end
 
   def popularity
@@ -10,7 +16,7 @@ class ProjectsController < ApplicationController
 
   # GET /projects
   def index
-    @projects = Project.all.includes(:category)
+    @projects = Project.all.includes(:category, :github_info)
   end
 
   # GET /projects/1
