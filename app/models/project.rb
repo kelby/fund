@@ -16,6 +16,7 @@
 #
 
 class Project < ApplicationRecord
+  # Associations
   belongs_to :category
 
   has_one :github_info
@@ -24,13 +25,24 @@ class Project < ApplicationRecord
   has_one :pod_info
   has_one :package_info
 
-  enum identity: {unknow: 0, gem: 2, package: 4, pod: 6}
+  has_many :comments, as: :commentable
+  # END
 
+
+  # Rails class methods
+  enum identity: {unknow: 0, gem: 2, package: 4, pod: 6}
+  # END
+
+
+  # Validates
   validates_presence_of :source_code
   # validates_presence_of :category_id
 
   validates_uniqueness_of :name, scope: :author, message: "该用户的项目已经存在，您不必重复添加"
+  # END
 
+
+  # Callbacks
   after_commit :logic_set_gem_info, on: :create
   after_commit :logic_set_pod_info, on: :create
   after_commit :logic_set_package_info, on: :create
@@ -41,8 +53,13 @@ class Project < ApplicationRecord
   # after_create :build_github_info
 
   before_validation :set_github_identity
+  # END
 
+
+  # Constants
   API_GITHUB = "https://api.github.com/"
+  # END
+
 
   def set_readme
     self.github_info.set_readme

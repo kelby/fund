@@ -20,15 +20,24 @@
 #
 
 class User < ApplicationRecord
+  # Plugins
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, :omniauth_providers => [:github, :google_oauth2]
+  # END
 
+  # Associations
   has_many :authentications
+  has_many :comments, as: :commentable
+  # END
 
+
+  # Validates
   validates_presence_of :name
+  # END
+
 
   def self.from_omniauth(access_token)
     provider = access_token.provider

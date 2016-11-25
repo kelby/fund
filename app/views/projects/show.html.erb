@@ -124,5 +124,23 @@
         </div>
       </div>
     <% end %>
+
+
+    <div class="panel panel-default">
+      <div class="panel-heading">评论</div>
+      <div class="panel-body">
+        <ul class="media-list">
+          <%= render partial: "comments/comment", collection: @comments %>
+        </ul>
+      </div>
+    </div>
+
+
+    <div class="panel panel-default">
+      <div class="panel-heading">评论</div>
+      <div class="panel-body">
+        <%= render 'comments/form', comment: @comment, commentable: @project %>
+      </div>
+    </div>
   </div>
 <%# end %>

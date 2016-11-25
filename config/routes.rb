@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
+  resources :comments
+
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+
   resources :projects do
     member do
       get :popularity
@@ -11,6 +14,8 @@ Rails.application.routes.draw do
       get :search_package, to: "projects#search", type: 'package'
       get :search_pod, to: "projects#search", type: 'pod'
     end
+
+    resources :comments
   end
 
   resources :catalogs

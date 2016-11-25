@@ -21,6 +21,8 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1
   def show
+    @comment = Comment.new
+    @comments = @project.comments
   end
 
   # GET /projects/new
