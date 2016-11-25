@@ -86,3 +86,5 @@ gem 'redis', '~>3.2'
 gem "hiredis", "~> 0.4.5"
 # options: 配置里有 namespace 或 Redis::Namespace
 gem 'redis-namespace'
+
+gem 'sinatra'
