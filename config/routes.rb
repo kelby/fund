@@ -1,7 +1,12 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
   resources :comments
 
-  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+  authenticate :user, lambda { |u| u.is_admin? } do
+    mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+    mount Sidekiq::Web => '/sidekiq'
+  end
 
   resources :projects do
     member do

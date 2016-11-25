@@ -75,3 +75,14 @@ gem 'annotate'
 gem 'rails_admin', '~> 1.0'
 
 gem 'redcarpet'
+
+gem 'sidekiq'
+
+gem 'capistrano-sidekiq', group: :development
+
+# https://github.com/redis/redis-rb
+gem 'redis', '~>3.2'
+# hiredis-rb is a binding to the official hiredis client library.
+gem "hiredis", "~> 0.4.5"
+# options: 配置里有 namespace 或 Redis::Namespace
+gem 'redis-namespace'
