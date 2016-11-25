@@ -87,4 +87,6 @@ gem "hiredis", "~> 0.4.5"
 # options: 配置里有 namespace 或 Redis::Namespace
 gem 'redis-namespace'
 
-gem 'sinatra'
+# gem 'sinatra', require: false
+# fixbug: cannot load such file -- rack/showexceptions
+gem 'sinatra', github: 'sinatra/sinatra', branch: 'master'
