@@ -1,12 +1,20 @@
-<h1>Home#index</h1>
+<% content_for :content_css_link_yield do %>
+  <%= stylesheet_link_tag 'home' %>
+<% end %>
+
+<h1 class="slogan">
+  Projects worth sharing, Know Your Options!
+</h1>
 
 <div class="row">
   <div class="col-md-4">
   <div class="panel panel-default">
     <div class="panel-heading">
-      <%= link_to rails_path do %>
-        Rails
-      <% end %>
+      <h2 class="top-catalog">
+        <%= link_to rails_path do %>
+          Rails
+        <% end %>
+      </h2>
 
       <section class="pull-right">
         <%= RailsCatalog.count %>
@@ -23,9 +31,11 @@
   <div class="col-md-4">
   <div class="panel panel-default">
     <div class="panel-heading">
-      <%= link_to laravel_path do %>
-        Laravel
-      <% end %>
+      <h2 class="top-catalog">
+        <%= link_to laravel_path do %>
+          Laravel
+        <% end %>
+      </h2>
 
       <section class="pull-right">
         <%= LaravelCatalog.count %>
@@ -43,9 +53,11 @@
   <div class="col-md-4">
   <div class="panel panel-default">
     <div class="panel-heading">
-      <%= link_to swift_path do %>
-        Swift
-      <% end %>
+      <h2 class="top-catalog">
+        <%= link_to swift_path do %>
+          Swift
+        <% end %>
+      </h2>
 
       <section class="pull-right">
         <%= SwiftCatalog.count %>
