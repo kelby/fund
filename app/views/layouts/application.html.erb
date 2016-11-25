@@ -29,11 +29,15 @@
     <!-- Begin page content -->
     <div class="container <%= params[:controller] %>">
       <% if flash[:notice].present? %>
-        <p class="notice"><%= notice %></p>
+        <div class="alert alert-success" role="alert">
+          <%= notice %>
+        </div>
       <% end %>
 
       <% if flash[:alert].present? %>
-        <p class="alert"><%= alert %></p>
+        <div class="alert alert-danger" role="alert">
+          <%= alert %>
+        </div>
       <% end %>
 
       <!-- begin per page body content -->
