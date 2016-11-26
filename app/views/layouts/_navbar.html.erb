@@ -14,15 +14,15 @@
     <div id="navbar" class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
         <li class="<%= current_page?(rails_path)? 'active' : nil %>">
-          <%= link_to "Rails", rails_path %>
+          <%= link_to "Gems", rails_path %>
         </li>
 
         <li class="<%= current_page?(laravel_path)? 'active' : nil %>">
-          <%= link_to "Laravel", laravel_path %>
+          <%= link_to "Packages", laravel_path %>
         </li>
 
         <li class="<%= current_page?(swift_path)? 'active' : nil %>">
-          <%= link_to "Swift", swift_path %>
+          <%= link_to "Pods", swift_path %>
         </li>
       </ul>
 
@@ -40,11 +40,15 @@
 
         <% unless user_signed_in? %>
           <li>
-            <%= link_to "GitHub登录", user_github_omniauth_authorize_path %>
+            <%= link_to user_github_omniauth_authorize_path do %>
+              <i class="fa fa-github"></i> GitHub登录
+            <% end %>
           </li>
 
           <li>
-            <%= link_to "Google登录", user_google_oauth2_omniauth_authorize_path %>
+            <%= link_to user_google_oauth2_omniauth_authorize_path do %>
+              <i class="fa fa-google"></i> Google登录
+            <% end %>
           </li>
         <% end %>
 
@@ -54,9 +58,9 @@
               <%= current_user.name %> <span class="caret"></span>
             </a>
           <% else %>
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            <!-- <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
               username <span class="caret"></span>
-            </a>
+            </a> -->
           <% end %>
 
           <ul class="dropdown-menu">
@@ -86,11 +90,22 @@
 
       <%= form_tag search_projects_path, method: :get, class: "navbar-form navbar-right" do %>
         <div class="form-group">
+
+
+        <div class="input-group">
+          <!-- <div class="input-group-addon"> -->
+          <%= label_tag :q, class: "input-group-addon" do %>
+            <i class="fa fa-search"></i>
+          <!-- </div> -->
+          <% end %>
+
           <%= text_field_tag :q, params[:q], placeholder: "项目名字、简述", class: "form-control" %>
+            </div>
+
         </div>
 
         <%#= submit_tag "搜索", class "btn btn-success" %>
-        <%= submit_tag "搜索", class: "btn btn-success" %>
+        <%#= submit_tag "搜索", class: "btn btn-success" %>
       <% end %>
     </div><!--/.nav-collapse -->
   </div>

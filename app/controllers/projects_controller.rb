@@ -16,7 +16,7 @@ class ProjectsController < ApplicationController
 
   # GET /projects
   def index
-    @projects = Project.all.includes(:category, :github_info)
+    @projects = Project.all.includes(:category, :github_info).page(params[:page]).per(6)
   end
 
   # GET /projects/1

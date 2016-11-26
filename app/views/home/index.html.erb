@@ -2,9 +2,51 @@
   <%= stylesheet_link_tag 'home' %>
 <% end %>
 
-<h1 class="slogan">
-  Projects worth sharing, Know Your Options!
-</h1>
+<% content_for :prefix do %>
+  <h1 class="slogan">
+    Projects worth sharing, Know Your Options!
+  </h1>
+<% end %>
+
+
+<div class="row">
+  <% @gems.each do |gem| %>
+    <div class="col-md-4">
+      <h3><%= gem.name %></h3>
+
+      <%= simple_format gem.description %>
+    </div>
+  <% end %>
+</div>
+
+<hr>
+
+<div class="row">
+  <% @packages.each do |package| %>
+    <div class="col-md-4">
+    <h3><%= package.name %></h3>
+
+    <%= simple_format package.description %>
+
+    </div>
+  <% end %>
+</div>
+
+<hr>
+
+<div class="row">
+  <% @pods.each do |pod| %>
+    <div class="col-md-4">
+    <h3><%= pod.name %></h3>
+
+    <%= simple_format pod.description %>
+
+    </div>
+  <% end %>
+</div>
+
+<hr>
+
 
 <div class="row">
   <div class="col-md-4">
