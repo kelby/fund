@@ -3,114 +3,105 @@
 <% end %>
 
 <% content_for :prefix do %>
-  <h1 class="slogan">
-    Projects worth sharing, Know Your Options!
-  </h1>
+  <div class="col-md-12 bg-color-white prefix">
+    <h1 class="slogan">
+      Projects worth sharing, Know Your Options!
+    </h1>
+  </div>
 <% end %>
 
 
-<div class="row">
-  <% @gems.each do |gem| %>
-    <div class="col-md-4">
-      <h3><%= gem.name %></h3>
-
-      <%= simple_format gem.description %>
-    </div>
-  <% end %>
-</div>
-
-<hr>
-
-<div class="row">
-  <% @packages.each do |package| %>
-    <div class="col-md-4">
-    <h3><%= package.name %></h3>
-
-    <%= simple_format package.description %>
-
-    </div>
-  <% end %>
-</div>
-
-<hr>
-
-<div class="row">
-  <% @pods.each do |pod| %>
-    <div class="col-md-4">
-    <h3><%= pod.name %></h3>
-
-    <%= simple_format pod.description %>
-
-    </div>
-  <% end %>
-</div>
-
-<hr>
-
-
-<div class="row">
-  <div class="col-md-4">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h2 class="top-catalog">
-        <%= link_to rails_path do %>
-          Rails
-        <% end %>
-      </h2>
-
-      <section class="pull-right">
-        <%= RailsCatalog.count %>
-      </section>
-    </div>
-    <div class="panel-body">
-      <ul class="list-group row">
-        <%= render partial: "home/catalog", as: :catalog, collection: RailsCatalog.all.includes(:categories) %>
-      </ul>
-    </div>
+<div class="col-md-12">
+  <div class="row">
+    <%= render partial: "home/project", collection: @gems, as: :project %>
   </div>
+
+  <hr>
+
+  <div class="row">
+    <%= render partial: "home/project", collection: @packages, as: :project %>
+  </div>
+
+  <hr>
+
+  <div class="row">
+    <%= render partial: "home/project", collection: @pods, as: :project %>
+  </div>
+</div>
+
+
+<div class="col-md-12" style="margin-top: 20px;padding-top: 20px;">
+  <div class="col-md-4 no-padding-left">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h2 class="top-catalog">
+          <%= link_to rails_path do %>
+            Rails
+          <% end %>
+        </h2>
+
+        <section class="pull-right">
+          <%= RailsCatalog.count %>
+        </section>
+      </div>
+      <div class="panel-body">
+        <ul class="list-group row">
+          <%= render partial: "home/catalog", as: :catalog, collection: RailsCatalog.all.includes(:categories) %>
+        </ul>
+      </div>
+    </div>
   </div>
 
   <div class="col-md-4">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h2 class="top-catalog">
-        <%= link_to laravel_path do %>
-          Laravel
-        <% end %>
-      </h2>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h2 class="top-catalog">
+          <%= link_to laravel_path do %>
+            Laravel
+          <% end %>
+        </h2>
 
-      <section class="pull-right">
-        <%= LaravelCatalog.count %>
-      </section>
-    </div>
+        <section class="pull-right">
+          <%= LaravelCatalog.count %>
+        </section>
+      </div>
 
-    <div class="panel-body">
-      <ul class="list-group row">
-        <%= render partial: "home/catalog", as: :catalog, collection: LaravelCatalog.all.includes(:categories) %>
-      </ul>
-    </div>
-  </div>
-  </div>
-
-  <div class="col-md-4">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h2 class="top-catalog">
-        <%= link_to swift_path do %>
-          Swift
-        <% end %>
-      </h2>
-
-      <section class="pull-right">
-        <%= SwiftCatalog.count %>
-      </section>
-    </div>
-
-    <div class="panel-body">
-      <ul class="list-group row">
-        <%= render partial: "home/catalog", as: :catalog, collection: SwiftCatalog.all.includes(:categories) %>
-      </ul>
+      <div class="panel-body">
+        <ul class="list-group row">
+          <%= render partial: "home/catalog", as: :catalog, collection: LaravelCatalog.all.includes(:categories) %>
+        </ul>
+      </div>
     </div>
   </div>
+
+  <div class="col-md-4 no-padding-right">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h2 class="top-catalog">
+          <%= link_to swift_path do %>
+            Swift
+          <% end %>
+        </h2>
+
+        <section class="pull-right">
+          <%= SwiftCatalog.count %>
+        </section>
+      </div>
+
+      <div class="panel-body">
+        <ul class="list-group row">
+          <%= render partial: "home/catalog", as: :catalog, collection: SwiftCatalog.all.includes(:categories) %>
+        </ul>
+      </div>
+    </div>
   </div>
 </div>
+
+
+<% content_for :postfix do %>
+  <!-- <div class="col-md-12 bg-color-white postfix">
+    <h1 class="slogan">
+      随便放点东西，以查看布局。。。
+    </h1>
+  </div> -->
+<% end %>

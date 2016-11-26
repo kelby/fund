@@ -26,44 +26,22 @@
     <!-- Fixed navbar -->
     <%= render "layouts/navbar" %>
 
-    <% if flash[:notice].present? || flash[:alert].present? %>
-      <div class="container">
-        <% if flash[:notice].present? %>
-          <div class="alert alert-success alert-dismissible" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-
-            <%= notice %>
-          </div>
-        <% end %>
-
-        <% if flash[:alert].present? %>
-          <div class="alert alert-danger alert-dismissible" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-
-            <%= alert %>
-          </div>
-        <% end %>
-      </div>
-    <% end %>
-
-    <div class="container">
-      <%= yield :prefix %>
-    </div>
 
     <!-- Begin page content -->
     <div class="container <%= params[:controller] %>">
-      <!-- begin per page body content -->
-      <%= yield %>
-      <!-- end per page body content -->
-    </div>
+      <%= render "layouts/notice_or_alert" %>
 
-    <div class="container">
+      <%= yield :prefix %>
+
+
+      <!-- begin per page body content -->
+        <%= yield %>
+      <!-- end per page body content -->
+
+
       <%= yield :postfix %>
     </div>
+
 
     <%= render "layouts/footer" %>
 

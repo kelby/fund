@@ -8,6 +8,16 @@ html {
   min-height: 100%;
 }
 
+.bg-color-white { background-color: #fff !important;}
+
+.no-padding-left {
+  padding-left: 0;
+}
+
+.no-padding-right {
+  padding-right: 0;
+}
+
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
@@ -17,6 +27,30 @@ body {
 .navbar-default {
   background-color: white;
   border-color: #e7e7e7;
+
+}
+
+.container > .prefix {
+  margin-bottom: 20px;
+}
+
+.container > .postfix {
+  margin-top: 20px;
+}
+
+.container > .col-md-12 {
+  background-color: white;
+  padding-top: 15px;
+}
+
+.container > .row {
+  background-color: white;
+  padding-top: 15px;
+}
+
+.container > .container {
+  background-color: white;
+  padding-top: 15px;
 }
 
 .footer {
@@ -36,8 +70,8 @@ body {
 body > .container {
   padding: 15px;
 
-  background-color: white;
-  margin-top: 30px;
+  // background-color: white;
+  margin-top: 20px;
   margin-bottom: 90px;
 }
 
