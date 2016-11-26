@@ -5,7 +5,7 @@
     <%= csrf_meta_tags %>
 
     <!-- base css here -->
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    'application', media: 'all' %>
 
     <!-- layout_css_link_yield -->
     <%= yield(:layout_css_link_yield) %>
@@ -16,7 +16,7 @@
 
 
     <!-- base js here -->
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application' %>
 
     <!-- layout_js_link_yield -->
     <%= yield(:layout_js_link_yield) %>
