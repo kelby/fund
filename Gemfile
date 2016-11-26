@@ -90,3 +90,5 @@ gem 'redis-namespace'
 # gem 'sinatra', require: false
 # fixbug: cannot load such file -- rack/showexceptions
 gem 'sinatra', github: 'sinatra/sinatra', branch: 'master'
+
+gem 'kaminari'
