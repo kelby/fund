@@ -1,45 +1,50 @@
-<p id="notice"><%= notice %></p>
+<div class="panel panel-default">
 
-<h1>
-  Categories
-  <small>
-    <%= link_to 'New Category', new_category_path %>
-  </small>
-</h1>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Slug</th>
-      <th>Catalog</th>
-      <th>Projects</th>
-      <th colspan="2"></th>
-    </tr>
-  </thead>
+  <div class="panel-heading">
+    <h1>
+      Categories
+      <small>
+        <%= link_to 'New Category', new_category_path %>
+      </small>
+    </h1>
+  </div>
 
-  <tbody>
-    <% @categories.each do |category| %>
-      <tr>
-        <td>
-          <%= link_to category do %>
-            <%= category.name %>
-          <% end %>
-        </td>
-        <td><%= category.slug %></td>
-        <td>
-          <%= category.catalog.name %>
-        </td>
+  <div class="panel-body">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Slug</th>
+          <th>Catalog</th>
+          <th>Projects</th>
+          <th colspan="2"></th>
+        </tr>
+      </thead>
 
-        <td><%= category.projects.count %></td>
+      <tbody>
+        <% @categories.each do |category| %>
+          <tr>
+            <td>
+              <%= link_to category do %>
+                <%= category.name %>
+              <% end %>
+            </td>
+            <td><%= category.slug %></td>
+            <td>
+              <%= category.catalog.name %>
+            </td>
 
-        <td><%= link_to 'Edit', edit_category_path(category) %></td>
-        <td><%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+            <td><%= category.projects.count %></td>
 
-<br>
+            <td><%= link_to 'Edit', edit_category_path(category) %></td>
+            <td><%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
 
-<%= link_to 'New Category', new_category_path %>
+
+<%#= link_to 'New Category', new_category_path %>
