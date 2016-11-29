@@ -45,6 +45,10 @@ class User < ApplicationRecord
     info = access_token.info
     extra = access_token.extra
 
+    _credentials = access_token.credentials
+    refresh_token = _credentials["refresh_token"]
+    expires = _credentials["expires"]
+
     authentication = Authentication.where(provider: provider, uid: uid).first
 
     if authentication.blank?
@@ -64,8 +68,13 @@ class User < ApplicationRecord
       user.authentications.create!(provider: provider,
         uid: uid,
         info: info,
-        extra: extra)
+        extra: extra,
+        refresh_token: refresh_token)
     else
+      if expires
+        authentication.update_columns refresh_token: refresh_token
+      end
+
       user = authentication.user
     end
 
