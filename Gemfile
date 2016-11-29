@@ -92,3 +92,5 @@ gem 'redis-namespace'
 gem 'sinatra', github: 'sinatra/sinatra', branch: 'master'
 
 gem 'kaminari'
+
+gem 'meta-tags'

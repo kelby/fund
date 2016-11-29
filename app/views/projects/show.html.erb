@@ -1,3 +1,5 @@
+<% set_meta_tags title: @project.name, description: @project.description %>
+
 <% content_for :content_css_link_yield do %>
   <%= stylesheet_link_tag 'projects' %>
 <% end %>
@@ -15,7 +17,7 @@
   <% end %>
 </div>
 
-<%# unless Rails.env.production? %>
+<% unless Rails.env.production? %>
   <div class="row">
     <!-- GitHub Info -->
     <% if @project.github_info.present? %>
@@ -124,25 +126,31 @@
         </div>
       </div>
     <% end %>
+  </div>
+<% end %>
 
-
-    <% if @comments.present? %>
-      <div class="panel panel-default">
-        <div class="panel-heading">评论</div>
-        <div class="panel-body">
-          <ul class="media-list">
-            <%= render partial: "comments/comment", collection: @comments %>
-          </ul>
-        </div>
-      </div>
-    <% end %>
-
-
+<div class="row">
+  <% if @comments.present? %>
     <div class="panel panel-default">
-      <div class="panel-heading">评论</div>
+      <div class="panel-heading">
+        评论
+        <small>
+          <%= @comments.size %>
+        </small>
+      </div>
       <div class="panel-body">
-        <%= render 'comments/form', comment: @comment, commentable: @project %>
+        <ul class="media-list">
+          <%= render partial: "comments/comment", collection: @comments %>
+        </ul>
       </div>
     </div>
+  <% end %>
+
+
+  <div class="panel panel-default">
+    <div class="panel-heading">评论</div>
+    <div class="panel-body">
+      <%= render 'comments/form', comment: @comment, commentable: @project %>
+    </div>
   </div>
-<%# end %>
+</div>

@@ -1,3 +1,5 @@
+<% set_meta_tags title: @category.name %>
+
 <ol class="breadcrumb">
   <li>
     <% url = @category.catalog.type.downcase.gsub(/catalog$/, '_path') %>
