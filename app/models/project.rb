@@ -37,6 +37,7 @@ class Project < ApplicationRecord
 
   # Rails class methods
   enum identity: {unknow: 0, gem: 2, package: 4, pod: 6}
+  enum status: {pending: 0, offline: 4, online: 6}
   # END
 
 
@@ -222,17 +223,17 @@ class Project < ApplicationRecord
   end
 
   def self.set_info
-    ps = self.where(id: (Project.pod.ids - Project.pod.joins(:pod_info).ids))
+    ps = self.where(id: (Project.pod.pending.ids - Project.pod.pending.joins(:pod_info).ids))
     ps.each do |project|
       self.delay.set_pod_info(project.id)
     end
 
-    ps = self.where(id: (Project.package.ids - Project.package.joins(:package_info).ids))
+    ps = self.where(id: (Project.package.pending.ids - Project.package.pending.joins(:package_info).ids))
     ps.each do |project|
       self.delay.set_gem_info(project.id)
     end
 
-    ps = self.where(id: (Project.gem.ids - Project.gem.joins(:gem_info).ids))
+    ps = self.where(id: (Project.gem.pending.ids - Project.gem.pending.joins(:gem_info).ids))
     ps.each do |project|
       self.delay.set_package_info(project.id)
     end
@@ -241,15 +242,33 @@ class Project < ApplicationRecord
   def self.set_pod_info(project_id)
     project = Project.find(project_id)
     project.set_pod_info
+
+    if project.pod_info.present?
+      project.online!
+    else
+      project.offline!
+    end
   end
 
   def self.set_gem_info(project_id)
     project = Project.find(project_id)
     project.set_gem_info
+
+    if project.gem_info.present?
+      project.online!
+    else
+      project.offline!
+    end
   end
 
   def self.set_package_info(project_id)
     project = Project.find(project_id)
     project.set_package_info
+
+    if project.package_info.present?
+      project.online!
+    else
+      project.offline!
+    end
   end
 end
