@@ -29,6 +29,8 @@ require 'capistrano/puma/nginx'
 require 'capistrano/secrets_yml'
 
 require 'capistrano/sidekiq'
+
+require "whenever/capistrano"
 # require 'capistrano/sidekiq/monit' #to require monit tasks # Only for capistrano3
 
 # Load custom tasks from `lib/capistrano/tasks` if you have any defined

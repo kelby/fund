@@ -94,3 +94,5 @@ gem 'sinatra', github: 'sinatra/sinatra', branch: 'master'
 gem 'kaminari'
 
 gem 'meta-tags'
+
+gem 'whenever', :require => false
