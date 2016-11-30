@@ -1,1 +1,0 @@
-json.array! @user_star_projects, partial: 'user_star_projects/user_star_project', as: :user_star_project

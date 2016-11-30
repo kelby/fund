@@ -15,4 +15,8 @@ class UserStarProject < ApplicationRecord
 
   belongs_to :user
   belongs_to :project
+
+  def self.had_star_by?(project, user)
+    self.where(project_id: project.id, user_id: user.id).present?
+  end
 end

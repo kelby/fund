@@ -1,0 +1,3 @@
+var id = "#<%= dom_id(@project, 'recommend') %>"
+
+$(id).html("<%= j(render 'projects/recommend_status', project: @project) %>")

@@ -18,6 +18,18 @@ class Ability
     if user.is_admin?
       can :manage, :all
     else
+      can :manage, Project do |project|
+        project.user_id == user.id
+      end
+
+      can :manage, Catalog do |catalog|
+        catalog.user_id == user.id
+      end
+
+      can :manage, Category do |category|
+        category.user_id == user.id
+      end
+
       can :read, :all
     end
     #

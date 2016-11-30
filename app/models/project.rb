@@ -67,6 +67,14 @@ class Project < ApplicationRecord
   # END
 
 
+  def had_star_by?(user)
+    UserStarProject.had_star_by?(self, user)
+  end
+
+  def had_recommend_by?(user)
+    UserRecommendProject.had_recommend_by?(self, user)
+  end
+
   def set_readme
     self.github_info.set_readme
   end

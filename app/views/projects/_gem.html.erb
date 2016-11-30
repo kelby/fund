@@ -179,42 +179,8 @@
   </table>
 
 
-  <hr>
 
-
-  <h3>操作</h3>
-  <table class="inset">
-    <tbody>
-    <tr>
-      <td>
-        <%= button_to project_star_path(project) do %>
-          收藏
-        <% end %>
-      </td>
-
-      <td>
-        <%= link_to star_project_path(project) do %>
-          12
-        <% end %>
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        <%= button_to project_recommend_path(project) do %>
-          推荐
-        <% end %>
-      </td>
-
-      <td>
-        <%= link_to recommend_project_path(project) do %>
-          12
-        <% end %>
-      </td>
-    </tr>
-    </tbody>
-  </table>
-
+  <%= render "projects/status", project: project %>
 
 
   <hr>

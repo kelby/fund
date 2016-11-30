@@ -1,0 +1,18 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h2>
+      <%= @users.size %>
+
+      用户收藏了
+      <%= link_to @project do %>
+        <%= @project.name %>
+      <% end %>
+    </h2>
+  </div>
+
+  <div class="panel-body">
+    <ul class="media-list">
+      <%= render partial: "users/info", collection: @users, as: :user %>
+    </ul>
+  </div>
+</div>

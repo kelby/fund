@@ -1,14 +1,13 @@
 class UserRecommendProjectsController < ApplicationController
-  before_action :set_user_recommend_project, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:create, :destroy]
+  before_action :set_user_recommend_project, only: [:show, :edit, :update]
 
   # GET /user_recommend_projects
-  # GET /user_recommend_projects.json
   def index
     @user_recommend_projects = UserRecommendProject.all
   end
 
   # GET /user_recommend_projects/1
-  # GET /user_recommend_projects/1.json
   def show
   end
 
@@ -22,7 +21,6 @@ class UserRecommendProjectsController < ApplicationController
   end
 
   # POST /user_recommend_projects
-  # POST /user_recommend_projects.json
   def create
     @project = Project.find(params[:project_id])
     @user = current_user
@@ -32,31 +30,26 @@ class UserRecommendProjectsController < ApplicationController
 
     respond_to do |format|
       if @user_recommend_project.save
-        format.html { redirect_to @project, notice: 'User recommend project was successfully created.' }
-        format.json { render :show, status: :created, location: @user_recommend_project }
+        # format.html { redirect_to @project, notice: 'User recommend project was successfully created.' }
+        format.js
       else
         format.html { render :new }
-        format.json { render json: @user_recommend_project.errors, status: :unprocessable_entity }
       end
     end
   end
 
   # PATCH/PUT /user_recommend_projects/1
-  # PATCH/PUT /user_recommend_projects/1.json
   def update
     respond_to do |format|
       if @user_recommend_project.update(user_recommend_project_params)
         format.html { redirect_to @user_recommend_project, notice: 'User recommend project was successfully updated.' }
-        format.json { render :show, status: :ok, location: @user_recommend_project }
       else
         format.html { render :edit }
-        format.json { render json: @user_recommend_project.errors, status: :unprocessable_entity }
       end
     end
   end
 
   # DELETE /user_recommend_projects/1
-  # DELETE /user_recommend_projects/1.json
   def destroy
     @project = Project.find(params[:project_id])
     @user = current_user
@@ -65,8 +58,8 @@ class UserRecommendProjectsController < ApplicationController
     @user_recommend_projects.destroy_all
 
     respond_to do |format|
-      format.html { redirect_to @project, notice: 'User recommend project was successfully destroyed.' }
-      format.json { head :no_content }
+      # format.html { redirect_to @project, notice: 'User recommend project was successfully destroyed.' }
+      format.js
     end
   end
 

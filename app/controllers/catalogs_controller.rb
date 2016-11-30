@@ -55,6 +55,8 @@ class CatalogsController < ApplicationController
 
   # PATCH/PUT /catalogs/1
   def update
+    authorize :update, @catalog
+
     respond_to do |format|
       if @catalog.update(catalog_params)
         format.html { redirect_to catalog_path(@catalog), notice: 'Catalog was successfully updated.' }
@@ -66,6 +68,8 @@ class CatalogsController < ApplicationController
 
   # DELETE /catalogs/1
   def destroy
+    authorize :destroy, @catalog
+
     @catalog.destroy
     respond_to do |format|
       format.html { redirect_to catalogs_url, notice: 'Catalog was successfully destroyed.' }

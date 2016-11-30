@@ -1,10 +1,13 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :edit, :update, :destroy, :popularity]
+  before_action :set_project, only: [:show, :edit, :update, :destroy,
+    :popularity, :star, :recommend]
 
   def star
+    @users = @project.star_by_users
   end
 
   def recommend
+    @users = @project.recommend_by_users
   end
 
   def search
@@ -55,6 +58,8 @@ class ProjectsController < ApplicationController
 
   # PATCH/PUT /projects/1
   def update
+    authorize :update, @project
+
     respond_to do |format|
       if @project.update(project_update_params)
         format.html { redirect_to @project, notice: 'Project was successfully updated.' }
@@ -66,6 +71,8 @@ class ProjectsController < ApplicationController
 
   # DELETE /projects/1
   def destroy
+    authorize :destroy, @project
+
     @project.destroy
     respond_to do |format|
       format.html { redirect_to projects_url, notice: 'Project was successfully destroyed.' }

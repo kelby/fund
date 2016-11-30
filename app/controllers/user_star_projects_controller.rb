@@ -1,14 +1,13 @@
 class UserStarProjectsController < ApplicationController
-  before_action :set_user_star_project, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:create, :destroy]
+  before_action :set_user_star_project, only: [:show, :edit, :update]
 
   # GET /user_star_projects
-  # GET /user_star_projects.json
   def index
     @user_star_projects = UserStarProject.all
   end
 
   # GET /user_star_projects/1
-  # GET /user_star_projects/1.json
   def show
   end
 
@@ -22,7 +21,6 @@ class UserStarProjectsController < ApplicationController
   end
 
   # POST /user_star_projects
-  # POST /user_star_projects.json
   def create
     @project = Project.find(params[:project_id])
     @user = current_user
@@ -32,31 +30,26 @@ class UserStarProjectsController < ApplicationController
 
     respond_to do |format|
       if @user_star_project.save
-        format.html { redirect_to @project, notice: 'User star project was successfully created.' }
-        format.json { render :show, status: :created, location: @user_star_project }
+        # format.html { redirect_to @project, notice: 'User star project was successfully created.' }
+        format.js
       else
         format.html { render :new }
-        format.json { render json: @user_star_project.errors, status: :unprocessable_entity }
       end
     end
   end
 
   # PATCH/PUT /user_star_projects/1
-  # PATCH/PUT /user_star_projects/1.json
   def update
     respond_to do |format|
       if @user_star_project.update(user_star_project_params)
         format.html { redirect_to @user_star_project, notice: 'User star project was successfully updated.' }
-        format.json { render :show, status: :ok, location: @user_star_project }
       else
         format.html { render :edit }
-        format.json { render json: @user_star_project.errors, status: :unprocessable_entity }
       end
     end
   end
 
   # DELETE /user_star_projects/1
-  # DELETE /user_star_projects/1.json
   def destroy
     @project = Project.find(params[:project_id])
     @user = current_user
@@ -65,8 +58,8 @@ class UserStarProjectsController < ApplicationController
     @user_star_projects.destroy_all
 
     respond_to do |format|
-      format.html { redirect_to @project, notice: 'User star project was successfully destroyed.' }
-      format.json { head :no_content }
+      # format.html { redirect_to project_url(@project), notice: 'User star project was successfully destroyed.' }
+      format.js
     end
   end
 

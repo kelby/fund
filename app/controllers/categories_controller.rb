@@ -34,6 +34,8 @@ class CategoriesController < ApplicationController
 
   # PATCH/PUT /categories/1
   def update
+    authorize :update, @category
+
     respond_to do |format|
       if @category.update(category_params)
         format.html { redirect_to @category, notice: 'Category was successfully updated.' }
@@ -45,6 +47,8 @@ class CategoriesController < ApplicationController
 
   # DELETE /categories/1
   def destroy
+    authorize :destroy, @category
+
     @category.destroy
     respond_to do |format|
       format.html { redirect_to categories_url, notice: 'Category was successfully destroyed.' }
