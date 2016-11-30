@@ -220,4 +220,36 @@ class Project < ApplicationRecord
     _package_info.set_package_info(self.author, self.name)
     _package_info.save
   end
+
+  def self.set_info
+    ps = self.where(id: (Project.pod.ids - Project.pod.joins(:pod_info).ids))
+    ps.each do |project|
+      self.delay.set_pod_info(project.id)
+    end
+
+    ps = self.where(id: (Project.package.ids - Project.package.joins(:package_info).ids))
+    ps.each do |project|
+      self.delay.set_gem_info(project.id)
+    end
+
+    ps = self.where(id: (Project.gem.ids - Project.gem.joins(:gem_info).ids))
+    ps.each do |project|
+      self.delay.set_package_info(project.id)
+    end
+  end
+
+  def self.set_pod_info(project_id)
+    project = Project.find(project_id)
+    project.set_pod_info
+  end
+
+  def self.set_gem_info(project_id)
+    project = Project.find(project_id)
+    project.set_gem_info
+  end
+
+  def self.set_package_info(project_id)
+    project = Project.find(project_id)
+    project.set_package_info
+  end
 end
