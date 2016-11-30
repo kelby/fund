@@ -26,6 +26,12 @@ class Project < ApplicationRecord
   has_one :package_info
 
   has_many :comments, as: :commentable
+
+  has_many :user_star_projects
+  has_many :user_recommend_projects
+
+  has_many :star_by_users, through: :user_star_projects, source: :user
+  has_many :recommend_by_users, through: :user_recommend_projects, source: :user
   # END
 
 

@@ -10,6 +10,7 @@
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  others            :text(65535)
+#  readme            :text(65535)
 #
 
 class GithubInfo < ApplicationRecord

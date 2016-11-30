@@ -31,6 +31,12 @@ class User < ApplicationRecord
   # Associations
   has_many :authentications
   has_many :comments, as: :commentable
+
+  has_many :user_star_projects
+  has_many :user_recommend_projects
+
+  has_many :star_projects, through: :user_star_projects, source: :project
+  has_many :recommend_projects, through: :user_recommend_projects, source: :project
   # END
 
 

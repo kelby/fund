@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>User Recommend Projects</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Project</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @user_recommend_projects.each do |user_recommend_project| %>
+      <tr>
+        <td><%= user_recommend_project.user_id %></td>
+        <td><%= user_recommend_project.project_id %></td>
+        <td><%= link_to 'Show', user_recommend_project %></td>
+        <td><%= link_to 'Edit', edit_user_recommend_project_path(user_recommend_project) %></td>
+        <td><%= link_to 'Destroy', user_recommend_project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New User Recommend Project', new_user_recommend_project_path %>

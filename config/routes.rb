@@ -1,6 +1,8 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  resources :user_recommend_projects, only: [:create, :destroy]
+  resources :user_star_projects, only: [:create, :destroy]
   resources :comments
 
   authenticate :user, lambda { |u| u.is_admin? } do
@@ -11,7 +13,16 @@ Rails.application.routes.draw do
   resources :projects do
     member do
       get :popularity
+
+      get :star
+      get :recommend
     end
+
+    post :star, to: "user_star_projects#create"
+    post :recommend, to: "user_recommend_projects#create"
+
+    delete :star, to: "user_star_projects#destroy"
+    delete :recommend, to: "user_recommend_projects#destroy"
 
     collection do
       get :search

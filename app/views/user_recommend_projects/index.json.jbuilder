@@ -1,0 +1,1 @@
+json.array! @user_recommend_projects, partial: 'user_recommend_projects/user_recommend_project', as: :user_recommend_project

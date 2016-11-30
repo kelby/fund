@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
     redirect_to root_url, :alert => exception.message
   end
 
+  before_action :fake_sign_in
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   helper_method :current_user?
@@ -12,6 +13,10 @@ class ApplicationController < ActionController::Base
   private
   def current_user?(user)
     user_signed_in? && current_user == user
+  end
+
+  def fake_sign_in
+    # sign_in(:user, User.find(1)) if !user_signed_in? && Rails.env.development?
   end
 
   protected

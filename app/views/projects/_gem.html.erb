@@ -179,28 +179,41 @@
   </table>
 
 
-  <!-- <hr> -->
+  <hr>
 
 
-  <!-- <h3>Code</h3>
+  <h3>操作</h3>
   <table class="inset">
     <tbody>
     <tr>
-      <td>Files</td>
-      <td>12</td>
-    </tr>
-    <tr>
-      <td><span class="hidden-lg-span">Size</span><span class="visible-lg-span">Integration Size</span>
+      <td>
+        <%= button_to project_star_path(project) do %>
+          收藏
+        <% end %>
       </td>
-      <td>72 kb</td>
-    </tr>
-    <tr>
-      <td><span class="hidden-lg-span">LOC</span><span class="visible-lg-span">Lines of Code</span>
+
+      <td>
+        <%= link_to star_project_path(project) do %>
+          12
+        <% end %>
       </td>
-      <td>398</td>
+    </tr>
+
+    <tr>
+      <td>
+        <%= button_to project_recommend_path(project) do %>
+          推荐
+        <% end %>
+      </td>
+
+      <td>
+        <%= link_to recommend_project_path(project) do %>
+          12
+        <% end %>
+      </td>
     </tr>
     </tbody>
-  </table> -->
+  </table>
 
 
 

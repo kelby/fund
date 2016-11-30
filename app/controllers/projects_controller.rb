@@ -1,6 +1,12 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy, :popularity]
 
+  def star
+  end
+
+  def recommend
+  end
+
   def search
     projects = Project.all
 
