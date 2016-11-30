@@ -1,4 +1,5 @@
 class CatalogsController < ApplicationController
+  before_action :authenticate_user!, only: [:create, :update, :edit, :destroy]
   before_action :set_catalog, only: [:show, :edit, :update, :destroy]
 
   # GET
@@ -42,7 +43,7 @@ class CatalogsController < ApplicationController
 
   # POST /catalogs
   def create
-    @catalog = Catalog.new(catalog_params)
+    @catalog = Catalog.new(catalog_params.merge(user_id: current_user.id))
 
     respond_to do |format|
       if @catalog.save
@@ -58,7 +59,7 @@ class CatalogsController < ApplicationController
     authorize :update, @catalog
 
     respond_to do |format|
-      if @catalog.update(catalog_params)
+      if @catalog.update(catalog_params.merge(user_id: current_user.id))
         format.html { redirect_to catalog_path(@catalog), notice: 'Catalog was successfully updated.' }
       else
         format.html { render :edit }

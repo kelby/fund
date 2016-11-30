@@ -1,4 +1,5 @@
 class CategoriesController < ApplicationController
+  before_action :authenticate_user!, only: [:create, :update, :edit, :destroy]
   before_action :set_category, only: [:show, :edit, :update, :destroy]
 
   # GET /categories
@@ -21,7 +22,7 @@ class CategoriesController < ApplicationController
 
   # POST /categories
   def create
-    @category = Category.new(category_params)
+    @category = Category.new(category_params.merge(user_id: current_user.id))
 
     respond_to do |format|
       if @category.save
@@ -37,7 +38,7 @@ class CategoriesController < ApplicationController
     authorize :update, @category
 
     respond_to do |format|
-      if @category.update(category_params)
+      if @category.update(category_params.merge(user_id: current_user.id))
         format.html { redirect_to @category, notice: 'Category was successfully updated.' }
       else
         format.html { render :edit }

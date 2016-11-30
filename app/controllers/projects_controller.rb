@@ -1,4 +1,6 @@
 class ProjectsController < ApplicationController
+  before_action :authenticate_user!, only: [:create, :update, :edit, :destroy]
+
   before_action :set_project, only: [:show, :edit, :update, :destroy,
     :popularity, :star, :recommend]
 
