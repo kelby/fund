@@ -17,6 +17,8 @@ class UserRecommendProject < ApplicationRecord
   belongs_to :project
 
   def self.had_recommend_by?(project, user)
+    return false if user.blank?
+
     self.where(project_id: project.id, user_id: user.id).present?
   end
 end

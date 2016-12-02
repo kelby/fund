@@ -120,4 +120,21 @@ class PackageInfo < ApplicationRecord
   def get_version
     self.others['version'].keys.select{|key| !(key =~ PackageInfo::REGEX) }.first
   end
+
+  def self.get_package_info(vendor, package)
+    url = PackageInfo::API_URL.gsub(/\[vendor\]/, vendor).gsub(/\[package\]/, package)
+
+    api_content = open(url).read
+
+    json_content = JSON.parse(api_content)
+    json_content
+  end
+
+  def self.get_project_github_url(vendor, package)
+    json_content = self.get_package_info(vendor, package)
+
+    package_info = json_content['package']
+
+    package_info['repository']
+  end
 end
