@@ -47,6 +47,8 @@ namespace :ruby_tool do
             end
 
             ws.each do |project_name|
+              delay = rand(1..3600)
+              self.delay_for(delay).get_and_create_gem_project(project_name, category.id)
             end
           end
       end
