@@ -96,3 +96,5 @@ gem 'kaminari'
 gem 'meta-tags'
 
 gem 'whenever', :require => false
+
+gem 'nokogiri'
