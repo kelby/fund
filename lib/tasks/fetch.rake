@@ -1,6 +1,11 @@
 require 'nokogiri'
 require 'open-uri'
 
+# awesome-*
+# https://www.ruby-toolbox.com/
+
+# https://github.com/tuwannu/awesome-laravel#popularnotable-packages
+
 namespace :ruby_tool do
   desc "index page"
   task :index_page => [:environment] do
@@ -58,7 +63,7 @@ end
 
 namespace :packagist do
   desc "tags laravel"
-  task :tags_laravel => [:dependent, :tasks] do
+  task :tags_laravel => [:environment] do
     (1..10).each do |i|
       if i == 1
         url = "https://packagist.org/search/?tags=laravel"
