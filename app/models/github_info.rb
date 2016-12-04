@@ -60,6 +60,22 @@ class GithubInfo < ApplicationRecord
     end
   end
 
+  scope :none_data, ->{ where("subscribers_count = ? OR watchers_count = ? OR forks_count = ?", nil, nil, nil) }
+
+  def set_some_count(not_force=true)
+    return if self.project.blank?
+
+    if not_force
+      if self.subscribers_count.present? && self.watchers_count.present? && self.forks_count.present?
+        return
+      end
+    end
+
+    self.project.set_raking_data
+
+    self.project.github_info.save
+  end
+
   def set_readme
     self.readme = Base64.decode64(fetch_reade_from_github["content"].presence || "")
   end

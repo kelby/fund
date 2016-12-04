@@ -41,6 +41,9 @@ class GemInfo < ApplicationRecord
 
   belongs_to :project
 
+  scope :none_data, ->{ where("total_downloads = ?", nil) }
+
+
   GEM_INFO_URL = "https://rubygems.org/api/v1/gems/"
   def get_gem_info(name)
     url = "#{GemInfo::GEM_INFO_URL}#{name}.json"

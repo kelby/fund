@@ -65,8 +65,129 @@ class Project < ApplicationRecord
 
   # Constants
   API_GITHUB = "https://api.github.com/"
+
+  RAILS_BASE = {'watchers' => 2321, 'stars' => 33566, 'forks' => 13698, 'downloads' => 81138762}
+  SWIFT_BASE = {'watchers' => 2406, 'stars' => 35406, 'forks' => 5135, 'downloads' => 81138762}
+  LARAVEL_BASE = {'watchers' => 3522, 'stars' => 27582, 'forks' => 9131, 'downloads' => 3941137}
   # END
 
+  def self.set_gem_popularity
+    self.gem.joins(:github_info, :gem_info).uniq.each do |project|
+      if project.github_info.blank? || project.gem_info.blank?
+        next
+      end
+
+      project.set_gem_popularity
+      project.save!
+    end
+  end
+
+  def set_gem_popularity
+    # p self.id
+    a = self.subscribers_count.to_f / Project::RAILS_BASE['stars']
+    # p a
+    b = self.watchers_count.to_f / Project::RAILS_BASE['watchers']
+    # p b
+    c = self.forks_count.to_f / Project::RAILS_BASE['forks']
+    # p c
+
+    e = (a + b + c) / 3
+    # p e
+
+    d = self.total_downloads.to_f / Project::RAILS_BASE['downloads']
+    # p d
+
+    self.popularity = ((e + d) / 2 * 100).round(4)
+    # self.save
+  end
+
+
+  def self.set_package_popularity
+    self.package.joins(:github_info, :package_info).uniq.each do |project|
+      if project.github_info.blank? || project.package_info.blank?
+        next
+      end
+
+      project.set_package_popularity
+      project.save!
+    end
+  end
+
+  def set_package_popularity
+    # p self.id
+    a = self.subscribers_count.to_f / Project::LARAVEL_BASE['stars']
+    # p a
+    b = self.watchers_count.to_f / Project::LARAVEL_BASE['watchers']
+    # p b
+    c = self.forks_count.to_f / Project::LARAVEL_BASE['forks']
+    # p c
+
+    e = (a + b + c) / 3
+    # p e
+
+    d = self.total_downloads.to_f / Project::LARAVEL_BASE['downloads']
+    # p d
+
+    self.popularity = ((e + d) / 2 * 100).round(4)
+    # self.save
+  end
+
+  def self.set_pod_popularity
+    self.pod.joins(:github_info, :pod_info).uniq.each do |project|
+      if project.github_info.blank? || project.pod_info.blank?
+        next
+      end
+
+      project.set_pod_popularity
+      project.save!
+    end
+  end
+
+  def set_pod_popularity
+    # p self.id
+    a = self.subscribers_count.to_f / Project::SWIFT_BASE['stars']
+    # p a
+    b = self.watchers_count.to_f / Project::SWIFT_BASE['watchers']
+    # p b
+    c = self.forks_count.to_f / Project::SWIFT_BASE['forks']
+    # p c
+
+    e = (a + b + c) / 3
+    # p e
+
+    d = self.total_downloads.to_f / Project::SWIFT_BASE['downloads']
+    # p d
+
+    self.popularity = ((e + d) / 2 * 100).round(4)
+    # self.save
+  end
+
+
+  def subscribers_count
+    self.github_info.subscribers_count || 0
+  end
+
+  def watchers_count
+    self.github_info.watchers_count || 0
+  end
+
+  def forks_count
+    self.github_info.forks_count || 0
+  end
+
+  def total_downloads
+    if self.gem?
+      return self.gem_info.total_downloads || 0
+    end
+
+    if self.package?
+      return self.package_info.total_downloads || 0
+    end
+
+    if self.pod?
+      return self.pod_info.total_downloads || 0
+    end
+  end
 
   def had_star_by?(user)
     UserStarProject.had_star_by?(self, user)

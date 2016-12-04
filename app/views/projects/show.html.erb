@@ -4,7 +4,31 @@
   <%= stylesheet_link_tag 'projects' %>
 <% end %>
 
-<div class="row">
+
+<% if @project.category.present? %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <%= link_to @project.category, target: "_blank" do %>
+        <%= @project.category.name %>
+      <% end %>
+    </div>
+
+    <div class="panel-body">
+      <% @project.category.projects.order(popularity: :desc).limit(6).each do |project| %>
+        <div class="col-md-2">
+          <%= link_to project, target: "_blank" do %>
+            <%= project.name %>
+            <br>
+            <%= project.popularity %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
+
+<div class="project-wraper clearfix">
   <% case @project.identity %>
   <% when "gem" %>
     <%= render "projects/gem", project: @project, info: @project.gem_info, github: @project.github_info %>
@@ -18,7 +42,7 @@
 </div>
 
 <% unless Rails.env.production? %>
-  <div class="row">
+  <!-- <div class="col-md-12"> -->
     <!-- GitHub Info -->
     <% if @project.github_info.present? %>
       <div class="panel panel-default">
@@ -126,10 +150,10 @@
         </div>
       </div>
     <% end %>
-  </div>
+  <!-- </div> -->
 <% end %>
 
-<div class="row">
+<!-- <div class="col-md-12 clearfix"> -->
   <% if @comments.present? %>
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -153,4 +177,4 @@
       <%= render 'comments/form', comment: @comment, commentable: @project %>
     </div>
   </div>
-</div>
+<!-- </div> -->
