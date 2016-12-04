@@ -36,6 +36,15 @@ class ProjectsController < ApplicationController
     @comments = @project.comments
   end
 
+  def repo
+    @project = Project.where(author: params[:author], name: params[:name]).first
+
+    @comment = Comment.new
+    @comments = @project.comments
+
+    render :show
+  end
+
   # GET /projects/new
   def new
     @project = Project.new

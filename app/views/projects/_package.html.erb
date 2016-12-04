@@ -2,7 +2,7 @@
   <div class="inline-headline">
     <h1 class="">
       <!-- <a href="/pods/ORStackView">ORStackView</a> -->
-      <%= link_to project.name, project %>
+      <%= link_to project.name, repo_path(project.repo_params) %>
       <!-- <span class="text-muted">3.0.1</span> -->
       <%= info.get_version %>
     </h1>

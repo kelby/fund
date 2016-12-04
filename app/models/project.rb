@@ -215,12 +215,16 @@ class Project < ApplicationRecord
   end
 
   def split_github
-    split_github = self.source_code.split("/")
+    self.source_code.split("/")
   end
 
   def set_github_identity
     self.author = split_github[-2]
     self.name = split_github[-1]
+  end
+
+  def repo_params
+    {name: self.name, author: self.author}
   end
 
   def convert_github_to_repo_url

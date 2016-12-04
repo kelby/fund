@@ -38,6 +38,7 @@ Rails.application.routes.draw do
   resources :categories
 
   get 'home/index'
+  get ':author/:name', to: "projects#repo", as: :repo
 
   root 'home#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

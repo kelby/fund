@@ -56,4 +56,8 @@ class Category < ApplicationRecord
         slug: Pinyin.t(category, splitter: "_"))
     end
   end
+
+  def to_param
+    "#{self.id}-#{self.slug}"
+  end
 end

@@ -173,8 +173,8 @@ class Catalog < ApplicationRecord
     self.slug = Pinyin.t(self.name, splitter: '_')
   end
 
-  def to_params
-    self.slug
+  def to_param
+    "#{self.id}-#{self.slug}"
   end
 end
 

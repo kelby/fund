@@ -6,7 +6,7 @@
       <div class="col-md-4">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <%= link_to project do %>
+            <%= link_to repo_path(project.repo_params) do %>
               <%= project.name %>
             <% end %>
           </div>
