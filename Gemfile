@@ -98,3 +98,6 @@ gem 'meta-tags'
 gem 'whenever', :require => false
 
 gem 'nokogiri'
+
+gem 'elasticsearch-model'
+gem 'elasticsearch-rails'

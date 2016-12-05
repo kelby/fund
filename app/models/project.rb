@@ -15,7 +15,12 @@
 #  author      :text(65535)
 #
 
+require 'elasticsearch/model'
+
 class Project < ApplicationRecord
+  include Elasticsearch::Model
+  include Elasticsearch::Model::Callbacks
+
   # Associations
   belongs_to :category
 
