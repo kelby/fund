@@ -1,6 +1,9 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  # resources :developers, only: [:show]
+  resources :developers
+
   resources :user_recommend_projects, only: [:create, :destroy]
   resources :user_star_projects, only: [:create, :destroy]
   resources :comments
@@ -53,4 +56,6 @@ Rails.application.routes.draw do
 
   resources :users do
   end
+
+  get ':name', to: "developers#show", as: :show_developer
 end

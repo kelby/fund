@@ -23,6 +23,7 @@ class Project < ApplicationRecord
 
   # Associations
   belongs_to :category
+  belongs_to :developer
 
   has_one :github_info
 
@@ -413,4 +414,8 @@ class Project < ApplicationRecord
 
     self.create(source_code: github_url, identity: Project.identities['gem'], category_id: category_id)
   end
+
+  # def to_param
+    # "#{self.id}-#{self.name}"
+  # end
 end

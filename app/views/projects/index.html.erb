@@ -16,6 +16,18 @@
           </div>
 
           <div class="panel-footer">
+            <span class="text-muted">
+              <% if project.gem? %>
+                Ruby
+              <% elsif project.package? %>
+                PHP
+              <% elsif project.pod? %>
+                Swift
+              <% end %>
+            </span>
+
+            &nbsp;&nbsp;
+
             <i class="fa fa-eye"></i>
             <%= project.github_info.watchers_count %>
 
