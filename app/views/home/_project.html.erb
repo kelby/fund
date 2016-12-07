@@ -1,10 +1,9 @@
 <div class="col-md-4">
   <h3>
-    <%= link_to project do %>
+    <%= link_to repo_path(project.repo_params) do %>
       <%= project.name %>
     <% end %>
   </h3>
 
   <%= simple_format project.description %>
-
 </div>

@@ -27,7 +27,7 @@
     <%= f.text_field :slug, class: "form-control" %>
   </div>
 
-  <div class="">
+  <div class="form-group">
     <%= f.label :type %>
     <%= f.select :type, options_for_select(['RailsCatalog', 'LaravelCatalog', 'SwiftCatalog'], catalog.type), {include_blank: true}, {required: true, class: "form-control"} %>
   </div>

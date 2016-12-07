@@ -4,40 +4,7 @@
   <div class="col-md-12">
     <% projects.each do |project| %>
       <div class="col-md-4">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <%= link_to repo_path(project.repo_params) do %>
-              <%= project.name %>
-            <% end %>
-          </div>
-
-          <div class="panel-body">
-            <%= project.description %>
-          </div>
-
-          <div class="panel-footer">
-            <span class="text-muted">
-              <% if project.gem? %>
-                Ruby
-              <% elsif project.package? %>
-                PHP
-              <% elsif project.pod? %>
-                Swift
-              <% end %>
-            </span>
-
-            &nbsp;&nbsp;
-
-            <i class="fa fa-eye"></i>
-            <%= project.github_info.watchers_count %>
-
-            <i class="fa fa-star-o"></i>
-            <%= project.github_info.subscribers_count %>
-
-            <i class="fa fa-code-fork"></i>
-            <%= project.github_info.forks_count %>
-          </div>
-        </div>
+        <%= render "projects/item", project: project %>
       </div>
     <% end %>
   </div>

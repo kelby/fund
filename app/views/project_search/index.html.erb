@@ -26,30 +26,22 @@
   </ul>
 </div>
 
-<div class="y">
-  搜索 "<%= params[:q] %>"，找到约 <%= @projects.size %> 条结果
-</div>
-
-<div class="z">
-  <ul>
-    <% @projects.each do |project| %>
-      <li>
-        <div>
-          <%= link_to project.name, project %>
-        </div>
-
-        <div>
-          <%= link_to (url_for project), (url_for project) %>
-        </div>
-
-        <div>
-          <%= project.description %>
-        </div>
-
-        <div>
-          <%= project.identity.capitalize %>
-        </div>
-      </li>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <% if params[:q].present? %>
+      搜索 "<%= params[:q] %>"，找到约 <%= @projects.size %> 条结果
     <% end %>
-  </ul>
+  </div>
+
+  <div class="panel-body">
+    <% if @projects.blank? %>
+      <div class="text-center text-muted">
+        没有搜索到结果
+      </div>
+    <% else %>
+      <ul class="media-list">
+        <%= render partial: "projects/media_list_item", collection: @projects, as: :project %>
+      </ul>
+    <% end %>
+  </div>
 </div>

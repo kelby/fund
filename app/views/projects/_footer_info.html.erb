@@ -1,0 +1,21 @@
+
+<span class="text-muted">
+  <% if project.gem? %>
+    Ruby
+  <% elsif project.package? %>
+    PHP
+  <% elsif project.pod? %>
+    Swift
+  <% end %>
+</span>
+
+&nbsp;&nbsp;
+
+<i class="fa fa-eye"></i>
+<%= project.github_info.watchers_count %>
+
+<i class="fa fa-star-o"></i>
+<%= project.github_info.subscribers_count %>
+
+<i class="fa fa-code-fork"></i>
+<%= project.github_info.forks_count %>

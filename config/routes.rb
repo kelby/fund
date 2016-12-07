@@ -28,10 +28,10 @@ Rails.application.routes.draw do
     delete :recommend, to: "user_recommend_projects#destroy"
 
     collection do
-      get :search
-      get :search_gem, to: "projects#search", type: 'gem'
-      get :search_package, to: "projects#search", type: 'package'
-      get :search_pod, to: "projects#search", type: 'pod'
+      get :search, to: "project_search#index"
+      get :search_gem, to: "project_search#index", type: 'gem'
+      get :search_package, to: "project_search#index", type: 'package'
+      get :search_pod, to: "project_search#index", type: 'pod'
     end
 
     resources :comments

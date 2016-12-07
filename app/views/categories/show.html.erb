@@ -1,5 +1,9 @@
 <% set_meta_tags title: @category.name %>
 
+<% content_for :content_css_link_yield do %>
+  <%= stylesheet_link_tag 'categories' %>
+<% end %>
+
 <ol class="breadcrumb">
   <li>
     <% url = @category.catalog.type.downcase.gsub(/catalog$/, '_path') %>
@@ -34,19 +38,23 @@
   </div>
 <% end %>
 
-<div class="col-md-12">
 
 
+<div class="panel panel-default">
+  <div class="panel-heading">
+    本类目下共有 <%= @category.projects.size %> 个项目
+  </div>
 
-  <ul>
-    <% @category.projects.each do |project| %>
-      <li>
-        <%= link_to project.name, repo_path(project.repo_params) %>
-        <br>
-        <%= project.description %>
-      </li>
+  <div class="panel-body">
+    <% if @category.projects.blank? %>
+      <div class="text-center text-muted">
+        没有搜索到结果
+      </div>
+    <% else %>
+      <ul class="media-list">
+        <%= render partial: "projects/media_list_item", collection: @category.projects, as: :project %>
+      </ul>
     <% end %>
-  </ul>
-
-
+  </div>
 </div>
+

@@ -1,0 +1,15 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <%= link_to repo_path(project.repo_params) do %>
+      <%= project.name %>
+    <% end %>
+  </div>
+
+  <div class="panel-body">
+    <%= project.description %>
+  </div>
+
+  <div class="panel-footer">
+    <%= render "projects/footer_info", project: project %>
+  </div>
+</div>

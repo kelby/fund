@@ -46,11 +46,11 @@
           <%= RailsCatalog.count %>
         </section>
       </div>
-      <div class="panel-body">
-        <ul class="list-group row">
+      <!-- <div class="panel-body"> -->
+        <ul class="list-group">
           <%= render partial: "home/catalog", as: :catalog, collection: RailsCatalog.all.includes(:categories) %>
         </ul>
-      </div>
+      <!-- </div> -->
     </div>
   </div>
 
@@ -68,11 +68,11 @@
         </section>
       </div>
 
-      <div class="panel-body">
-        <ul class="list-group row">
+      <!-- <div class="panel-body"> -->
+        <ul class="list-group">
           <%= render partial: "home/catalog", as: :catalog, collection: LaravelCatalog.all.includes(:categories) %>
         </ul>
-      </div>
+      <!-- </div> -->
     </div>
   </div>
 
@@ -90,11 +90,11 @@
         </section>
       </div>
 
-      <div class="panel-body">
-        <ul class="list-group row">
+      <!-- <div class="panel-body"> -->
+        <ul class="list-group">
           <%= render partial: "home/catalog", as: :catalog, collection: SwiftCatalog.all.includes(:categories) %>
         </ul>
-      </div>
+      <!-- </div> -->
     </div>
   </div>
 </div>

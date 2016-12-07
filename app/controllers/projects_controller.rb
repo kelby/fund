@@ -12,22 +12,12 @@ class ProjectsController < ApplicationController
     @users = @project.recommend_by_users
   end
 
-  def search
-    projects = Project.all
-
-    if params[:type].present?
-      projects = projects.where(identity: params[:type])
-    end
-
-    @projects = projects.where("name LIKE ?", "%#{params[:q]}%")
-  end
-
   def popularity
   end
 
   # GET /projects
   def index
-    @projects = Project.all.includes(:category, :github_info).page(params[:page]).per(6)
+    @projects = Project.all.includes(:category, :github_info).page(params[:page]).per(30)
   end
 
   # GET /projects/1

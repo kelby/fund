@@ -1,1 +1,15 @@
-Welcome to the Ruby Toolbox, <%= @user.name %>!
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h1>
+      Welcome to the Ruby Toolbox, <%= @user.name %>!
+    </h1>
+  </div>
+
+  <div class="panel-body">
+    <% if @user.star_projects.present? %>
+      <ul class="media-list">
+        <%= render partial: "projects/media_list_item", collection: @user.star_projects, as: :project %>
+      </ul>
+    <% end %>
+  </div>
+</div>
