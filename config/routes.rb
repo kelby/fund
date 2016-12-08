@@ -46,11 +46,11 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   get 'Ruby-Gems', to: "catalogs#rails", as: :rails
-  get 'gems', to: "catalogs#rails", as: :rails
+  get 'gems', to: "catalogs#rails"
   get 'Swift-Pods', to: "catalogs#swift", as: :swift
-  get 'pods', to: "catalogs#swift", as: :swift
+  get 'pods', to: "catalogs#swift"
   get 'PHP-Packages', to: "catalogs#laravel", as: :laravel
-  get 'packages', to: "catalogs#laravel", as: :laravel
+  get 'packages', to: "catalogs#laravel"
 
   get 'account', to: "users#account"
 
