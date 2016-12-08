@@ -105,18 +105,27 @@
   <h3>Downloads</h3>
   <table class="inset">
     <tbody>
-    <tr>
-      <td>Total</td>
-      <td><%= info.others['downloads']['total'] %></td>
-    </tr>
-    <tr>
-      <td>Daily</td>
-      <td><%= info.others['downloads']['daily'] %></td>
-    </tr>
-    <tr>
-      <td>Month</td>
-      <td><%= info.others['downloads']['monthly'] %></td>
-    </tr>
+      <tr>
+        <td>Total</td>
+        <td><%= info.others['downloads']['total'] %></td>
+      </tr>
+      <tr>
+        <td>Daily</td>
+        <td><%= info.others['downloads']['daily'] %></td>
+      </tr>
+      <tr>
+        <td>Month</td>
+        <td><%= info.others['downloads']['monthly'] %></td>
+      </tr>
+
+      <tr>
+        <td>下载</td>
+        <td>
+          <%= link_to github.others['downloads_url'].gsub(/downloads$/, 'zipball'), target: "_blank" do %>
+            <i class="fa fa-download"></i>
+          <% end %>
+        </td>
+      </tr>
     </tbody>
   </table>
 

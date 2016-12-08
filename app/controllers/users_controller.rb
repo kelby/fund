@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :authenticate_user!, only: [:account, :edit, :update]
 
   def show
-    @user = User.find(params[:id])
+    @user = User.find_by(name: params[:id])
 
     if current_user?(@user)
       redirect_to account_path

@@ -4,7 +4,7 @@
       <%= @users.size %>
 
       用户收藏了
-      <%= link_to @project do %>
+      <%= link_to repo_path(@project.repo_params) do %>
         <%= @project.name %>
       <% end %>
     </h2>

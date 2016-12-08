@@ -15,3 +15,13 @@
   padding-top: 15px;
   padding-bottom: 15px;
 }
+
+.catalogs {
+  .catalog-list {
+    padding-left: 0;
+  }
+
+  .catalog-list > li {
+    list-style-type: none;
+  }
+}

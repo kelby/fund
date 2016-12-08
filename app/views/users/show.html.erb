@@ -1,1 +1,15 @@
-<%= @user.name %>'s profile
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h1>
+      <%= @user.name %>'s profile!
+    </h1>
+  </div>
+
+  <div class="panel-body">
+    <% if @user.star_projects.present? %>
+      <ul class="media-list">
+        <%= render partial: "projects/media_list_item", collection: @user.star_projects, as: :project %>
+      </ul>
+    <% end %>
+  </div>
+</div>

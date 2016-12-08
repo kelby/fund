@@ -41,21 +41,26 @@ Rails.application.routes.draw do
   resources :categories
 
   get 'home/index'
-  get ':author/:name', to: "projects#repo", as: :repo
 
   root 'home#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  get 'rails', to: "catalogs#rails"
-  get 'swift', to: "catalogs#swift"
-  get 'laravel', to: "catalogs#laravel"
+  get 'Ruby-Gems', to: "catalogs#rails", as: :rails
+  get 'gems', to: "catalogs#rails", as: :rails
+  get 'Swift-Pods', to: "catalogs#swift", as: :swift
+  get 'pods', to: "catalogs#swift", as: :swift
+  get 'PHP-Packages', to: "catalogs#laravel", as: :laravel
+  get 'packages', to: "catalogs#laravel", as: :laravel
 
   get 'account', to: "users#account"
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
-  resources :users do
+  resources :users, path: "u" do
+    # get :id
   end
+
+  get ':author/:name', to: "projects#repo", as: :repo
 
   get ':name', to: "developers#show", as: :show_developer
 end

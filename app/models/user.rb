@@ -103,4 +103,8 @@ class User < ApplicationRecord
     set_name_by_nickname(info['nickname'])
     set_name_by_fullname(info['first_name'], info['last_name']) if self.name.blank?
   end
+
+  def to_param
+    name
+  end
 end

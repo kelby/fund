@@ -1,12 +1,18 @@
 <% set_meta_tags title: params[:action].capitalize %>
 
-<div class=" col-md-12">
-  <div class="col-md-9">
-    <ul>
+<% content_for :content_css_link_yield do %>
+  <%= stylesheet_link_tag 'catalogs' %>
+<% end %>
+
+<div class="col-xs-12 col-md-12">
+  <div class="col-md-9 xs-no-padding">
+    <ul class="catalog-list">
       <% @catalogs.each do |catalog| %>
         <li>
           <%= link_to catalog_path(catalog) do %>
-            <%= catalog.name %>
+            <h4>
+              <%= catalog.name %>
+            </h4>
           <% end %>
         </li>
 
@@ -22,9 +28,7 @@
     </ul>
   </div>
 
-  <div class="col-md-3">
-
-
+  <div class="col-md-3 xs-no-padding">
     <div class="panel panel-default">
       <div class="panel-heading">项目是什么？</div>
       <div class="panel-body">
