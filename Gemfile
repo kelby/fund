@@ -101,3 +101,5 @@ gem 'nokogiri'
 
 gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
+
+gem 'exception_notification'
