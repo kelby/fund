@@ -56,7 +56,7 @@ class CatalogsController < ApplicationController
 
   # PATCH/PUT /catalogs/1
   def update
-    authorize :update, @catalog
+    authorize! :update, @catalog
 
     respond_to do |format|
       if @catalog.update(catalog_params.merge(user_id: current_user.id))
@@ -69,7 +69,7 @@ class CatalogsController < ApplicationController
 
   # DELETE /catalogs/1
   def destroy
-    authorize :destroy, @catalog
+    authorize! :destroy, @catalog
 
     @catalog.destroy
     respond_to do |format|

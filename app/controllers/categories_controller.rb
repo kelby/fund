@@ -35,7 +35,7 @@ class CategoriesController < ApplicationController
 
   # PATCH/PUT /categories/1
   def update
-    authorize :update, @category
+    authorize! :update, @category
 
     respond_to do |format|
       if @category.update(category_params.merge(user_id: current_user.id))
@@ -48,7 +48,7 @@ class CategoriesController < ApplicationController
 
   # DELETE /categories/1
   def destroy
-    authorize :destroy, @category
+    authorize! :destroy, @category
 
     @category.destroy
     respond_to do |format|
