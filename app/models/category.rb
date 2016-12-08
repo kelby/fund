@@ -11,9 +11,9 @@
 #
 
 class Category < ApplicationRecord
-  belongs_to :catalog
+  belongs_to :catalog, counter_cache: true
 
-  has_many :projects, counter_cache: true
+  has_many :projects
 
   def self.set_categories
     ["Active Record DB Adapters",
