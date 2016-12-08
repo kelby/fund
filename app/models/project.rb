@@ -18,8 +18,8 @@
 require 'elasticsearch/model'
 
 class Project < ApplicationRecord
-  include Elasticsearch::Model
-  include Elasticsearch::Model::Callbacks
+  # include Elasticsearch::Model
+  # include Elasticsearch::Model::Callbacks
 
   # Associations
   belongs_to :category, counter_cache: true
