@@ -61,13 +61,13 @@ Rails.application.configure do
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
 
-  config.action_mailer.delivery_method = :sendmail
-  config.action_mailer.sendmail_settings = {
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
     address: 'smtp.mailgun.org',
     port: 587,
     domain: 'dev-toolbox.co',
     # 完整的邮箱地址
-    username: 'postmaster@dev-toolbox.co',
+    user_name: 'postmaster@dev-toolbox.co',
     password: Settings.mailgun.password,
     authentication: 'plain',
     enable_starttls_auto: true
