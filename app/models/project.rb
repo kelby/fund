@@ -359,15 +359,21 @@ class Project < ApplicationRecord
       self.delay.set_pod_info(project.id)
     end
 
+    ps.update_all(status: ::Project.statuses['offline'])
+
     ps = self.where(id: (Project.package.pending.ids - Project.package.pending.joins(:package_info).ids))
     ps.each do |project|
       self.delay.set_gem_info(project.id)
     end
 
+    ps.update_all(status: ::Project.statuses['offline'])
+
     ps = self.where(id: (Project.gem.pending.ids - Project.gem.pending.joins(:gem_info).ids))
     ps.each do |project|
       self.delay.set_package_info(project.id)
     end
+
+    ps.update_all(status: ::Project.statuses['offline'])
   end
 
   def self.set_pod_info(project_id)
@@ -376,8 +382,6 @@ class Project < ApplicationRecord
 
     if project.pod_info.present?
       project.online!
-    else
-      project.offline!
     end
   end
 
@@ -387,8 +391,6 @@ class Project < ApplicationRecord
 
     if project.gem_info.present?
       project.online!
-    else
-      project.offline!
     end
   end
 
@@ -398,8 +400,6 @@ class Project < ApplicationRecord
 
     if project.package_info.present?
       project.online!
-    else
-      project.offline!
     end
   end
 
