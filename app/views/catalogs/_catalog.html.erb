@@ -7,7 +7,7 @@
 
   <td><%= catalog.slug %></td>
 
-  <td><%= catalog.categories.count %></td>
+  <td><%= catalog.categories_count %></td>
 
   <td><%= link_to 'Edit', edit_catalog_path(catalog) %></td>
   <td><%= link_to 'Destroy', catalog_path(catalog), method: :delete, data: { confirm: 'Are you sure?' } %></td>

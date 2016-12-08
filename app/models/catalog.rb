@@ -16,7 +16,7 @@ class Catalog < ApplicationRecord
   validates_presence_of :name
   validates_presence_of :type
 
-  has_many :categories
+  has_many :categories, counter_cache: true
 
   before_create :set_slug
 
