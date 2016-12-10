@@ -42,8 +42,44 @@ class User < ApplicationRecord
 
   # Validates
   validates_presence_of :name
+  validates_uniqueness_of :name
   # END
 
+  # Callbacks
+  after_validation :detect_set_name
+  # END
+
+
+  def detect_set_name
+    taken_error = I18n.t("errors.messages.taken")
+
+    if self.errors[:name].include?(taken_error)
+      self.name += "-g"
+
+      self.remove_errors(:name, :taken)
+    end
+  end
+
+  # attribute = :name
+  # error = :taken
+  def remove_errors(attribute, error)
+    attribute = attribute.to_sym
+    error = error.to_sym
+
+    t_error_key = ['errors', 'messages'].push(error).join(".")
+
+    # remove messages error
+    messages = self.errors.messages[attribute]
+    messages.delete_if do |message|
+      message == I18n.t(t_error_key)
+    end
+
+    # remove details error
+    details = self.errors.details[attribute]
+    details.delete_if do |detail|
+      detail[:error] == error
+    end
+  end
 
   def self.from_omniauth(access_token)
     provider = access_token.provider
