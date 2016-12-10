@@ -31,6 +31,10 @@ class Ability
       end
 
       can :read, :all
+
+      cannot :create, Catalog
+      cannot :create, Category
+      cannot :create, Project
     end
     #
     # The first argument to `can` is the action you are giving the user
