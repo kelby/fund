@@ -44,6 +44,8 @@ class Project < ApplicationRecord
   # Rails class methods
   enum identity: {unknow: 0, gem: 2, package: 4, pod: 6}
   enum status: {pending: 0, offline: 4, online: 6}
+
+  scope :nolimit, -> { unscope(:limit, :offset) }
   # END
 
 
@@ -66,6 +68,8 @@ class Project < ApplicationRecord
   # after_create :build_github_info
 
   before_validation :set_github_identity
+
+  after_update :detect_and_set_recommend_at
   # END
 
 
@@ -168,6 +172,11 @@ class Project < ApplicationRecord
     # self.save
   end
 
+  def detect_and_set_recommend_at
+    if self.today_recommend_changed? && self.today_recommend?
+      self.touch! :recommend_at
+    end
+  end
 
   def subscribers_count
     self.github_info.subscribers_count || 0

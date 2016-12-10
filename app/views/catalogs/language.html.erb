@@ -4,19 +4,25 @@
   <%= stylesheet_link_tag 'catalogs' %>
 <% end %>
 
-<div class="col-xs-12 col-md-12">
+<div class="col-xs-12 col-md-12 content">
   <div class="col-md-9 xs-no-padding">
     <ul class="catalog-list">
       <% @catalogs.each do |catalog| %>
         <li>
-          <%= link_to catalog_path(catalog) do %>
-            <h4>
+          <h2>
+            <%= link_to catalog_path(catalog) do %>
               <%= catalog.name %>
-            </h4>
-          <% end %>
+            <% end %>
+
+            <% if catalog.sketch.present? %>
+              <small>
+                <%= catalog.sketch %>
+              </small>
+            <% end %>
+          </h2>
         </li>
 
-        <ul>
+        <ul class="category-list">
           <% catalog.categories.each do |category| %>
             <li>
               <%= link_to category.name, category %>

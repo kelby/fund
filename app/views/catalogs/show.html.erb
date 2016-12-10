@@ -9,7 +9,7 @@
     <% url = @catalog.type.downcase.gsub(/catalog$/, '_path') %>
 
     <%= link_to eval(url) do %>
-      <%= @catalog.type %>
+      <%= @catalog.human_supercatalog_name %>
     <% end %>
   </li>
 
@@ -19,7 +19,7 @@
 </ol>
 
 <!-- <div class="col-md-12"> -->
-<div class="panel panel-default">
+<div class="panel panel-default show-catalog">
   <div class="panel-heading">
     <h1>
       <%= link_to catalog_path(@catalog) do %>
@@ -37,6 +37,8 @@
     <ul class="list-group">
       <% @catalog.categories.each do |category| %>
         <li  class="list-group-item">
+          <span class="badge"><%= category.projects_count %></span>
+
           <%= link_to category.name, category %>
         </li>
       <% end %>

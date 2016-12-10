@@ -1,7 +1,24 @@
+@media (max-width: 767px) {
+  body > .home.container {
+    margin-top: 0;
+  }
+}
+
 .home {
   .slogan {
     margin-bottom: 35px;
     margin-top: 20px;
+  }
+
+  @media (max-width: 767px) {
+    .slogan {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    .prefix {
+      padding-bottom: 15px;
+    }
   }
 
   .panel {
@@ -14,4 +31,32 @@
       }
     }
   }
+
+  .recommend-projects {
+    padding-bottom: 15px;
+
+    h3 {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    hr {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .recommend-projects {
+      hr {
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+    }
+
+    .content {
+      padding-bottom: 15px;
+    }
+  }
 }
+

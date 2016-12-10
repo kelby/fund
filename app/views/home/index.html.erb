@@ -13,9 +13,9 @@
 <% end %>
 
 
-<div class="col-md-12">
+<div class="col-md-12 recommend-projects">
   <div class="row">
-    <%= render partial: "home/project", collection: @gems, as: :project %>
+    <%= render partial: "home/project", collection: @recommend_gems, as: :project %>
   </div>
 
   <!-- <hr>
@@ -27,18 +27,18 @@
   <hr>
 
   <div class="row">
-    <%= render partial: "home/project", collection: @pods, as: :project %>
+    <%= render partial: "home/project", collection: @recommend_pods, as: :project %>
   </div>
 </div>
 
 
-<div class="col-md-12" style="margin-top: 20px;padding-top: 20px;">
-  <div class="col-md-6 no-padding-left">
+<div class="col-md-12 content" style="margin-top: 20px;padding-top: 20px;">
+  <div class="col-md-6 no-padding-left xs-no-padding">
     <div class="panel panel-default">
       <div class="panel-heading">
         <h2 class="top-catalog">
           <%= link_to rails_path do %>
-            Gems
+            <%= Catalog::TOP_PLURAL['gem'] %>
           <% end %>
         </h2>
 
@@ -76,12 +76,12 @@
     </div>
   </div> -->
 
-  <div class="col-md-6 no-padding-right">
+  <div class="col-md-6 no-padding-right xs-no-padding">
     <div class="panel panel-default">
       <div class="panel-heading">
         <h2 class="top-catalog">
           <%= link_to swift_path do %>
-            Pods
+            <%= Catalog::TOP_PLURAL['pod'] %>
           <% end %>
         </h2>
 

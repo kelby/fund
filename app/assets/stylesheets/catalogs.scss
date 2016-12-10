@@ -1,5 +1,8 @@
+.catalogs .content {
+  padding-bottom: 5px;
+}
+
 .catalogs .title {
-  // border: 1px solid #ddd;
   background-color: white;
   padding: 15px;
   margin-bottom: 20px;
@@ -23,5 +26,31 @@
 
   .catalog-list > li {
     list-style-type: none;
+
+    h2 {
+      font-size: 24px;
+    }
+  }
+
+  .catalog-list li:first-child h2 {
+    margin-top: 0;
+  }
+
+  @media (min-width: 768px) {
+    .category-list {
+      li {
+        margin-bottom: 5px;
+        margin-top: 5px;
+      }
+    }
+  }
+
+
+  .show-catalog {
+    h1 {
+      font-size: 24px;
+      margin-bottom: 5px;
+      margin-top: 5px;
+    }
   }
 }

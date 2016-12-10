@@ -1,3 +1,14 @@
+<% if params[:q].present? %>
+  <% set_meta_tags title: "#{params[:q]} 搜索结果" %>
+<% else %>
+  <% set_meta_tags title: "搜索项目" %>
+<% end %>
+
+<% content_for :content_css_link_yield do %>
+  <%= stylesheet_link_tag 'project_search' %>
+<% end %>
+
+
 <div class="x">
   <ul class="nav nav-tabs">
     <li class="<%= active_tab(search_projects_path) %>">
@@ -8,19 +19,19 @@
 
     <li class="<%= active_tab(search_gem_projects_path) %>">
       <%= link_to search_gem_projects_path(q: params[:q]) do %>
-        Gem
+        <%= Catalog::TOP_PLURAL['gem'] %>
       <% end %>
     </li>
 
-    <li class="<%= active_tab(search_package_projects_path) %>">
-      <%= link_to search_package_projects_path(q: params[:q]) do %>
+    <!-- <li class="<%#= active_tab(search_package_projects_path) %>">
+      <%#= link_to search_package_projects_path(q: params[:q]) do %>
         Package
-      <% end %>
-    </li>
+      <%# end %>
+    </li> -->
 
     <li class="<%= active_tab(search_pod_projects_path) %>">
       <%= link_to search_pod_projects_path(q: params[:q]) do %>
-        Pod
+        <%= Catalog::TOP_PLURAL['pod'] %>
       <% end %>
     </li>
   </ul>
@@ -33,7 +44,7 @@
     <% end %>
   </div>
 
-  <div class="panel-body">
+  <div class="panel-body content">
     <% if @projects.blank? %>
       <div class="text-center text-muted">
         没有搜索到结果
@@ -44,4 +55,10 @@
       </ul>
     <% end %>
   </div>
+
+  <% if @projects.nolimit.size > 20 %>
+    <div class="panel-footer">
+      <%= paginate @projects %>
+    </div>
+  <% end %>
 </div>

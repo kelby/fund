@@ -31,13 +31,13 @@
 <div class="project-wraper clearfix">
   <% case @project.identity %>
   <% when "gem" %>
-    <%= render "projects/gem", project: @project, info: @project.gem_info, github: @project.github_info %>
+    <%= render "projects/show/gem", project: @project, info: @project.gem_info, github: @project.github_info %>
   <% when "package" %>
-    <%= render "projects/package", project: @project, info: @project.package_info, github: @project.github_info %>
+    <%= render "projects/show/package", project: @project, info: @project.package_info, github: @project.github_info %>
   <% when "pod" %>
-    <%= render "projects/pod", project: @project, info: @project.pod_info, github: @project.github_info %>
+    <%= render "projects/show/pod", project: @project, info: @project.pod_info, github: @project.github_info %>
   <% else %>
-    <%= render "projects/project", project: @project %>
+    <%= render "projects/show/project", project: @project %>
   <% end %>
 </div>
 

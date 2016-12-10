@@ -1,11 +1,19 @@
-<div class="col-md-12">
-  <h1>New Project</h1>
+<% set_meta_tags title: "快速提交优质项目" %>
 
-  <p>
-    仅需1秒即可提交你感兴趣的项目
-    <br>
-    请确保提交的项目是 Rails、Laravel、Swift 插件并且 GitHub 有 100 Star 以上
-  </p>
+<% content_for :content_css_link_yield do %>
+  <%= stylesheet_link_tag 'projects' %>
+<% end %>
 
-  <%= render 'new_form', project: @project %>
+<div class="col-md-12 proejct-new">
+  <div class="content col-md-offset-2 col-md-8 xs-no-padding">
+    <h1>New Project</h1>
+
+    <h2>
+      仅需几秒种即可提交你感兴趣的项目，
+      <br>
+      请确保提交的项目是 Rails、Swift 插件并且 GitHub 有 100 Star 以上。
+    </h2>
+
+    <%= render 'new_form', project: @project %>
+  </div>
 </div>

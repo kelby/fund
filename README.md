@@ -22,3 +22,8 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+- 网站首页
+- 两个语言类型列表页
+- 创建项目页
+- 项目搜索结果页

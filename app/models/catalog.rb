@@ -11,14 +11,29 @@
 #
 
 class Catalog < ApplicationRecord
+  # Validates
   validates_uniqueness_of :name, scope: :type
 
   validates_presence_of :name
   validates_presence_of :type
+  # END
 
+
+  # Associations
   has_many :categories
+  # END
 
+
+  # Callbacks
   before_create :set_slug
+  # END
+
+
+  # Constants
+  TOP_SINGULAR = {'gem' => "Ruby Gem", 'package' => "PHP Pacakge", 'pod' => "Swift Pod"}
+  TOP_PLURAL = {'gem' => "Ruby Gems", 'package' => "PHP Pacakges", 'pod' => "Swift Pods"}
+  # END
+
 
   def self.set_rails_catalog
     ["Active Record Plugins",
@@ -166,6 +181,20 @@ class Catalog < ApplicationRecord
     "laravel-analytics",
     "active"].each do |category|
       LaravelCatalog.create(name: category, slug: Pinyin.t(category, splitter: '_'))
+    end
+  end
+
+
+  def human_supercatalog_name
+    case self.type
+    when "RailsCatalog"
+      TOP_PLURAL['gem']
+    when "LaravelCatalog"
+      TOP_PLURAL['package']
+    when "SwiftCatalog"
+      TOP_PLURAL['pod']
+    else
+      "未知"
     end
   end
 

@@ -28,6 +28,10 @@ html {
     padding-left: 0;
     padding-right: 0;
   }
+
+  .xs-full-width {
+    width: 100%;
+  }
 }
 
 body {
@@ -86,6 +90,19 @@ body > .container {
   margin-top: 20px;
   margin-bottom: 90px;
 }
+
+@media (max-width: 767px) {
+  body > .container {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  body > .navbar > .container {
+      padding-left: 10px;
+      padding-right: 10px;
+  }
+}
+
 
 .footer {
   .container .text-muted {

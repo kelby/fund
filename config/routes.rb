@@ -29,9 +29,9 @@ Rails.application.routes.draw do
 
     collection do
       get :search, to: "project_search#index"
-      get :search_gem, to: "project_search#index", type: 'gem'
-      get :search_package, to: "project_search#index", type: 'package'
-      get :search_pod, to: "project_search#index", type: 'pod'
+      get :ruby_gems, to: "project_search#index", type: 'gem', as: :search_gem
+      get :php_packages, to: "project_search#index", type: 'package', as: :search_package
+      get :swift_pods, to: "project_search#index", type: 'pod', as: :search_pod
     end
 
     resources :comments
