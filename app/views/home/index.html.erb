@@ -18,11 +18,11 @@
     <%= render partial: "home/project", collection: @gems, as: :project %>
   </div>
 
-  <hr>
+  <!-- <hr>
 
   <div class="row">
-    <%= render partial: "home/project", collection: @packages, as: :project %>
-  </div>
+    <%#= render partial: "home/project", collection: @packages, as: :project %>
+  </div> -->
 
   <hr>
 
@@ -33,7 +33,7 @@
 
 
 <div class="col-md-12" style="margin-top: 20px;padding-top: 20px;">
-  <div class="col-md-4 no-padding-left">
+  <div class="col-md-6 no-padding-left">
     <div class="panel panel-default">
       <div class="panel-heading">
         <h2 class="top-catalog">
@@ -54,29 +54,29 @@
     </div>
   </div>
 
-  <div class="col-md-4">
+  <!-- <div class="col-md-4">
     <div class="panel panel-default">
       <div class="panel-heading">
         <h2 class="top-catalog">
-          <%= link_to laravel_path do %>
+          <%#= link_to laravel_path do %>
             Packages
-          <% end %>
+          <%# end %>
         </h2>
 
         <section class="pull-right">
-          <%= LaravelCatalog.count %>
+          <%#= LaravelCatalog.count %>
         </section>
       </div>
 
-      <!-- <div class="panel-body"> -->
-        <ul class="list-group">
-          <%= render partial: "home/catalog", as: :catalog, collection: LaravelCatalog.all.includes(:categories) %>
-        </ul>
-      <!-- </div> -->
+      <div class="panel-body"> -->
+        <!-- <ul class="list-group"> -->
+          <%#= render partial: "home/catalog", as: :catalog, collection: LaravelCatalog.all.includes(:categories) %>
+        <!-- </ul> -->
+      <!-- </div>
     </div>
-  </div>
+  </div> -->
 
-  <div class="col-md-4 no-padding-right">
+  <div class="col-md-6 no-padding-right">
     <div class="panel panel-default">
       <div class="panel-heading">
         <h2 class="top-catalog">
