@@ -17,9 +17,9 @@
           <%= link_to "Gems", rails_path %>
         </li>
 
-        <li class="<%= current_page?(laravel_path)? 'active' : nil %>">
-          <%= link_to "Packages", laravel_path %>
-        </li>
+        <!-- <li class="<%#= current_page?(laravel_path)? 'active' : nil %>">
+          <%#= link_to "Packages", laravel_path %>
+        </li> -->
 
         <li class="<%= current_page?(swift_path)? 'active' : nil %>">
           <%= link_to "Pods", swift_path %>
@@ -27,16 +27,24 @@
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
-        <li>
-          <%= link_to "Catalogs", catalogs_path %>
-        </li>
+        <% if can? :create, Catalog %>
+          <li>
+            <%= link_to "Catalogs", catalogs_path %>
+          </li>
+        <% end %>
 
-        <li>
-          <%= link_to "Categories", categories_path %>
-        </li>
-        <li>
-          <%= link_to "Projects", projects_path %>
-        </li>
+        <% if can? :create, Category %>
+          <li>
+            <%= link_to "Categories", categories_path %>
+          </li>
+        <% end %>
+
+        <% if can? :create, Project %>
+          <li>
+            <%= link_to "Projects", projects_path %>
+          </li>
+        <% end %>
+
 
         <% unless user_signed_in? %>
           <li>
