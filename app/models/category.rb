@@ -15,6 +15,8 @@ class Category < ApplicationRecord
 
   has_many :projects
 
+  before_create :set_slug
+
   def self.set_categories
     ["Active Record DB Adapters",
     "Active Record Default Values",
@@ -55,6 +57,10 @@ class Category < ApplicationRecord
       catalog.categories.create(name: category,
         slug: Pinyin.t(category, splitter: "_"))
     end
+  end
+
+  def set_slug
+    self.slug = Pinyin.t(self.name, splitter: '_')
   end
 
   def to_param

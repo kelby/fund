@@ -68,7 +68,13 @@ class PackageInfo < ApplicationRecord
 
       url = "#{PackageInfo::COMPOSER_URL.gsub(/:owner/, author).gsub(/:repo/, name).gsub(/:path/, path)}"
 
-      composer = JSON.parse(open(url).read)
+
+      begin
+        composer = JSON.parse(open(url).read)
+      rescue Exception => OpenURI::HTTPError
+        composer = {}
+      end
+
 
       content = Base64.decode64(composer['content'])
 
@@ -87,7 +93,12 @@ class PackageInfo < ApplicationRecord
 
     url = PackageInfo::API_URL.gsub(/\[vendor\]/, vendor).gsub(/\[package\]/, package)
 
-    api_content = open(url).read
+
+    begin
+      api_content = open(url).read
+    rescue Exception => OpenURI::HTTPError
+      api_content = {}
+    end
 
     json_content = JSON.parse(api_content)
     json_content
@@ -124,7 +135,13 @@ class PackageInfo < ApplicationRecord
   def self.get_package_info(vendor, package)
     url = PackageInfo::API_URL.gsub(/\[vendor\]/, vendor).gsub(/\[package\]/, package)
 
-    api_content = open(url).read
+
+    begin
+      api_content = open(url).read
+    rescue Exception => OpenURI::HTTPError
+      api_content = {}
+    end
+
 
     json_content = JSON.parse(api_content)
     json_content
