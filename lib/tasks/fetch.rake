@@ -90,3 +90,95 @@ namespace :packagist do
     end
   end
 end
+
+namespace :swift do
+  desc "matteocrippa awesome-swift"
+  task :matteocrippa => [:environment] do
+    doc = Nokogiri::HTML(open "https://github.com/matteocrippa/awesome-swift")
+
+
+    h3_titles = doc.css(".markdown-body h3")
+
+    h3_titles.each_with_index do |h3_title, index|
+      if index < 2
+        next
+      end
+
+      catalog = SwiftCatalog.find_or_create_by(name: h3_title.text)
+      Category.find_or_create_by(name: h3_title.text, catalog_id: catalog.id)
+    end
+
+    h4_titles = doc.css(".markdown-body h4")
+    h4_titles.each do |h4_title|
+      Category.find_or_create_by(name: h4_title.text)
+    end
+
+
+    catalog_category = doc.css(".markdown-body ul").first
+
+    catalog_category.children.each do |child|
+      if child.name != 'li'
+        next
+      end
+
+      catalog_name = child.css("a").first.text
+      catalog = SwiftCatalog.find_or_create_by(name: child.css("a").first.text)
+
+      if catalog_name == "Libs"
+        child.css("ul > li").each do |li|
+          catalog = Catalog.find_or_create_by(name: li.css("a").first.text)
+          # category.catalog_id = catalog.id
+          # category.save
+
+          li.css("ul > li").each do |li_child|
+            category = Category.find_or_create_by(name: li_child.css("a").first.text)
+            category.catalog_id = catalog.id
+            category.save
+          end
+        end
+      else
+        child.css("ul > li").each do |li|
+          category = Category.find_or_create_by(name: li.css("a").first.text)
+          category.catalog_id = catalog.id
+          category.save
+        end
+      end
+    end
+  end
+
+  desc "set matteocrippa projects"
+  task :set_matteocrippa_projects => [:environment] do
+    doc = Nokogiri::HTML(open "https://github.com/matteocrippa/awesome-swift")
+    
+    links = doc.css(".markdown-body ul li a")
+    links.each do |link_ele|
+      if link_ele.attributes['href'].value =~ /github\.com/
+        ul = link.parent.parent
+
+        if ul.node_name == "ul"
+          h3_ele = ul.previous_sibling.previous_sibling.previous_sibling
+          if h3_ele.node_name == "h3"
+            # ...
+          else
+            h3_ele = ul.previous_sibling.previous_sibling.previous_sibling.previous_sibling
+            if h3_ele.node_name == "h3"
+              # ...
+            else
+              next
+            end
+          end
+
+          category = Category.find_or_create_by(name: h3_ele.text)
+          project_name = link.attributes['href'].value
+          
+          delay = rand(1..600)
+          Project.delay_for(delay).get_and_create_gem_project(project_name, category.id)
+        else
+          next
+        end
+      else
+        next
+      end
+    end
+  end
+end
