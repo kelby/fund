@@ -52,7 +52,11 @@ class PodInfo < ApplicationRecord
   def get_api_info(name)
     url = "#{API_URL}#{name}"
 
-    api_response = open(url).read
+    begin
+      api_response = open(url).read
+    rescue Exception => OpenURI::HTTPError
+      api_response = {}
+    end
 
     json_content = JSON.parse(api_response)
 
