@@ -54,7 +54,7 @@ class PodInfo < ApplicationRecord
 
     begin
       api_response = open(url).read
-    rescue Exception => OpenURI::HTTPError
+    rescue OpenURI::HTTPError => e
       api_response = {}
     end
 
