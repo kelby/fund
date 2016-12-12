@@ -11,7 +11,7 @@
 #  first_release   :datetime
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
-#  others          :text(65535)
+#  others          :text(16777215)
 #
 
 class GemInfo < ApplicationRecord
