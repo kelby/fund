@@ -153,7 +153,7 @@ namespace :swift do
     links = doc.css(".markdown-body ul li a")
     links.each do |link_ele|
       if link_ele.attributes['href'].value =~ /github\.com/
-        ul = link.parent.parent
+        ul = link_ele.parent.parent
 
         if ul.node_name == "ul"
           h3_ele = ul.previous_sibling.previous_sibling.previous_sibling
@@ -169,7 +169,7 @@ namespace :swift do
           end
 
           category = Category.find_or_create_by(name: h3_ele.text)
-          project_name = link.attributes['href'].value
+          project_name = link_ele.attributes['href'].value
           
           delay = rand(1..600)
           Project.delay_for(delay).get_and_create_gem_project(project_name, category.id)
