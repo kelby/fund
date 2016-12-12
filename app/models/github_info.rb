@@ -49,7 +49,7 @@ class GithubInfo < ApplicationRecord
       begin
         open(url).read
       rescue OpenURI::HTTPError => e
-        @reademe_json = {}
+        @reademe_json = ""
       end
     end
 
