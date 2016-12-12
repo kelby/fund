@@ -417,13 +417,24 @@ class Project < ApplicationRecord
 
     doc = Nokogiri::HTML(` curl "#{url}" `)
 
-    x= doc.css("#content .github_repo h4>a")
+    x = doc.css("#content .github_repo h4>a")
 
     github_url = x.attribute("href").value
 
     self.create(source_code: github_url, identity: Project.identities['gem'], category_id: category_id)
   end
 
+  def self.get_and_create_pod_project(name, category_id)
+    # url = "https://www.ruby-toolbox.com/projects/#{name}"
+
+    # doc = Nokogiri::HTML(` curl "#{url}" `)
+
+    # x = doc.css("#content .github_repo h4>a")
+
+    # github_url = x.attribute("href").value
+
+    self.create(source_code: github_url, identity: Project.identities['pod'], category_id: category_id)
+  end
   # def to_param
     # "#{self.id}-#{self.name}"
   # end

@@ -172,7 +172,7 @@ namespace :swift do
           project_name = link_ele.attributes['href'].value
           
           delay = rand(1..600)
-          Project.delay_for(delay).get_and_create_gem_project(project_name, category.id)
+          Project.delay_for(delay).get_and_create_pod_project(project_name, category.id)
         else
           next
         end
