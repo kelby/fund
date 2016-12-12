@@ -221,6 +221,20 @@ class Project < ApplicationRecord
     self.github_info.set_readme
   end
 
+  def self.set_github_info(project_id)
+    project = Project.find(project_id)
+
+    if project.github_info.blank?
+      project.set_github_info
+    end
+
+    if project.github_info.blank?
+      project.online!
+    else
+      project.offline!
+    end
+  end
+
   def set_github_info
     self.build_github_info
 
