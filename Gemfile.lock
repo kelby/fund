@@ -91,6 +91,10 @@ GEM
     capistrano3-puma (1.2.1)
       capistrano (~> 3.0)
       puma (>= 2.6)
+    carrierwave (1.0.0.rc)
+      activemodel (>= 4.0.0)
+      activesupport (>= 4.0.0)
+      mime-types (>= 1.16)
     chinese_pinyin (1.0.0)
     chronic (0.10.2)
     coffee-rails (4.2.1)
@@ -319,6 +323,7 @@ DEPENDENCIES
   capistrano-secrets-yml (~> 1.0.0)
   capistrano-sidekiq
   capistrano3-puma
+  carrierwave (>= 1.0.0.rc, < 2.0)
   chinese_pinyin
   coffee-rails (~> 4.2)
   config

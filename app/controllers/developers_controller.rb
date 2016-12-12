@@ -9,6 +9,7 @@ class DevelopersController < ApplicationController
   # GET /developers/1
   def show
     @developer = Developer.find_by(name: params[:name])
+    @projects = @developer.projects.includes(:github_info).page(params[:page])
   end
 
   # GET /developers/new

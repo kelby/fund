@@ -1,0 +1,27 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <%= @projects.size %> 个项目
+  </div>
+  <!-- <div class="panel-body"> -->
+    
+    <div class="list-group">
+      <% @projects.each do |project| %>
+        <%= link_to repo_path(project.repo_params), class: "list-group-item paginated_full_item" do %>
+          <span class="login">
+            <%= project.name %>
+          </span>
+
+          <span class="stargazers_count pull-right">
+            <i class="fa fa-star"></i>
+            <%= project.github_info.subscribers_count %>
+          </span>
+        <% end %>
+      <% end %>
+
+    </div>
+  <!-- </div> -->
+
+  <div class="panel-footer clearfix">
+    <%= paginate @projects %>
+  </div>
+</div>

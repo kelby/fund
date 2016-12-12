@@ -1,53 +1,9 @@
-<div class="col-md-12">
+<div class="row developers">
+  <div class="sidebar col-md-4" id='sidebar'>
+    <%= render "sidebar", developer: @developer %>
+  </div>
 
-  <p>
-    <strong>Name:</strong>
-    <%= @developer.name %>
-  </p>
-
-  <p>
-    <strong>Avatar:</strong>
-    <%= @developer.avatar %>
-  </p>
-
-  <p>
-    <strong>Github:</strong>
-    <%= @developer.github_id %>
-  </p>
-
-  <p>
-    <strong>Public repos:</strong>
-    <%= @developer.public_repos %>
-  </p>
-
-  <p>
-    <strong>Subscribers count:</strong>
-    <%= @developer.subscribers_count %>
-  </p>
-
-  <p>
-    <strong>Watchers count:</strong>
-    <%= @developer.watchers_count %>
-  </p>
-
-  <p>
-    <strong>Forks count:</strong>
-    <%= @developer.forks_count %>
-  </p>
-
-  <p>
-    <strong>Projects</strong>
-
-    <ul>
-      <% @developer.projects.each do |project| %>
-        <li>
-          <%= link_to project.name, repo_path(project.repo_params), target: "_blank" %>
-        </li>
-      <% end %>
-    </ul>
-  </p>
-
-  <%= link_to 'Edit', edit_developer_path(@developer) %> |
-  <%= link_to 'Back', developers_path %>
-
+  <div class="col-md-8">
+    <%= render "developers/content", developer: @developer %>
+  </div>
 </div>

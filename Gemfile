@@ -103,3 +103,5 @@ gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
 
 gem 'exception_notification'
+
+gem 'carrierwave', '>= 1.0.0.rc', '< 2.0'

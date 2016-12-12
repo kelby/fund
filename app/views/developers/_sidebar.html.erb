@@ -1,0 +1,81 @@
+<div class="panel profile panel-default">
+  <div class="panel-body">
+    <div class="media">
+      <div class="avatar media-left">
+        <div class='image'>
+          <%#= user_avatar_tag(@user,:big, link: false) %>
+          <%= link_to developer_path(@developer) do %>
+
+            <%= image_tag @developer.avatar, class: "user_avatar media-object avatar-120", alt: @developer.name %>
+
+          <% end %>
+
+        </div>
+        <!-- <div class="level"><%#= render_user_level_tag(@user) %></div> -->
+      </div>
+
+      <div class="media-body">
+        <div class="item">
+          <%= @developer.name %>
+          <%#= @user.fullname %>
+          <!-- <span class="opts pull-right"> -->
+            <%# if admin? %>
+              <%#= link_to icon_tag("pencil", label: "修改"), edit_cpanel_user_path(@user.id) %>
+            <%# end %>
+          <!-- </span> -->
+          <!-- <span class="pull-right rank"> -->
+            <!-- Rank：<%#= @developer.rank %> -->
+          <!-- </span> -->
+        </div>
+        <div class="item number">
+          <span title="注册日期">
+            <%= link_to "#{Developer::GITHUB_URL}#{@developer.name}", target: "_blank" do %>
+              Go to GitHub
+              <i class="fa fa-external-link"></i>
+            <% end %>
+          </span>
+        </div>
+        <div class="item counts">
+          <span>
+            Fetched on
+            <%= @developer.updated_at.strftime("%F %R") %>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="follow-info row">
+      <div class="col-sm-4 col-xs-4 watch">
+        <section class="counter">
+          <%= @developer.watchers_count %>
+        </section>
+
+        <section class="text">
+          Watch
+        </section>
+      </div>
+
+      <div class="col-sm-4 col-xs-4 star">
+        <section class="counter">
+          <%= @developer.subscribers_count %>
+        </section>
+
+        <section class="text">
+          Star
+        </section>
+      </div>
+
+
+
+      <div class="col-sm-4 col-xs-4 fork">
+        <section class="counter">
+          <%= @developer.forks_count %>
+        </section>
+
+        <section class="text">
+          Fork
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
