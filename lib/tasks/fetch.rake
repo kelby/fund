@@ -148,7 +148,7 @@ namespace :swift do
 
   desc "set matteocrippa projects"
   task :set_matteocrippa_projects => [:environment] do
-    doc = Nokogiri::HTML(open "https://github.com/matteocrippa/awesome-swift")
+    doc = Nokogiri::HTML(open "https://github.com/matteocrippa/awesome-swift");
     
     links = doc.css(".markdown-body ul li a")
     links.each do |link_ele|
@@ -169,10 +169,10 @@ namespace :swift do
           end
 
           category = Category.find_or_create_by(name: h3_ele.text)
-          project_name = link_ele.attributes['href'].value
+          github_url = link_ele.attributes['href'].value
           
           delay = rand(1..600)
-          Project.delay_for(delay).get_and_create_pod_project(project_name, category.id)
+          Project.delay_for(delay).get_and_create_pod_project(github_url, category.id)
         else
           next
         end

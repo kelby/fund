@@ -424,7 +424,7 @@ class Project < ApplicationRecord
     self.create(source_code: github_url, identity: Project.identities['gem'], category_id: category_id)
   end
 
-  def self.get_and_create_pod_project(name, category_id)
+  def self.get_and_create_pod_project(github_url, category_id)
     # url = "https://www.ruby-toolbox.com/projects/#{name}"
 
     # doc = Nokogiri::HTML(` curl "#{url}" `)
