@@ -87,7 +87,7 @@ class Project < ApplicationRecord
   # END
 
   def self.set_gem_popularity
-    self.gem.joins(:github_info, :gem_info).uniq.each do |project|
+    self.gem.joins(:github_info, :gem_info).distinct.each do |project|
       if project.github_info.blank? || project.gem_info.blank?
         next
       end
@@ -113,12 +113,15 @@ class Project < ApplicationRecord
     # p d
 
     self.popularity = ((e + d) / 2 * 100).round(4)
-    # self.save
+
+    if self.changed?
+      self.save
+    end
   end
 
 
   def self.set_package_popularity
-    self.package.joins(:github_info, :package_info).uniq.each do |project|
+    self.package.joins(:github_info, :package_info).distinct.each do |project|
       if project.github_info.blank? || project.package_info.blank?
         next
       end
@@ -144,11 +147,14 @@ class Project < ApplicationRecord
     # p d
 
     self.popularity = ((e + d) / 2 * 100).round(4)
-    # self.save
+    
+    if self.changed?
+      self.save
+    end
   end
 
   def self.set_pod_popularity
-    self.pod.joins(:github_info, :pod_info).uniq.each do |project|
+    self.pod.joins(:github_info, :pod_info).distinct.each do |project|
       if project.github_info.blank? || project.pod_info.blank?
         next
       end
@@ -174,7 +180,10 @@ class Project < ApplicationRecord
     # p d
 
     self.popularity = ((e + d) / 2 * 100).round(4)
-    # self.save
+    
+    if self.changed?
+      self.save
+    end
   end
 
   def detect_and_set_recommend_at
@@ -457,4 +466,29 @@ class Project < ApplicationRecord
   # def to_param
     # "#{self.id}-#{self.name}"
   # end
+
+  def self.detect_and_set_online
+    Project.includes(:gem_info, :package_info, :pod_info).joins(:github_info).each do |project|
+      if project.gem?
+        if project.gem_info.present?
+          project.online!
+          project.set_gem_popularity
+        end
+      end
+
+      if project.package?
+        if project.package_info.present?
+          project.online!
+          project.set_package_popularity
+        end
+      end
+
+      if project.pod?
+        if project.pod_info.present?
+          project.online!
+          project.set_pod_popularity
+        end
+      end
+    end
+  end
 end

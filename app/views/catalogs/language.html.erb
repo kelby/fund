@@ -6,10 +6,10 @@
 
 <div class="col-xs-12 col-md-12 content">
   <div class="col-md-9 xs-no-padding">
-    <ul class="catalog-list">
-      <% @catalogs.each do |catalog| %>
-        <li>
-          <h2>
+    <% @catalogs.each do |catalog| %>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">
             <%= link_to catalog_path(catalog) do %>
               <%= catalog.name %>
             <% end %>
@@ -19,19 +19,27 @@
                 <%= catalog.sketch %>
               </small>
             <% end %>
-          </h2>
-        </li>
 
-        <ul class="category-list">
+            <section class="pull-right">
+              <%= catalog.categories_count %>
+            </section>
+          </h3>
+
+        </div>
+
+        <ul class="list-group">
           <% catalog.categories.each do |category| %>
-            <li>
+            <li class="list-group-item">
+              <span class="badge">
+                <%= category.projects_count %>
+              </span>
+
               <%= link_to category.name, category %>
             </li>
           <% end %>
         </ul>
-      <% end %>
-
-    </ul>
+      </div>
+    <% end %>
   </div>
 
   <div class="col-md-3 xs-no-padding">

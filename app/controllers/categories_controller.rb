@@ -9,6 +9,7 @@ class CategoriesController < ApplicationController
 
   # GET /categories/1
   def show
+    @projects = @category.projects.online
   end
 
   # GET /categories/new

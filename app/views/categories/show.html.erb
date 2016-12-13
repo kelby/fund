@@ -26,7 +26,7 @@
 <% if @category.present? %>
   <div class="panel panel-default popular-projects">
     <div class="panel-body">
-      <% @category.projects.order(popularity: :desc).limit(6).each_slice(2) do |projects| %>
+      <% @projects.order(popularity: :desc).limit(6).each_slice(2) do |projects| %>
         <div class="brother">
           <% projects.each do |project| %>
             <div class="col-md-2 col-xs-6 xs-no-padding popular-item">
@@ -46,19 +46,18 @@
 
 <div class="panel panel-default">
   <div class="panel-heading">
-    本类目下共有 <%= @category.projects.size %> 个项目
+    本类目下共有 <%= @projects.size %> 个项目
   </div>
 
   <div class="panel-body">
-    <% if @category.projects.blank? %>
+    <% if @projects.blank? %>
       <div class="text-center text-muted">
         没有搜索到结果
       </div>
     <% else %>
       <ul class="media-list">
-        <%= render partial: "projects/media_list_item", collection: @category.projects, as: :project %>
+        <%= render partial: "projects/media_list_item", collection: @projects, as: :project %>
       </ul>
     <% end %>
   </div>
 </div>
-

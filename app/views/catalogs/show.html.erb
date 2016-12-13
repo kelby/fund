@@ -26,9 +26,15 @@
         <%= @catalog.name %>
       <% end %>
 
-      <small>
+      <% if @catalog.sketch.present? %>
+        <small>
+          <%= @catalog.sketch %>
+        </small>
+      <% end %>
+
+      <section class="pull-right">
         <%= @catalog.categories_count %>
-      </small>
+      </section>
     </h1>
   </div>
 
