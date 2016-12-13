@@ -31,11 +31,14 @@ class GithubInfo < ApplicationRecord
   API_GITHUB = "https://api.github.com/"
   # END
 
+
   def self.set_project_nightspot(number=100)
     # number = 100
 
     self.where("subscribers_count < ?", number).includes(:project).find_each do |this|
-      this.project.nightspot!
+      if this.project.present?
+        this.project.nightspot!
+      end
     end
   end
 

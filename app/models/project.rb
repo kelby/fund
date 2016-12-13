@@ -497,22 +497,37 @@ class Project < ApplicationRecord
     Project.includes(:gem_info, :package_info, :pod_info).joins(:github_info).each do |project|
       if project.gem?
         if project.gem_info.present?
-          project.online!
           project.set_gem_popularity
+
+          if project.subscribers_count > 100
+            project.online!
+          else
+            project.nightspot!
+          end
         end
       end
 
       if project.package?
         if project.package_info.present?
-          project.online!
           project.set_package_popularity
+
+          if project.subscribers_count > 100
+            project.online!
+          else
+            project.nightspot!
+          end
         end
       end
 
       if project.pod?
         if project.pod_info.present?
-          project.online!
           project.set_pod_popularity
+
+          if project.subscribers_count > 100
+            project.online!
+          else
+            project.nightspot!
+          end
         end
       end
     end

@@ -28,4 +28,6 @@ end
 
 every 3.hours do
   runner "Project.detect_and_set_online"
+
+  runner "GithubInfo.set_project_nightspot"
 end
