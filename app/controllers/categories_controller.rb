@@ -9,7 +9,7 @@ class CategoriesController < ApplicationController
 
   # GET /categories/1
   def show
-    @projects = @category.projects.online
+    @projects = @category.projects.online.order(popularity: :desc)
   end
 
   # GET /categories/new
