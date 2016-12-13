@@ -209,6 +209,44 @@ namespace :swift do
     end
   end
 
+  desc "set Wolg awesome-swift"
+  task :set_wolg_awesome_swift => [:environment] do
+    url = "https://github.com/Wolg/awesome-swift"
+
+    doc = Nokogiri::HTML(open url);
+
+    xs = doc.css(".markdown-body h2");
+    xs.size
+
+    xs.each do |x|
+      if x.next_element.node_name == "ul"
+        name = x.text
+
+        catalog = SwiftCatalog.find_or_create_by(name: name)
+
+        category = catalog.categories.find_or_create_by(name: name)
+
+        y = x.next_element
+
+        links = y.css("li > a")
+
+        links.each do |link|
+          github_url = link.attributes['href'].value
+
+          if github_url =~ /github\.com/
+            delay = rand(1..600)
+            Project.delay_for(delay).get_and_create_pod_project(github_url, category.id)
+          else
+            next
+          end
+
+        end
+      else
+        next
+      end
+    end
+  end
+
   desc "get pod projects"
   task :get_pod_projects => [:environment] do
     category_id = nil
