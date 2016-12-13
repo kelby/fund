@@ -48,10 +48,17 @@ class GemInfo < ApplicationRecord
   def get_gem_info(name)
     url = "#{GemInfo::GEM_INFO_URL}#{name}.json"
 
-    api_content = open(url).read
+    begin
+      api_content = open(url).read
+    rescue OpenURI::HTTPError => e
+      api_content = ""
+      return
+    end
 
-    json_content = JSON.parse(api_content)
-    json_content
+    if api_content.present?
+      json_content = JSON.parse(api_content)
+      json_content
+    end
   end
 
   def set_gem_info(name)
@@ -69,9 +76,18 @@ class GemInfo < ApplicationRecord
   REVERSE_DEPENDENCIES_URL = "https://rubygems.org/api/v1/gems/shoulda/reverse_dependencies.json"
   def get_reverse_dependencies(name)
     url = "#{GemInfo::REVERSE_DEPENDENCIES_URL.gsub('shoulda', name)}"
-    api_content = open(url).read
 
-    JSON.parse(api_content)
+
+    begin
+      api_content = open(url).read
+    rescue OpenURI::HTTPError => e
+      api_content = ""
+      return
+    end
+
+    if api_content.present?
+      JSON.parse(api_content)
+    end
   end
 
   def set_reverse_dependencies(name)
@@ -83,9 +99,17 @@ class GemInfo < ApplicationRecord
   VERSIONS_URL = "https://rubygems.org/api/v1/versions/coulda.json"
   def get_versions(name)
     url = "#{GemInfo::VERSIONS_URL.gsub('coulda', name)}"
-    api_content = open(url).read
 
-    JSON.parse(api_content)
+    begin
+      api_content = open(url).read
+    rescue OpenURI::HTTPError => e
+      api_content = ""
+      return
+    end
+
+    if api_content.present?
+      JSON.parse(api_content)
+    end
   end
 
   def set_versions(name)

@@ -73,6 +73,7 @@ class PackageInfo < ApplicationRecord
         _composer = open(url).read
       rescue OpenURI::HTTPError => e
         _composer = ""
+        return
       end
 
       composer = JSON.parse(_composer)
@@ -100,6 +101,7 @@ class PackageInfo < ApplicationRecord
       api_content = open(url).read
     rescue OpenURI::HTTPError => e
       api_content = ""
+      return
     end
 
     json_content = JSON.parse(api_content)
@@ -142,6 +144,7 @@ class PackageInfo < ApplicationRecord
       api_content = open(url).read
     rescue OpenURI::HTTPError => e
       api_content = ""
+      return
     end
 
 

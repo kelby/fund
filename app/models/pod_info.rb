@@ -55,12 +55,14 @@ class PodInfo < ApplicationRecord
     begin
       api_response = open(url).read
     rescue OpenURI::HTTPError => e
-      api_response = ""
+      api_response = nil
     end
 
-    json_content = JSON.parse(api_response)
+    if api_response.present?
+      json_content = JSON.parse(api_response)
 
-    json_content
+      json_content
+    end
   end
 
   def set_pod_info(name)
