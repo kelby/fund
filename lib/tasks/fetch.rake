@@ -197,11 +197,46 @@ namespace :swift do
 
           category = Category.find_or_create_by(name: h3_ele.text)
           github_url = link_ele.attributes['href'].value
-          
+
           delay = rand(1..600)
           Project.delay_for(delay).get_and_create_pod_project(github_url, category.id)
         else
           next
+        end
+      else
+        next
+      end
+    end
+  end
+
+  desc "Task description"
+  task :task_name => [:environment] do
+    doc = Nokogiri::HTML(open "https://github.com/matteocrippa/awesome-swift");
+    
+    lis = doc.css(".markdown-body h4");
+
+    lis.each do |li|
+      ul_ul = li.next_element.next_element
+
+      if ul_ul.node_name == "ul"
+        links = ul_ul.css("li > a")
+
+        links.each do |link_ele|
+          github_url = link_ele.attributes['href'].value
+
+          if github_url =~ /github\.com/
+            name = li.text
+            category = Category.joins(:catalog).where(catalogs: {type: "SwiftCatalog"}).where(name: name).last
+
+            if category.present?
+              delay = rand(1..600)
+              Project.delay_for(delay).get_and_create_pod_project(github_url, category.id)
+            else
+              next
+            end
+          else
+            next
+          end
         end
       else
         next
@@ -261,7 +296,5 @@ namespace :swift do
       project.destroy if project.pod_info.blank?
     end
 
-    Category.find(category_id).projects.map &:set_pod_popularity
-    Category.find(category_id).projects.map &:online!
   end
 end
