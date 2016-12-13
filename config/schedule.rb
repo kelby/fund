@@ -20,7 +20,7 @@
 # Learn more: http://github.com/javan/whenever
 
 every 2.hours do
-  # runner "Project.set_github_info"
+  runner "Project.set_all_github_info"
   runner "Project.set_info"
 
   runner "Developer.create_developer_from_projects"
