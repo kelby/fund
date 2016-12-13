@@ -45,6 +45,14 @@ class Developer < ApplicationRecord
     end
   end
 
+  def self.set_developer_info(project_id)
+    project = Project.find(project_id)
+
+    developer = Developer.find_or_create_by(name: project.author)
+
+    project.update_columns(developer_id: developer.id)
+  end
+
   def set_avatar
     if self.avatar.file.blank?
       begin

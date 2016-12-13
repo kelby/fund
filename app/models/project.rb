@@ -68,6 +68,8 @@ class Project < ApplicationRecord
   after_commit :logic_set_package_info, on: :create
 
   after_commit :set_github_info, on: :create
+
+  after_commit :delay_set_developer_info, on: :create
   # after_commit :set_readme, on: :create
 
   # after_create :build_github_info
@@ -504,5 +506,9 @@ class Project < ApplicationRecord
         end
       end
     end
+  end
+
+  def delay_set_developer_info
+    Developer.delay.set_developer_info(self.id)
   end
 end
