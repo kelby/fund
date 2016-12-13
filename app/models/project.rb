@@ -416,14 +416,14 @@ class Project < ApplicationRecord
 
     ps = self.where(id: (Project.package.pending.ids - Project.package.pending.joins(:package_info).ids))
     ps.each do |project|
-      self.delay.set_gem_info(project.id)
+      self.delay.set_package_info(project.id)
     end
 
     ps.update_all(status: ::Project.statuses['offline'])
 
     ps = self.where(id: (Project.gem.pending.ids - Project.gem.pending.joins(:gem_info).ids))
     ps.each do |project|
-      self.delay.set_package_info(project.id)
+      self.delay.set_gem_info(project.id)
     end
 
     ps.update_all(status: ::Project.statuses['offline'])
