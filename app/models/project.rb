@@ -262,7 +262,9 @@ class Project < ApplicationRecord
   end
 
   def set_github_info
-    self.build_github_info
+    if self.github_info.blank?
+      self.build_github_info
+    end
 
     self.set_description
     self.set_github_others_info
@@ -328,8 +330,11 @@ class Project < ApplicationRecord
   end
 
   def set_raking_data
-    self.github_info.subscribers_count = fetch_info_from_github["subscribers_count"]
-    self.github_info.watchers_count = fetch_info_from_github["watchers_count"]
+    # subscribers_count =~ Watch
+    self.github_info.subscribers_count = fetch_info_from_github["watchers_count"]
+    # watchers_count =~ Star
+    self.github_info.watchers_count = fetch_info_from_github["subscribers_count"]
+    # forks_count =~ Fork
     self.github_info.forks_count = fetch_info_from_github["forks_count"]
 
     # self.last_updated_at = fetch_info_from_github["updated_at"]
