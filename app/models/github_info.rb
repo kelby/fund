@@ -16,11 +16,29 @@
 class GithubInfo < ApplicationRecord
   # from https://developer.github.com/v3/
 
+  # Associations
   belongs_to :project, autosave: true
+  # END
 
+  # Rails class methods
   serialize :others, JSON
 
+  scope :none_data, ->{ where("subscribers_count = ? OR watchers_count = ? OR forks_count = ?", nil, nil, nil) }
+  # END
+
+
+  # Constants
   API_GITHUB = "https://api.github.com/"
+  # END
+
+  def self.set_project_nightspot(number=100)
+    # number = 100
+
+    self.where("subscribers_count < ?", number).includes(:project).find_each do |this|
+      this.project.nightspot!
+    end
+  end
+
 
   def split_github
     split_github = self.project.split_github
@@ -59,8 +77,6 @@ class GithubInfo < ApplicationRecord
       parse_json = {}
     end
   end
-
-  scope :none_data, ->{ where("subscribers_count = ? OR watchers_count = ? OR forks_count = ?", nil, nil, nil) }
 
   def set_some_count(not_force=true)
     return if self.project.blank?
