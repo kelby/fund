@@ -59,6 +59,33 @@ namespace :ruby_tool do
       end
     end
   end
+
+  desc "get projects from categories"
+  task :get_projects => [:environment] do
+    categories = Category.all.joins(:catalog).where(catalogs: {type: "RailsCatalog"}).uniq
+
+    categories.each do |category|
+      delay = rand(1..600)
+      Category.delay_for(delay).delay_get_projects(category.id)
+
+      # category_name = category.slug.try(:downcase)
+      # url = "https://www.ruby-toolbox.com/categories/#{category_name}"
+
+      # doc = Nokogiri::HTML(` curl "#{url}" `)
+
+      # if doc.present?
+      #   source_codes = doc.css("a.source_code")
+
+      #   next if source_codes.blank?
+
+      #   source_codes.each do |source_code|
+      #     project_name = source_code.attributes['href'].value
+      #     delay = rand(1..3600)
+      #     Project.delay_for(delay).get_and_create_gem_project(project_name, category.id)
+      #   end
+      # end
+    end
+  end
 end
 
 namespace :packagist do
@@ -180,5 +207,23 @@ namespace :swift do
         next
       end
     end
+  end
+
+  desc "get pod projects"
+  task :get_pod_projects => [:environment] do
+    category_id = nil
+
+    %W(
+    ).each do |github_url|
+      Project.delay.get_and_create_pod_project(github_url, category_id)
+    end
+
+    Category.find(category_id).projects.map do |project|
+      project.destroy if project.github_info.blank?
+      project.destroy if project.pod_info.blank?
+    end
+
+    Category.find(category_id).projects.map &:set_pod_popularity
+    Category.find(category_id).projects.map &:online!
   end
 end

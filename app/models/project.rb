@@ -465,6 +465,10 @@ class Project < ApplicationRecord
 
     github_url = x.attribute("href").value
 
+    self.get_and_create_gem_project_from(github_url, category_id)
+  end
+
+  def self.get_and_create_gem_project_from(github_url, category_id)
     self.create(source_code: github_url, identity: Project.identities['gem'], category_id: category_id)
   end
 

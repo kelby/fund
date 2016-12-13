@@ -61,6 +61,27 @@ class Category < ApplicationRecord
     end
   end
 
+  def self.delay_get_projects(category_id)
+    category = Category.find(category_id)
+
+    category_name = category.slug.try(:downcase)
+    url = "https://www.ruby-toolbox.com/categories/#{category_name}"
+
+    doc = ::Nokogiri::HTML(` curl "#{url}" `)
+
+    if doc.present?
+      source_codes = doc.css("a.source_code")
+
+      return if source_codes.blank?
+
+      source_codes.each do |source_code|
+        github_url = source_code.attributes['href'].value
+        delay = rand(1..3600)
+        Project.delay_for(delay).get_and_create_gem_project_from(github_url, category.id)
+      end
+    end
+  end
+
   def set_slug
     self.slug = Pinyin.t(self.name, splitter: '_')
   end
