@@ -43,7 +43,9 @@
     <ul class="list-group">
       <% @catalog.categories.each do |category| %>
         <li  class="list-group-item">
-          <span class="badge"><%= category.projects_count %></span>
+          <span class="badge">
+            <%= category.online_projects_count %>
+          </span>
 
           <%= link_to category.name, category %>
         </li>
