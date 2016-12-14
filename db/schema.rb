@@ -10,20 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161210094523) do
+ActiveRecord::Schema.define(version: 20161214051214) do
 
-  create_table "authentications", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "authentications", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.string   "provider"
     t.string   "uid"
     t.integer  "user_id"
-    t.text     "info",          limit: 65535
-    t.text     "extra",         limit: 65535
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.text     "info",          limit: 16777215
+    t.text     "extra",         limit: 16777215
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.string   "refresh_token"
   end
 
-  create_table "catalogs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "catalogs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.string   "name"
     t.string   "slug"
     t.string   "type"
@@ -34,26 +34,27 @@ ActiveRecord::Schema.define(version: 20161210094523) do
     t.string   "sketch"
   end
 
-  create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.string   "name"
     t.string   "slug"
     t.integer  "catalog_id"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
     t.integer  "user_id"
-    t.integer  "projects_count", default: 0
+    t.integer  "projects_count",        default: 0
+    t.integer  "online_projects_count", default: 0, null: false
   end
 
-  create_table "comments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.text     "content",          limit: 65535
+  create_table "comments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+    t.text     "content",          limit: 16777215
     t.integer  "commentable_id"
     t.string   "commentable_type"
     t.integer  "user_id"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
   end
 
-  create_table "developers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "developers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.string   "name"
     t.string   "avatar"
     t.integer  "github_id"
@@ -66,66 +67,66 @@ ActiveRecord::Schema.define(version: 20161210094523) do
     t.datetime "updated_at",                    null: false
   end
 
-  create_table "gem_infos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "gem_infos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.integer  "project_id"
-    t.decimal  "total_downloads",               precision: 10
+    t.decimal  "total_downloads",                  precision: 10
     t.integer  "releases"
     t.string   "current_version"
     t.datetime "released"
     t.datetime "first_release"
-    t.datetime "created_at",                                   null: false
-    t.datetime "updated_at",                                   null: false
-    t.text     "others",          limit: 65535
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
+    t.text     "others",          limit: 16777215
   end
 
-  create_table "github_infos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "github_infos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.integer  "project_id"
     t.integer  "subscribers_count"
     t.integer  "watchers_count"
     t.integer  "forks_count"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
-    t.text     "others",            limit: 65535
-    t.text     "readme",            limit: 65535
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.text     "others",            limit: 16777215
+    t.text     "readme",            limit: 16777215
   end
 
-  create_table "package_infos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "package_infos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.integer  "project_id"
-    t.decimal  "total_downloads",               precision: 10
+    t.decimal  "total_downloads",                  precision: 10
     t.integer  "releases"
     t.string   "current_version"
     t.datetime "released"
     t.datetime "first_release"
-    t.datetime "created_at",                                   null: false
-    t.datetime "updated_at",                                   null: false
-    t.text     "others",          limit: 65535
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
+    t.text     "others",          limit: 16777215
   end
 
-  create_table "pod_infos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "pod_infos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.integer  "project_id"
-    t.decimal  "total_downloads",               precision: 10
+    t.decimal  "total_downloads",                  precision: 10
     t.integer  "releases"
     t.string   "current_version"
     t.datetime "released"
     t.datetime "first_release"
-    t.datetime "created_at",                                   null: false
-    t.datetime "updated_at",                                   null: false
-    t.text     "others",          limit: 65535
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
+    t.text     "others",          limit: 16777215
   end
 
-  create_table "projects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "projects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.string   "name"
-    t.text     "description",     limit: 65535
+    t.text     "description",     limit: 16777215
     t.string   "website"
     t.string   "wiki"
     t.string   "source_code"
     t.integer  "category_id"
-    t.datetime "created_at",                                                         null: false
-    t.datetime "updated_at",                                                         null: false
-    t.integer  "identity",                                               default: 0
-    t.text     "author",          limit: 65535
-    t.integer  "status",                                                 default: 0
-    t.decimal  "popularity",                    precision: 15, scale: 2
+    t.datetime "created_at",                                                            null: false
+    t.datetime "updated_at",                                                            null: false
+    t.integer  "identity",                                                  default: 0
+    t.text     "author",          limit: 16777215
+    t.integer  "status",                                                    default: 0
+    t.decimal  "popularity",                       precision: 15, scale: 2
     t.integer  "developer_id"
     t.boolean  "today_recommend"
     t.datetime "recommend_at"
@@ -139,21 +140,21 @@ ActiveRecord::Schema.define(version: 20161210094523) do
     t.datetime "updated_at",               null: false
   end
 
-  create_table "user_recommend_projects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "user_recommend_projects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.integer  "user_id"
     t.integer  "project_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "user_star_projects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "user_star_projects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.integer  "user_id"
     t.integer  "project_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.string   "email",                  default: "",    null: false
     t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"

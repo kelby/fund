@@ -51,6 +51,9 @@ GEM
       i18n (~> 0.7)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
+    after_commit_action (1.0.1)
+      activerecord (>= 3.0.0)
+      activesupport (>= 3.0.0)
     airbrussh (1.1.1)
       sshkit (>= 1.6.1, != 1.7.0)
     annotate (2.7.1)
@@ -109,6 +112,10 @@ GEM
       activesupport (>= 3.0)
       deep_merge (~> 1.0.0)
     connection_pool (2.2.0)
+    counter_culture (1.0.0)
+      activerecord (>= 3.0.0)
+      activesupport (>= 3.0.0)
+      after_commit_action (~> 1.0)
     debug_inspector (0.0.2)
     deep_merge (1.0.1)
     devise (4.2.0)
@@ -327,6 +334,7 @@ DEPENDENCIES
   chinese_pinyin
   coffee-rails (~> 4.2)
   config
+  counter_culture (~> 1.0)
   devise
   elasticsearch-model
   elasticsearch-rails
