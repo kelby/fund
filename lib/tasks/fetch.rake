@@ -86,6 +86,25 @@ namespace :ruby_tool do
       # end
     end
   end
+
+  desc "markets/awesome-ruby"
+  task :markets_awesome_ruby => [:environment] do
+    doc = Nokogiri::HTML(open "https://github.com/markets/awesome-ruby/");
+
+    links = doc.css(".markdown-body ul > li > a");
+    link_links = links.map{|x| x.attributes['href'].value }.select{|x| x=~ /github\.com/}
+
+    link_links.each do |link|
+      text = link.attributes['href'].value
+
+      if text =~ /github\.com/
+        delay = rand(1..300)
+        Project.delay_for(delay).get_and_create_gem_project_from_option({'source_code' => text, 'identity' => Project.identities['gem']})
+      else
+        next
+      end
+    end
+  end
 end
 
 namespace :packagist do
