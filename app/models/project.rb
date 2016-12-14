@@ -29,9 +29,7 @@ class Project < ApplicationRecord
   # Associations
   belongs_to :category # , counter_cache: true
   counter_culture :category
-  counter_culture :category, :column_name => proc {|model| model.online? ? 'online_projects_count' : nil }, column_names: {
-          ["projects.status = ?", 'online'] => 'online_projects_count'
-      }
+  counter_culture :category, :column_name => proc {|model| model.online? ? 'online_projects_count' : nil }
 
   belongs_to :developer
 
