@@ -370,8 +370,12 @@ class Project < ApplicationRecord
     true
   end
 
-  def set_gem_info
-    url = "https://rubygems.org/api/v1/gems/#{name}.json"
+  def set_gem_info(gem_name="")
+    if gem_name.present?
+      url = "https://rubygems.org/api/v1/gems/#{gem_name}.json"
+    else
+      url = "https://rubygems.org/api/v1/gems/#{name}.json"
+    end
 
     uri = URI.parse(url)
 
@@ -558,6 +562,6 @@ class Project < ApplicationRecord
   end
 
   def show_name
-    self.human_name || self.name
+    self.human_name.presence || self.name
   end
 end
