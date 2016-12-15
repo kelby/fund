@@ -45,7 +45,6 @@ class Panel::CategoriesController < ApplicationController
   # POST /panel/categories
   def create
     @panel_category = ::Category.new(panel_category_params)
-
     respond_to do |format|
       if @panel_category.save
         format.html { redirect_to @panel_category, notice: 'Category was successfully created.' }
@@ -82,6 +81,6 @@ class Panel::CategoriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def panel_category_params
-      params.fetch(:panel_category, {}).permit(:name, :status, :slug)
+      params.fetch(:category, {}).permit(:name, :status, :slug)
     end
 end

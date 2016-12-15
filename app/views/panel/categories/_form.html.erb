@@ -1,4 +1,4 @@
-<%= form_for(panel_category) do |f| %>
+<%= form_for panel_category, url: panel_category_path(panel_category) do |f| %>
   <% if panel_category.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(panel_category.errors.count, "error") %> prohibited this panel_category from being saved:</h2>
