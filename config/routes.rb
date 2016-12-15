@@ -3,8 +3,16 @@ require 'sidekiq/web'
 Rails.application.routes.draw do
   authenticate :user, lambda { |u| u.is_admin? } do
     namespace :panel do
-      resources :categories
-      resources :catalogs
+      resources :categories do
+        collection do
+          get :search
+        end
+      end
+      resources :catalogs do
+        collection do
+          get :search
+        end
+      end
       resources :projects
     end
   end

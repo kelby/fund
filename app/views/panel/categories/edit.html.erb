@@ -1,6 +1,14 @@
-<h1>Editing Panel Category</h1>
+<h1>
+  Editing Panel Category
+
+  <small>
+    <%= link_to 'Show', @panel_category %>
+  </small>
+
+  <small class="pull-right">
+    <%= link_to 'Back', panel_categories_path %>
+  </small>
+</h1>
 
 <%= render 'form', panel_category: @panel_category %>
 
-<%= link_to 'Show', @panel_category %> |
-<%= link_to 'Back', panel_categories_path %>

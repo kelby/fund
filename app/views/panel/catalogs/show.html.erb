@@ -1,4 +1,22 @@
-<p id="notice"><%= notice %></p>
+<h1>
+  <%= @panel_catalog.name %>
 
-<%= link_to 'Edit', edit_panel_catalog_path(@panel_catalog) %> |
-<%= link_to 'Back', panel_catalogs_path %>
+  <small>
+    <%= link_to 'Edit', edit_panel_catalog_path(@panel_catalog) %>
+  </small>
+
+  <small class="pull-right">
+    <%= link_to 'Back', panel_catalogs_path %>
+  </small>
+</h1>
+
+<table class="table table-striped">
+  <thead>
+    <%= render "panel/catalogs/thead" %>
+  </thead>
+
+  <tbody>
+    <%= render "panel/catalogs/tbody", panel_catalog: @panel_catalog %>
+  </tbody>
+</table>
+

@@ -1,6 +1,28 @@
 class Panel::CategoriesController < ApplicationController
   before_action :set_panel_category, only: [:show, :edit, :update, :destroy]
 
+  def search
+    @panel_categories = ::Category.all.order(id: :desc).includes(:catalog).page(params[:page])
+
+    if params[:top_catalog].present?
+      @panel_categories = @panel_categories.joins(:catalog).where(catalogs: {type: params[:top_catalog]})
+    end
+
+    if params[:name].present?
+      @panel_categories = @panel_categories.joins(:catalog).where("catalogs.name LIKE ? OR categories.name LIKE ?", "%#{params[:name]}%", "%#{params[:name]}%")
+    end
+
+    if params[:status].present?
+      @panel_categories = @panel_categories.where(status: params[:status])
+    end
+
+    if params[:projects_count].present?
+      @panel_categories = @panel_categories.where(projects_count: params[:projects_count])
+    end
+
+    render :index
+  end
+
   # GET /panel/categories
   # GET /panel/categories.json
   def index
@@ -70,6 +92,6 @@ class Panel::CategoriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def panel_category_params
-      params.fetch(:panel_category, {})
+      params.fetch(:panel_category, {}).permit(:name, :status, :slug)
     end
 end

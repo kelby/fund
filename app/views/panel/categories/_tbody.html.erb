@@ -10,6 +10,6 @@
   <td><%= panel_category.projects_count %></td>
   <td><%= panel_category.online_projects_count %></td>
   <td><%= link_to '前台展示', panel_category %></td>
-  <td><%= link_to 'Edit', edit_panel_category_path(panel_category) %></td>
+  <td><%= link_to 'Edit', edit_panel_category_path(panel_category), target: "_blank" %></td>
   <td><%= link_to 'Destroy', panel_category, method: :delete, data: { confirm: 'Are you sure?' } %></td>
 </tr>

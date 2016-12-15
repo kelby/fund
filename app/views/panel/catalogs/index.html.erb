@@ -6,26 +6,40 @@
   </small>
 </h1>
 
+
+<%= form_tag search_panel_catalogs_path, method: :get, class: "form-inline" do %>
+  <div class="form-group">
+    <%= label_tag :top_catalog %>
+    <%= select_tag :top_catalog, options_for_select(Catalog.pluck(:type).uniq, params[:top_catalog]), include_blank: true, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= label_tag :name, "Name" %>
+    <%= text_field_tag :name, params[:name], class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= label_tag :status %>
+    <%= select_tag :status, options_for_select(Catalog.statuses.keys, params[:status]), include_blank: true, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= label_tag :categories_count %>
+    <%= number_field_tag :categories_count, params[:categories_count], class: "form-control" %>
+  </div>
+
+  <%= submit_tag "搜索", class: "btn btn-default", data: {disable_with: "正在搜索"} %>
+<% end %>
+
+
 <table class="table table-striped">
   <thead>
-    <tr>
-      <th>Top Catalog</th>
-      <th>Name</th>
-      <th colspan="3"></th>
-    </tr>
+    <%= render "panel/catalogs/thead" %>
   </thead>
 
   <tbody>
     <% @panel_catalogs.each do |panel_catalog| %>
-      <tr>
-        <td><%= panel_catalog.human_supercatalog_name %></td>
-        <td>
-          <%= link_to panel_catalog.name, panel_catalog_path(panel_catalog) %>
-        </td>
-        <td><%= link_to 'Show', panel_catalog_path(panel_catalog) %></td>
-        <td><%= link_to 'Edit', edit_panel_catalog_path(panel_catalog) %></td>
-        <td><%= link_to 'Destroy', panel_catalog_path(panel_catalog), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+      <%= render "panel/catalogs/tbody", panel_catalog: panel_catalog %>
     <% end %>
   </tbody>
 </table>

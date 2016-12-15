@@ -1,6 +1,29 @@
 class Panel::CatalogsController < ApplicationController
   before_action :set_panel_catalog, only: [:show, :edit, :update, :destroy]
 
+
+  def search
+    @panel_catalogs = ::Catalog.all.order(id: :desc).page(params[:page])
+
+    if params[:top_catalog].present?
+      @panel_catalogs = @panel_catalogs.where(type: params[:top_catalog])
+    end
+
+    if params[:name].present?
+      @panel_catalogs = @panel_catalogs.where("name LIKE ?", "%#{params[:name]}%")
+    end
+
+    if params[:status].present?
+      @panel_catalogs = @panel_catalogs.where(status: params[:status])
+    end
+
+    if params[:categories_count].present?
+      @panel_catalogs = @panel_catalogs.where(categories_count: params[:categories_count])
+    end
+
+    render :index
+  end
+
   # GET /panel/catalogs
   # GET /panel/catalogs.json
   def index
