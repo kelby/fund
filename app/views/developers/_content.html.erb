@@ -8,7 +8,7 @@
       <% @projects.each do |project| %>
         <%= link_to repo_path(project.repo_params), class: "list-group-item paginated_full_item" do %>
           <span class="login">
-            <%= project.name %>
+            <%= project.show_name %>
           </span>
 
           <span class="stargazers_count pull-right">

@@ -3,7 +3,7 @@
   <div class="media-body">
     <h4 class="media-heading">
       <%= link_to repo_path(project.repo_params) do %>
-        <%= project.name %>
+        <%= project.show_name %>
         <br>
         <small>
           <%= link_to (url_for repo_url(project.repo_params)), (url_for repo_path(project.repo_params)) %>

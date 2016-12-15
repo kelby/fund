@@ -31,7 +31,7 @@
           <% projects.each do |project| %>
             <div class="col-md-2 col-xs-6 xs-no-padding popular-item">
               <%= link_to repo_path(project.repo_params), target: "_blank" do %>
-                <%= project.name %>
+                <%= project.show_name %>
                 <br>
                 <%= project.popularity %>
               <% end %>

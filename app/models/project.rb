@@ -556,4 +556,8 @@ class Project < ApplicationRecord
       nil
     end
   end
+
+  def show_name
+    self.human_name || self.name
+  end
 end
