@@ -59,7 +59,7 @@ class Panel::CatalogsController < ApplicationController
   def update
     respond_to do |format|
       if @panel_catalog.update(panel_catalog_params)
-        format.html { redirect_to @panel_catalog, notice: 'Catalog was successfully updated.' }
+        format.html { redirect_to edit_panel_catalog_url(@panel_catalog), notice: 'Catalog was successfully updated.' }
       else
         format.html { render :edit }
       end
@@ -82,6 +82,6 @@ class Panel::CatalogsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def panel_catalog_params
-      params.fetch(:panel_catalog, {}).permit(:name, :type, :sketch)
+      params.fetch(:catalog, {}).permit(:name, :slug, :type, :sketch)
     end
 end

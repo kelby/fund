@@ -58,7 +58,7 @@ class Panel::CategoriesController < ApplicationController
   def update
     respond_to do |format|
       if @panel_category.update(panel_category_params)
-        format.html { redirect_to @panel_category, notice: 'Category was successfully updated.' }
+        format.html { redirect_to edit_panel_category_url(@panel_category), notice: 'Category was successfully updated.' }
       else
         format.html { render :edit }
       end

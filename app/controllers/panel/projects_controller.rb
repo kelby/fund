@@ -1,6 +1,20 @@
 class Panel::ProjectsController < ApplicationController
   before_action :set_panel_project, only: [:show, :edit, :update, :destroy]
 
+  def search
+    @panel_projects = ::Project.all.order(id: :desc).includes(:category).page(params[:page])
+
+    if params[:name].present?
+      @panel_projects = @panel_projects.joins(:category).where("projects.name LIKE ? OR categories.name LIKE ?", "%#{params[:name]}%", "%#{params[:name]}%")
+    end
+
+    if params[:status].present?
+      @panel_projects = @panel_projects.where(status: params[:status])
+    end
+
+    render :index
+  end
+
   # GET /panel/projects
   def index
     @panel_projects = ::Project.all.includes(:category, :pod_info, :gem_info, :package_info).page(params[:page])
@@ -36,7 +50,7 @@ class Panel::ProjectsController < ApplicationController
   def update
     respond_to do |format|
       if @panel_project.update(panel_project_params)
-        format.html { redirect_to @panel_project, notice: 'Project was successfully updated.' }
+        format.html { redirect_to edit_panel_project_url(@panel_project), notice: 'Project was successfully updated.' }
       else
         format.html { render :edit }
       end
@@ -59,6 +73,7 @@ class Panel::ProjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def panel_project_params
-      params.fetch(:panel_project, {})
+      params.fetch(:project, {}).permit(:author, :name, :human_name, :identity,
+        :status, :source_code, :description, :today_recommend)
     end
 end

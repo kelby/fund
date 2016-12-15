@@ -1,4 +1,4 @@
-<%= form_for panel_catalog do |f| %>
+<%= form_for panel_catalog, url: panel_catalog_path(panel_catalog), as: :catalog do |f| %>
   <% if panel_catalog.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(panel_catalog.errors.count, "error") %> prohibited this panel_catalog from being saved:</h2>
@@ -18,9 +18,15 @@
   </div>
 
   <div class="field form-group">
+    <%= f.label :slug %>
+
+    <%= f.text_field :slug, class: "form-control" %>
+  </div>
+
+  <div class="field form-group">
     <%= f.label :type %>
 
-    <%= f.text_field :type, class: "form-control" %>
+    <%= f.select :type, options_for_select(Catalog.pluck(:type).uniq, panel_catalog.type), {include_blank: true}, class: "form-control" %>
 
     <p class="help-block">RailsCatalog, SwiftCatalog</p>
   </div>

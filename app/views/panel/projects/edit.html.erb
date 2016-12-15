@@ -1,6 +1,10 @@
-<h1>Editing Panel Project</h1>
+<h1>
+  <%= @panel_project.name %>
+
+  <small><%= link_to 'Show', @panel_project %></small>
+  <small class="pull-right">
+    <%= link_to 'Back', search_panel_projects_path(name: @panel_project.name) %>
+  </small>
+</h1>
 
 <%= render 'form', panel_project: @panel_project %>
-
-<%= link_to 'Show', @panel_project %> |
-<%= link_to 'Back', panel_projects_path %>
