@@ -4,28 +4,28 @@ class CatalogsController < ApplicationController
 
   # GET
   def rails
-    @catalogs = RailsCatalog.all.includes(:categories)
+    @catalogs = RailsCatalog.online.includes(:categories)
 
     render :language
   end
 
   def swift
-    @catalogs = SwiftCatalog.all.includes(:categories)
+    @catalogs = SwiftCatalog.online.includes(:categories)
 
     render :language
   end
 
   def laravel
-    @catalogs = LaravelCatalog.all.includes(:categories)
+    @catalogs = LaravelCatalog.online.includes(:categories)
 
     render :language
   end
 
   # GET /catalogs
   def index
-    @rails_catalogs = RailsCatalog.all
-    @laravel_catalogs = LaravelCatalog.all
-    @swift_catalogs = SwiftCatalog.all
+    @rails_catalogs = RailsCatalog.online
+    @laravel_catalogs = LaravelCatalog.online
+    @swift_catalogs = SwiftCatalog.online
   end
 
   # GET /catalogs/1
