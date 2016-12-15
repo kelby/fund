@@ -8,32 +8,12 @@
 
 <table class="table table-striped">
   <thead>
-    <tr>
-      <th>Top Catalog</th>
-      <th>Catalog</th>
-      <th>Name</th>
-      <th>Projects</th>
-      <th>Online Projects</th>
-      <th colspan="3"></th>
-    </tr>
+    <%= render "panel/categories/th" %>
   </thead>
 
   <tbody>
     <% @panel_categories.each do |panel_category| %>
-      <tr>
-        <td><%= panel_category.catalog.try(:human_supercatalog_name) %></td>
-        <td>
-          <% if panel_category.catalog.present? %>
-            <%= link_to panel_category.catalog.name, panel_catalog_path(panel_category.catalog) %>
-          <% end %>
-        </td>
-        <td><%= link_to panel_category.name, panel_category_path(panel_category) %></td>
-        <td><%= panel_category.projects_count %></td>
-        <td><%= panel_category.online_projects_count %></td>
-        <td><%= link_to 'Show', panel_category %></td>
-        <td><%= link_to 'Edit', edit_panel_category_path(panel_category) %></td>
-        <td><%= link_to 'Destroy', panel_category, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+      <%= render "panel/categories/tbody", panel_category: panel_category %>
     <% end %>
   </tbody>
 </table>

@@ -1,0 +1,14 @@
+<tr>
+  <td><%= panel_category.catalog.try(:human_supercatalog_name) %></td>
+  <td>
+    <% if panel_category.catalog.present? %>
+      <%= link_to panel_category.catalog.name, panel_catalog_path(panel_category.catalog) %>
+    <% end %>
+  </td>
+  <td><%= link_to panel_category.name, panel_category_path(panel_category) %></td>
+  <td><%= panel_category.projects_count %></td>
+  <td><%= panel_category.online_projects_count %></td>
+  <td><%= link_to '前台展示', panel_category %></td>
+  <td><%= link_to 'Edit', edit_panel_category_path(panel_category) %></td>
+  <td><%= link_to 'Destroy', panel_category, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+</tr>

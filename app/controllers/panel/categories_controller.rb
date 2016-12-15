@@ -4,12 +4,13 @@ class Panel::CategoriesController < ApplicationController
   # GET /panel/categories
   # GET /panel/categories.json
   def index
-    @panel_categories = ::Category.all.page(params[:page])
+    @panel_categories = ::Category.all.includes(:catalog).page(params[:page])
   end
 
   # GET /panel/categories/1
   # GET /panel/categories/1.json
   def show
+    @projects = @panel_category.projects.page(params[:page])
   end
 
   # GET /panel/categories/new

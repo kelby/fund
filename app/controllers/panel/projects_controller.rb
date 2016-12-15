@@ -4,7 +4,7 @@ class Panel::ProjectsController < ApplicationController
   # GET /panel/projects
   # GET /panel/projects.json
   def index
-    @panel_projects = ::Project.all.page(params[:page])
+    @panel_projects = ::Project.all.includes(:category).page(params[:page])
   end
 
   # GET /panel/projects/1

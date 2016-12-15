@@ -543,4 +543,16 @@ class Project < ApplicationRecord
   def delay_set_developer_info
     Developer.delay.set_developer_info(self.id)
   end
+
+  def relate_info
+    if self.gem?
+      self.gem_info
+    elsif self.pod?
+      self.pod_info
+    elsif self.package?
+      self.package_info
+    else
+      nil
+    end
+  end
 end
