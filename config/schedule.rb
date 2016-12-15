@@ -19,6 +19,10 @@
 
 # Learn more: http://github.com/javan/whenever
 
+every 1.hours do
+  runner "Category.nil_catalog_so_offline"
+end
+
 every 2.hours do
   runner "Project.set_all_github_info"
   runner "Project.set_info"

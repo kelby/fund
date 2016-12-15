@@ -38,6 +38,11 @@ class Catalog < ApplicationRecord
   # END
 
 
+  # Rails class methods
+  enum status: { online: 0, offline: 11 }
+  # END
+
+
   def self.set_rails_catalog
     ["Active Record Plugins",
     "Background Processing",

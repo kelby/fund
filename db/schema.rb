@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161214143730) do
+ActiveRecord::Schema.define(version: 20161215113115) do
 
   create_table "authentications", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.string   "provider"
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20161214143730) do
     t.integer  "user_id"
     t.integer  "categories_count", default: 0
     t.string   "sketch"
+    t.integer  "status",           default: 0
   end
 
   create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
@@ -43,6 +44,7 @@ ActiveRecord::Schema.define(version: 20161214143730) do
     t.integer  "user_id"
     t.integer  "projects_count",        default: 0
     t.integer  "online_projects_count", default: 0, null: false
+    t.integer  "status",                default: 0
   end
 
   create_table "comments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|

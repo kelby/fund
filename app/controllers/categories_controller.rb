@@ -4,7 +4,7 @@ class CategoriesController < ApplicationController
 
   # GET /categories
   def index
-    @categories = Category.all.includes(:catalog)
+    @categories = Category.online.includes(:catalog)
   end
 
   # GET /categories/1

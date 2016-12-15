@@ -13,11 +13,25 @@
 #
 
 class Category < ApplicationRecord
+  # Associations
   belongs_to :catalog, counter_cache: true
 
   has_many :projects
+  # END
 
+
+  # Callbacks
   before_create :set_slug
+  # END
+
+
+  # Rails class methods
+  enum status: { online: 0, offline: 11 }
+  # END
+
+  def self.nil_catalog_so_offline
+    Category.where(catalog_id: nil).update_all(status: Category.statuses['offline'])
+  end
 
   def self.set_categories
     ["Active Record DB Adapters",

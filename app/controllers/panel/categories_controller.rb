@@ -4,7 +4,7 @@ class Panel::CategoriesController < ApplicationController
   # GET /panel/categories
   # GET /panel/categories.json
   def index
-    @panel_categories = ::Category.all.includes(:catalog).page(params[:page])
+    @panel_categories = ::Category.all.order(id: :desc).includes(:catalog).page(params[:page])
   end
 
   # GET /panel/categories/1
