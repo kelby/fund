@@ -1,0 +1,37 @@
+<%= form_for panel_catalog do |f| %>
+  <% if panel_catalog.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(panel_catalog.errors.count, "error") %> prohibited this panel_catalog from being saved:</h2>
+
+      <ul>
+      <% panel_catalog.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field form-group">
+    <%= f.label :name %>
+
+    <%= f.text_field :name, class: "form-control" %>
+  </div>
+
+  <div class="field form-group">
+    <%= f.label :type %>
+
+    <%= f.text_field :type, class: "form-control" %>
+
+    <p class="help-block">RailsCatalog, SwiftCatalog</p>
+  </div>
+
+  <div class="field form-group">
+    <%= f.label :sketch %>
+
+    <%= f.text_field :sketch, class: "form-control" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

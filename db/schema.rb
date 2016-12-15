@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161214051214) do
+ActiveRecord::Schema.define(version: 20161214143730) do
 
   create_table "authentications", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.string   "provider"
@@ -65,6 +65,13 @@ ActiveRecord::Schema.define(version: 20161214051214) do
     t.integer  "identity",          default: 0
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
+  end
+
+  create_table "episodes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "human_id"
+    t.string   "project_list"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "gem_infos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
@@ -130,6 +137,7 @@ ActiveRecord::Schema.define(version: 20161214051214) do
     t.integer  "developer_id"
     t.boolean  "today_recommend"
     t.datetime "recommend_at"
+    t.string   "human_name"
   end
 
   create_table "schema_notes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

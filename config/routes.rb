@@ -1,6 +1,14 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  authenticate :user, lambda { |u| u.is_admin? } do
+    namespace :panel do
+      resources :categories
+      resources :catalogs
+    end
+  end
+
+  resources :episodes
   # resources :developers, only: [:show]
   resources :developers
 
