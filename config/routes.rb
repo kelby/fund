@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     namespace :panel do
       resources :categories
       resources :catalogs
+      resources :projects
     end
   end
 
