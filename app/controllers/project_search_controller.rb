@@ -1,11 +1,11 @@
 class ProjectSearchController < ApplicationController
   def index
-    projects = Project.all
+    projects = Project.show_status
 
     if params[:type].present?
       projects = projects.where(identity: params[:type])
     end
 
-    @projects = projects.online.where("name LIKE ?", "%#{params[:q]}%").page(params[:page]).per(20)
+    @projects = projects.where("name LIKE ?", "%#{params[:q]}%").page(params[:page]).per(20)
   end
 end

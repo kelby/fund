@@ -8,18 +8,12 @@
 
 <table class="table table-striped">
   <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
+    <%= render "panel/projects/thead" %>
   </thead>
 
   <tbody>
     <% @panel_projects.each do |panel_project| %>
-      <tr>
-        <td><%= link_to 'Show', panel_project_path(panel_project) %></td>
-        <td><%= link_to 'Edit', edit_panel_project_path(panel_project) %></td>
-        <td><%= link_to 'Destroy', panel_project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+      <%= render "panel/projects/tbody", panel_project: panel_project %>
     <% end %>
   </tbody>
 </table>

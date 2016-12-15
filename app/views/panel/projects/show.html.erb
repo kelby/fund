@@ -1,4 +1,31 @@
-<p id="notice"><%= notice %></p>
+<h1>
+  <%= @panel_project.name %>
 
-<%= link_to 'Edit', edit_panel_project_path(@panel_project) %> |
-<%= link_to 'Back', panel_projects_path %>
+  <small>
+    <%= link_to 'Edit', edit_panel_project_path(@panel_project) %>
+  </small>
+
+  <small class="pull-right">
+    <%= link_to 'Back', panel_projects_path %>
+  </small>
+</h1>
+
+<table class="table table-striped">
+  <thead>
+    <%= render "panel/projects/thead" %>
+  </thead>
+
+  <tbody>
+    <%= render "panel/projects/tbody", panel_project: @panel_project %>
+  </tbody>
+</table>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    Description
+  </div>
+
+  <div class="panel-body">
+    <%= simple_format @panel_project.description %>
+  </div>
+</div>
