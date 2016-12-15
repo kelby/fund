@@ -25,13 +25,11 @@ class Panel::CatalogsController < ApplicationController
   end
 
   # GET /panel/catalogs
-  # GET /panel/catalogs.json
   def index
     @panel_catalogs = ::Catalog.all.order(id: :desc).page(params[:page])
   end
 
   # GET /panel/catalogs/1
-  # GET /panel/catalogs/1.json
   def show
   end
 
@@ -45,42 +43,34 @@ class Panel::CatalogsController < ApplicationController
   end
 
   # POST /panel/catalogs
-  # POST /panel/catalogs.json
   def create
     @panel_catalog = ::Catalog.new(panel_catalog_params)
 
     respond_to do |format|
       if @panel_catalog.save
         format.html { redirect_to @panel_catalog, notice: 'Catalog was successfully created.' }
-        format.json { render :show, status: :created, location: @panel_catalog }
       else
         format.html { render :new }
-        format.json { render json: @panel_catalog.errors, status: :unprocessable_entity }
       end
     end
   end
 
   # PATCH/PUT /panel/catalogs/1
-  # PATCH/PUT /panel/catalogs/1.json
   def update
     respond_to do |format|
       if @panel_catalog.update(panel_catalog_params)
         format.html { redirect_to @panel_catalog, notice: 'Catalog was successfully updated.' }
-        format.json { render :show, status: :ok, location: @panel_catalog }
       else
         format.html { render :edit }
-        format.json { render json: @panel_catalog.errors, status: :unprocessable_entity }
       end
     end
   end
 
   # DELETE /panel/catalogs/1
-  # DELETE /panel/catalogs/1.json
   def destroy
     @panel_catalog.destroy
     respond_to do |format|
       format.html { redirect_to panel_catalogs_url, notice: 'Catalog was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 
