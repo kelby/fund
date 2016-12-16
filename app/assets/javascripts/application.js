@@ -15,3 +15,4 @@
 //= require bootstrap-sprockets
 //= require ie10-viewport-bug-workaround
 // require_tree .
+//= require select2-full

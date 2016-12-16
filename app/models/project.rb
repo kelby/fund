@@ -82,6 +82,8 @@ class Project < ApplicationRecord
   before_validation :set_github_identity
 
   after_update :detect_and_set_recommend_at
+  after_update :detect_given_name_changed
+  after_update :detect_set_category_online
   # END
 
 
@@ -92,6 +94,18 @@ class Project < ApplicationRecord
   SWIFT_BASE = {'watchers' => 2406, 'stars' => 35406, 'forks' => 5135, 'downloads' => 81138762}
   LARAVEL_BASE = {'watchers' => 3522, 'stars' => 27582, 'forks' => 9131, 'downloads' => 3941137}
   # END
+
+  def detect_set_category_online
+    if (self.status.changed? && self.online?) && self.category.present?
+      self.category.online!
+    end
+  end
+
+  def detect_given_name_changed
+    if given_name.changed? && given_name.present?
+      self.logic_set_info
+    end
+  end
 
   def self.delay_set_popularity
     Project.pending.where(popularity: nil).map{|x| x.logic_set_popularity }
@@ -390,14 +404,21 @@ class Project < ApplicationRecord
   def set_gem_info(gem_name="")
     if gem_name.present?
       url = "https://rubygems.org/api/v1/gems/#{gem_name}.json"
+    elsif self.given_name.present?
+      url = "https://rubygems.org/api/v1/gems/#{given_name}.json"
     else
       url = "https://rubygems.org/api/v1/gems/#{name}.json"
     end
 
     uri = URI.parse(url)
 
-    content = uri.read
-    _gem_info = JSON.parse content
+    begin
+      content = uri.read
+      _gem_info = JSON.parse content
+    rescue Exception => e
+      _gem_info = {}
+      return
+    end
 
     gem_info = self.build_gem_info
 
@@ -420,7 +441,12 @@ class Project < ApplicationRecord
   def set_pod_info
     _pod_info = self.build_pod_info
 
-    _pod_info.set_pod_info(self.name)
+    if self.given_name.present?
+      _pod_info.set_pod_info(self.given_name)
+    else
+      _pod_info.set_pod_info(self.name)
+    end
+
     _pod_info.save
   end
 
@@ -518,47 +544,66 @@ class Project < ApplicationRecord
 
     self.create(source_code: github_url, identity: Project.identities['pod'], category_id: category_id)
   end
+
   # def to_param
     # "#{self.id}-#{self.name}"
   # end
 
   def self.detect_and_set_online
     Project.includes(:gem_info, :package_info, :pod_info).joins(:github_info).each do |project|
-      if project.gem?
-        if project.gem_info.present?
-          project.set_gem_popularity
+      project.set_popularity_and_status
+    end
+  end
 
-          if project.subscribers_count > 100
-            project.online!
-          else
-            project.nightspot!
-          end
+  def set_popularity_and_status
+    if self.gem?
+      if self.gem_info.present?
+        self.set_gem_popularity
+
+        if self.subscribers_count > 100
+          self.online!
+        else
+          self.nightspot!
         end
       end
+    end
 
-      if project.package?
-        if project.package_info.present?
-          project.set_package_popularity
+    if self.package?
+      if self.package_info.present?
+        self.set_package_popularity
 
-          if project.subscribers_count > 100
-            project.online!
-          else
-            project.nightspot!
-          end
+        if self.subscribers_count > 100
+          self.online!
+        else
+          self.nightspot!
         end
       end
+    end
 
-      if project.pod?
-        if project.pod_info.present?
-          project.set_pod_popularity
+    if self.pod?
+      if self.pod_info.present?
+        self.set_pod_popularity
 
-          if project.subscribers_count > 100
-            project.online!
-          else
-            project.nightspot!
-          end
+        if self.subscribers_count > 100
+          self.online!
+        else
+          self.nightspot!
         end
       end
+    end
+  end
+
+  def logic_set_info
+    if self.gem?
+      self.set_gem_info
+    end
+
+    if self.package?
+      self.set_package_info
+    end
+
+    if self.pod?
+      self.set_pod_info
     end
   end
 

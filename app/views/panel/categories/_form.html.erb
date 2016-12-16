@@ -1,4 +1,11 @@
-<%= form_for panel_category, url: panel_category_path(panel_category) do |f| %>
+<% if panel_category.new_record? %>
+  <% url = panel_categories_path %>
+<% else %>
+  <% url = panel_category_path(panel_category) %>
+<% end %>
+
+
+<%= form_for panel_category, url: url do |f| %>
   <% if panel_category.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(panel_category.errors.count, "error") %> prohibited this panel_category from being saved:</h2>
@@ -13,7 +20,7 @@
 
   <div class="form-group">
     <%= f.label :name %>
-    <%= f.text_field :name, class: "form-control" %>
+    <%= f.text_field :name, class: "form-control", required: true %>
   </div>
 
   <div class="form-group">
@@ -24,6 +31,11 @@
   <div class="form-group">
     <%= f.label :status %>
     <%= f.select :status, options_for_select(Category.statuses.keys, panel_category.status), {}, {class: "form-control"} %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :catalog_id %>
+    <%= f.select :catalog_id, Catalog.all.collect { |p| [ p.full_name, p.id ] }, {include_blank: true}, {class: "form-control select2"} %>
   </div>
 
   <div class="actions">

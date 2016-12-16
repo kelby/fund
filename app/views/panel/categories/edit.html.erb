@@ -14,30 +14,24 @@
 
 <hr>
 
+<% if @panel_category.projects.present? %>
+  已有项目：
+
+  <ul>
+    <% @panel_category.projects.pluck(:source_code).each do |source_code| %>
+      <li>
+        <%= source_code %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
 <%= form_tag create_projects_panel_category_path(@panel_category) do %>
-  <!-- <div class="form-group">
-    <label for="exampleInputEmail1">Email address</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
-  </div> -->
-
   <div class="form-group">
-    <!-- <label for="exampleInputPassword1">Password</label> -->
     <%= label_tag :projects_source_code %>
-    <%= text_area_tag :projects_source_code, params[:projects_source_code], class: "form-control" %>
-    <!-- <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"> -->
-  </div>
 
-  <!-- <div class="form-group">
-    <label for="exampleInputFile">File input</label>
-    <input type="file" id="exampleInputFile">
-    <p class="help-block">Example block-level help text here.</p>
+    <%= text_area_tag :projects_source_code, params[:projects_source_code], class: "form-control", rows: 5 %>
   </div>
-
-  <div class="checkbox">
-    <label>
-      <input type="checkbox"> Check me out
-    </label>
-  </div> -->
 
   <%= submit_tag "提交", class: "btn btn-default" %>
 <% end %>

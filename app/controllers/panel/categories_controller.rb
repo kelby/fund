@@ -101,6 +101,6 @@ class Panel::CategoriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def panel_category_params
-      params.fetch(:category, {}).permit(:name, :status, :slug)
+      params.fetch(:category, {}).permit(:name, :status, :slug, :catalog_id)
     end
 end

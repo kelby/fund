@@ -122,4 +122,8 @@ class Category < ApplicationRecord
   def to_param
     "#{self.id}-#{self.slug}"
   end
+
+  def full_name
+    "#{self.catalog.try(:type)} - #{self.catalog.try(:name)} - #{self.name}"
+  end
 end

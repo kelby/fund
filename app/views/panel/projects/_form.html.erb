@@ -1,4 +1,10 @@
-<%= form_for panel_project, url: panel_project_path(panel_project) do |f| %>
+<% if panel_project.new_record? %>
+  <% url = panel_projects_path %>
+<% else %>
+  <% url = panel_project_path(panel_project) %>
+<% end %>
+
+<%= form_for panel_project, url: url do |f| %>
   <% if panel_project.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(panel_project.errors.count, "error") %> prohibited this panel_project from being saved:</h2>
@@ -23,7 +29,7 @@
 
   <div class="form-group">
     <%= f.label :source_code %>
-    <%= f.text_field :source_code, class: "form-control", disabled: !panel_project.new_record? %>
+    <%= f.text_field :source_code, class: "form-control", disabled: !panel_project.new_record?, required: true %>
   </div>
 
   <div class="form-group">
@@ -50,6 +56,18 @@
     <%= f.label :today_recommend do %>
       <%= f.check_box :today_recommend %> 今日推荐？
     <% end %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :given_name %>
+    <%= f.text_field :given_name, class: "form-control" %>
+
+    <p class="help-block">某些 gem 在 GitHub 上的 Repo 项目名与在 rubygems.org 上不一致，导致下载失败，可用此修复。</p>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :category_id %>
+    <%= f.select :category_id, Category.all.includes(:catalog).collect { |p| [ p.full_name, p.id ] }, {include_blank: true}, class: "form-control select2" %>
   </div>
 
   <div class="actions">

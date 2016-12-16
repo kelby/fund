@@ -39,7 +39,7 @@ class Panel::ProjectsController < ApplicationController
 
     respond_to do |format|
       if @panel_project.save
-        format.html { redirect_to @panel_project, notice: 'Project was successfully created.' }
+        format.html { redirect_to edit_panel_project_url(@panel_project), notice: 'Project was successfully created.' }
       else
         format.html { render :new }
       end
@@ -74,6 +74,7 @@ class Panel::ProjectsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def panel_project_params
       params.fetch(:project, {}).permit(:author, :name, :human_name, :identity,
-        :status, :source_code, :description, :today_recommend)
+        :status, :source_code, :description, :today_recommend, :given_name,
+        :category_id)
     end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161215113115) do
+ActiveRecord::Schema.define(version: 20161216084450) do
 
   create_table "authentications", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.string   "provider"
@@ -140,6 +140,7 @@ ActiveRecord::Schema.define(version: 20161215113115) do
     t.boolean  "today_recommend"
     t.datetime "recommend_at"
     t.string   "human_name"
+    t.string   "given_name"
   end
 
   create_table "schema_notes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

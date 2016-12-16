@@ -230,7 +230,8 @@ class Catalog < ApplicationRecord
   def to_param
     "#{self.id}-#{self.slug}"
   end
+
+  def full_name
+    "#{self.type} - #{self.name}"
+  end
 end
-
-
-
