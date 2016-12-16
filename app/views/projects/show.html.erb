@@ -30,8 +30,8 @@
 
 <div class="project-wraper clearfix">
   <% case @project.identity %>
-  <% when "gem" %>
-    <%= render "projects/show/gem", project: @project, info: @project.gem_info, github: @project.github_info %>
+  <% when "gemspec" %>
+    <%= render "projects/show/gemspec", project: @project, info: @project.gem_info, github: @project.github_info %>
   <% when "package" %>
     <%= render "projects/show/package", project: @project, info: @project.package_info, github: @project.github_info %>
   <% when "pod" %>

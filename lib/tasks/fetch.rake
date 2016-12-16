@@ -82,7 +82,7 @@ namespace :ruby_tool do
 
       # if text =~ /github\.com/
         delay = rand(1..300)
-        Project.delay_for(delay).get_and_create_gem_project_from_option({'source_code' => link, 'identity' => Project.identities['gem']})
+        Project.delay_for(delay).get_and_create_gem_project_from_option({'source_code' => link, 'identity' => Project.identities['gemspec']})
       # else
         # next
       # end

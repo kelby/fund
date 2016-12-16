@@ -24,7 +24,7 @@ $(document).on("change", "#language", function() {
   var project_identity = $("#project_identity")
 
   if (identity == 'rails') {
-    project_identity.val('gem')
+    project_identity.val('gemspec')
   } else if (identity == 'laravel') {
     project_identity.val('package')
   } else if (identity == 'swift') {

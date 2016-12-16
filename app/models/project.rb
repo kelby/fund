@@ -50,7 +50,7 @@ class Project < ApplicationRecord
 
 
   # Rails class methods
-  enum identity: {unknow: 0, gem: 2, package: 4, pod: 6}
+  enum identity: {unknow: 0, gemspec: 2, package: 4, pod: 6}
   # 等待处理，下线，上线；Star 数目小于100; 长时间不更新、废弃；只是单纯的github项目、不是插件
   enum status: {pending: 0, offline: 4, online: 6, nightspot: 8,
     deprecated: 10, site_invalid: 12, not_want: 14}
@@ -116,7 +116,7 @@ class Project < ApplicationRecord
 
   def logic_set_popularity
     case self.type
-    when 'gem'
+    when 'gemspec'
       self.set_gem_popularity
     when 'package'
       self.set_package_popularity
@@ -128,7 +128,7 @@ class Project < ApplicationRecord
   end
 
   def self.set_gem_popularity
-    self.gem.joins(:github_info, :gem_info).distinct.each do |project|
+    self.gemspec.joins(:github_info, :gem_info).distinct.each do |project|
       if project.github_info.blank? || project.gem_info.blank?
         next
       end
@@ -246,7 +246,7 @@ class Project < ApplicationRecord
   end
 
   def total_downloads
-    if self.gem?
+    if self.gemspec?
       return self.gem_info.total_downloads || 0
     end
 
@@ -390,7 +390,7 @@ class Project < ApplicationRecord
   end
 
   def self.batch_set_offline_gems_given_name
-    self.gem.offline.find_each do |project|
+    self.gemspec.offline.find_each do |project|
       if project.gem_info.present?
         next
       end
@@ -436,7 +436,7 @@ class Project < ApplicationRecord
   def set_project_type
     case self.category.catalog.type
     when "RailsCatalog"
-      self.identity = 'gem'
+      self.identity = 'gemspec'
     when "LaravelCatalog"
       self.identity = 'package'
     when "SwiftCatalog"
@@ -447,7 +447,7 @@ class Project < ApplicationRecord
   end
 
   def logic_set_gem_info
-    if self.gem?
+    if self.gemspec?
       self.set_gem_info
     end
 
@@ -531,7 +531,7 @@ class Project < ApplicationRecord
 
     ps.update_all(status: ::Project.statuses['offline'])
 
-    ps = self.where(id: (Project.gem.pending.ids - Project.gem.pending.joins(:gem_info).ids))
+    ps = self.where(id: (Project.gemspec.pending.ids - Project.gemspec.pending.joins(:gem_info).ids))
     ps.each do |project|
       self.delay.set_gem_info(project.id)
     end
@@ -579,7 +579,7 @@ class Project < ApplicationRecord
   end
 
   def self.get_and_create_gem_project_from(github_url, category_id)
-    self.create(source_code: github_url, identity: Project.identities['gem'], category_id: category_id)
+    self.create(source_code: github_url, identity: Project.identities['gemspec'], category_id: category_id)
   end
 
   def self.get_and_create_gem_project_from_option(options={})
@@ -609,7 +609,7 @@ class Project < ApplicationRecord
   end
 
   def set_popularity_and_status
-    if self.gem?
+    if self.gemspec?
       if self.gem_info.present?
         self.set_gem_popularity
 
@@ -647,7 +647,7 @@ class Project < ApplicationRecord
   end
 
   def logic_set_info
-    if self.gem?
+    if self.gemspec?
       self.set_gem_info
     end
 
@@ -665,7 +665,7 @@ class Project < ApplicationRecord
   end
 
   def relate_info
-    if self.gem?
+    if self.gemspec?
       self.gem_info
     elsif self.pod?
       self.pod_info

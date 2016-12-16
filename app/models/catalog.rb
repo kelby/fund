@@ -33,8 +33,8 @@ class Catalog < ApplicationRecord
 
 
   # Constants
-  TOP_SINGULAR = {'gem' => "Ruby Gem", 'package' => "PHP Pacakge", 'pod' => "Swift Pod"}
-  TOP_PLURAL = {'gem' => "Ruby Gems", 'package' => "PHP Pacakges", 'pod' => "Swift Pods"}
+  TOP_SINGULAR = {'gemspec' => "Ruby Gem", 'package' => "PHP Pacakge", 'pod' => "Swift Pod"}
+  TOP_PLURAL = {'gemspec' => "Ruby Gems", 'package' => "PHP Pacakges", 'pod' => "Swift Pods"}
   # END
 
 
@@ -200,7 +200,7 @@ class Catalog < ApplicationRecord
   def human_supercatalog_name
     case self.type
     when "RailsCatalog"
-      TOP_PLURAL['gem']
+      TOP_PLURAL['gemspec']
     when "LaravelCatalog"
       TOP_PLURAL['package']
     when "SwiftCatalog"
@@ -215,7 +215,7 @@ class Catalog < ApplicationRecord
     when "SwiftCatalog"
       'pod'
     when "RailsCatalog"
-      'gem'
+      'gemspec'
     when "LaravelCatalog"
       'package'
     else
