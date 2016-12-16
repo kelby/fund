@@ -93,6 +93,23 @@ class Project < ApplicationRecord
   LARAVEL_BASE = {'watchers' => 3522, 'stars' => 27582, 'forks' => 9131, 'downloads' => 3941137}
   # END
 
+  def self.delay_set_popularity
+    Project.pending.where(popularity: nil).map{|x| x.logic_set_popularity }
+  end
+
+  def logic_set_popularity
+    case self.type
+    when 'gem'
+      self.set_gem_popularity
+    when 'package'
+      self.set_package_popularity
+    when 'pod'
+      self.set_pod_popularity
+    else
+      # ...
+    end
+  end
+
   def self.set_gem_popularity
     self.gem.joins(:github_info, :gem_info).distinct.each do |project|
       if project.github_info.blank? || project.gem_info.blank?
