@@ -1,4 +1,4 @@
-class Panel::ProjectsController < ApplicationController
+class Panel::ProjectsController < Panel::PanelController
   before_action :set_panel_project, only: [:show, :edit, :update, :destroy]
 
   def search
@@ -10,6 +10,10 @@ class Panel::ProjectsController < ApplicationController
 
     if params[:status].present?
       @panel_projects = @panel_projects.where(status: params[:status])
+    end
+
+    if params[:identity].present?
+      @panel_projects = @panel_projects.where(identity: params[:identity])
     end
 
     render :index

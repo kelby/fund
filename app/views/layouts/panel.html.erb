@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%= display_meta_tags site: "Dev Toolbox", reverse: true %>
+
+    <%= csrf_meta_tags %>
+
+    <!-- base css here -->
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+
+    <!-- layout_css_link_yield -->
+    <%= yield(:layout_css_link_yield) %>
+    <!-- content_css_link_yield -->
+    <%= yield(:content_css_link_yield) %>
+
+    <!-- more css here. -->
+
+
+    <!-- base js here -->
+    <%= javascript_include_tag 'application' %>
+
+    <!-- layout_js_link_yield -->
+    <%= yield(:layout_js_link_yield) %>
+
+    <!-- meta -->
+    <meta content="IE=edge" http-equiv=X-UA-Compatible>
+    <meta content="width=device-width,initial-scale=1" name=viewport>
+
+    <!-- google authtication -->
+    <meta name="google-site-verification" content="LAnUZ1onQXapojdsdqHSQs-jaHQdEDSQAJOfQ5eXw48" />
+    <!-- Search Console -->
+    <meta name="google-site-verification" content="rWGkNlVdYPEGiMduXJmcaabX2IA6GktcnVUsDQoerrg" />
+  </head>
+
+  <body>
+    <!-- Fixed navbar -->
+    <%= render "layouts/navbar" %>
+
+
+    <!-- Begin page content -->
+    <div class="container <%= params[:controller] %>">
+      <%= render "layouts/notice_or_alert" %>
+
+      <% content_for :prefix do %>
+        <div class="">
+
+          <%= link_to "一级类目", panel_catalogs_path, class: "btn btn-default" %>
+
+          <%= link_to "二级类目", panel_categories_path, class: "btn btn-default" %>
+
+          <%= link_to "项目", panel_projects_path, class: "btn btn-default" %>
+
+
+          <%= link_to "后台", rails_admin_path, class: "btn btn-default pull-right", target: "_blank" %>
+        </div>
+
+        <hr>
+      <% end %>
+
+      <%= yield :prefix %>
+
+
+      <!-- begin per page body content -->
+        <%= yield %>
+      <!-- end per page body content -->
+
+
+      <%= yield :postfix %>
+    </div>
+
+
+    <%= render "layouts/footer" %>
+
+    <!-- more js here... -->
+    <%= content_for :javascripts %>
+
+    <script>
+      $( ".select2" ).select2({
+        theme: "bootstrap"
+      });
+    </script>
+  </body>
+</html>

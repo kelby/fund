@@ -19,6 +19,11 @@
     <%= select_tag :status, options_for_select(Project.statuses.keys, params[:status]), include_blank: true, class: "form-control" %>
   </div>
 
+  <div class="form-group">
+    <%= label_tag :identity %>
+    <%= select_tag :identity, options_for_select(Project.identities.keys, params[:identity]), include_blank: true, class: "form-control" %>
+  </div>
+
   <%= submit_tag "搜索", class: "btn btn-default", data: {disable_with: "正在搜索"} %>
 <% end %>
 

@@ -18,7 +18,7 @@
   已有项目：
 
   <ul>
-    <% @panel_category.projects.pluck(:source_code).each do |source_code| %>
+    <% @panel_category.projects.order(popularity: :desc).pluck(:source_code).each do |source_code| %>
       <li>
         <%= source_code %>
       </li>
@@ -33,5 +33,5 @@
     <%= text_area_tag :projects_source_code, params[:projects_source_code], class: "form-control", rows: 5 %>
   </div>
 
-  <%= submit_tag "提交", class: "btn btn-default" %>
+  <%= submit_tag "提交", class: "btn btn-default", data: {disable_with: "提交..."} %>
 <% end %>

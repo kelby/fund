@@ -1,4 +1,4 @@
-class Panel::CatalogsController < ApplicationController
+class Panel::CatalogsController < Panel::PanelController
   before_action :set_panel_catalog, only: [:show, :edit, :update, :destroy]
 
 

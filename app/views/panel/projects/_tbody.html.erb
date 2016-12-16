@@ -3,10 +3,11 @@
   <td><%= link_to panel_project.name, panel_project_path(panel_project), target: "_blank" %></td>
   <td><%= panel_project.status %></td>
   <td><%= panel_project.source_code %></td>
+  <td><%= panel_project.github_info.present? %></td>
   <td><%= panel_project.relate_info.present? %></td>
 
   <td><%= link_to "后台", rails_admin.show_path('Project', panel_project) %></td>
   <td><%= link_to 'Show', panel_project_path(panel_project) %></td>
-  <td><%= link_to 'Edit', edit_panel_project_path(panel_project) %></td>
+  <td><%= link_to 'Edit', edit_panel_project_path(panel_project), target: "_blank" %></td>
   <td><%= link_to 'Destroy', panel_project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
 </tr>

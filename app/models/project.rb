@@ -52,7 +52,8 @@ class Project < ApplicationRecord
   # Rails class methods
   enum identity: {unknow: 0, gem: 2, package: 4, pod: 6}
   # 等待处理，下线，上线；Star 数目小于100; 长时间不更新、废弃；只是单纯的github项目、不是插件
-  enum status: {pending: 0, offline: 4, online: 6, nightspot: 8, deprecated: 10, site_invalid: 12}
+  enum status: {pending: 0, offline: 4, online: 6, nightspot: 8,
+    deprecated: 10, site_invalid: 12, not_want: 14}
 
   scope :nolimit, -> { unscope(:limit, :offset) }
   scope :show_status, -> { where(status: [Project.statuses['online'], Project.statuses['nightspot'], Project.statuses['deprecated']]) }

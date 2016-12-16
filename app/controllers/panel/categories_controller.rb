@@ -1,4 +1,4 @@
-class Panel::CategoriesController < ApplicationController
+class Panel::CategoriesController < Panel::PanelController
   before_action :set_panel_category, only: [:show, :edit, :update, :destroy, :create_projects]
 
   def create_projects
@@ -50,7 +50,7 @@ class Panel::CategoriesController < ApplicationController
 
   # GET /panel/categories/1
   def show
-    @projects = @panel_category.projects.page(params[:page])
+    @projects = @panel_category.projects.order(popularity: :desc).page(params[:page])
   end
 
   # GET /panel/categories/new
