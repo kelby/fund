@@ -21,6 +21,8 @@
 
 every 1.hours do
   runner "Category.nil_catalog_so_offline"
+  runner "Category.no_online_projects_so_offline"
+  runner "Catalog.no_online_categories_so_offline"
 end
 
 every 2.hours do
