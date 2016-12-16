@@ -9,7 +9,7 @@ class CategoriesController < ApplicationController
 
   # GET /categories/1
   def show
-    @projects = @category.projects.online.order(popularity: :desc)
+    @projects = @category.projects.online.order(popularity: :desc).includes(:github_info)
   end
 
   # GET /categories/new

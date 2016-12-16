@@ -8,9 +8,21 @@
 <% if @project.category.present? %>
   <div class="panel panel-default">
     <div class="panel-heading">
+      <% url = @project.category.catalog.type.downcase.gsub(/catalog$/, '_path') %>
+
+      <%= link_to eval(url) do %>
+        <%= @project.category.catalog.human_supercatalog_name %>
+      <% end %>
+      /
+      <%= link_to catalog_path(@project.category.catalog) do %>
+        <%= @project.category.catalog.name %>
+      <% end %>
+      /
       <%= link_to @project.category, target: "_blank" do %>
         <%= @project.category.name %>
       <% end %>
+      /
+      <%= @project.name %>
     </div>
 
     <div class="panel-body">
