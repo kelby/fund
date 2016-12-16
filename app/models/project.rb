@@ -96,13 +96,13 @@ class Project < ApplicationRecord
   # END
 
   def detect_set_category_online
-    if (self.status.changed? && self.online?) && self.category.present?
+    if (self.status_changed? && self.online?) && self.category.present?
       self.category.online!
     end
   end
 
   def detect_given_name_changed
-    if given_name.changed? && given_name.present?
+    if given_name_changed? && given_name.present?
       self.logic_set_info
     end
   end
