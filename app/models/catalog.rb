@@ -210,6 +210,19 @@ class Catalog < ApplicationRecord
     end
   end
 
+  def project_identity
+    case self.type
+    when "SwiftCatalog"
+      'pod'
+    when "RailsCatalog"
+      'gem'
+    when "LaravelCatalog"
+      'package'
+    else
+      nil
+    end
+  end
+
   def set_slug
     self.slug = Pinyin.t(self.name, splitter: '_')
   end

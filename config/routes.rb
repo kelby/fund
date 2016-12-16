@@ -4,6 +4,10 @@ Rails.application.routes.draw do
   authenticate :user, lambda { |u| u.is_admin? } do
     namespace :panel do
       resources :categories do
+        member do
+          post :create_projects
+        end
+
         collection do
           get :search
         end

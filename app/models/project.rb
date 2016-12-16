@@ -487,7 +487,7 @@ class Project < ApplicationRecord
   end
 
   def self.get_and_create_gem_project_from_option(options={})
-    self.create(source_code: options['source_code'], identity: options['identity'])
+    self.create(options)
   end
 
   def self.get_and_create_pod_project(github_url, category_id)

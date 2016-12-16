@@ -1,5 +1,25 @@
 class Panel::CategoriesController < ApplicationController
-  before_action :set_panel_category, only: [:show, :edit, :update, :destroy]
+  before_action :set_panel_category, only: [:show, :edit, :update, :destroy, :create_projects]
+
+  def create_projects
+    if params[:projects_source_code].blank?
+      return false
+    end
+
+    projects_source_code = params[:projects_source_code].split("\r\n").delete_if{|x| x.blank? || !(x =~ /github\.com/)}
+
+    catalog = @panel_category.catalog
+    if catalog.present?
+      identity = catalog.project_identity
+    end
+
+    projects_source_code.each do |link|
+      delay = rand(1..60)
+      Project.delay_for(delay).get_and_create_gem_project_from_option({'source_code' => link, 'identity' => identity, category_id: @panel_category.id})
+    end
+
+    redirect_to panel_category_url(@panel_category), notice: '正在抓取项目到此类目，请稍等。'
+  end
 
   def search
     @panel_categories = ::Category.all.order(id: :desc).includes(:catalog).page(params[:page])
