@@ -102,9 +102,11 @@ class Project < ApplicationRecord
     end
   end
 
-  def detect_given_name_changed
+  def detect_given_name_changed(force=true)
     if given_name_changed? && given_name.present?
-      self.logic_set_info
+      if force
+        self.logic_set_info
+      end
     end
   end
 
@@ -346,6 +348,49 @@ class Project < ApplicationRecord
     end
 
     parse_json = JSON.parse @json
+  end
+
+  # https://api.github.com/repos/rails/rails/contents/
+  def get_gem_name
+    url = convert_github_to_repo_url + "/contents"
+    url += "?client_id=#{Settings.github_token}&client_secret=#{Settings.github_secret}"
+
+    @json ||= Timeout.timeout(10) do
+      open(url).read
+    end
+
+    parse_json = JSON.parse @json
+
+    gemspec = parse_json.map{|x| x['name'] }.select{|xx| xx =~ /\.gemspec$/}
+
+    if gemspec.blank?
+      self.not_want!
+      return ""
+    end
+
+    if self.github_info.present?
+      self.github_info.others['gemspec'] = gemspec.join(',')
+    end
+
+    gemspec.first.gsub(/\.gemspec$/, "")
+  end
+
+  def set_given_name
+    self.given_name = self.get_gem_name
+
+    if self.given_name_changed?
+      self.save
+    end
+  end
+
+  def self.batch_set_offline_gems_given_name
+    self.gem.offline.find_each do |project|
+      if project.gem_info.present?
+        next
+      end
+
+      project.set_given_name
+    end
   end
 
   def set_github_others_info
