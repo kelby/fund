@@ -62,9 +62,7 @@ class ProjectSearchController < ApplicationController
     }
 
 
-    @projects = Project.search(search_params).page(params[:page]).per(20)
-
-    @projects = @projects.records
+    @projects = Project.includes(:github_info, :category => :catalog).search(search_params).page(params[:page]).per(20).records
 
     @count = @projects.total_count
   end

@@ -7,6 +7,13 @@
   <% elsif project.pod? %>
     Swift
   <% end %>
+
+  <% if project.category.present? %>
+    /
+    <%= project.category.catalog.name %>
+    /
+    <%= project.category.name %>
+  <% end %>
 </span>
 
 &nbsp;&nbsp;
