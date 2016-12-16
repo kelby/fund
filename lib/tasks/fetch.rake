@@ -65,7 +65,7 @@ namespace :ruby_tool do
     categories = Category.all.joins(:catalog).where(catalogs: {type: "RailsCatalog"}).uniq
 
     categories.each do |category|
-      delay = rand(1..1600)
+      delay = rand(1..3600)
       Category.delay_for(delay).delay_get_projects(category.id)
     end
   end

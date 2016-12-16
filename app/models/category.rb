@@ -88,11 +88,11 @@ class Category < ApplicationRecord
     url_downcase = "https://www.ruby-toolbox.com/categories/#{category_name_downcase}"
 
     unless url == url_downcase
-      delay = rand(1..600)
+      delay = rand(1..3600)
       self.delay_for(delay).ruby_toolbox(url_downcase)
     end
 
-    delay = rand(1..600)
+    delay = rand(1..3600)
     self.delay_for(delay).ruby_toolbox(url)
   end
 
