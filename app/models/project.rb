@@ -25,6 +25,7 @@ require 'elasticsearch/model'
 class Project < ApplicationRecord
   # include Elasticsearch::Model
   # include Elasticsearch::Model::Callbacks
+  include Searchable
 
   # Associations
   belongs_to :category # , counter_cache: true
@@ -678,5 +679,30 @@ class Project < ApplicationRecord
 
   def show_name
     self.human_name.presence || self.name
+  end
+
+
+  mapping do
+    indexes :id, type: :integer
+
+    indexes :identity
+    indexes :status
+
+    indexes :name
+    indexes :given_name
+    indexes :human_name
+
+    indexes :description
+  end
+
+  def as_indexed_json(options={})
+    self.as_json(
+      only: [:id,
+        :identity, :status,
+        :name, :given_name, :human_name,
+        :description],
+
+      include: { category: { only: [:name, :slug]}}
+    )
   end
 end
