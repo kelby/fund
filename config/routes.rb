@@ -70,9 +70,11 @@ Rails.application.routes.draw do
   root 'home#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  get 'Ruby-Gems', to: "catalogs#rails", as: :rails
+  get 'ruby-gems', to: "catalogs#rails", as: :rails
+  get 'Ruby-Gems', to: "catalogs#rails"
   get 'gems', to: "catalogs#rails"
-  get 'Swift-Pods', to: "catalogs#swift", as: :swift
+  get 'swift-pods', to: "catalogs#swift", as: :swift
+  get 'Swift-Pods', to: "catalogs#swift"
   get 'pods', to: "catalogs#swift"
   get 'PHP-Packages', to: "catalogs#laravel", as: :laravel
   get 'packages', to: "catalogs#laravel"

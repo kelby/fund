@@ -4,9 +4,9 @@
       <h2><%= pluralize(comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
 
       <ul>
-      <% comment.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
+        <% comment.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
@@ -14,7 +14,7 @@
   <div class="form-group">
     <%= f.label :content, "内容", class: '' %>
 
-      <%= f.text_area :content, class: "form-control", placeholder: "请基于您的使用经验、或对源码的理解，留下对他人有参考意义的评价" %>
+    <%= f.text_area :content, class: "form-control", placeholder: "请基于您的使用经验、或对源码的理解，留下对他人有参考意义的评价", rows: 3 %>
   </div>
 
   <div class="actions">

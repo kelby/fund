@@ -25,7 +25,7 @@
   <div class="field form-group">
     <%= f.label :catalog_id %>
 
-    <%= select_tag :catalog_id, options_for_select([]), include_blank: true, disabled: true, class: "form-control" %>
+    <%= select_tag :catalog_id, options_for_select([]), include_blank: true, disabled: true, class: "form-control select2" %>
   </div>
 
   <div class="field form-group">
@@ -33,7 +33,7 @@
 
     <% categories = Category.online %>
 
-    <%= select_tag "project[category_id]", options_for_select(categories.collect { |p| [ p.name, p.id, {"class" => "hidden catalog-#{p.catalog_id}"} ] }), include_blank: true, disabled: true, class: "form-control" %>
+    <%= select_tag "project[category_id]", options_for_select(categories.collect { |p| [ p.name, p.id, {"class" => "hidden catalog-#{p.catalog_id}"} ] }), include_blank: true, disabled: true, class: "form-control select2" %>
   </div>
 
   <%= f.hidden_field :identity %>

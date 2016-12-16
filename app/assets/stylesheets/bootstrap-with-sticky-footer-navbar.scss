@@ -97,9 +97,14 @@ body > .container {
     padding-right: 10px;
   }
 
-  body > .navbar > .container {
+  body > .navbar .navbar-header {
+    .navbar-toggle {
+      margin-right: 10px;
+    }
+
+    .navbar-brand {
       padding-left: 10px;
-      padding-right: 10px;
+    }
   }
 }
 
