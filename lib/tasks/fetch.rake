@@ -61,29 +61,12 @@ namespace :ruby_tool do
   end
 
   desc "get projects from categories"
-  task :get_projects => [:environment] do
+  task :get_projects_from_ruby_toolbox => [:environment] do
     categories = Category.all.joins(:catalog).where(catalogs: {type: "RailsCatalog"}).uniq
 
     categories.each do |category|
-      delay = rand(1..600)
+      delay = rand(1..1600)
       Category.delay_for(delay).delay_get_projects(category.id)
-
-      # category_name = category.slug.try(:downcase)
-      # url = "https://www.ruby-toolbox.com/categories/#{category_name}"
-
-      # doc = Nokogiri::HTML(` curl "#{url}" `)
-
-      # if doc.present?
-      #   source_codes = doc.css("a.source_code")
-
-      #   next if source_codes.blank?
-
-      #   source_codes.each do |source_code|
-      #     project_name = source_code.attributes['href'].value
-      #     delay = rand(1..3600)
-      #     Project.delay_for(delay).get_and_create_gem_project(project_name, category.id)
-      #   end
-      # end
     end
   end
 

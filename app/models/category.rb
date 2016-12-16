@@ -81,9 +81,22 @@ class Category < ApplicationRecord
   def self.delay_get_projects(category_id)
     category = Category.find(category_id)
 
-    category_name = category.slug.try(:downcase)
-    url = "https://www.ruby-toolbox.com/categories/#{category_name}"
+    category_name = category.slug
+    category_name_downcase = category.slug.try(:downcase)
 
+    url = "https://www.ruby-toolbox.com/categories/#{category_name}"
+    url_downcase = "https://www.ruby-toolbox.com/categories/#{category_name_downcase}"
+
+    unless url == url_downcase
+      delay = rand(1..600)
+      self.delay_for(delay).ruby_toolbox(url_downcase)
+    end
+
+    delay = rand(1..600)
+    self.delay_for(delay).ruby_toolbox(url)
+  end
+
+  def self.ruby_toolbox(url)
     doc = ::Nokogiri::HTML(` curl "#{url}" `)
 
     if doc.present?
@@ -93,8 +106,11 @@ class Category < ApplicationRecord
 
       source_codes.each do |source_code|
         github_url = source_code.attributes['href'].value
-        delay = rand(1..3600)
-        Project.delay_for(delay).get_and_create_gem_project_from(github_url, category.id)
+
+        if github_url =~ /github\.com/
+          delay = rand(1..3600)
+          Project.delay_for(delay).get_and_create_gem_project_from(github_url, category.id)
+        end
       end
     end
   end
