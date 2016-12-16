@@ -24,10 +24,13 @@ class Category < ApplicationRecord
   before_create :set_slug
   # END
 
-
   # Rails class methods
   enum status: { online: 0, offline: 11 }
   # END
+
+  def self.no_online_projects_so_offline
+    Category.where(online_projects_count: 0).update_all(status: Category.statuses['offline'])
+  end
 
   def self.nil_catalog_so_offline
     Category.where(catalog_id: nil).update_all(status: Category.statuses['offline'])

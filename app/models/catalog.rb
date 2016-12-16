@@ -43,6 +43,10 @@ class Catalog < ApplicationRecord
   # END
 
 
+  def self.no_online_categories_so_offline
+    Catalog.includes(:categories).map{|c| c.offline! if c.categories.all?{|x| x.offline? }}
+  end
+
   def self.set_rails_catalog
     ["Active Record Plugins",
     "Background Processing",

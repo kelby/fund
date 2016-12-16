@@ -31,7 +31,7 @@
   <div class="field form-group">
     <%= f.label :category_id %>
 
-    <% categories = Category.all %>
+    <% categories = Category.online %>
 
     <%= select_tag "project[category_id]", options_for_select(categories.collect { |p| [ p.name, p.id, {"class" => "hidden catalog-#{p.catalog_id}"} ] }), include_blank: true, disabled: true, class: "form-control" %>
   </div>
@@ -44,9 +44,9 @@
 <% end %>
 
 
-<%= select_tag :rails_catalog, options_for_select(RailsCatalog.all.collect { |p| [ p.name, p.id ] }), include_blank: true, class: "hidden" %>
-<%= select_tag :laravel_catalog, options_for_select(LaravelCatalog.all.collect { |p| [ p.name, p.id ] }), include_blank: true, class: "hidden" %>
-<%= select_tag :swift_catalog, options_for_select(SwiftCatalog.all.collect { |p| [ p.name, p.id ] }), include_blank: true, class: "hidden" %>
+<%= select_tag :rails_catalog, options_for_select(RailsCatalog.online.collect { |p| [ p.name, p.id ] }), include_blank: true, class: "hidden" %>
+<%= select_tag :laravel_catalog, options_for_select(LaravelCatalog.online.collect { |p| [ p.name, p.id ] }), include_blank: true, class: "hidden" %>
+<%= select_tag :swift_catalog, options_for_select(SwiftCatalog.online.collect { |p| [ p.name, p.id ] }), include_blank: true, class: "hidden" %>
 
 
 <% content_for :javascripts do %>

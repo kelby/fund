@@ -43,12 +43,12 @@
         </h2>
 
         <section class="pull-right">
-          <%= RailsCatalog.count %>
+          <%= RailsCatalog.online.count %>
         </section>
       </div>
       <!-- <div class="panel-body"> -->
         <ul class="list-group">
-          <%= render partial: "home/catalog", as: :catalog, collection: RailsCatalog.all.includes(:categories) %>
+          <%= render partial: "home/catalog", as: :catalog, collection: RailsCatalog.online.includes(:categories) %>
         </ul>
       <!-- </div> -->
     </div>
@@ -86,13 +86,13 @@
         </h2>
 
         <section class="pull-right">
-          <%= SwiftCatalog.count %>
+          <%= SwiftCatalog.online.count %>
         </section>
       </div>
 
       <!-- <div class="panel-body"> -->
         <ul class="list-group">
-          <%= render partial: "home/catalog", as: :catalog, collection: SwiftCatalog.all.includes(:categories) %>
+          <%= render partial: "home/catalog", as: :catalog, collection: SwiftCatalog.online.includes(:categories) %>
         </ul>
       <!-- </div> -->
     </div>

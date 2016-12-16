@@ -43,9 +43,9 @@
     <% category = project.category %>
 
     <% if category.present? %>
-      <% categories = category.class.all %>
+      <% categories = category.class.online %>
     <% else %>
-      <% categories = Category.all %>
+      <% categories = Category.online %>
     <% end %>
 
     <%= f.select :category_id, categories.collect { |p| [ p.name, p.id ] }, include_blank: true %>

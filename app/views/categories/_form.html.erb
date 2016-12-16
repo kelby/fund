@@ -27,9 +27,9 @@
     <% catalog = category.catalog %>
 
     <% if catalog.present? %>
-      <% catalogs = catalog.class.all %>
+      <% catalogs = catalog.class.online %>
     <% else %>
-      <% catalogs = Catalog.all %>
+      <% catalogs = Catalog.online %>
     <% end %>
 
     <%= f.select :catalog_id, catalogs.collect { |p| [ p.name, p.id ] }, {include_blank: true}, {class: "form-control"} %>
