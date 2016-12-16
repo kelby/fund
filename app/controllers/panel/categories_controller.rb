@@ -6,7 +6,7 @@ class Panel::CategoriesController < ApplicationController
       return false
     end
 
-    projects_source_code = params[:projects_source_code].split("\r\n").delete_if{|x| x.blank? || !(x =~ /github\.com/)}
+    projects_source_code = params[:projects_source_code].split(/\r\n|\s/).delete_if{|x| x.blank? || !(x =~ /github\.com/)}
 
     catalog = @panel_category.catalog
     if catalog.present?
