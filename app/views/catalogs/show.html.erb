@@ -41,7 +41,7 @@
   <!-- <div class="panel-body no-padding"> -->
 
     <ul class="list-group">
-      <% @catalog.categories.each do |category| %>
+      <% @catalog.categories.online.each do |category| %>
         <li  class="list-group-item">
           <span class="badge">
             <%= category.online_projects_count %>
