@@ -396,6 +396,7 @@ class Project < ApplicationRecord
       end
 
       self.delay.delay_set_given_name(project.id)
+      project.not_want!
     end
   end
 
