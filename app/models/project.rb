@@ -375,6 +375,12 @@ class Project < ApplicationRecord
     gemspec.first.gsub(/\.gemspec$/, "")
   end
 
+  def self.delay_set_given_name(project_id)
+    project = Project.find(project_id)
+
+    project.set_given_name
+  end
+
   def set_given_name
     self.given_name = self.get_gem_name
 
@@ -389,7 +395,7 @@ class Project < ApplicationRecord
         next
       end
 
-      project.set_given_name
+      self.delay.delay_set_given_name(project.id)
     end
   end
 
