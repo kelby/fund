@@ -22,19 +22,13 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1
   def show
-    @comment = Comment.new
-    @comments = @project.comments
-
-    if @project.category.present?
-      @projects = @project.category.projects.online.order(popularity: :desc).limit(6)
-    end
+    get_relate_data
   end
 
   def repo
     @project = Project.where(author: params[:author], name: params[:name]).first
 
-    @comment = Comment.new
-    @comments = @project.comments
+    get_relate_data
 
     render :show
   end
@@ -99,5 +93,14 @@ class ProjectsController < ApplicationController
     def project_update_params
       params.require(:project).permit(:name, :description, :website, :wiki, :source_code,
         :category_id)
+    end
+
+    def get_relate_data
+      @comment = Comment.new
+      @comments = @project.comments
+
+      if @project.category.present?
+        @projects = @project.category.projects.online.order(popularity: :desc).limit(6)
+      end
     end
 end
