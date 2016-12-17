@@ -48,7 +48,7 @@ class Panel::CatalogsController < Panel::PanelController
 
     respond_to do |format|
       if @panel_catalog.save
-        format.html { redirect_to @panel_catalog, notice: 'Catalog was successfully created.' }
+        format.html { redirect_to panel_catalog_path(@panel_catalog), notice: 'Catalog was successfully created.' }
       else
         format.html { render :new }
       end
@@ -82,6 +82,6 @@ class Panel::CatalogsController < Panel::PanelController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def panel_catalog_params
-      params.fetch(:catalog, {}).permit(:name, :slug, :type, :sketch)
+      params.fetch(:catalog, {}).permit(:name, :slug, :type, :sketch, :footnote)
     end
 end

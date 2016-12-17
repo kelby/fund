@@ -6,7 +6,10 @@
   <td><%= panel_catalog.status %></td>
   <td><%= panel_catalog.categories_count %></td>
 
-  <td><%= link_to 'Show', panel_catalog_path(panel_catalog) %></td>
-  <td><%= link_to 'Edit', edit_panel_catalog_path(panel_catalog) %></td>
+  <!-- <td><%#= link_to 'Show', panel_catalog_path(panel_catalog) %></td> -->
+  <td><%= link_to 'Edit', edit_panel_catalog_path(panel_catalog), target: "_blank" %></td>
   <td><%= link_to 'Destroy', panel_catalog_path(panel_catalog), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+
+  <td><%= link_to '前台', catalog_path(panel_catalog), target: "_blank" %></td>
+  <td><%= link_to '后台', rails_admin.show_path('Catalog', panel_catalog), target: "_blank" %></td>
 </tr>

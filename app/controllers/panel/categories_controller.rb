@@ -67,7 +67,7 @@ class Panel::CategoriesController < Panel::PanelController
     @panel_category = ::Category.new(panel_category_params)
     respond_to do |format|
       if @panel_category.save
-        format.html { redirect_to @panel_category, notice: 'Category was successfully created.' }
+        format.html { redirect_to edit_panel_category_url(@panel_category), notice: 'Category was successfully created.' }
       else
         format.html { render :new }
       end
