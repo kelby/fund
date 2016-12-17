@@ -211,8 +211,8 @@ namespace :swift do
     end
   end
 
-  desc "Task description"
-  task :task_name => [:environment] do
+  desc "matteocrippa matteocrippa/awesome-swift"
+  task :all_github_link => [:environment] do
     doc = Nokogiri::HTML(open "https://github.com/matteocrippa/awesome-swift");
     
     lis = doc.css(".markdown-body h4");
@@ -298,5 +298,307 @@ namespace :swift do
       project.destroy if project.pod_info.blank?
     end
 
+  end
+
+  desc "vsouza awesome-ios H1类目及其下面的项目"
+  task :vsouza_awesome_ios_h1 => [:environment] do
+    url = "https://github.com/vsouza/awesome-ios"
+
+    doc = Nokogiri::HTML(open url);
+
+    @categories = Category.includes(:catalog).where(catalogs: {type: 'SwiftCatalog'})
+
+    xs = doc.css(".markdown-body h1");
+    
+    xs.each do |xx|
+      xxname = xx.text
+      yy = xx.next_element
+
+      if yy.name != "ul"
+        yy = xx.next_element.next_element
+      end
+
+      if yy.name == "ul"
+        links = yy.css("li > a")
+
+        # 找子类目
+        category = @categories.where(name: xxname).last
+
+        # 找不到
+        if category.blank?
+          # 找父类目
+          catalog = Catalog.where(type: 'SwiftCatalog').where(name: xxname).last
+
+          # 找不到
+          if catalog.blank?
+            # 创建父类目
+            catalog = Catalog.create(type: 'SwiftCatalog', name: xxname)
+          else
+            # 找到父类目
+          end
+
+          # 创建子类目
+          category = catalog.categories.create(name: xxname)
+        else
+          # 找到子类目
+        end
+
+        category_id = category.id
+
+        links.each do |link|
+          github_url = link.attributes['href'].value
+
+          if github_url =~ /github\.com/
+            delay = rand(1..1800)
+            Project.delay_for(delay).get_and_create_pod_project(github_url, category_id)
+          end
+        end
+      else
+        next
+      end
+    end
+  end
+
+  desc "vsouza awesome-ios H2类目及其下面的项目"
+  task :vsouza_awesome_ios_h2 => [:environment] do
+    url = "https://github.com/vsouza/awesome-ios"
+
+    doc = Nokogiri::HTML(open url);
+
+    @categories = Category.includes(:catalog).where(catalogs: {type: 'SwiftCatalog'})
+
+    xs = doc.css(".markdown-body h2");
+    
+    xs.each do |xx|
+      xxname = xx.text
+      yy = xx.next_element
+
+      if yy.name != "ul"
+        yy = xx.next_element.next_element
+      end
+
+      if yy.name == "ul"
+        links = yy.css("li > a")
+
+        # 找子类目
+        category = @categories.where(name: xxname).last
+
+        # 找不到
+        if category.blank?
+          # 找父类目
+          catalog = Catalog.where(type: 'SwiftCatalog').where(name: xxname).last
+
+          # 找不到
+          if catalog.blank?
+            # 创建父类目
+            catalog = Catalog.create(type: 'SwiftCatalog', name: xxname)
+          else
+            # 找到父类目
+          end
+
+          # 创建子类目
+          category = catalog.categories.create(name: xxname)
+        else
+          # 找到子类目
+        end
+
+        category_id = category.id
+
+        links.each do |link|
+          github_url = link.attributes['href'].value
+
+          if github_url =~ /github\.com/
+            delay = rand(1..1800)
+            Project.delay_for(delay).get_and_create_pod_project(github_url, category_id)
+          end
+        end
+      else
+        next
+      end
+    end
+  end
+
+  # 有bug
+  desc "vsouza awesome-ios H4类目及其下面的项目"
+  task :vsouza_awesome_ios_h4 => [:environment] do
+    url = "https://github.com/vsouza/awesome-ios"
+
+    doc = Nokogiri::HTML(open url);
+
+    @categories = Category.includes(:catalog).where(catalogs: {type: 'SwiftCatalog'})
+
+    xs = doc.css(".markdown-body h4");
+
+    xs.each do |xx|
+      xxname = xx.text
+
+      xx_father = xx.previous_element
+
+      if xx_father.name == "h2"
+        xx_fathername = xx_father.text
+      else
+        xx_father = xx.previous_element.previous_element
+
+        if xx_father.name == "h2"
+          xx_fathername = xx_father.text
+        elsif xx_father.name == "h4"
+          xx_father = xx_father.previous_element.previous_element
+          if xx_father.name == "h2"
+            xx_fathername = xx_father.text
+          end
+        else
+          xx_father = xx.previous_element.previous_element.previous_element
+          if xx_father.name == "h2"
+            xx_fathername = xx_father.text
+          end
+        end
+      end
+
+
+      yy = xx.next_element
+
+      if yy.name == "ul"
+        links = yy.css("li > a")
+
+        # 找子类目
+        category = @categories.where(name: xxname).last
+
+        # 找不到
+        if category.blank?
+          # 找类似子类目
+          similar_category = @categories.where(name: xx_fathername).last
+
+          # 找到类似子类目
+          if similar_category.present?
+            # 认其父类做父类
+            catalog = similar_category.catalog
+          else
+            # 找不到类目子类目，开始找类目父类目
+            catalog = Catalog.where(type: 'SwiftCatalog').where(name: xx_fathername).last
+
+            if catalog.blank?
+              catalog = Catalog.create(type: 'SwiftCatalog', name: xx_fathername)
+            end
+          end
+
+          category = catalog.categories.create(name: xxname)
+        end
+
+        category_id = category.id
+
+        links.each do |link|
+          github_url = link.attributes['href'].value
+
+          if github_url =~ /github\.com/
+            delay = rand(1..1800)
+            Project.delay_for(delay).get_and_create_pod_project(github_url, category_id)
+          end
+        end
+      else
+        next
+      end
+    end
+  end
+
+  # 有bug
+  desc "vsouza awesome-ios H4类目及其下面的项目"
+  task :vsouza_awesome_ios_h4_for_h1 => [:environment] do
+    url = "https://github.com/vsouza/awesome-ios"
+
+    doc = Nokogiri::HTML(open url);
+
+    @categories = Category.includes(:catalog).where(catalogs: {type: 'SwiftCatalog'})
+
+    xs = doc.css(".markdown-body h4");
+
+    xs.each do |xx|
+      xxname = xx.text
+
+      xx_father = xx.previous_element
+
+      if xx_father.name == "h1"
+        xx_fathername = xx_father.text
+      else
+        xx_father = xx.previous_element.previous_element
+
+        if xx_father.name == "h1"
+          xx_fathername = xx_father.text
+        elsif xx_father.name == "h4"
+          xx_father = xx_father.previous_element.previous_element
+          if xx_father.name == "h1"
+            xx_fathername = xx_father.text
+          end
+        else
+          xx_father = xx.previous_element.previous_element.previous_element
+          if xx_father.name == "h1"
+            xx_fathername = xx_father.text
+          end
+        end
+      end
+
+
+      yy = xx.next_element
+
+      if yy.name == "ul"
+        links = yy.css("li > a")
+
+        # 找子类目
+        category = @categories.where(name: xxname).last
+
+        # 找不到
+        if category.blank?
+          # 找类似子类目
+          similar_category = @categories.where(name: xx_fathername).last
+
+          # 找到类似子类目
+          if similar_category.present?
+            # 认其父类做父类
+            catalog = similar_category.catalog
+          else
+            # 找不到类目子类目，开始找类目父类目
+            catalog = Catalog.where(type: 'SwiftCatalog').where(name: xx_fathername).last
+
+            if catalog.blank?
+              catalog = Catalog.create(type: 'SwiftCatalog', name: xx_fathername)
+            end
+          end
+
+          category = catalog.categories.create(name: xxname)
+        end
+
+        category_id = category.id
+
+        links.each do |link|
+          github_url = link.attributes['href'].value
+
+          if github_url =~ /github\.com/
+            delay = rand(1..1800)
+            Project.delay_for(delay).get_and_create_pod_project(github_url, category_id)
+          end
+        end
+      else
+        next
+      end
+    end
+  end
+
+
+  desc "vsouza awesome-ios 所有github链接，后续再归类。。。"
+  task :vsouza_awesome_ios_all => [:environment] do
+    url = "https://github.com/vsouza/awesome-ios"
+
+    doc = Nokogiri::HTML(open url);
+
+    xs = doc.css(".markdown-body ul > li > a");
+    xs.size
+
+    xs.each do |xx|
+      github_url = xx.attributes['href'].value
+
+      if github_url =~ /github\.com/
+        delay = rand(1..10086)
+        Project.delay_for(delay).get_and_create_gem_project_from_option(source_code: github_url, identity: Project.identities['pod'])
+      end
+    end
   end
 end
