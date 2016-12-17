@@ -30,8 +30,8 @@ class ProjectSearchController < ApplicationController
       _multi_match_fields = {
           multi_match: {
             query: query,
-            fields: [ "name", "given_name", "human_name", "description" ],
-            analyzer: "ik_smart"
+            fields: [ "name", "given_name", "human_name", "description" ]
+            # analyzer: "ik_smart"
           }
         }
 
