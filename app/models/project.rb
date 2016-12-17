@@ -501,7 +501,10 @@ class Project < ApplicationRecord
       _pod_info.set_pod_info(self.name)
     end
 
-    _pod_info.save
+
+    if _pod_info.others.present?
+      _pod_info.save
+    end
   end
 
   def logic_set_package_info
