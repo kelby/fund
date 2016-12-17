@@ -504,6 +504,8 @@ class Project < ApplicationRecord
 
     if _pod_info.others.present?
       _pod_info.save
+    else
+      self.offline!
     end
   end
 
