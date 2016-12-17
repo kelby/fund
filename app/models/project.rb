@@ -667,7 +667,8 @@ class Project < ApplicationRecord
   end
 
   def delay_set_developer_info
-    Developer.delay.set_developer_info(self.id)
+    delay = rand(1..43200)
+    Developer.delay_for(delay).set_developer_info(self.id)
   end
 
   def relate_info
