@@ -39,6 +39,6 @@ every 3.hours do
   runner "GithubInfo.set_project_nightspot"
 end
 
-every 12.hours do
-  runner "Project.batch_set_offline_gems_given_name"
-end
+# every 12.hours do
+  # runner "Project.batch_set_offline_gems_given_name"
+# end

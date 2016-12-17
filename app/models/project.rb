@@ -76,7 +76,7 @@ class Project < ApplicationRecord
 
   after_commit :set_github_info, on: :create
 
-  after_commit :delay_set_developer_info, on: :create
+  after_create :delay_set_developer_info
   # after_commit :set_readme, on: :create
 
   # after_create :build_github_info
@@ -390,6 +390,7 @@ class Project < ApplicationRecord
     end
   end
 
+  # 误杀太多，先不调用
   def self.batch_set_offline_gems_given_name
     self.gemspec.offline.find_each do |project|
       if project.gem_info.present?
@@ -667,7 +668,7 @@ class Project < ApplicationRecord
   end
 
   def delay_set_developer_info
-    delay = rand(1..43200)
+    delay = rand(1..3600)
     Developer.delay_for(delay).set_developer_info(self.id)
   end
 
