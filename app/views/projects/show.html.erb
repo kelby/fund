@@ -26,7 +26,7 @@
     </div>
 
     <div class="panel-body">
-      <% @project.category.projects.order(popularity: :desc).limit(6).each do |project| %>
+      <% @projects.each do |project| %>
         <div class="col-md-2">
           <%= link_to repo_path(project.repo_params), target: "_blank" do %>
             <%= project.show_name %>

@@ -24,6 +24,10 @@ class ProjectsController < ApplicationController
   def show
     @comment = Comment.new
     @comments = @project.comments
+
+    if @project.category.present?
+      @projects = @project.category.projects.online.order(popularity: :desc).limit(6)
+    end
   end
 
   def repo
