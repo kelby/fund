@@ -53,6 +53,12 @@
     </ul>
 
   <!-- </div> -->
+
+  <% if @catalog.footnote.present? %>
+    <div class="panel-footer">
+      <%= simple_format @catalog.footnote, {}, wrapper_tag: false %>
+    </div>
+  <% end %>
 </div>
 
 <%#= link_to 'Edit', edit_catalog_path(@catalog) %>

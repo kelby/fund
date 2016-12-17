@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161216084450) do
+ActiveRecord::Schema.define(version: 20161217153645) do
 
   create_table "authentications", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.string   "provider"
@@ -27,12 +27,13 @@ ActiveRecord::Schema.define(version: 20161216084450) do
     t.string   "name"
     t.string   "slug"
     t.string   "type"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
     t.integer  "user_id"
-    t.integer  "categories_count", default: 0
+    t.integer  "categories_count",               default: 0
     t.string   "sketch"
-    t.integer  "status",           default: 0
+    t.integer  "status",                         default: 0
+    t.text     "footnote",         limit: 65535
   end
 
   create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
