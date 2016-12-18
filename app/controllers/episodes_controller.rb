@@ -1,5 +1,6 @@
 class EpisodesController < ApplicationController
-  before_action :set_episode, only: [:show, :edit, :update, :destroy]
+  before_action :set_episode, only: [:edit, :update, :destroy]
+  before_action :get_today_recommend_projects, only: [:show]
 
   # GET /episodes
   # GET /episodes.json

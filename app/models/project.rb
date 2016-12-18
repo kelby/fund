@@ -230,7 +230,9 @@ class Project < ApplicationRecord
 
   def detect_and_set_recommend_at
     if self.today_recommend_changed? && self.today_recommend?
-      self.touch! :recommend_at
+      self.touch :recommend_at
+
+      Episode.delay.change_project_list_for(self.id)
     end
   end
 

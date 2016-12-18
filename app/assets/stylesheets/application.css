@@ -38,3 +38,7 @@ li.project-item:last-child {
     /*border-bottom: 1px solid #eeeeee;*/
   /*}*/
 }
+
+.clearfix {
+  clear: both;
+}

@@ -6,11 +6,31 @@ class ApplicationController < ActionController::Base
   end
 
   before_action :fake_sign_in
+  before_action :get_episode
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   helper_method :current_user?
 
   private
+  def get_episode
+    @episode ||= Episode.online.last
+  end
+
+  def get_today_recommend_projects
+    episode = Episode.find_by(human_id: params[:id])
+
+    if episode.blank?
+      episode = get_episode
+    end
+
+    project_ids = episode.project_list.split(",")
+    projects = Project.online.where(id: project_ids).order(recommend_at: :desc)
+
+    @recommend_gems = projects.gemspec.limit(3)
+
+    @recommend_pods = projects.pod.limit(3)
+  end
+
   def current_user?(user)
     user_signed_in? && current_user == user
   end

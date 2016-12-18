@@ -13,26 +13,48 @@
 <% end %>
 
 
-<div class="col-md-12 recommend-projects">
-  <div class="row">
-    <%= render partial: "home/project", collection: @recommend_gems, as: :project %>
+<!-- <div class="col-md-12"> -->
+<div class="panel panel-default clearfix">
+  <div class="panel-heading">
+    <h3 class="panel-title">
+      <% if @episode.present? %>
+        <%= link_to "今日推荐", @episode %>
+
+        <small class="pull-right">
+          <%= link_to @episode do %>
+            第 #<%= @episode.human_id %> 期
+          <% end %>
+        </small>
+      <% else %>
+        今日推荐
+      <% end %>
+    </h3>
   </div>
 
-  <!-- <hr>
+  <div class="panel-body">
 
-  <div class="row">
-    <%#= render partial: "home/project", collection: @packages, as: :project %>
-  </div> -->
+    <div class="recommend-projects">
+      <div class="row">
+        <%= render partial: "home/project", collection: @recommend_gems, as: :project %>
+      </div>
 
-  <hr>
+      <!-- <hr>
 
-  <div class="row">
-    <%= render partial: "home/project", collection: @recommend_pods, as: :project %>
+      <div class="row">
+        <%#= render partial: "home/project", collection: @packages, as: :project %>
+      </div> -->
+
+      <hr>
+
+      <div class="row">
+        <%= render partial: "home/project", collection: @recommend_pods, as: :project %>
+      </div>
+    </div>
   </div>
 </div>
+<!-- </div> -->
 
-
-<div class="col-md-12 content" style="margin-top: 20px;padding-top: 20px;">
+<!-- <div class="col-md-12 content" style="margin-top: 20px;padding-top: 20px;"> -->
   <div class="col-md-6 no-padding-left xs-no-padding">
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -97,7 +119,7 @@
       <!-- </div> -->
     </div>
   </div>
-</div>
+<!-- </div> -->
 
 
 <% content_for :postfix do %>

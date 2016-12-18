@@ -14,7 +14,7 @@
     <div id="navbar" class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
         <li class="<%= current_page?(rails_path)? 'active' : nil %>">
-          <%= link_to "Gems", rails_path %>
+          <%= link_to "Ruby Gems", rails_path %>
         </li>
 
         <!-- <li class="<%#= current_page?(laravel_path)? 'active' : nil %>">
@@ -22,7 +22,11 @@
         </li> -->
 
         <li class="<%= current_page?(swift_path)? 'active' : nil %>">
-          <%= link_to "Pods", swift_path %>
+          <%= link_to "Swift Pods", swift_path %>
+        </li>
+
+        <li class="<%= current_page?(@episode)? 'active' : nil %>">
+          <%= link_to "今日推荐", @episode %>
         </li>
       </ul>
 

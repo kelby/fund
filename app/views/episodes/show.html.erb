@@ -1,14 +1,29 @@
-<p id="notice"><%= notice %></p>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">
+      <%= link_to episode_path(@episode) do %>
+        今日推荐
+      <% end %>
 
-<p>
-  <strong>Human:</strong>
-  <%= @episode.human_id %>
-</p>
+      <small class="pull-right">
+        <%= link_to episode_path(@episode) do %>
+          第 #<%= @episode.human_id %> 期
+        <% end %>
+      </small>
 
-<p>
-  <strong>Project list:</strong>
-  <%= @episode.project_list %>
-</p>
+    </h3>
+  </div>
 
-<%= link_to 'Edit', edit_episode_path(@episode) %> |
-<%= link_to 'Back', episodes_path %>
+  <div class="panel-body content">
+    <% if @recommend_gems.blank? && @recommend_pods.blank? %>
+      <div class="text-center text-muted">
+        没有搜索到结果
+      </div>
+    <% else %>
+      <ul class="media-list">
+        <%= render partial: "projects/media_list_item", collection: @recommend_gems, as: :project %>
+        <%= render partial: "projects/media_list_item", collection: @recommend_pods, as: :project %>
+      </ul>
+    <% end %>
+  </div>
+</div>
