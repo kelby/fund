@@ -1,0 +1,17 @@
+<%= form_for(panel_episode) do |f| %>
+  <% if panel_episode.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(panel_episode.errors.count, "error") %> prohibited this panel_episode from being saved:</h2>
+
+      <ul>
+      <% panel_episode.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

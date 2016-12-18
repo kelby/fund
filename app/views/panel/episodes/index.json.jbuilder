@@ -1,0 +1,1 @@
+json.array! @panel_episodes, partial: 'panel_episodes/panel_episode', as: :panel_episode

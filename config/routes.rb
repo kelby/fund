@@ -3,6 +3,8 @@ require 'sidekiq/web'
 Rails.application.routes.draw do
   authenticate :user, lambda { |u| u.is_admin? } do
     namespace :panel do
+      resources :episodes
+
       resources :categories do
         member do
           post :create_projects
