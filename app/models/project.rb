@@ -232,7 +232,7 @@ class Project < ApplicationRecord
     if self.today_recommend_changed? && self.today_recommend?
       self.touch :recommend_at
 
-      Episode.delay.change_project_list_for(self.id)
+      ::Episode.delay.change_project_list_for(self.id)
     end
   end
 
