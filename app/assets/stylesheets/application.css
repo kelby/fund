@@ -19,6 +19,23 @@
  *= require_self
  */
 
+@import "variables";
+
+@media (max-width: 767px) {
+  .custom-nav {
+    display: inline-block !important;
+    margin: 0;
+  }
+
+  .custom-nav > li {
+    display: inline-block;
+  }
+
+  .custom-nav > li > a {
+    padding: 15px;
+  }
+}
+
 li.project-item {
   /*hr:last-child {*/
     /*margin-top: 20px;*/
@@ -42,3 +59,18 @@ li.project-item:last-child {
 .clearfix {
   clear: both;
 }
+
+/*h1, h2, h3, h4, h5 {
+  color: $main-color;
+}
+
+h1, h2, h3, h4, h5 {
+  a {
+    color: $main-color;
+  }
+
+  a:hover {
+    color: $hover-main-color;
+  }
+}
+*/

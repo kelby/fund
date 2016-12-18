@@ -1,3 +1,19 @@
+@import "variables";
+
+// h1, h2, h3, h4, h5 {
+//   color: $main-color;
+// }
+
+// h1, h2, h3, h4, h5 {
+//   a {
+//     color: $main-color;
+//   }
+
+//   a:hover {
+//     color: $hover-main-color;
+//   }
+// }
+
 @media (max-width: 767px) {
   body > .home.container {
     margin-top: 0;
@@ -8,6 +24,8 @@
   .slogan {
     margin-bottom: 35px;
     margin-top: 20px;
+
+    font-size: 24px;
   }
 
   @media (max-width: 767px) {
@@ -38,6 +56,8 @@
     h3 {
       margin-top: 10px;
       margin-bottom: 10px;
+
+      font-size: 18px;
     }
 
     hr {

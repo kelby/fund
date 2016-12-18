@@ -9,10 +9,25 @@
       </button>
 
       <%= link_to "Dev Toolbox", root_path, class: "navbar-brand" %>
+
+      <ul class="nav navbar-nav custom-nav visible-xs hidden-md hidden-sm">
+
+        <li class="<%= current_page?(rails_path)? 'active' : nil %>">
+          <%= link_to "Gems", rails_path %>
+        </li>
+
+        <!-- <li class="<%#= current_page?(laravel_path)? 'active' : nil %>">
+          <%#= link_to "Packages", laravel_path %>
+        </li> -->
+
+        <li class="<%= current_page?(swift_path)? 'active' : nil %>">
+          <%= link_to "Pods", swift_path %>
+        </li>
+      </ul>
     </div>
 
     <div id="navbar" class="collapse navbar-collapse">
-      <ul class="nav navbar-nav">
+      <ul class="nav navbar-nav hidden-xs">
         <li class="<%= current_page?(rails_path)? 'active' : nil %>">
           <%= link_to "Ruby Gems", rails_path %>
         </li>
