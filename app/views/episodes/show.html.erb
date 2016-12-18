@@ -1,17 +1,8 @@
+<% set_meta_tags title: "今日推荐 - 第#{@episode.human_id}期" %>
+
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h3 class="panel-title">
-      <%= link_to episode_path(@episode) do %>
-        今日推荐
-      <% end %>
-
-      <small class="pull-right">
-        <%= link_to episode_path(@episode) do %>
-          第 #<%= @episode.human_id %> 期
-        <% end %>
-      </small>
-
-    </h3>
+    <%= render "episodes/recommend_title", episode: @episode %>
   </div>
 
   <div class="panel-body content">

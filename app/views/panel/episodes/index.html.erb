@@ -1,25 +1,22 @@
-<p id="notice"><%= notice %></p>
+<h1>
+  Panel Episodes
 
-<h1>Panel Episodes</h1>
+  <small>
+    <%= link_to 'New Panel Episode', new_panel_episode_path %>
+  </small>
+</h1>
 
-<table>
+
+<table class="table table-striped">
   <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
+    <%= render "panel/episodes/thead" %>
   </thead>
 
   <tbody>
     <% @panel_episodes.each do |panel_episode| %>
-      <tr>
-        <td><%= link_to 'Show', panel_episode %></td>
-        <td><%= link_to 'Edit', edit_panel_episode_path(panel_episode) %></td>
-        <td><%= link_to 'Destroy', panel_episode, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+      <%= render "panel/episodes/tbody", panel_episode: panel_episode %>
     <% end %>
   </tbody>
 </table>
 
-<br>
-
-<%= link_to 'New Panel Episode', new_panel_episode_path %>
+<%= paginate @panel_episodes %>

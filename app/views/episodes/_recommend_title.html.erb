@@ -1,0 +1,14 @@
+<h3 class="panel-title">
+  <%= link_to episode_path(episode) do %>
+    今日推荐
+  <% end %>
+
+  <small class="pull-right">
+    <%= episode.created_at.strftime("%Y.%m.%d") %>
+
+    <%= link_to episode_path(episode) do %>
+      第 #<%= episode.human_id %> 期
+    <% end %>
+  </small>
+
+</h3>

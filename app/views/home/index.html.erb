@@ -16,19 +16,7 @@
 <!-- <div class="col-md-12"> -->
 <div class="panel panel-default clearfix">
   <div class="panel-heading">
-    <h3 class="panel-title">
-      <% if @episode.present? %>
-        <%= link_to "今日推荐", @episode %>
-
-        <small class="pull-right">
-          <%= link_to @episode do %>
-            第 #<%= @episode.human_id %> 期
-          <% end %>
-        </small>
-      <% else %>
-        今日推荐
-      <% end %>
-    </h3>
+    <%= render "episodes/recommend_title", episode: @episode %>
   </div>
 
   <div class="panel-body">

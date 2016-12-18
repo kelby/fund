@@ -1,1 +1,0 @@
-json.partial! "panel_episodes/panel_episode", panel_episode: @panel_episode

@@ -1,0 +1,15 @@
+<tr>
+  <td><%= panel_episode.id %></td>
+  <td>
+    <%= link_to panel_episode_path(panel_episode), target: "_blank" do %>
+      第<%= panel_episode.human_id %>期
+    <% end %>
+  </td>
+  <td><%= panel_episode.status %></td>
+  <td><%= panel_episode.project_list %></td>
+
+  <td><%= link_to 'Edit', edit_panel_episode_path(panel_episode), target: "_blank" %></td>
+  <td><%= link_to 'Destroy', panel_episode_path(panel_episode), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  <td><%= link_to "前台", panel_episode_path(panel_episode), target: "_blank" %></td>
+  <td><%= link_to "后台", rails_admin.show_path('Episode', panel_episode), target: "_blank" %></td>
+</tr>
