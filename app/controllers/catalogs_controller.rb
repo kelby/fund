@@ -6,12 +6,14 @@ class CatalogsController < ApplicationController
   def rails
     @catalogs = RailsCatalog.online.includes(:categories)
 
+    @title = Catalog::TOP_PLURAL['gemspec']
     render :language
   end
 
   def swift
     @catalogs = SwiftCatalog.online.includes(:categories)
 
+    @title = Catalog::TOP_PLURAL['pod']
     render :language
   end
 
