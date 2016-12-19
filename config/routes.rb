@@ -83,7 +83,9 @@ Rails.application.routes.draw do
 
   get 'account', to: "users#account"
 
-  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks",
+  :passwords => "users/passwords", :registrations => "users/registrations",
+  :sessions => "users/sessions" }
 
   resources :users, path: "u" do
     # get :id
