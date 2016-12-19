@@ -526,26 +526,26 @@ class Project < ApplicationRecord
   end
 
   def self.set_info
-    ps = self.where(id: (Project.pod.pending.ids - Project.pod.pending.joins(:pod_info).ids))
-    ps.each do |project|
+    pod_ps = self.where(id: (Project.pod.pending.ids - Project.pod.pending.joins(:pod_info).ids))
+    pod_ps.each do |project|
       self.delay.set_pod_info(project.id)
     end
 
-    ps.update_all(status: ::Project.statuses['offline'])
+    pod_ps.update_all(status: ::Project.statuses['offline'])
 
-    ps = self.where(id: (Project.package.pending.ids - Project.package.pending.joins(:package_info).ids))
-    ps.each do |project|
+    package_ps = self.where(id: (Project.package.pending.ids - Project.package.pending.joins(:package_info).ids))
+    package_ps.each do |project|
       self.delay.set_package_info(project.id)
     end
 
-    ps.update_all(status: ::Project.statuses['offline'])
+    package_ps.update_all(status: ::Project.statuses['offline'])
 
-    ps = self.where(id: (Project.gemspec.pending.ids - Project.gemspec.pending.joins(:gem_info).ids))
-    ps.each do |project|
+    gemspec_ps = self.where(id: (Project.gemspec.pending.ids - Project.gemspec.pending.joins(:gem_info).ids))
+    gemspec_ps.each do |project|
       self.delay.set_gem_info(project.id)
     end
 
-    ps.update_all(status: ::Project.statuses['offline'])
+    gemspec_ps.update_all(status: ::Project.statuses['offline'])
   end
 
   def self.set_pod_info(project_id)
