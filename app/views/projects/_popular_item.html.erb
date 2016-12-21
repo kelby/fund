@@ -1,0 +1,19 @@
+<div class="panel-body">
+  <% @projects.order(popularity: :desc).limit(6).each_slice(2) do |projects| %>
+    <div class="brother">
+      <% projects.each do |project| %>
+        <div class="col-md-2 col-xs-6 xs-no-padding popular-item">
+          <%= link_to repo_path(project.repo_params), target: "_blank" do %>
+            <%= project.show_name %>
+          <% end %>
+
+          <br>
+
+          <%= link_to repo_path(project.repo_params), target: "_blank" do %>
+            <%= project.popularity %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

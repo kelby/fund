@@ -4,8 +4,8 @@
   <%= stylesheet_link_tag 'categories' %>
 <% end %>
 
-<ol class="breadcrumb">
-  <li>
+<ol class="breadcrumb catalog-category-etc">
+  <li class="normal">
     <% url = @category.catalog.type.downcase.gsub(/catalog$/, '_path') %>
 
     <%= link_to eval(url) do %>
@@ -13,7 +13,7 @@
     <% end %>
   </li>
 
-  <li>
+  <li class="normal">
     <%= link_to catalog_path(@category.catalog) do %>
       <%= @category.catalog.name %>
     <% end %>
@@ -25,25 +25,7 @@
 
 <% if @category.present? %>
   <div class="panel panel-default popular-projects">
-    <div class="panel-body">
-      <% @projects.order(popularity: :desc).limit(6).each_slice(2) do |projects| %>
-        <div class="brother">
-          <% projects.each do |project| %>
-            <div class="col-md-2 col-xs-6 xs-no-padding popular-item">
-              <%= link_to repo_path(project.repo_params), target: "_blank" do %>
-                <%= project.show_name %>
-              <% end %>
-
-              <br>
-
-              <%= link_to repo_path(project.repo_params), target: "_blank" do %>
-                <%= project.popularity %>
-              <% end %>
-            </div>
-          <% end %>
-        </div>
-      <% end %>
-    </div>
+    <%= render "projects/popular_item" %>
   </div>
 <% end %>
 

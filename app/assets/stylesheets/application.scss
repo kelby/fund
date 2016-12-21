@@ -84,3 +84,45 @@ h1, h2, h3, h4, h5 {
     color: #EB5424;
   }
 }
+
+.breadcrumb.catalog-category-etc {
+  background-color: white;
+  padding-top: 15px;
+  padding-bottom: 15px;
+
+  li.normal {
+    a {
+      color: #333;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: #EB5424;
+      text-decoration: none;
+    }
+  }
+}
+
+.popular-projects {
+  .brother .popular-item {
+    a {
+      color: #777;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: #EB5424;
+      text-decoration: none;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .brother .popular-item {
+      margin-bottom: 5px;
+    }
+
+    .brother:last-child .popular-item {
+      margin-bottom: 0;
+    }
+  }
+}

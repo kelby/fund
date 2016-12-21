@@ -3,16 +3,4 @@
     padding: 15px;
     background-color: white;
   }
-
-  .popular-projects {
-    @media (max-width: 767px) {
-      .brother .popular-item {
-        margin-bottom: 5px;
-      }
-
-      .brother:last-child .popular-item {
-        margin-bottom: 0;
-      }
-    }
-  }
 }

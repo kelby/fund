@@ -3,6 +3,27 @@
 }
 
 .projects {
+  .breadcrumb.catalog-category-etc {
+    background-color: #f5f5f5;
+    margin-bottom: 0;
+  }
+
+  .popular-projects {
+    .category-breadcrumb {
+      color: #777;
+
+      a {
+        color: #333;
+        text-decoration: none;
+      }
+
+      a:hover {
+        color: #EB5424;
+        text-decoration: none;
+      }
+    }
+  }
+
   .project-wraper {
     background-color: white;
     margin-bottom: 30px;

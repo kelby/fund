@@ -6,36 +6,37 @@
 
 
 <% if @project.category.present? %>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <% url = @project.category.catalog.type.downcase.gsub(/catalog$/, '_path') %>
+  <div class="panel panel-default popular-projects">
+    <!-- <div class="panel-heading"> -->
 
-      <%= link_to eval(url) do %>
-        <%= @project.category.catalog.human_supercatalog_name %>
-      <% end %>
-      /
-      <%= link_to catalog_path(@project.category.catalog) do %>
-        <%= @project.category.catalog.name %>
-      <% end %>
-      /
-      <%= link_to @project.category, target: "_blank" do %>
-        <%= @project.category.name %>
-      <% end %>
-      /
-      <%= @project.name %>
-    </div>
 
-    <div class="panel-body">
-      <% @projects.each do |project| %>
-        <div class="col-md-2">
-          <%= link_to repo_path(project.repo_params), target: "_blank" do %>
-            <%= project.show_name %>
-            <br>
-            <%= project.popularity %>
-          <% end %>
-        </div>
-      <% end %>
-    </div>
+
+    <ol class="breadcrumb catalog-category-etc">
+      <li class="normal">
+        <% url = @project.category.catalog.type.downcase.gsub(/catalog$/, '_path') %>
+
+        <%= link_to eval(url) do %>
+          <%= @project.category.catalog.human_supercatalog_name %>
+        <% end %>
+      </li>
+
+      <li class="normal">
+        <%= link_to catalog_path(@project.category.catalog) do %>
+          <%= @project.category.catalog.name %>
+        <% end %>
+      </li>
+
+      <li class="normal">
+        <%= link_to @project.category, target: "_blank" do %>
+          <%= @project.category.name %>
+        <% end %>
+      </li>
+
+      <li class="active"><%= @project.category.name %></li>
+    </ol>
+    <!-- </div> -->
+
+    <%= render "projects/popular_item" %>
   </div>
 <% end %>
 

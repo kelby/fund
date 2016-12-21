@@ -184,6 +184,14 @@
           <%= github.forks_count %>
         </td>
       </tr>
+
+      <tr>
+        <td>最后更新</td>
+        <td class="pull-right">
+          <%#= (github.others['pushed_at']).to_time.strftime("%F %R") %>
+          <%= time_ago_in_words(github.others['pushed_at']) %> ago.
+        </td>
+      </tr>
     </tbody>
   </table>
 

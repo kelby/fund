@@ -5,7 +5,7 @@
 <% end %>
 
 <ol class="breadcrumb bg-color-white catalog-category-etc">
-  <li>
+  <li class="normal">
     <% url = @catalog.type.downcase.gsub(/catalog$/, '_path') %>
 
     <%= link_to eval(url) do %>
@@ -21,7 +21,7 @@
 <!-- <div class="col-md-12"> -->
 <div class="panel panel-default show-catalog">
   <div class="panel-heading">
-    <h1>
+    <h2 class="panel-title top-catalog">
       <%= link_to catalog_path(@catalog) do %>
         <%= @catalog.name %>
       <% end %>
@@ -32,24 +32,16 @@
         </small>
       <% end %>
 
-      <section class="pull-right">
+      <small class="pull-right">
         <%= @catalog.categories_count %>
-      </section>
-    </h1>
+      </small>
+    </h2>
   </div>
 
   <!-- <div class="panel-body no-padding"> -->
 
     <ul class="list-group">
-      <% @catalog.categories.online.each do |category| %>
-        <li  class="list-group-item">
-          <span class="badge">
-            <%= category.online_projects_count %>
-          </span>
-
-          <%= link_to category.name, category %>
-        </li>
-      <% end %>
+      <%= render partial: "categories/list_item", collection: @catalog.categories.online, as: :category %>
     </ul>
 
   <!-- </div> -->
