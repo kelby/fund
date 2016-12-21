@@ -51,6 +51,25 @@
   <% else %>
     <%= render "projects/show/project", project: @project %>
   <% end %>
+
+
+
+  <div class="panel-footer clearfix col-md-9" style="border-bottom: 1px solid #ddd;border-top: none;">
+      <div class="opts">
+
+
+          <a title="取消收藏" class="bookmark  active" data-id="24693" href="#"><i class="fa fa-bookmark"></i> 收藏</a>
+
+          <a data-count="40" data-state="" data-type="Topic" data-id="24693" class="likeable  tooltipstered" href="#"><i class="fa fa-heart"></i> <span>40 个推荐</span></a>
+        <span class="pull-right opts">
+          2011 次点击
+        </span>
+
+      <!--   <div class="pull-right">
+        </div> -->
+      </div>
+  </div>
+
 </div>
 
 <% unless Rails.env.production? %>
