@@ -78,3 +78,9 @@ h1, h2, h3, h4, h5 {
 .sign_in, .sign_up {
   padding-bottom: 35px;
 }
+
+.nav.navbar-nav > .nav-item {
+  a:hover {
+    color: #EB5424;
+  }
+}

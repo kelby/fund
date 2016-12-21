@@ -108,6 +108,15 @@ body > .container {
   }
 }
 
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+  color: #EB5424;
+    border-color: #EB5424;
+    background-color: white;
+    border-bottom: 1px solid;
+    padding-bottom: 14px;
+}
 
 .footer {
   .container .text-muted {
@@ -119,4 +128,15 @@ body > .container {
 .footer > .container {
   padding-right: 15px;
   padding-left: 15px;
+}
+
+.navbar > .container .navbar-brand {
+  font-weight: bold;
+}
+
+.badge-count {
+
+  color: #777;
+    background-color: white;
+    border: 1px solid #ccc;
 }

@@ -1,5 +1,9 @@
 <% set_meta_tags title: "今日推荐 - 第#{@episode.human_id}期" %>
 
+<% content_for :content_css_link_yield do %>
+  <%= stylesheet_link_tag 'episodes' %>
+<% end %>
+
 <div class="panel panel-default">
   <div class="panel-heading">
     <%= render "episodes/recommend_title", episode: @episode %>

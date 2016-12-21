@@ -9,7 +9,7 @@
     <% @catalogs.each do |catalog| %>
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">
+          <h2 class="panel-title top-catalog">
             <%= link_to catalog_path(catalog) do %>
               <%= catalog.name %>
             <% end %>
@@ -20,23 +20,24 @@
               </small>
             <% end %>
 
-            <section class="pull-right">
+            <small class="pull-right">
               <%= catalog.categories_count %>
-            </section>
-          </h3>
+            </small>
+          </h2>
 
         </div>
 
         <ul class="list-group">
-          <% catalog.categories.online.each do |category| %>
-            <li class="list-group-item">
-              <span class="badge">
-                <%= category.online_projects_count %>
+          <%# catalog.categories.online.each do |category| %>
+            <!-- <li class="list-group-item">
+              <span class="badge badge-count">
+                <%#= category.online_projects_count %>
               </span>
 
-              <%= link_to category.name, category %>
-            </li>
-          <% end %>
+              <%#= link_to category.name, category %>
+            </li> -->
+            <%= render partial: "categories/list_item", collection: catalog.categories.online, as: :category %>
+          <%# end %>
         </ul>
       </div>
     <% end %>

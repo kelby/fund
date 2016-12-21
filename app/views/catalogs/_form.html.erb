@@ -29,7 +29,7 @@
 
   <div class="form-group">
     <%= f.label :type %>
-    <%= f.select :type, options_for_select(['RailsCatalog', 'LaravelCatalog', 'SwiftCatalog'], catalog.type), {include_blank: true}, {required: true, class: "form-control"} %>
+    <%= f.select :type, options_for_select(['RailsCatalog', 'SwiftCatalog'], catalog.type), {include_blank: true}, {required: true, class: "form-control"} %>
   </div>
 
   <div class="actions">

@@ -26,6 +26,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, :omniauth_providers => [:github, :google_oauth2]
+
+  mount_uploader :avatar, AvatarUploader
   # END
 
   # Associations
@@ -47,6 +49,7 @@ class User < ApplicationRecord
 
   # Callbacks
   after_validation :detect_set_name
+  after_create :set_avatar
   # END
 
 

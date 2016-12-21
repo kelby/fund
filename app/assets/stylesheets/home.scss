@@ -42,10 +42,42 @@
   .panel {
     .panel-heading {
       .top-catalog {
-        display: inline-block;
+        // display: inline-block;
         margin: 0;
-        font-size: 16px;
+        font-size: 18px;
         font-weight: normal;
+
+        a {
+          color: #333;
+        }
+
+        a:hover {
+          color: #EB5424;
+          text-decoration: none;
+        }
+      }
+
+      .recommend-title {
+        font-size: 18px;
+
+        a:hover {
+          color: #EB5424;
+          text-decoration: none;
+        }
+      }
+
+    }
+
+    .list-group {
+      .catalog-item {
+        a {
+          color: #777;
+        }
+
+        a:hover {
+          color: #EB5424;
+          text-decoration: none;
+        }
       }
     }
   }
@@ -56,8 +88,16 @@
     h3 {
       margin-top: 10px;
       margin-bottom: 10px;
+      font-size: 16px;
 
-      font-size: 18px;
+      a {
+        color: #333;
+      }
+
+      a:hover {
+        color: #EB5424;
+        text-decoration: none;
+      }
     }
 
     hr {
