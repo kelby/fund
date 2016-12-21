@@ -22,6 +22,8 @@ Rails.application.routes.draw do
       resources :projects do
         collection do
           get :search
+          get :magic_search
+          post :search_result
         end
       end
     end

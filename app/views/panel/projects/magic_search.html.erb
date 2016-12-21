@@ -1,0 +1,8 @@
+<%= form_tag search_result_panel_projects_path, :class => "form" do %>
+  <div class="form-group">
+    <%= label_tag :projects_source_code %>
+    <%= text_area_tag :projects_source_code, params[:projects_source_code], class: "form-control", rows: 15 %>
+  </div>
+
+  <button type="submit" class="btn btn-default">Submit</button>
+<% end %>

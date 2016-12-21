@@ -1,6 +1,22 @@
 class Panel::ProjectsController < Panel::PanelController
   before_action :set_panel_project, only: [:show, :edit, :update, :destroy]
 
+  def magic_search
+  end
+
+  def search_result
+    if params[:projects_source_code].blank?
+      return false
+    end
+
+    projects_source_code = params[:projects_source_code].split(/\r\n|\s/).delete_if{|x| x.blank? || !(x =~ /github\.com/)}
+
+    # 
+    @panel_projects = Project.where(source_code: projects_source_code).order(id: :desc).includes(:category).page(params[:page])
+    render :index
+  end
+
+
   def search
     @panel_projects = ::Project.all.order(id: :desc).includes(:category).page(params[:page])
 
