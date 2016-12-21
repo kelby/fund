@@ -44,6 +44,30 @@ li.project-item {
     border: 0;
     border-bottom: 1px solid #eeeeee;
   /*}*/
+
+  .title {
+    margin-bottom: 10px;
+
+    a {
+      color: #333;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: #EB5424;
+      text-decoration: none;
+    }
+
+    small {
+      a {
+        color: #777;
+      }
+    }
+  }
+
+  .description {
+    margin-bottom: 2px;
+  }
 }
 
 li.project-item:last-child {
