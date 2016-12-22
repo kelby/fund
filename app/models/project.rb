@@ -359,7 +359,11 @@ class Project < ApplicationRecord
     url += "?client_id=#{Settings.github_token}&client_secret=#{Settings.github_secret}"
 
     @json ||= Timeout.timeout(10) do
-      open(url).read
+      begin
+        open(url).read
+      rescue OpenURI::HTTPError => e
+        ""
+      end
     end
 
     parse_json = JSON.parse @json
@@ -371,7 +375,11 @@ class Project < ApplicationRecord
     url += "?client_id=#{Settings.github_token}&client_secret=#{Settings.github_secret}"
 
     @json ||= Timeout.timeout(10) do
-      open(url).read
+      begin
+        open(url).read
+      rescue OpenURI::HTTPError => e
+        ""
+      end
     end
 
     parse_json = JSON.parse @json
