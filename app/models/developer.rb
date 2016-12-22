@@ -41,7 +41,9 @@ class Developer < ApplicationRecord
     Project.joins(:github_info).find_each do |project|
       developer = Developer.find_or_create_by(name: project.author)
 
-      project.update_columns(developer_id: developer.id)
+      if project.developer_id.blank?
+        project.update_columns(developer_id: developer.id)
+      end
     end
   end
 

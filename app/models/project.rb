@@ -97,6 +97,10 @@ class Project < ApplicationRecord
   LARAVEL_BASE = {'watchers' => 3522, 'stars' => 27582, 'forks' => 9131, 'downloads' => 3941137}
   # END
 
+  def short_github_indentity
+    "#{self.author}/#{self.name}"
+  end
+
   def detect_set_category_online
     if (self.status_changed? && self.online?) && self.category.present?
       self.category.online!
@@ -116,7 +120,7 @@ class Project < ApplicationRecord
   end
 
   def logic_set_popularity
-    case self.type
+    case self.identity
     when 'gemspec'
       self.set_gem_popularity
     when 'package'
@@ -335,7 +339,7 @@ class Project < ApplicationRecord
     repo_name = split_github[-1]
 
     unless "github.com" == split_github[-3]
-      return false
+      return ""
     end
 
     API_GITHUB + ("repos/#{author_name}/#{repo_name}")
