@@ -6,12 +6,12 @@
 #  project_id      :integer
 #  total_downloads :decimal(10, )
 #  releases        :integer
-#  current_version :string(255)
+#  current_version :string(191)
 #  released        :datetime
 #  first_release   :datetime
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
-#  others          :text(16777215)
+#  others          :text(65535)
 #
 
 class GemInfo < ApplicationRecord

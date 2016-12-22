@@ -3,8 +3,8 @@
 # Table name: developers
 #
 #  id                :integer          not null, primary key
-#  name              :string(255)
-#  avatar            :string(255)
+#  name              :string(191)
+#  avatar            :string(191)
 #  github_id         :integer
 #  public_repos      :integer
 #  subscribers_count :integer

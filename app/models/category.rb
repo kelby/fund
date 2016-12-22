@@ -2,14 +2,16 @@
 #
 # Table name: categories
 #
-#  id             :integer          not null, primary key
-#  name           :string(255)
-#  slug           :string(255)
-#  catalog_id     :integer
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
-#  user_id        :integer
-#  projects_count :integer          default(0)
+#  id                    :integer          not null, primary key
+#  name                  :string(191)
+#  slug                  :string(191)
+#  catalog_id            :integer
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#  user_id               :integer
+#  projects_count        :integer          default(0)
+#  online_projects_count :integer          default(0), not null
+#  status                :integer          default("online")
 #
 
 class Category < ApplicationRecord

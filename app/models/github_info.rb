@@ -9,8 +9,8 @@
 #  forks_count       :integer
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
-#  others            :text(16777215)
-#  readme            :text(16777215)
+#  others            :text(65535)
+#  readme            :text(65535)
 #
 
 class GithubInfo < ApplicationRecord

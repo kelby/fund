@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: episodes
+#
+#  id           :integer          not null, primary key
+#  human_id     :integer
+#  project_list :string(191)
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  status       :integer          default("offline")
+#
+
 class Episode < ApplicationRecord
   # Callbacks
   before_validation :set_human_id, on: :create
