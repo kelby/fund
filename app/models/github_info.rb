@@ -52,7 +52,7 @@ class GithubInfo < ApplicationRecord
     repo_name = split_github[-1]
 
     unless "github.com" == split_github[-3]
-      return false
+      return ""
     end
 
     API_GITHUB + ("repos/#{author_name}/#{repo_name}")
@@ -65,6 +65,10 @@ class GithubInfo < ApplicationRecord
   def fetch_reade_from_github
     url = github_readme_url
     url += "?client_id=#{Settings.github_token}&client_secret=#{Settings.github_secret}"
+
+    unless github_readme_url =~ /github\.com/
+      return {}
+    end
 
     @reademe_json ||= Timeout.timeout(10) do
       begin
@@ -96,6 +100,7 @@ class GithubInfo < ApplicationRecord
   end
 
   def set_readme
-    self.readme = Base64.decode64(fetch_reade_from_github["content"].presence || "")
+    content = fetch_reade_from_github["content"].presence || ""
+    self.readme = Base64.decode64(content)
   end
 end

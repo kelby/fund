@@ -320,6 +320,8 @@ class Project < ApplicationRecord
     self.github_info.save
 
     self.set_readme
+
+
     self.github_info.save
   end
 
@@ -350,7 +352,7 @@ class Project < ApplicationRecord
   def fetch_info_from_github
     url = convert_github_to_repo_url
 
-    unless "github.com" == split_github[-3]
+    unless url =~ /github\.com/
       return {}
     end
 
