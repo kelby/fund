@@ -20,10 +20,16 @@ class GithubInfo < ApplicationRecord
   belongs_to :project, autosave: true
   # END
 
+
   # Rails class methods
   serialize :others, JSON
 
   scope :none_data, ->{ where("subscribers_count = ? OR watchers_count = ? OR forks_count = ?", nil, nil, nil) }
+  # END
+
+
+  # Validates
+  validates_presence_of :subscribers_count, :watchers_count, :forks_count
   # END
 
 
@@ -74,7 +80,7 @@ class GithubInfo < ApplicationRecord
       begin
         open(url).read
       rescue OpenURI::HTTPError => e
-        @reademe_json = ""
+        return {}
       end
     end
 

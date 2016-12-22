@@ -283,7 +283,7 @@ class Project < ApplicationRecord
   def self.set_all_github_info
     Project.find_each do |project|
       if project.github_info.blank?
-        project.set_github_info
+        Project.delay.set_github_info(project.id)
       end
 
       if project.github_info.blank?
@@ -362,7 +362,7 @@ class Project < ApplicationRecord
       begin
         open(url).read
       rescue OpenURI::HTTPError => e
-        ""
+        return {}
       end
     end
 
@@ -378,7 +378,7 @@ class Project < ApplicationRecord
       begin
         open(url).read
       rescue OpenURI::HTTPError => e
-        ""
+        return ""
       end
     end
 
