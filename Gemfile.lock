@@ -66,6 +66,7 @@ GEM
     bootstrap-sass (3.3.7)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
+    browser (2.2.0)
     builder (3.2.2)
     byebug (9.0.6)
     cancancan (1.13.1)
@@ -323,6 +324,7 @@ PLATFORMS
 DEPENDENCIES
   annotate
   bootstrap-sass (~> 3.3.6)
+  browser
   byebug
   cancancan (~> 1.10)
   capistrano (~> 3.6)
