@@ -38,10 +38,10 @@ class Developer < ApplicationRecord
 
 
   def self.create_developer_from_projects
-    Project.joins(:github_info).find_each do |project|
+    Project.where(developer_id: nil).includes(:developer).joins(:github_info).find_each do |project|
       developer = Developer.find_or_create_by(name: project.author)
 
-      if project.developer_id.blank?
+      if project.developer_id.blank? && developer.present?
         project.update_columns(developer_id: developer.id)
       end
     end

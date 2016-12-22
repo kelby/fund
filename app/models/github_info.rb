@@ -32,10 +32,10 @@ class GithubInfo < ApplicationRecord
   # END
 
 
-  def self.set_project_nightspot(number=100)
+  def self.set_online_project_nightspot(number=100)
     # number = 100
 
-    self.where("subscribers_count < ?", number).includes(:project).find_each do |this|
+    self.where("subscribers_count < ?", number).includes(:project).where(projects: {status: Project.statuses['online']}).find_each do |this|
       if this.project.present?
         this.project.nightspot!
       end

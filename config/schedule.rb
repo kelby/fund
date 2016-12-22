@@ -34,9 +34,9 @@ every 2.hours do
 end
 
 every 3.hours do
-  runner "Project.detect_and_set_online"
+  runner "Project.pending_detect_and_set_online"
 
-  runner "GithubInfo.set_project_nightspot"
+  runner "GithubInfo.set_online_project_nightspot"
 end
 
 # every 12.hours do

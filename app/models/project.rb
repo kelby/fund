@@ -116,7 +116,7 @@ class Project < ApplicationRecord
   end
 
   def self.delay_set_popularity
-    Project.pending.where(popularity: nil).map{|x| x.logic_set_popularity }
+    Project.pending.joins(:github_info).where(popularity: nil).map{|x| x.logic_set_popularity }
   end
 
   def logic_set_popularity
@@ -241,28 +241,28 @@ class Project < ApplicationRecord
   end
 
   def subscribers_count
-    self.github_info.subscribers_count || 0
+    self.github_info.try(:subscribers_count) || 0
   end
 
   def watchers_count
-    self.github_info.watchers_count || 0
+    self.github_info.try(:watchers_count) || 0
   end
 
   def forks_count
-    self.github_info.forks_count || 0
+    self.github_info.try(:forks_count) || 0
   end
 
   def total_downloads
     if self.gemspec?
-      return self.gem_info.total_downloads || 0
+      return self.gem_info.try(:total_downloads) || 0
     end
 
     if self.package?
-      return self.package_info.total_downloads || 0
+      return self.package_info.try(:total_downloads) || 0
     end
 
     if self.pod?
-      return self.pod_info.total_downloads || 0
+      return self.pod_info.try(:total_downloads) || 0
     end
   end
 
@@ -347,6 +347,10 @@ class Project < ApplicationRecord
 
   def fetch_info_from_github
     url = convert_github_to_repo_url
+
+    unless "github.com" == split_github[-3]
+      return {}
+    end
 
     url += "?client_id=#{Settings.github_token}&client_secret=#{Settings.github_secret}"
 
@@ -615,8 +619,8 @@ class Project < ApplicationRecord
     # "#{self.id}-#{self.name}"
   # end
 
-  def self.detect_and_set_online
-    Project.includes(:gem_info, :package_info, :pod_info).joins(:github_info).each do |project|
+  def self.pending_detect_and_set_online
+    Project.pending.includes(:gem_info, :package_info, :pod_info).joins(:github_info).each do |project|
       project.set_popularity_and_status
     end
   end
