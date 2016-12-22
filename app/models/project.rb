@@ -281,16 +281,8 @@ class Project < ApplicationRecord
   end
 
   def self.set_all_github_info
-    Project.find_each do |project|
-      if project.github_info.blank?
-        Project.delay.set_github_info(project.id)
-      end
-
-      if project.github_info.blank?
-        project.online!
-      else
-        project.offline!
-      end
+    Project.includes(:github_info).where(github_infos: {id: nil}).find_each do |project|
+      Project.delay.set_github_info(project.id)
     end
   end
 
@@ -299,12 +291,6 @@ class Project < ApplicationRecord
 
     if project.github_info.blank?
       project.set_github_info
-    end
-
-    if project.github_info.blank?
-      project.online!
-    else
-      project.offline!
     end
   end
 
