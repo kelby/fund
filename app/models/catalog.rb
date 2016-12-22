@@ -44,7 +44,11 @@ class Catalog < ApplicationRecord
 
 
   def self.no_online_categories_so_offline
-    Catalog.includes(:categories).map{|c| c.offline! if c.categories.all?{|x| x.offline? }}
+    Catalog.online.includes(:categories).map{|c| c.offline! if c.categories.all?{|x| x.offline? }}
+  end
+
+  def self.has_online_categories_so_online
+    Catalog.offline.includes(:categories).map{|c| c.online! if c.categories.any?{|x| x.online? }}
   end
 
   def self.set_rails_catalog

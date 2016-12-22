@@ -14,7 +14,9 @@
 
 class Category < ApplicationRecord
   # Associations
-  belongs_to :catalog, counter_cache: true
+  belongs_to :catalog #, counter_cache: true
+  counter_culture :catalog
+  counter_culture :catalog, :column_name => proc {|model| model.online? ? 'online_categories_count' : nil }
 
   has_many :projects
   # END
@@ -25,7 +27,7 @@ class Category < ApplicationRecord
   # END
 
   # Rails class methods
-  enum status: { online: 0, offline: 11 }
+  enum status: { online: 0, offline: 11, reviewed: 22}
   # END
 
   def self.no_online_projects_so_offline
@@ -125,5 +127,9 @@ class Category < ApplicationRecord
 
   def full_name
     "#{self.catalog.try(:type)} - #{self.catalog.try(:name)} - #{self.name}"
+  end
+
+  def self.detect_and_set_online
+    self.joins(:catalog).offline.where("categories.online_projects_count > ?", 0).update_all(status: Category.statuses['online'])
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161221060521) do
+ActiveRecord::Schema.define(version: 20161222092424) do
 
   create_table "authentications", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string   "provider",      limit: 191
@@ -24,16 +24,17 @@ ActiveRecord::Schema.define(version: 20161221060521) do
   end
 
   create_table "catalogs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
-    t.string   "name",             limit: 191
-    t.string   "slug",             limit: 191
-    t.string   "type",             limit: 191
-    t.datetime "created_at",                                 null: false
-    t.datetime "updated_at",                                 null: false
+    t.string   "name",                    limit: 191
+    t.string   "slug",                    limit: 191
+    t.string   "type",                    limit: 191
+    t.datetime "created_at",                                        null: false
+    t.datetime "updated_at",                                        null: false
     t.integer  "user_id"
-    t.integer  "categories_count",               default: 0
-    t.string   "sketch",           limit: 191
-    t.integer  "status",                         default: 0
-    t.text     "footnote",         limit: 65535
+    t.integer  "categories_count",                      default: 0
+    t.string   "sketch",                  limit: 191
+    t.integer  "status",                                default: 0
+    t.text     "footnote",                limit: 65535
+    t.integer  "online_categories_count",               default: 0
   end
 
   create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|

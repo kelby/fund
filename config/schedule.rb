@@ -21,8 +21,13 @@
 
 every 1.hours do
   runner "Project.delay_set_popularity"
+  runner "Category.detect_and_set_online"
+
   runner "Category.nil_catalog_so_offline"
+
   runner "Category.no_online_projects_so_offline"
+
+  runner "Catalog.has_online_categories_so_online"
   runner "Catalog.no_online_categories_so_offline"
 end
 
