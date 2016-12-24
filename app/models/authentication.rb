@@ -30,8 +30,7 @@ class Authentication < ApplicationRecord
 
     if self.info.present?
       begin
-        json_info = JSON.parse(self.info)
-        _avatar_url = json_info['image']
+        _avatar_url = self.info['image']
       rescue Exception => e
         # ...
       end
