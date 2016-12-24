@@ -105,6 +105,7 @@ gem 'elasticsearch-rails'
 gem 'exception_notification'
 
 gem 'carrierwave', '>= 1.0.0.rc', '< 2.0'
+gem "mini_magick"
 
 gem 'counter_culture', '~> 1.0'
 

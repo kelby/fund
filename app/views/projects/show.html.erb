@@ -61,7 +61,9 @@
       <nav class="github-popularity">
         <ul>
           <li class="github-link">
-            <i class="fa fa-github"></i>
+            <%= link_to popularity_project_path(project) do %>
+              <%= image_tag project.developer.avatar_url(:thumb), class: "half-thumb radius-50" %>
+            <% end %>
 
             <a class="hidden-xs" href="<%= github.others['html_url'] %>">
               <%= github.others['full_name'] %>
@@ -189,7 +191,11 @@
       <nav class="github-popularity">
         <ul>
           <li class="github-link">
-            <i class="fa fa-github"></i>
+
+
+            <%= link_to popularity_project_path(project) do %>
+              <%= image_tag project.developer.avatar_url(:thumb), class: "half-thumb radius-50" %>
+            <% end %>
 
             <a class="hidden-xs" href="<%= github.others['html_url'] %>">
               <%= github.others['full_name'] %>
