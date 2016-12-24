@@ -27,7 +27,7 @@ set :repo_url, 'git@bitbucket.org:kelbylee/zhenkuan.git'
 append :linked_files, 'config/database.yml', 'config/secrets.yml', 'config/settings/production.yml'
 
 # Default value for linked_dirs is []
-append :linked_dirs, 'log', 'tmp/pids', 'tmp/sockets', '.well-known' #, 'tmp/cache', 'public/system'
+append :linked_dirs, 'log', 'tmp/pids', 'tmp/sockets', '.well-known', 'public/uploads' #, 'tmp/cache', 'public/system'
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
