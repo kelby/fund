@@ -14,6 +14,7 @@ class Episode < ApplicationRecord
   # Callbacks
   before_validation :set_human_id, on: :create
   before_create :set_human_id
+  before_create :set_recommend_at
   # END
 
 
@@ -43,6 +44,10 @@ class Episode < ApplicationRecord
 
   def set_human_id
     self.human_id = Episode.count + 1
+  end
+
+  def set_recommend_at
+    self.recommend_at = Time.now
   end
 
   def to_param
