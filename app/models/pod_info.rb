@@ -49,6 +49,8 @@ class PodInfo < ApplicationRecord
 
   belongs_to :project
 
+  validates_presence_of :project_id
+
   def get_api_info(name)
     url = "#{API_URL}#{name}"
 

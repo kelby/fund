@@ -41,6 +41,8 @@ class GemInfo < ApplicationRecord
 
   belongs_to :project
 
+  validates_presence_of :project_id
+
   scope :none_data, ->{ where("total_downloads = ?", nil) }
 
 

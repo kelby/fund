@@ -58,6 +58,9 @@ class PackageInfo < ApplicationRecord
 
   belongs_to :project
 
+  validates_presence_of :project_id
+
+
   COMPOSER_URL = "https://api.github.com/repos/:owner/:repo/contents/:path"
 
   def get_vendor_and_package(author, name)
