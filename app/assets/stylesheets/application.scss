@@ -151,3 +151,14 @@ h1, h2, h3, h4, h5 {
     }
   }
 }
+
+
+.prepend-button-append-link {
+  float: left;
+
+  button.prepend-button {
+    border-right: none;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+}

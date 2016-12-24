@@ -4,6 +4,8 @@ class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy,
     :popularity, :star, :recommend]
 
+  after_action :inc_view_times
+
   def star
     @users = @project.star_by_users
   end
@@ -102,5 +104,9 @@ class ProjectsController < ApplicationController
       if @project.category.present?
         @projects = @project.category.projects.online.order(popularity: :desc).limit(6)
       end
+    end
+
+    def inc_view_times
+      @project.increment!(:view_times)
     end
 end

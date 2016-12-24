@@ -1,15 +1,8 @@
-<hr>
+<div class="btn-group" id="<%= dom_id(project, 'star') %>">
+  <%= render "projects/star_status", project: project %>
+</div>
 
 
-<h3>操作</h3>
-<table class="inset">
-  <tbody>
-  <tr id="<%= dom_id(project, 'star') %>">
-    <%= render "projects/star_status", project: project %>
-  </tr>
-
-  <tr id="<%= dom_id(project, 'recommend') %>">
-    <%= render "projects/recommend_status", project: project %>
-  </tr>
-  </tbody>
-</table>
+<div class="btn-group" id="<%= dom_id(project, 'recommend') %>">
+  <%= render "projects/recommend_status", project: project %>
+</div>

@@ -1,19 +1,15 @@
-<td>
-  <% if project.had_recommend_by?(current_user) %>
-    <%= button_to project_recommend_path(project), remote: true, method: :delete do %>
-      取消推荐
-    <% end %>
-  <% else %>
-    <%= button_to project_recommend_path(project), remote: true do %>
-      推荐
-    <% end %>        
+<% if project.had_recommend_by?(current_user) %>
+  <%= button_to project_recommend_path(project), remote: true, method: :delete, class: "btn btn-default prepend-button", form_class: "prepend-button-append-link" do %>
+    <i class="fa fa-heart"></i>
+    取消推荐
   <% end %>
-
-
-</td>
-
-<td>
-  <%= link_to recommend_project_path(project) do %>
-    <%= project.user_recommend_projects.size %>
+<% else %>
+  <%= button_to project_recommend_path(project), remote: true, class: "btn btn-default prepend-button", form_class: "prepend-button-append-link" do %>
+    <i class="fa fa-heart"></i>
+    推荐
   <% end %>
-</td>
+<% end %>
+
+<%= link_to recommend_project_path(project), class: "btn btn-default" do %>
+  <%= project.user_recommend_projects.size %>
+<% end %>
