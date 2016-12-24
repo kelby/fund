@@ -21,6 +21,10 @@ class Authentication < ApplicationRecord
 
   validates_uniqueness_of :uid, scope: :provider
 
+  serialize :info, Hash
+  serialize :extra, Hash
+  serialize :credentials, Hash
+
   def avatar_url
     _avatar_url = ""
 
