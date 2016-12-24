@@ -41,9 +41,11 @@ class GithubInfo < ApplicationRecord
   def self.set_online_project_nightspot(number=100)
     # number = 100
 
-    self.where("subscribers_count < ?", number).includes(:project).where(projects: {status: Project.statuses['online']}).find_each do |this|
-      if this.project.present?
-        this.project.nightspot!
+    self.where("github_infos.subscribers_count < ?", number).joins(:project).where(projects: {status: Project.statuses['online']}).find_each do |this|
+      project = this.project
+
+      if project.present? && project.online?
+        project.nightspot!
       end
     end
   end
