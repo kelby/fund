@@ -1,7 +1,13 @@
 <li class="media">
   <div class="media-body">
     <h4 class="media-heading">
-      <%= comment.user.name %>
+      <%= link_to comment.user do %>
+        <%= image_tag comment.user.avatar_url(:thumb), class: "half-thumb radius-50" %>
+      <% end %>
+
+      <%= link_to comment.user do %>
+        <%= comment.user.name %>
+      <% end %>
     </h4>
 
     <%= simple_format comment.content %>

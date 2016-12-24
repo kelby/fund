@@ -20,4 +20,19 @@ class Authentication < ApplicationRecord
   validates_presence_of :uid
 
   validates_uniqueness_of :uid, scope: :provider
+
+  def avatar_url
+    _avatar_url = ""
+
+    if self.info.present?
+      begin
+        json_info = JSON.parse(self.info)
+        _avatar_url = json_info['image']
+      rescue Exception => e
+        # ...
+      end
+    end
+
+    _avatar_url
+  end
 end

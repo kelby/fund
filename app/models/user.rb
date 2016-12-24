@@ -50,7 +50,7 @@ class User < ApplicationRecord
 
   # Callbacks
   after_validation :detect_set_name
-  after_create :set_avatar
+  after_create :delay_set_avatar
   # END
 
 
@@ -90,10 +90,11 @@ class User < ApplicationRecord
     uid = access_token.uid
     info = access_token.info
     extra = access_token.extra
+    credentials = access_token.credentials
 
-    _credentials = access_token.credentials
-    refresh_token = _credentials["refresh_token"]
-    expires = _credentials["expires"]
+    # credentials = access_token.credentials
+    refresh_token = credentials["refresh_token"]
+    expires = credentials["expires"]
 
     authentication = Authentication.where(provider: provider, uid: uid).first
 
@@ -113,8 +114,9 @@ class User < ApplicationRecord
 
       user.authentications.create!(provider: provider,
         uid: uid,
-        info: info,
-        extra: extra,
+        info: info.try(:to_hash),
+        extra: extra.try(:to_hash),
+        credentials: credentials.try(:to_hash),
         refresh_token: refresh_token)
     else
       if expires
@@ -146,5 +148,41 @@ class User < ApplicationRecord
 
   def to_param
     name
+  end
+
+  def delay_set_avatar
+    user_id = self.id
+
+    self.class.delay.set_avatar(user_id)
+  end
+
+  def self.set_avatar(user_id)
+    user = User.find(user_id)
+
+    user.set_avatar
+
+    if user.changed?
+      user.save
+    end
+  end
+
+  def source_avatar_url
+    authentication = self.authentications.last
+
+    if authentication.present?
+      authentication.avatar_url
+    else
+      ""
+    end
+  end
+
+  def set_avatar
+    if self.avatar.file.blank?
+      begin
+        self.remote_avatar_url = self.source_avatar_url
+      rescue Exception => e
+        # ...
+      end
+    end
   end
 end
