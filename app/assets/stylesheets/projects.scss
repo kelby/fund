@@ -44,6 +44,26 @@
         max-width: 100%;
       }
     }
+
+
+    .inline-headline {
+      h1.name-title {
+        border-left: 4px solid red;
+        margin-left: -15px;
+        padding-left: 11px;
+
+        a {
+          color: #333;
+          text-decoration: none;
+        }
+      }
+    }
+
+    .github-popularity {
+      a {
+        color: #333;
+      }
+    }
   }
 
   .readme-content ul.attribution {
@@ -85,6 +105,17 @@
     li {
       display: inline-block;
       list-style-type: none;
+    }
+  }
+
+  .append-panel-footer {
+    border-bottom: 1px solid #ddd;
+    border-top: none;
+
+    .opts {
+      .view-times {
+        line-height: 34px;
+      }
     }
   }
 }

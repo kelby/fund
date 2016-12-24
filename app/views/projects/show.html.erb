@@ -7,10 +7,6 @@
 
 <% if @project.category.present? %>
   <div class="panel panel-default popular-projects">
-    <!-- <div class="panel-heading"> -->
-
-
-
     <ol class="breadcrumb catalog-category-etc">
       <li class="normal">
         <% url = @project.category.catalog.type.downcase.gsub(/catalog$/, '_path') %>
@@ -34,7 +30,6 @@
 
       <li class="active"><%= @project.category.name %></li>
     </ol>
-    <!-- </div> -->
 
     <%= render "projects/popular_item" %>
   </div>
@@ -44,24 +39,276 @@
 <div class="project-wraper clearfix">
   <% case @project.identity %>
   <% when "gemspec" %>
-    <%= render "projects/show/gemspec", project: @project, info: @project.gem_info, github: @project.github_info %>
+    <%#= render "projects/show/gemspec", project: @project, info: @project.gem_info, github: @project.github_info %>
+
+    <% project = @project %>
+    <% info = @project.gem_info %>
+    <% github = @project.github_info %>
+
+    <div class="readme-content col-sm-9 col-xs-12">
+      <div class="inline-headline">
+        <h1 class="name-title">
+          <%= link_to project.show_name, repo_path(project.repo_params) %>
+          <span class="text-muted"><%= info.current_version %></span>
+        </h1>
+      </div>
+
+      <ul class="attribution">
+        <li>By</li>
+        <li><%= info.others['authors'] %></li>
+      </ul>
+
+      <nav class="github-popularity">
+        <ul>
+          <li class="github-link">
+            <i class="fa fa-github"></i>
+
+            <a class="hidden-xs" href="<%= github.others['html_url'] %>">
+              <%= github.others['full_name'] %>
+            </a>
+          </li>
+
+          <li class="metadata pull-right quality_indicator quality_4">
+            <%= link_to popularity_project_path(project) do %>
+              popularity
+            <% end %>
+          </li>
+        </ul>
+      </nav>
+
+
+      <div class="clearfix"></div>
+
+
+      <div class="tab-content">
+        <div class="tab-pane active" id="readme">
+          <%= simple_format project.description %>
+        </div>
+
+        <div class="tab-pane" id="changelog_content"></div>
+      </div>
+    </div>
+
+
+    <div class="sideline col-sm-3 col-xs-12">
+      <h3>Downloads</h3>
+      <table class="inset">
+        <tbody>
+          <tr>
+            <td>Total</td>
+            <td><%= number_with_delimiter info.total_downloads %></td>
+          </tr>
+
+          <tr>
+            <td>下载</td>
+            <td>
+              <%= link_to github.others['downloads_url'].gsub(/downloads$/, 'zipball'), target: "_blank" do %>
+                <i class="fa fa-download"></i>
+              <% end %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <hr>
+
+      <h3>GitHub</h3>
+      <table class="inset">
+        <tbody>
+          <tr>
+            <td>Watchers</td>
+            <td class="pull-right">
+              <%= github.watchers_count %>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Stars</td>
+            <td class="pull-right">
+              <%= github.subscribers_count %>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Forks</td>
+            <td class="pull-right">
+              <%= github.forks_count %>
+            </td>
+          </tr>
+
+          <tr>
+            <td>最后更新</td>
+            <td class="pull-right">
+              <%#= (github.others['pushed_at']).to_time.strftime("%F %R") %>
+              <%= time_ago_in_words(github.others['pushed_at']) %> ago.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <hr>
+
+
+      <ul class="links">
+        <li>
+          <%= link_to "Homepage", github.others['homepage'] %>
+        </li>
+
+        <li>
+          <%= link_to "GitHub Repo", github.others['html_url'] %>
+        </li>
+      </ul>
+    </div>
+
+
   <% when "package" %>
     <%= render "projects/show/package", project: @project, info: @project.package_info, github: @project.github_info %>
   <% when "pod" %>
-    <%= render "projects/show/pod", project: @project, info: @project.pod_info, github: @project.github_info %>
+    <%#= render "projects/show/pod", project: @project, info: @project.pod_info, github: @project.github_info %>
+
+
+    <% project = @project %>
+    <% info = @project.pod_info %>
+    <% github = @project.github_info %>
+
+    <div class="readme-content col-sm-9 col-xs-12">
+      <div class="inline-headline">
+        <h1 class="name-title">
+          <%= link_to project.show_name, repo_path(project.repo_params) %>
+          <span class="text-muted"><%= info.current_version %></span>
+        </h1>
+      </div>
+
+
+      <ul class="attribution">
+        <li>By</li>
+        <li><%= github.others['owner']['login'] %></li>
+      </ul>
+
+
+      <nav class="github-popularity">
+        <ul>
+          <li class="github-link">
+            <i class="fa fa-github"></i>
+
+            <a class="hidden-xs" href="<%= github.others['html_url'] %>">
+              <%= github.others['full_name'] %>
+            </a>
+
+          </li>
+
+
+
+          <li class="metadata pull-right quality_indicator quality_4">
+            <%= link_to popularity_project_path(project) do %>
+              popularity <%= project.popularity %>
+            <% end %>
+          </li>
+        </ul>
+      </nav>
+
+
+      <div class="clearfix"></div>
+
+
+
+      <div class="tab-content">
+        <div class="tab-pane active" id="readme">
+            <%= simple_format project.description %>
+        </div>
+
+        <div class="tab-pane" id="changelog_content"></div>
+      </div>
+    </div>
+
+
+    <div class="sideline col-sm-3 col-xs-12">
+
+
+      <h3>Downloads</h3>
+      <table class="inset">
+        <tbody>
+          <tr>
+            <td>Total</td>
+            <td><%= number_with_delimiter info.others['stats']['download_total'] %></td>
+          </tr>
+          <tr>
+            <td>Week</td>
+            <td><%= number_with_delimiter info.others['stats']['download_week'] %></td>
+          </tr>
+          <tr>
+            <td>Month</td>
+            <td><%= number_with_delimiter info.others['stats']['download_month'] %></td>
+          </tr>
+
+          <tr>
+            <td>下载</td>
+            <td>
+              <%= link_to github.others['downloads_url'].gsub(/downloads$/, 'zipball'), target: "_blank" do %>
+                <i class="fa fa-download"></i>
+              <% end %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <hr>
+
+      <h3>GitHub</h3>
+      <table class="inset">
+        <tbody>
+          <tr>
+            <td>Watchers</td>
+            <td class="pull-right"><%= github.watchers_count %></td>
+          </tr>
+
+          <tr>
+            <td>Stars</td>
+            <td class="pull-right"><%= github.subscribers_count %></td>
+          </tr>
+
+          <tr>
+            <td>Forks</td>
+            <td class="pull-right"><%= github.forks_count %></td>
+          </tr>
+
+          <tr>
+            <td>最后更新</td>
+            <td class="pull-right">
+              <%= time_ago_in_words(github.others['pushed_at']) %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+
+      <hr>
+
+
+      <ul class="links">
+        <li>
+          <%= link_to "GitHub Repo", github.others['html_url'] %>
+        </li>
+        <li>
+          <%= link_to "Page on CocoaPods.org", "https://cocoapods.org/pods/#{project.name}" %>
+        </li>
+      </ul>
+    </div>
+
+
   <% else %>
     <%= render "projects/show/project", project: @project %>
   <% end %>
 
 
 
-  <div class="panel-footer clearfix col-md-9" style="border-bottom: 1px solid #ddd;border-top: none;">
+  <div class="panel-footer clearfix col-md-9 append-panel-footer">
       <div class="opts">
 
         <%= render "projects/status", project: @project %>
 
 
-        <span class="pull-right opts">
+        <span class="pull-right view-times">
           <%= @project.view_times %> 次查看
         </span>
       </div>
