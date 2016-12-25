@@ -49,7 +49,10 @@
       <div class="inline-headline">
         <h1 class="name-title">
           <%= link_to project.show_name, repo_path(project.repo_params) %>
-          <span class="text-muted"><%= info.current_version %></span>
+
+          <small class="text-muted">
+            <%= info.current_version %>
+          </small>
         </h1>
       </div>
 
@@ -72,7 +75,7 @@
 
           <li class="metadata pull-right quality_indicator quality_4">
             <%= link_to popularity_project_path(project) do %>
-              popularity
+              popularity <%= project.popularity %>
             <% end %>
           </li>
         </ul>
@@ -191,11 +194,17 @@
 
       <ul class="links">
         <li>
-          <%= link_to "Homepage", github.others['homepage'] %>
+          <%= link_to github.others['homepage'] do %>
+            <i class="fa fa-home"></i>
+            Homepage
+          <% end %>
         </li>
 
         <li>
-          <%= link_to "GitHub Repo", github.others['html_url'] %>
+          <%= link_to github.others['html_url'] do %>
+            <i class="fa fa-github"></i>
+            GitHub Repo
+          <% end %>
         </li>
       </ul>
     </div>
