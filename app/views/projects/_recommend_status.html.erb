@@ -10,6 +10,6 @@
   <% end %>
 <% end %>
 
-<%= link_to recommend_project_path(project), class: "btn btn-default" do %>
+<%= link_to recommend_repo_path(project.repo_params), class: "btn btn-default" do %>
   <%= project.user_recommend_projects.size %>
 <% end %>

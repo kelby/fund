@@ -16,7 +16,7 @@
 
 @media (max-width: 767px) {
   body > .home.container {
-    margin-top: 0;
+    margin-top: 20px;
   }
 }
 
@@ -103,6 +103,12 @@
     hr {
       margin-top: 10px;
       margin-bottom: 10px;
+    }
+
+    .recommend-item {
+      a.wrap-description {
+        text-decoration: none;
+      }
     }
   }
 

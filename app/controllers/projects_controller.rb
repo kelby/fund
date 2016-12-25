@@ -4,7 +4,7 @@ class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy,
     :popularity, :star, :recommend]
 
-  after_action :inc_view_times
+  after_action :inc_view_times, only: [:show, :repo]
 
   def star
     @users = @project.star_by_users

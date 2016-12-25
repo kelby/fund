@@ -64,7 +64,7 @@
       <nav class="github-popularity">
         <ul>
           <li class="github-link">
-            <%= link_to popularity_project_path(project) do %>
+            <%= link_to popularity_repo_path(project.repo_params) do %>
               <%= image_tag project.developer.avatar_url(:thumb), class: "half-thumb radius-50" %>
             <% end %>
 
@@ -74,7 +74,7 @@
           </li>
 
           <li class="metadata pull-right quality_indicator quality_4">
-            <%= link_to popularity_project_path(project) do %>
+            <%= link_to popularity_repo_path(project.repo_params) do %>
               popularity <%= project.popularity %>
             <% end %>
           </li>
@@ -240,7 +240,7 @@
           <li class="github-link">
 
 
-            <%= link_to popularity_project_path(project) do %>
+            <%= link_to popularity_repo_path(project.repo_params) do %>
               <%= image_tag project.developer.avatar_url(:thumb), class: "half-thumb radius-50" %>
             <% end %>
 
@@ -253,7 +253,7 @@
 
 
           <li class="metadata pull-right quality_indicator quality_4">
-            <%= link_to popularity_project_path(project) do %>
+            <%= link_to popularity_repo_path(project.repo_params) do %>
               popularity <%= project.popularity %>
             <% end %>
           </li>

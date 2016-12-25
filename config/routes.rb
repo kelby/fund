@@ -33,6 +33,12 @@ Rails.application.routes.draw do
     end
   end
 
+
+  get ':author/:name/star', to: "repos#star", as: :star_repo
+  get ':author/:name/recommend', to: "repos#recommend", as: :recommend_repo
+  get ':author/:name/popularity', to: "repos#popularity", as: :popularity_repo
+
+
   resources :episodes
   # resources :developers, only: [:show]
   resources :developers

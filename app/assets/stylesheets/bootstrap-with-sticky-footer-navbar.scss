@@ -43,7 +43,12 @@ body {
 .navbar-default {
   background-color: white;
   border-color: #e7e7e7;
+}
 
+@media (max-width: 767px) {
+  .navbar.navbar-default {
+    margin-bottom: 5px;
+  }
 }
 
 .container > .prefix {
@@ -93,6 +98,7 @@ body > .container {
 
 @media (max-width: 767px) {
   body > .container {
+    padding-top: 0;
     padding-left: 10px;
     padding-right: 10px;
   }
@@ -100,11 +106,23 @@ body > .container {
   body > .navbar .navbar-header {
     .navbar-toggle {
       margin-right: 10px;
+
+      border: none;
+      background-color: white;
     }
 
     .navbar-brand {
       padding-left: 10px;
+
+      padding-right: 7px;
     }
+  }
+
+  .navbar-default .navbar-form {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-top: 15px;
+    padding-bottom: 15px;
   }
 }
 

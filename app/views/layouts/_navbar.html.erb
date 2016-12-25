@@ -23,6 +23,10 @@
         <li class="<%= current_page?(swift_path)? 'active' : nil %>">
           <%= link_to "Pods", swift_path %>
         </li>
+
+        <li class="<%= current_page?(@episode)? 'active' : nil %>">
+          <%= link_to "今日推荐", @episode %>
+        </li>
       </ul>
     </div>
 
