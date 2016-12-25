@@ -14,6 +14,18 @@
 class Comment < ApplicationRecord
   belongs_to :user
   belongs_to :commentable, polymorphic: true
+  has_many :user_favor_comments
+
 
   validates_presence_of :content, :commentable_id, :commentable_type, :user_id
+
+  before_create :set_floor
+
+  acts_as_paranoid
+
+  def set_floor
+    last_floor = self.commentable.comments.with_deleted.size
+
+    self.floor = last_floor + 1
+  end
 end

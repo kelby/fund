@@ -37,6 +37,7 @@ class User < ApplicationRecord
 
   has_many :user_star_projects
   has_many :user_recommend_projects
+  has_many :user_favor_comments
 
   has_many :star_projects, through: :user_star_projects, source: :project
   has_many :recommend_projects, through: :user_recommend_projects, source: :project
@@ -184,5 +185,32 @@ class User < ApplicationRecord
         # ...
       end
     end
+  end
+
+  def show_full_name
+    auth = self.authentications.last
+
+    if auth.blank?
+      return ""
+    end
+
+    case auth.provider
+    when 'github'
+      _name = auth.info['name']
+    when 'google_oauth2'
+      _name = auth.info['name']
+    else
+      # ...
+    end
+
+    if _name != self.name
+      _name
+    else
+      ""
+    end
+  end
+
+  def has_full_name?
+    self.show_full_name.present?
   end
 end

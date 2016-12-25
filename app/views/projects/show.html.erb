@@ -28,7 +28,7 @@
         <% end %>
       </li>
 
-      <li class="active"><%= @project.category.name %></li>
+      <li class="active"><%= @project.name %></li>
     </ol>
 
     <%= render "projects/popular_item" %>
@@ -139,6 +139,14 @@
           </tr>
 
           <tr>
+            <td>创建于</td>
+            <td class="pull-right">
+              <%#= (github.others['pushed_at']).to_time.strftime("%F %R") %>
+              <%= (github.others['created_at']).to_time.strftime("%Y.%-m.%d") %>
+            </td>
+          </tr>
+
+          <tr>
             <td>最后更新</td>
             <td class="pull-right">
               <%#= (github.others['pushed_at']).to_time.strftime("%F %R") %>
@@ -148,6 +156,36 @@
         </tbody>
       </table>
 
+      <hr>
+
+      <h3>Gem</h3>
+      <table class="inset">
+        <tbody>
+          <tr>
+            <td>主页</td>
+            <td class="pull-right">
+              <%= link_to "查看", info.others['project_uri'] %>
+            </td>
+          </tr>
+
+          <tr>
+            <td>RDoc</td>
+            <td class="pull-right">
+              <%= link_to "查看", info.others['documentation_uri'] %>
+            </td>
+          </tr>
+
+          <% if info.has_wiki? %>
+            <tr>
+              <td>Wiki</td>
+              <td class="pull-right">
+                <%= link_to "查看", info.wiki_uri %>
+              </td>
+            </tr>
+          <% end %>
+
+        </tbody>
+      </table>
       <hr>
 
 
@@ -276,6 +314,14 @@
           <tr>
             <td>Forks</td>
             <td class="pull-right"><%= github.forks_count %></td>
+          </tr>
+
+          <tr>
+            <td>创建于</td>
+            <td class="pull-right">
+              <%#= (github.others['pushed_at']).to_time.strftime("%F %R") %>
+              <%= (github.others['created_at']).to_time.strftime("%Y.%-m.%d") %>
+            </td>
           </tr>
 
           <tr>
@@ -436,19 +482,58 @@
 
 <!-- <div class="col-md-12 clearfix"> -->
   <% if @comments.present? %>
-    <div class="panel panel-default">
+    <!-- <div class="panel panel-default">
       <div class="panel-heading">
         评论
         <small class="pull-right">
-          <%= @comments.size %>
+          <%#= @comments.size %>
         </small>
       </div>
       <div class="panel-body">
         <ul class="media-list">
-          <%= render partial: "comments/comment", collection: @comments %>
+          <%#= render partial: "comments/comment", collection: @comments %>
         </ul>
       </div>
-    </div>
+    </div> -->
+
+    <% @comments.each do |comment| %>
+      <div class="panel panel-default">
+        <div class="panel-heading" name="floor-<%= comment.floor %>" id="floor-<%= comment.floor %>">
+          <%= link_to comment.user do %>
+            <%= image_tag comment.user.avatar_url(:thumb), class: "half-thumb radius-50" %>
+          <% end %>
+
+          <%= link_to comment.user do %>
+            <%= comment.user.name %>
+
+            <% if comment.user.has_full_name? %>
+              (<%= comment.user.show_full_name %>)
+            <% end %>
+          <% end %>
+
+          <small>
+            <%= time_ago_in_words(comment.created_at) %> ago.
+          </small>
+
+          <%= link_to "", class: "pull-right", style: "margin-left: 15px;" do %>
+            <i class="fa fa-heart"></i>
+
+            <% if comment.user_favor_comments.size > 0 %>
+              <%= comment.user_favor_comments.size %>
+              个赞
+            <% end %>
+          <% end %>
+
+          <span class="pull-right">
+            <%= link_to "##{comment.floor}楼", "#floor-#{comment.floor}" %>
+          </span>
+
+        </div>
+        <div class="panel-body">
+          <%= simple_format comment.content %>
+        </div>
+      </div>
+    <% end %>
   <% end %>
 
 

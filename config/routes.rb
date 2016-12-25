@@ -1,6 +1,10 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  get 'user_favor_comment/create'
+
+  get 'user_favor_comment/destroy'
+
   authenticate :user, lambda { |u| u.is_admin? } do
     namespace :panel do
       resources :episodes

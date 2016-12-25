@@ -7,6 +7,10 @@
 
       <%= link_to comment.user do %>
         <%= comment.user.name %>
+
+        <% if comment.user.has_full_name? %>
+          (<%= comment.user.show_full_name %>)
+        <% end %>
       <% end %>
     </h4>
 

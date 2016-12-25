@@ -118,4 +118,12 @@ class GemInfo < ApplicationRecord
     json_content = get_versions(name)
     self.others['versions'] = json_content
   end
+
+  def wiki_uri
+    self.others['wiki_uri'].presence
+  end
+
+  def has_wiki?
+    self.others['wiki_uri'].present?
+  end
 end

@@ -112,3 +112,5 @@ gem 'counter_culture', '~> 1.0'
 gem "select2-rails"
 
 gem 'browser'
+
+gem "paranoia", "~> 2.2"

@@ -696,6 +696,19 @@ class Project < ApplicationRecord
     self.human_name.presence || self.name
   end
 
+  def show_homepage
+    case self.identity
+    when 'gemspec'
+      github_info.others['homepage'].presence || gem_info.others['homepage_uri'].presence
+    when 'pod'
+      github_info.others['homepage'].presence
+    when 'package'
+      # ...
+    else
+      # ...
+    end
+  end
+
 
   mapping do
     indexes :id, type: :integer
