@@ -28,4 +28,18 @@ class Comment < ApplicationRecord
 
     self.floor = last_floor + 1
   end
+
+  def self.set_floor
+    self.find_each do |comment|
+      comments = comment.commentable.comments.with_deleted
+
+      comments.each_with_index do |item, index|
+        item.floor = index + 1
+
+        if item.changed?
+          item.save
+        end
+      end
+    end
+  end
 end
