@@ -30,6 +30,11 @@ class Ability
         category.user_id == user.id
       end
 
+      can :manage, Comment do |comment|
+        comment.user_id == user.id
+      end
+
+
       can :read, :all
 
       cannot :create, Catalog

@@ -17,8 +17,8 @@ class CommentsController < ApplicationController
   # end
 
   # GET /comments/1/edit
-  # def edit
-  # end
+  def edit
+  end
 
   # POST /comments
   def create
@@ -28,7 +28,8 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.save
-        format.html { redirect_to @comment.commentable, notice: 'Comment was successfully created.' }
+        @commentable = @comment.commentable
+        format.html { redirect_to polymorphic_path(@commentable, anchor: "floor-#{@comment.floor}"), notice: 'Comment was successfully created.' }
       else
         format.html { redirect_to :back, alert: "#{@comment.errors.full_messages.join(';')}" }
       end
@@ -36,28 +37,34 @@ class CommentsController < ApplicationController
   end
 
   # PATCH/PUT /comments/1
-  # def update
-  #   respond_to do |format|
-  #     if @comment.update(comment_params)
-  #       format.html { redirect_to @comment, notice: 'Comment was successfully updated.' }
-  #     else
-  #       format.html { render :edit }
-  #     end
-  #   end
-  # end
+  def update
+    authorize! :update, @comment
+
+    respond_to do |format|
+      if @comment.update(comment_params)
+        format.html { redirect_to polymorphic_path(@commentable, anchor: "floor-#{@comment.floor}"), notice: 'Comment was successfully updated.' }
+      else
+        format.html { render :edit }
+      end
+    end
+  end
 
   # DELETE /comments/1
-  # def destroy
-  #   @comment.destroy
-  #   respond_to do |format|
-  #     format.html { redirect_to comments_url, notice: 'Comment was successfully destroyed.' }
-  #   end
-  # end
+  def destroy
+    authorize! :destroy, @comment
+
+    @comment.destroy
+    respond_to do |format|
+      format.html { redirect_to polymorphic_url(@commentable), notice: 'Comment was successfully destroyed.' }
+    end
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_comment
       @comment = Comment.find(params[:id])
+
+      @commentable = @comment.commentable
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
