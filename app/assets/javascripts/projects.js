@@ -1,3 +1,5 @@
+//= require clipboard.js
+
 // begin new project
 $(document).on("change", "#language", function() {
   var language = $(this).val()

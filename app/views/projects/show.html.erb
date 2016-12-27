@@ -115,6 +115,16 @@
         </tbody>
       </table>
 
+      <div class="input-group copy-addon">
+        <%= text_field_tag :clone_url, github.others['clone_url'], class: "form-control", readonly: true, id: "foo" %>
+
+        <div class="input-group-addon">
+          <%= button_tag class: "copy btn btn-default", data: {"clipboard-target" => "#foo"} do %>
+            <i class="fa fa-book"></i>
+          <% end %>
+        </div>
+      </div>
+
       <hr>
 
       <h3>GitHub</h3>
@@ -304,6 +314,17 @@
           </tr>
         </tbody>
       </table>
+
+
+      <div class="input-group copy-addon">
+        <%= text_field_tag :clone_url, github.others['clone_url'], class: "form-control", readonly: true, id: "foo" %>
+
+        <div class="input-group-addon">
+          <%= button_tag class: "copy btn btn-default", data: {"clipboard-target" => "#foo"} do %>
+            <i class="fa fa-book"></i>
+          <% end %>
+        </div>
+      </div>
 
       <hr>
 
@@ -553,3 +574,11 @@
     </div>
   </div>
 <!-- </div> -->
+
+<% content_for :javascripts do %>
+  <%= javascript_include_tag 'projects' %>
+
+  <script>
+    new Clipboard('button.copy');
+  </script>
+<% end %>
