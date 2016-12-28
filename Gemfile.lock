@@ -286,6 +286,8 @@ GEM
       concurrent-ruby (~> 1.0)
       connection_pool (~> 2.2, >= 2.2.0)
       redis (~> 3.2, >= 3.2.1)
+    sitemap_generator (5.2.0)
+      builder (~> 3.0)
     spring (2.0.0)
       activesupport (>= 4.2)
     spring-watcher-listen (2.0.1)
@@ -369,6 +371,7 @@ DEPENDENCIES
   select2-rails
   sidekiq
   sinatra!
+  sitemap_generator
   spring
   spring-watcher-listen (~> 2.0.0)
   tzinfo-data
