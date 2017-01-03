@@ -78,7 +78,7 @@ class Project < ApplicationRecord
 
   after_commit :set_github_info, on: :create
 
-  after_create :delay_set_developer_info
+  after_create :aysc_set_developer_info
   # after_commit :set_readme, on: :create
 
   # after_create :build_github_info
@@ -678,6 +678,10 @@ class Project < ApplicationRecord
   def delay_set_developer_info
     delay = rand(1..3600)
     Developer.delay_for(delay).set_developer_info(self.id)
+  end
+
+  def aysc_set_developer_info
+    Developer.delay.set_developer_info(self.id)
   end
 
   def relate_info
