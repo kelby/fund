@@ -56,8 +56,8 @@ Rails.application.routes.draw do
     member do
       get :popularity
 
-      get :star
-      get :recommend
+      get :star, to: "repos#star"
+      get :recommend, to: "repos#recommend"
     end
 
     post :star, to: "user_star_projects#create"
