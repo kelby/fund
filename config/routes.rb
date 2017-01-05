@@ -33,12 +33,6 @@ Rails.application.routes.draw do
     end
   end
 
-
-  get ':author/:name/star', to: "repos#star", as: :star_repo
-  get ':author/:name/recommend', to: "repos#recommend", as: :recommend_repo
-  get ':author/:name/popularity', to: "repos#popularity", as: :popularity_repo
-
-
   resources :episodes
   # resources :developers, only: [:show]
   resources :developers
@@ -54,7 +48,7 @@ Rails.application.routes.draw do
 
   resources :projects do
     member do
-      get :popularity
+      get :popularity, to: "repos#popularity"
 
       get :star, to: "repos#star"
       get :recommend, to: "repos#recommend"
@@ -75,6 +69,12 @@ Rails.application.routes.draw do
 
     resources :comments
   end
+
+
+  get ':author/:name/star', to: "repos#star", as: :star_repo
+  get ':author/:name/recommend', to: "repos#recommend", as: :recommend_repo
+  get ':author/:name/popularity', to: "repos#popularity", as: :popularity_repo
+
 
   resources :catalogs
   resources :categories

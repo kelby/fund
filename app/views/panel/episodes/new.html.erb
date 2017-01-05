@@ -1,5 +1,7 @@
-<h1>New Panel Episode</h1>
+<h1>
+  New Panel Episode
+
+  <small><%= link_to 'Back', panel_episodes_path %></small>
+</h1>
 
 <%= render 'form', panel_episode: @panel_episode %>
-
-<%= link_to 'Back', panel_episodes_path %>

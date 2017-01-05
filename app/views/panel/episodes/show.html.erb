@@ -1,4 +1,26 @@
-<p id="notice"><%= notice %></p>
+<table class="table table-striped">
+  <thead>
+    <%= render "panel/episodes/thead" %>
+  </thead>
 
+  <tbody>
+    <%= render "panel/episodes/tbody", panel_episode: @panel_episode %>
+  </tbody>
+</table>
+
+
+<hr>
 <%= link_to 'Edit', edit_panel_episode_path(@panel_episode) %> |
 <%= link_to 'Back', panel_episodes_path %>
+<hr>
+
+
+<table class="table table-striped">
+  <thead>
+    <%= render "panel/projects/item_thead" %>
+  </thead>
+
+  <tbody>
+    <%= render partial: "panel/projects/item_tbody", collection: @projects, as: :project %>
+  </tbody>
+</table>

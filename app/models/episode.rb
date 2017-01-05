@@ -13,6 +13,7 @@
 class Episode < ApplicationRecord
   # Callbacks
   before_validation :set_human_id, on: :create
+
   before_create :set_human_id
   before_create :set_recommend_at
   # END
@@ -27,6 +28,10 @@ class Episode < ApplicationRecord
   # Rails class methods
   enum status: { offline: 0, online: 1 }
   # END
+
+  def projects
+    @projects ||= Project.where(id: self.project_list_array).order(popularity: :desc)
+  end
 
   def self.change_project_list_for(project_id, episode_id="")
     episode = self.get_episode(episode_id)
@@ -68,6 +73,10 @@ class Episode < ApplicationRecord
   end
 
   def format_project_list
-    self.project_list = self.project_list.split(",").uniq.join(",")
+    self.project_list = self.project_list_array.join(",")
+  end
+
+  def project_list_array
+    self.project_list.split(",").uniq
   end
 end

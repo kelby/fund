@@ -44,8 +44,8 @@
           <%= link_to "Swift Pods", swift_path %>
         </li>
 
-        <li class="nav-item <%= current_page?(@episode)? 'active' : nil %>">
-          <%= link_to "今日推荐", @episode %>
+        <li class="nav-item <%= current_page?(@today_episode)? 'active' : nil %>">
+          <%= link_to "今日推荐", @today_episode %>
         </li>
       </ul>
 
@@ -99,6 +99,30 @@
               <li>
                 <%= link_to "我的主页", account_path %>
               </li>
+
+              <% if can? :manage, Catalog %>
+                <li>
+                  <%= link_to "Catalog", panel_catalogs_path %>
+                </li>
+              <% end %>
+
+              <% if can? :manage, Category %>
+                <li>
+                  <%= link_to "Category", panel_categories_path %>
+                </li>
+              <% end %>
+
+              <% if can? :manage, Project %>
+                <li>
+                  <%= link_to "Project", panel_projects_path %>
+                </li>
+              <% end %>
+
+              <% if can? :manage, Episode %>
+                <li>
+                  <%= link_to "Episode", panel_episodes_path %>
+                </li>
+              <% end %>
             <% else %>
               <li><a href="#">Another action</a></li>
               <li><a href="#">Something else here</a></li>

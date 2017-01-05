@@ -1,4 +1,4 @@
-class Panel::EpisodesController < ApplicationController
+class Panel::EpisodesController < Panel::PanelController
   before_action :set_panel_episode, only: [:show, :edit, :update, :destroy]
 
   # GET /panel/episodes
@@ -8,6 +8,7 @@ class Panel::EpisodesController < ApplicationController
 
   # GET /panel/episodes/1
   def show
+    @projects = @panel_episode.projects
   end
 
   # GET /panel/episodes/new
@@ -24,8 +25,8 @@ class Panel::EpisodesController < ApplicationController
     @panel_episode = ::Episode.new(panel_episode_params)
 
     respond_to do |format|
-      if @panel_episode.save
-        format.html { redirect_to @panel_episode, notice: 'Episode was successfully created.' }
+      if @panel_episode.save!
+        format.html { redirect_to panel_episode_path(@panel_episode), notice: 'Episode was successfully created.' }
       else
         format.html { render :new }
       end
@@ -36,7 +37,7 @@ class Panel::EpisodesController < ApplicationController
   def update
     respond_to do |format|
       if @panel_episode.update(panel_episode_params)
-        format.html { redirect_to @panel_episode, notice: 'Episode was successfully updated.' }
+        format.html { redirect_to panel_episode_path(@panel_episode), notice: 'Episode was successfully updated.' }
       else
         format.html { render :edit }
       end
@@ -59,6 +60,6 @@ class Panel::EpisodesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def panel_episode_params
-      params.fetch(:panel_episode, {})
+      params.fetch(:episode, {}).permit(:human_id, :project_list, :status, :recommend_at)
     end
 end

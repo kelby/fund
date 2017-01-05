@@ -1,4 +1,10 @@
-<%= form_for(panel_episode) do |f| %>
+<% if panel_episode.new_record? %>
+  <% url = panel_episodes_path %>
+<% else %>
+  <% url = panel_episode_path(panel_episode) %>
+<% end %>
+
+<%= form_for panel_episode, url: url do |f| %>
   <% if panel_episode.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(panel_episode.errors.count, "error") %> prohibited this panel_episode from being saved:</h2>
@@ -11,7 +17,35 @@
     </div>
   <% end %>
 
+  <div class="form-group">
+    <%= f.label :human_id %>
+    <%= f.number_field :human_id, class: "form-control" %>
+
+    <p class="help-block">数字。第几期推荐项目。可为空，会自动设置</p>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :project_list %>
+    <%= f.text_field :project_list, class: "form-control" %>
+
+    <p class="help-block">字符串。所包含的项目ID，用英文逗号分隔</p>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :status %>
+    <%= f.select :status, Episode.statuses, {include_blank: true}, class: "form-control" %>
+
+    <p class="help-block">第几期推荐项目。可为空，会自动设置</p>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :recommend_at %>
+    <%= f.text_field :recommend_at, class: "form-control datetimepicker", data: {"date-format" => "yyyy-mm-dd", "min-view" => 2, autoclose: true, "today-highlight" => true} %>
+
+    <p class="help-block">推荐时间</p>
+  </div>
+
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "提交", class: "btn btn-primary" %>
   </div>
 <% end %>

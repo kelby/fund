@@ -1,0 +1,12 @@
+<tr>
+  <td><%= project.author %></td>
+  <td><%= link_to project.name, panel_project_path(project) %></td>
+  <td><%= project.identity %></td>
+  <td><%= project.status %></td>
+  <td><%= project.github_info.present? %></td>
+  <td><%= project.relate_info.present? %></td>
+  <td><%= link_to 'Edit', edit_panel_project_path(project), target: "_blank" %></td>
+  <td><%= link_to 'Destroy', panel_project_path(project), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  <td><%= link_to '前台', project, target: "_blank" %></td>
+  <td><%= link_to '后台', rails_admin.show_path('Project', project), target: "_blank" %></td>
+</tr>

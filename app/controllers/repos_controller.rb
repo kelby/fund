@@ -18,6 +18,8 @@ class ReposController < ApplicationController
 
     if @project.blank? && params[:id].present?
       @project = Project.find(params[:id])
+
+      redirect_to action: params[:action], author: @project.author, name: @project.name, status: 301
     end
   end
 end
