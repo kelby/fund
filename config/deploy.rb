@@ -24,7 +24,8 @@ set :repo_url, 'git@bitbucket.org:kelbylee/zhenkuan.git'
 # set :pty, true
 
 # Default value for :linked_files is []
-append :linked_files, 'config/database.yml', 'config/secrets.yml', 'config/settings/production.yml'
+append :linked_files, 'config/database.yml', 'config/secrets.yml', 'config/settings/production.yml',
+  'public/sitemap.xml.gz'
 
 # Default value for linked_dirs is []
 append :linked_dirs, 'log', 'tmp/pids', 'tmp/sockets', '.well-known', 'public/uploads' #, 'tmp/cache', 'public/system'
