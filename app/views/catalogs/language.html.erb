@@ -36,7 +36,7 @@
 
               <%#= link_to category.name, category %>
             </li> -->
-            <%= render partial: "categories/list_item", collection: catalog.categories.online, as: :category %>
+            <%= render partial: "categories/list_item", collection: catalog.online_categories, as: :category %>
           <%# end %>
         </ul>
       </div>

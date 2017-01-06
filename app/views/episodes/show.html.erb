@@ -1,4 +1,4 @@
-<% set_meta_tags title: "今日推荐 - 第#{@episode.human_id}期" %>
+<% set_meta_tags title: "今日推荐: #{@recommend_description} - 第#{@episode.human_id}期" %>
 
 <% content_for :content_css_link_yield do %>
   <%= stylesheet_link_tag 'episodes' %>

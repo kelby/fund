@@ -27,6 +27,7 @@ class Catalog < ApplicationRecord
 
   # Associations
   has_many :categories
+  has_many :online_categories, -> { where(status: Category.statuses['online']) }, class_name: "Category"
   # END
 
 

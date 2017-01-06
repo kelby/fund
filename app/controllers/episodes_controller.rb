@@ -11,6 +11,13 @@ class EpisodesController < ApplicationController
   # GET /episodes/1
   # GET /episodes/1.json
   def show
+    if @recommend_gems.present? && @recommend_pods.present?
+      @recommend_description = "#{@recommend_gems.pluck(:name).join('、')}，#{@recommend_pods.pluck(:name).join('、')}"
+    elsif @recommend_gems.blank? && @recommend_pods.present?
+      @recommend_description = "#{@recommend_pods.pluck(:name).join('、')}"
+    elsif @recommend_pods.blank? && @recommend_gems.present?
+      @recommend_description = "#{@recommend_gems.pluck(:name).join('、')}"
+    end
   end
 
   # GET /episodes/new

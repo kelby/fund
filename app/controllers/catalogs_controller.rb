@@ -4,21 +4,21 @@ class CatalogsController < ApplicationController
 
   # GET
   def rails
-    @catalogs = RailsCatalog.online.includes(:categories)
+    @catalogs = RailsCatalog.online.includes(:online_categories)
 
     @title = Catalog::TOP_PLURAL['gemspec']
     render :language
   end
 
   def swift
-    @catalogs = SwiftCatalog.online.includes(:categories)
+    @catalogs = SwiftCatalog.online.includes(:online_categories)
 
     @title = Catalog::TOP_PLURAL['pod']
     render :language
   end
 
   def laravel
-    @catalogs = LaravelCatalog.online.includes(:categories)
+    @catalogs = LaravelCatalog.online.includes(:online_categories)
 
     render :language
   end

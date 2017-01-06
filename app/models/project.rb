@@ -685,11 +685,12 @@ class Project < ApplicationRecord
   end
 
   def relate_info
-    if self.gemspec?
+    case self.identity
+    when 'gemspec'
       self.gem_info
-    elsif self.pod?
+    when 'pod'
       self.pod_info
-    elsif self.package?
+    when 'package'
       self.package_info
     else
       nil

@@ -26,9 +26,9 @@ class ApplicationController < ActionController::Base
     project_ids = @episode.project_list.split(",")
     projects = Project.online.where(id: project_ids).order(recommend_at: :desc)
 
-    @recommend_gems = projects.gemspec.limit(3)
+    @recommend_gems = projects.gemspec.includes(:github_info, :category => :catalog).limit(3)
 
-    @recommend_pods = projects.pod.limit(3)
+    @recommend_pods = projects.pod.includes(:github_info, :category => :catalog).limit(3)
   end
 
   def current_user?(user)
