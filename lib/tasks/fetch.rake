@@ -90,6 +90,49 @@ namespace :ruby_tool do
   end
 end
 
+namespace :plugingeek do
+  desc "Task ruby"
+  task :ruby_projects => [:environment] do
+    website = "http://www.plugingeek.com"
+
+    html = open("http://www.plugingeek.com/ruby").read;
+
+    doc = Nokogiri::HTML html;
+
+    categories = doc.css(".categories-wrapper.list > .category");
+    Rails.logger.info("want fetch categories cout #{categories.size}...")
+
+    categories.each_with_index do |category, index|
+      category_url = category.css(".full-name > a").first.attributes['href'].value
+
+      if category_url.blank?
+        next
+      end
+
+      Rails.logger.info("want fetch #{index + 1} - #{website}#{category_url} ...")
+
+      page = open("#{website}#{category_url}").read;
+      category_show = Nokogiri::HTML page;
+
+      repos = category_show.css(".repos-wrapper.list > .repo")
+
+      repos.each do |repo|
+        link = repo.css(".homepage-link > a").first.attributes['href'].value
+
+        if link.blank?
+          next
+        end
+
+        if link =~ /github\.com/
+          delay = rand(1..300)
+          Project.delay_for(delay).get_and_create_gem_project_from_option({'source_code' => link, 'identity' => Project.identities['gemspec']})
+        end
+      end
+
+    end
+  end
+end
+
 namespace :packagist do
   desc "tags laravel"
   task :tags_laravel => [:environment] do
