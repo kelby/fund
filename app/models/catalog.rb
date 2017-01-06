@@ -217,6 +217,19 @@ class Catalog < ApplicationRecord
     end
   end
 
+  def human_type
+    case self.type
+    when "RailsCatalog"
+      TOP_SINGULAR['gemspec']
+    when "LaravelCatalog"
+      TOP_SINGULAR['package']
+    when "SwiftCatalog"
+      TOP_SINGULAR['pod']
+    else
+      "未知"
+    end
+  end
+
   def project_identity
     case self.type
     when "SwiftCatalog"

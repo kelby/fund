@@ -131,6 +131,14 @@ class Category < ApplicationRecord
     "#{self.catalog.try(:type)} - #{self.catalog.try(:name)} - #{self.name}"
   end
 
+  def meta_title_name
+    if self.catalog_id.present?
+      "#{self.name} - #{self.catalog.try(:human_type)}"
+    else
+      self.name
+    end
+  end
+
   def self.detect_and_set_online
     self.joins(:catalog).offline.where("categories.online_projects_count > ?", 0).update_all(status: Category.statuses['online'])
   end
