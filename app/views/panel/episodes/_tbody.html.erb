@@ -10,6 +10,6 @@
 
   <td><%= link_to 'Edit', edit_panel_episode_path(panel_episode), target: "_blank" %></td>
   <td><%= link_to 'Destroy', panel_episode_path(panel_episode), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  <td><%= link_to "前台", panel_episode_path(panel_episode), target: "_blank" %></td>
+  <td><%= link_to "前台", episode_path(panel_episode), target: "_blank" %></td>
   <td><%= link_to "后台", rails_admin.show_path('Episode', panel_episode), target: "_blank" %></td>
 </tr>

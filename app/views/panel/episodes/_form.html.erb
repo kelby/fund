@@ -26,14 +26,14 @@
 
   <div class="form-group">
     <%= f.label :project_list %>
-    <%= f.text_field :project_list, class: "form-control" %>
+    <%= f.text_field :project_list, class: "form-control", required: true, placeholder: "如不确定可先随便填一个数字，如：10086" %>
 
     <p class="help-block">字符串。所包含的项目ID，用英文逗号分隔</p>
   </div>
 
   <div class="form-group">
     <%= f.label :status %>
-    <%= f.select :status, Episode.statuses, {include_blank: true}, class: "form-control" %>
+    <%= f.select :status, options_for_select(Episode.statuses.keys, panel_episode.status), {}, class: "form-control" %>
 
     <p class="help-block">第几期推荐项目。可为空，会自动设置</p>
   </div>
