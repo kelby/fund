@@ -1,0 +1,9 @@
+var modal = $("#recommend-project-modal")
+
+if (modal.length > 0){
+  // ...
+} else {
+  $('body').append("<%= j(render 'recommend_projects/modal') %>")
+}
+
+$("#recommend-project-modal").modal('show')

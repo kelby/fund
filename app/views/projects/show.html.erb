@@ -29,6 +29,12 @@
       </li>
 
       <li class="active"><%= @project.name %></li>
+
+      <% if can? :create, 'RecommendProject' %>
+        <li class="pull-right">
+          <%= link_to "今日推荐", new_project_recommend_project_path(@project), remote: true %>
+        </li>
+      <% end %>
     </ol>
 
     <%= render "projects/popular_item" %>

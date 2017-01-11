@@ -59,6 +59,13 @@ Rails.application.routes.draw do
       get :recommend, to: "repos#recommend"
     end
 
+    resource :recommend_project, only: [:new, :create] do
+      member do
+        post 'add_to_episode/:episode_id', action: :add, as: :add_to
+        delete 'remove_from_episode/:episode_id', action: :remove, as: :remove_from
+      end
+    end
+
     post :star, to: "user_star_projects#create"
     post :recommend, to: "user_recommend_projects#create"
 

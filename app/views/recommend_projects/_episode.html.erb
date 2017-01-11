@@ -1,0 +1,24 @@
+<li class="list-group-item">
+  <span class="badge">
+    <%= link_to add_to_project_recommend_project_path(project_id: @project.id, episode_id: episode.id), remote: true, method: :post do %>
+      添加
+    <% end %>
+  </span>
+
+  <span class="badge">
+    <%= link_to remove_from_project_recommend_project_path(project_id: @project.id, episode_id: episode.id), remote: true, method: :delete do %>
+      移除
+    <% end %>
+  </span>
+
+  第<%= episode.human_id %>期
+  <%= episode.project_list %>
+
+  <small class="pull-right">
+    <%= episode.status %>
+
+    &nbsp;|&nbsp;
+
+    <%= episode.recommend_at.strftime("%F") %>
+  </small>
+</li>

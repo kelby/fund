@@ -86,6 +86,7 @@ class Episode < ApplicationRecord
     self.project_list = self.project_list.concat(", #{project_id}")
   end
 
+  # string
   def format_project_list
     self.project_list = self.project_list_array.join(",")
   end
