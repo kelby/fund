@@ -4,21 +4,18 @@
   <%= stylesheet_link_tag 'episodes' %>
 <% end %>
 
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <%= render "episodes/recommend_title", episode: @episode %>
+<% content_for :prefix do %>
+  <div class="bg-color-white prefix clearfix">
+    <h1 class="slogan">
+      每天推荐 Ruby、Swift 优质项目，让技术选型更简单。
+    </h1>
   </div>
+<% end %>
 
-  <div class="panel-body content">
-    <% if @recommend_gems.blank? && @recommend_pods.blank? %>
-      <div class="text-center text-muted">
-        没有搜索到结果
-      </div>
-    <% else %>
-      <ul class="media-list">
-        <%= render partial: "projects/media_list_item", collection: @recommend_gems, as: :project %>
-        <%= render partial: "projects/media_list_item", collection: @recommend_pods, as: :project %>
-      </ul>
-    <% end %>
-  </div>
-</div>
+<% content_for :recommend_description do %>
+  <small class="hidden-xs">
+    <%= @recommend_description %>
+  </small>
+<% end %>
+
+<%= render 'episodes/content', episode: @episode, recommend_gems: @recommend_gems, recommend_pods: @recommend_pods %>

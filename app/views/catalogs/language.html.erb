@@ -4,6 +4,23 @@
   <%= stylesheet_link_tag 'catalogs' %>
 <% end %>
 
+<% content_for :prefix do %>
+  <div class="col-md-12 bg-color-white prefix">
+    <h1 class="slogan">
+      <% case params[:action]
+      when 'rails'
+        slogan = "分享优质 Ruby Gem，让技术选型更简单。"
+      when 'swift'
+        slogan = "分享优质 Swift Pod，让技术选型更简单。"
+      else
+        slogan = Settings.website.slogan
+      end %>
+
+      <%= slogan %>
+    </h1>
+  </div>
+<% end %>
+
 <div class="col-xs-12 col-md-12 content">
   <div class="col-md-9 xs-no-padding">
     <% @catalogs.each do |catalog| %>

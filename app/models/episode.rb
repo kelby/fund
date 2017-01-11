@@ -27,11 +27,25 @@ class Episode < ApplicationRecord
 
   # Rails class methods
   enum status: { offline: 0, online: 1 }
+
+  scope :recommend_before_today, -> { where("recommend_at < ?", Time.now.at_end_of_day) }
+  scope :desc_human, -> { order(human_id: :desc) }
   # END
+
 
   def projects
     @projects ||= Project.where(id: self.project_list_array).order(popularity: :desc)
   end
+
+  def gemspec_projects
+    self.projects.gemspec.includes(:github_info, :category => :catalog)
+  end
+  alias :recommend_gems :gemspec_projects
+
+  def pod_projects
+    self.projects.pod.includes(:github_info, :category => :catalog)
+  end
+  alias :recommend_pods :pod_projects
 
   def self.change_project_list_for(project_id, episode_id="")
     episode = self.get_episode(episode_id)

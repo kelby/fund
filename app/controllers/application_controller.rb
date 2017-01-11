@@ -6,14 +6,14 @@ class ApplicationController < ActionController::Base
   end
 
   before_action :fake_sign_in
-  before_action :get_recommend_episode
+  # before_action :get_recommend_episode
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   helper_method :current_user?
 
   private
   def get_recommend_episode
-    @today_episode ||= Episode.online.where("recommend_at < ?", Time.now.at_end_of_day).last
+    @today_episode ||= Episode.online.recommend_before_today.last
   end
 
   def get_today_recommend_projects

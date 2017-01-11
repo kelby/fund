@@ -1,4 +1,14 @@
 .episodes {
+  .prefix {
+    padding: 15px;
+
+    h1.slogan {
+      margin-bottom: 20px;
+      margin-top: 20px;
+      font-size: 24px;
+    }
+  }
+
   .panel {
     .panel-heading {
       .recommend-title {

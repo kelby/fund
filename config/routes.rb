@@ -33,7 +33,12 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :episodes
+  resources :episodes do
+    collection do
+      # get 'today-recommends', to: "episodes#today", as: :today
+      get :today
+    end
+  end
   # resources :developers, only: [:show]
   resources :developers
 

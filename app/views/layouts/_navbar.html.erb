@@ -24,8 +24,8 @@
           <%= link_to "Pods", swift_path %>
         </li>
 
-        <li class="<%= current_page?(@episode)? 'active' : nil %>">
-          <%= link_to "今日推荐", @episode %>
+        <li class="<%= current_page?(today_episodes_path)? 'active' : nil %>">
+          <%= link_to "今日推荐", today_episodes_path %>
         </li>
       </ul>
     </div>
@@ -44,8 +44,8 @@
           <%= link_to "Swift Pods", swift_path %>
         </li>
 
-        <li class="nav-item <%= current_page?(@today_episode)? 'active' : nil %>">
-          <%= link_to "今日推荐", @today_episode %>
+        <li class="nav-item <%= current_page?(today_episodes_path)? 'active' : nil %>">
+          <%= link_to "今日推荐", today_episodes_path %>
         </li>
       </ul>
 
