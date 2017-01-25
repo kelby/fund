@@ -14,6 +14,6 @@ module Zhenkuan
 
 
     config.autoload_paths += %W(#{config.root}/lib)
-    # config.eager_load_paths += ["#{config.root}/lib"]
+    config.eager_load_paths += ["#{config.root}/lib"]
   end
 end
