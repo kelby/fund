@@ -116,3 +116,6 @@ gem 'browser'
 gem "paranoia", "~> 2.2"
 
 gem "sitemap_generator"
+
+
+gem 'anemone'

@@ -5,17 +5,16 @@
 <% end %>
 
 <ol class="breadcrumb bg-color-white catalog-category-etc">
-  <li class="normal">
-    <% url = @catalog.type.downcase.gsub(/catalog$/, '_path') %>
-
-    <%= link_to eval(url) do %>
-      <%= @catalog.human_supercatalog_name %>
-    <% end %>
-  </li>
 
   <li class="active">
     <%= @catalog.name %>
   </li>
+
+  <% if can? :edit, @catalog %>
+    <section class="pull-right">
+      <%= link_to "编辑", edit_catalog_path(@catalog) %>
+    </section>
+  <% end %>
 </ol>
 
 <!-- <div class="col-md-12"> -->
@@ -41,9 +40,31 @@
   <!-- <div class="panel-body no-padding"> -->
 
     <ul class="list-group">
-      <%= render partial: "categories/list_item", collection: @catalog.categories.online, as: :category %>
-    </ul>
+      <%#= render partial: "categories/list_item", collection: @catalog.categories.online, as: :category %>
+      <% if @catalog.set_up_at.present? %>
+        <li class="list-group-item">
+          成立: <%= @catalog.set_up_at.strftime("%F") %>
+        </li>
+      <% end %>
 
+      <% if @catalog.scale_record_at.present? %>
+        <li class="list-group-item">
+          管理规模: <%= @catalog.scale %>
+
+          <small>
+            <%= @catalog.scale_record_at.strftime("%F") %>
+          </small>
+        </li>
+      <% end %>
+
+      <li class="list-group-item">
+        简称: <%= @catalog.short_name %>
+      </li>
+
+      <li class="list-group-item">
+        总经理: <%= @catalog.founder %>
+      </li>
+    </ul>
   <!-- </div> -->
 
   <% if @catalog.footnote.present? %>
@@ -51,6 +72,25 @@
       <%= simple_format @catalog.footnote, {}, wrapper_tag: false %>
     </div>
   <% end %>
+</div>
+
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    本类目下共有 <%= @projects.size %> 个项目
+  </div>
+
+  <div class="panel-body">
+    <% if @projects.blank? %>
+      <div class="text-center text-muted">
+        没有搜索到结果
+      </div>
+    <% else %>
+      <ul class="media-list">
+        <%= render partial: "projects/media_list_item", collection: @projects, as: :project %>
+      </ul>
+    <% end %>
+  </div>
 </div>
 
 <%#= link_to 'Edit', edit_catalog_path(@catalog) %>

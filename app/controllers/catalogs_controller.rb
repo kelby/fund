@@ -28,10 +28,13 @@ class CatalogsController < ApplicationController
     @rails_catalogs = RailsCatalog.online
     @laravel_catalogs = LaravelCatalog.online
     @swift_catalogs = SwiftCatalog.online
+
+    @catalogs = Catalog.where(type: [nil, ''])
   end
 
   # GET /catalogs/1
   def show
+    @projects = @catalog.projects
   end
 
   # GET /catalogs/new
@@ -63,6 +66,7 @@ class CatalogsController < ApplicationController
     respond_to do |format|
       if @catalog.update(catalog_params.merge(user_id: current_user.id))
         format.html { redirect_to catalog_path(@catalog), notice: 'Catalog was successfully updated.' }
+        # format.html { redirect_to catalogs_path, notice: 'Catalog was successfully updated.' }
       else
         format.html { render :edit }
       end
@@ -87,6 +91,6 @@ class CatalogsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def catalog_params
-      params.require(:catalog).permit(:name, :slug, :type)
+      params.require(:catalog).permit(:name, :slug, :type, :code, :short_name)
     end
 end

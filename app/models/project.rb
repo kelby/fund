@@ -30,6 +30,8 @@ class Project < ApplicationRecord
   include Searchable
 
   # Associations
+  belongs_to :catalog, counter_cache: true
+
   belongs_to :category # , counter_cache: true
   counter_culture :category
   counter_culture :category, :column_name => proc {|model| model.online? ? 'online_projects_count' : nil }
@@ -60,11 +62,13 @@ class Project < ApplicationRecord
 
   scope :nolimit, -> { unscope(:limit, :offset) }
   scope :show_status, -> { where(status: [Project.statuses['online'], Project.statuses['nightspot'], Project.statuses['deprecated']]) }
+
+  # enum mold: {mold_unknow: 0, general: 2, cur: 4, fq: 6, mold_other: 8}
   # END
 
 
   # Validates
-  validates_presence_of :source_code
+  # validates_presence_of :source_code
   # validates_presence_of :category_id
 
   validates_uniqueness_of :name, scope: :author, message: "该用户的项目已经存在，您不必重复添加"
@@ -72,18 +76,18 @@ class Project < ApplicationRecord
 
 
   # Callbacks
-  after_commit :logic_set_gem_info, on: :create
-  after_commit :logic_set_pod_info, on: :create
-  after_commit :logic_set_package_info, on: :create
+  # after_commit :logic_set_gem_info, on: :create
+  # after_commit :logic_set_pod_info, on: :create
+  # after_commit :logic_set_package_info, on: :create
 
-  after_commit :set_github_info, on: :create
+  # after_commit :set_github_info, on: :create
 
-  after_create :aysc_set_developer_info
+  # after_create :aysc_set_developer_info
   # after_commit :set_readme, on: :create
 
   # after_create :build_github_info
 
-  before_validation :set_github_identity
+  # before_validation :set_github_identity
 
   after_update :detect_and_set_recommend_at
   after_update :detect_given_name_changed

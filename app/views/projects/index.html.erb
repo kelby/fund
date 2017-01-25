@@ -1,5 +1,21 @@
 <% set_meta_tags title: "Projects" %>
 
+<div class="title">
+
+  <h1>
+    Projects
+
+    <small>
+      <%= @projects.unscope(:limit, :offset).count %>
+    </small>
+
+    <small class="pull-right">
+      <%= link_to 'New Project', new_project_path %>
+    </small>
+  </h1>
+
+</div>
+
 <% @projects.each_slice(2).each do |projects| %>
   <div class="col-md-12">
     <% projects.each do |project| %>

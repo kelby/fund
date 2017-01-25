@@ -21,11 +21,19 @@ class Catalog < ApplicationRecord
   validates_uniqueness_of :name, scope: :type
 
   validates_presence_of :name
-  validates_presence_of :type
+  validates_presence_of :code
+  # validates_presence_of :type
   # END
 
+  # initial 拼音首字母
+  # short_name 简称
+  # founder 总经理
+  # set_up_at 成立时间
+  # scale
+  # scale_record_at
 
   # Associations
+  has_many :projects
   has_many :categories
   has_many :online_categories, -> { where(status: Category.statuses['online']) }, class_name: "Category"
   # END
@@ -44,6 +52,13 @@ class Catalog < ApplicationRecord
 
   # Rails class methods
   enum status: { online: 0, offline: 11 }
+  enum initial: { :initial_unknow => 0,
+    a: 1, b: 2, c: 3, d: 4, e: 5,
+    f: 6, g: 7, h: 8, i: 9, j: 10,
+    k: 11, l: 12, m: 13, n: 14, o: 15,
+    p: 16, q: 17, r: 18, s: 19, t: 20,
+    u: 21, v: 22, w: 23, x: 24, y: 25,
+    z: 26 }
   # END
 
 
@@ -254,5 +269,9 @@ class Catalog < ApplicationRecord
 
   def full_name
     "#{self.type} - #{self.name}"
+  end
+
+  def set_initial
+    self.initial = Pinyin.t(self.short_name).first
   end
 end

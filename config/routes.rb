@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   get 'user_favor_comment/destroy'
 
+  get 'pages/:name', to: "pages#show"
+
   authenticate :user, lambda { |u| u.is_admin? } do
     namespace :panel do
       resources :episodes

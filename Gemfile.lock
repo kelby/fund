@@ -56,6 +56,9 @@ GEM
       activesupport (>= 3.0.0)
     airbrussh (1.1.1)
       sshkit (>= 1.6.1, != 1.7.0)
+    anemone (0.7.2)
+      nokogiri (>= 1.3.0)
+      robotex (>= 1.0.0)
     annotate (2.7.1)
       activerecord (>= 3.2, < 6.0)
       rake (>= 10.4, < 12.0)
@@ -273,6 +276,7 @@ GEM
     remotipart (1.3.1)
     responders (2.3.0)
       railties (>= 4.2.0, < 5.1)
+    robotex (1.0.0)
     sass (3.4.22)
     sass-rails (5.0.6)
       railties (>= 4.0.0, < 6)
@@ -327,6 +331,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  anemone
   annotate
   bootstrap-sass (~> 3.3.6)
   browser

@@ -7,40 +7,43 @@
 <% content_for :prefix do %>
   <div class="col-md-12 bg-color-white prefix">
     <h1 class="slogan">
+      <%= image_tag "demo-WechatIMG5.jpeg" %>
       <%= Settings.website.slogan %>
     </h1>
   </div>
 <% end %>
 
 
-<!-- <div class="col-md-12"> -->
-<div class="panel panel-default clearfix">
-  <div class="panel-heading">
-    <%= render "episodes/recommend_title", episode: @episode %>
-  </div>
+<% if @episode.present? %>
+  <!-- <div class="col-md-12"> -->
+  <div class="panel panel-default clearfix">
+    <div class="panel-heading">
+      <%= render "episodes/recommend_title", episode: @episode %>
+    </div>
 
-  <div class="panel-body">
+    <div class="panel-body">
 
-    <div class="recommend-projects">
-      <div class="row">
-        <%= render partial: "home/project", collection: @recommend_gems, as: :project %>
-      </div>
+      <div class="recommend-projects">
+        <div class="row">
+          <%= render partial: "home/project", collection: @recommend_gems, as: :project %>
+        </div>
 
-      <!-- <hr>
+        <!-- <hr>
 
-      <div class="row">
-        <%#= render partial: "home/project", collection: @packages, as: :project %>
-      </div> -->
+        <div class="row">
+          <%#= render partial: "home/project", collection: @packages, as: :project %>
+        </div> -->
 
-      <hr>
+        <hr>
 
-      <div class="row">
-        <%= render partial: "home/project", collection: @recommend_pods, as: :project %>
+        <div class="row">
+          <%= render partial: "home/project", collection: @recommend_pods, as: :project %>
+        </div>
       </div>
     </div>
   </div>
-</div>
-<!-- </div> -->
+  <!-- </div> -->
+<% end %>
 
 <!-- <div class="col-md-12 content" style="margin-top: 20px;padding-top: 20px;"> -->
   <div class="col-md-6 no-padding-left xs-no-padding">

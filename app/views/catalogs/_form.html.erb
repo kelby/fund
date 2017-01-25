@@ -28,8 +28,18 @@
   </div>
 
   <div class="form-group">
+    <%= f.label :code %>
+    <%= f.text_field :code, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :short_name %>
+    <%= f.text_field :short_name, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
     <%= f.label :type %>
-    <%= f.select :type, options_for_select(['RailsCatalog', 'SwiftCatalog'], catalog.type), {include_blank: true}, {required: true, class: "form-control"} %>
+    <%= f.select :type, options_for_select(['RailsCatalog', 'SwiftCatalog'], catalog.type), {include_blank: true}, {class: "form-control"} %>
   </div>
 
   <div class="actions">

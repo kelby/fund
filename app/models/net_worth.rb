@@ -1,0 +1,2 @@
+class NetWorth < ApplicationRecord
+end

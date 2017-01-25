@@ -2,20 +2,24 @@
 
   <div class="media-body">
     <h4 class="media-heading title">
-      <%= link_to repo_path(project.repo_params), class: "" do %>
+      <%#= link_to repo_path(project.repo_params), class: "" do %>
         <%= project.show_name %>
-      <% end %>
+      <%# end %>
+      <small>
+        <%= project.code %>
+      </small>
 
       <br>
 
       <small>
-        <%= link_to (url_for repo_url(project.repo_params)), (url_for repo_path(project.repo_params)) %>
+        <%= project.mold %>
+        <%#= link_to (url_for repo_url(project.repo_params)), (url_for repo_path(project.repo_params)) %>
       </small>
     </h4>
 
     <%= simple_format project.description, {class: "text-muted description"} %>
 
-    <%= render "projects/footer_info", project: project %>
+    <%#= render "projects/footer_info", project: project %>
 
     <!-- <hr> -->
 

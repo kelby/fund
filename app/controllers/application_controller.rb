@@ -23,6 +23,8 @@ class ApplicationController < ActionController::Base
       @episode = get_recommend_episode
     end
 
+    return if @episode.blank?
+
     project_ids = @episode.project_list.split(",")
     projects = Project.online.where(id: project_ids).order(recommend_at: :desc)
 

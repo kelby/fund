@@ -19,7 +19,8 @@ class ProjectsController < ApplicationController
 
   # GET /projects
   def index
-    @projects = Project.online.includes(:category, :github_info).page(params[:page]).per(30)
+    # @projects = Project.online.includes(:category, :github_info).page(params[:page]).per(30)
+    @projects = Project.all.page(params[:page]).per(30)
   end
 
   # GET /projects/1
