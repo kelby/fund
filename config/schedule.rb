@@ -19,6 +19,7 @@
 
 # Learn more: http://github.com/javan/whenever
 
+=begin
 every 1.hours do
   runner "Project.delay_set_popularity"
   runner "Category.detect_and_set_online"
@@ -43,6 +44,7 @@ every 3.hours do
 
   runner "GithubInfo.set_online_project_nightspot"
 end
+=end
 
 # every 12.hours do
   # runner "Project.batch_set_offline_gems_given_name"
