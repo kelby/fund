@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170124134056) do
+ActiveRecord::Schema.define(version: 20170125111042) do
 
   create_table "authentications", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string   "provider"
@@ -171,6 +171,7 @@ ActiveRecord::Schema.define(version: 20170124134056) do
     t.string   "code"
     t.integer  "catalog_id"
     t.string   "mold"
+    t.string   "slug"
   end
 
   create_table "user_favor_comments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|

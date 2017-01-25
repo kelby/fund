@@ -15,13 +15,13 @@ class ProjectSearchController < ApplicationController
     should = []
 
 
-    if params[:type].present?
-      filter << {term: { identity: params[:type] } }
-    else
-      filter << {terms: { identity: ['gemspec', 'package', 'pod'] } }
-    end
+    # if params[:type].present?
+      # filter << {term: { identity: params[:type] } }
+    # else
+      # filter << {terms: { identity: ['gemspec', 'package', 'pod'] } }
+    # end
 
-    filter << {terms: { status: ['online', 'nightspot', 'deprecated'] } }
+    # filter << {terms: { status: ['online', 'nightspot', 'deprecated'] } }
 
 
     if params[:q].present?

@@ -2,9 +2,9 @@
 
   <div class="media-body">
     <h4 class="media-heading title">
-      <%#= link_to repo_path(project.repo_params), class: "" do %>
+      <%= link_to project, class: "" do %>
         <%= project.show_name %>
-      <%# end %>
+      <% end %>
       <small>
         <%= project.code %>
       </small>

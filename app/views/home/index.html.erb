@@ -7,7 +7,7 @@
 <% content_for :prefix do %>
   <div class="col-md-12 bg-color-white prefix">
     <h1 class="slogan">
-      <%= image_tag "demo-WechatIMG5.jpeg" %>
+      <%#= image_tag "demo-WechatIMG5.jpeg" %>
       <%= Settings.website.slogan %>
     </h1>
   </div>
@@ -45,76 +45,54 @@
   <!-- </div> -->
 <% end %>
 
-<!-- <div class="col-md-12 content" style="margin-top: 20px;padding-top: 20px;"> -->
-  <div class="col-md-6 no-padding-left xs-no-padding">
-    <div class="panel panel-default">
-      <div class="panel-heading panel-title">
-        <h2 class="top-catalog">
-          <%= link_to rails_path do %>
-            <%= Catalog::TOP_PLURAL['gemspec'] %>
-          <% end %>
-
-          <small class="pull-right">
-            <%= RailsCatalog.online.count %>
-          </small>
-        </h2>
-
-      </div>
-      <!-- <div class="panel-body"> -->
-        <ul class="list-group">
-          <%= render partial: "home/catalog", as: :catalog, collection: RailsCatalog.online.includes(:categories) %>
-        </ul>
-      <!-- </div> -->
-    </div>
+<div class="panel panel-default">
+  <div class="panel-heading">股票型基金</div>
+  <div class="panel-body">
+    股票基金亦称股票型基金，指的是投资于股票市场的基金。证券基金的种类很多。目前我国除股票基金外，还有债券基金、股票债券混合基金、货币市场基金等。
   </div>
+</div>
 
-  <!-- <div class="col-md-4">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h2 class="top-catalog">
-          <%#= link_to laravel_path do %>
-            Packages
-          <%# end %>
-        </h2>
-
-        <section class="pull-right">
-          <%#= LaravelCatalog.count %>
-        </section>
-      </div>
-
-      <div class="panel-body"> -->
-        <!-- <ul class="list-group"> -->
-          <%#= render partial: "home/catalog", as: :catalog, collection: LaravelCatalog.all.includes(:categories) %>
-        <!-- </ul> -->
-      <!-- </div>
-    </div>
-  </div> -->
-
-  <div class="col-md-6 no-padding-right xs-no-padding">
-    <div class="panel panel-default">
-      <div class="panel-heading panel-title">
-        <h2 class="top-catalog">
-          <%= link_to swift_path do %>
-            <%= Catalog::TOP_PLURAL['pod'] %>
-          <% end %>
-
-          <small class="pull-right">
-            <%= SwiftCatalog.online.count %>
-          </small>
-        </h2>
-
-      </div>
-
-      <!-- <div class="panel-body"> -->
-        <ul class="list-group">
-          <%= render partial: "home/catalog", as: :catalog, collection: SwiftCatalog.online.includes(:categories) %>
-        </ul>
-      <!-- </div> -->
-    </div>
+<div class="panel panel-default">
+  <div class="panel-heading">混合型基金</div>
+  <div class="panel-body">
+    混合型基金 [Blend fund, hybrid fund]是在投资组合中既有成长型股票、收益型股票，又有债券等固定收益投资的共同基金。
   </div>
-<!-- </div> -->
+</div>
 
+<div class="panel panel-default">
+  <div class="panel-heading">债券型基金</div>
+  <div class="panel-body">
+    (Bond Fund)以国债、金融债等固定收益类金融工具为主要投资对象的基金称为债券型基金，因为其投资的产品收益比较稳定，又被称为“固定收益基金”。
+  </div>
+</div>
 
+<div class="panel panel-default">
+  <div class="panel-heading">指数型基金</div>
+  <div class="panel-body">
+    指数基金(Index Fund)，顾名思义就是以特定指数（如沪深300指数、标普500指数、纳斯达克100指数、日经225指数等）为标的指数，并以该指数的成份股为投资对象，通过购买该指数的全部或部分成份股构建投资组合，以追踪标的指数表现的基金产品。
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">ETF联接基金</div>
+  <div class="panel-body">
+    ETF联接基金是指将其绝大部分基金财产投资于跟踪同一标的指数的ETF基金，也就是说是投资于ETF基金的基金(简称目标ETF)，密切跟踪标的指数表现，追求跟踪偏离度和跟踪误差最小化，采用开放式运作方式的基金。
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">QDII</div>
+  <div class="panel-body">
+    QDII，是“Qualified Domestic Institutional Investor”的首字缩写，合格境内机构投资者，是指在人民币资本项下不可兑换、资本市场未开放条件下，在一国境内设立，经该国有关部门批准，有控制地，允许境内机构投资境外资本市场的股票、债券等有价证券投资业务的一项制度安排。
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">LOF基金</div>
+  <div class="panel-body">
+    LOF基金，英文全称是"Listed Open-Ended Fund"，汉语称为"上市型开放式基金"。
+  </div>
+</div>
 <% content_for :postfix do %>
   <!-- <div class="col-md-12 bg-color-white postfix">
     <h1 class="slogan">

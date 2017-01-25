@@ -1,0 +1,68 @@
+<!-- <div class="col-md-12 content" style="margin-top: 20px;padding-top: 20px;"> -->
+  <div class="col-md-6 no-padding-left xs-no-padding">
+    <div class="panel panel-default">
+      <div class="panel-heading panel-title">
+        <h2 class="top-catalog">
+          <%= link_to rails_path do %>
+            <%= Catalog::TOP_PLURAL['gemspec'] %>
+          <% end %>
+
+          <small class="pull-right">
+            <%= RailsCatalog.online.count %>
+          </small>
+        </h2>
+
+      </div>
+      <!-- <div class="panel-body"> -->
+        <ul class="list-group">
+          <%= render partial: "home/catalog", as: :catalog, collection: RailsCatalog.online.includes(:categories) %>
+        </ul>
+      <!-- </div> -->
+    </div>
+  </div>
+
+  <!-- <div class="col-md-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h2 class="top-catalog">
+          <%#= link_to laravel_path do %>
+            Packages
+          <%# end %>
+        </h2>
+
+        <section class="pull-right">
+          <%#= LaravelCatalog.count %>
+        </section>
+      </div>
+
+      <div class="panel-body"> -->
+        <!-- <ul class="list-group"> -->
+          <%#= render partial: "home/catalog", as: :catalog, collection: LaravelCatalog.all.includes(:categories) %>
+        <!-- </ul> -->
+      <!-- </div>
+    </div>
+  </div> -->
+
+  <div class="col-md-6 no-padding-right xs-no-padding">
+    <div class="panel panel-default">
+      <div class="panel-heading panel-title">
+        <h2 class="top-catalog">
+          <%= link_to swift_path do %>
+            <%= Catalog::TOP_PLURAL['pod'] %>
+          <% end %>
+
+          <small class="pull-right">
+            <%= SwiftCatalog.online.count %>
+          </small>
+        </h2>
+
+      </div>
+
+      <!-- <div class="panel-body"> -->
+        <ul class="list-group">
+          <%= render partial: "home/catalog", as: :catalog, collection: SwiftCatalog.online.includes(:categories) %>
+        </ul>
+      <!-- </div> -->
+    </div>
+  </div>
+<!-- </div> -->

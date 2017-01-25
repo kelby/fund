@@ -260,7 +260,7 @@ class Catalog < ApplicationRecord
   end
 
   def set_slug
-    self.slug = Pinyin.t(self.name, splitter: '_')
+    self.slug = Pinyin.t(self.name, splitter: '-')
   end
 
   def to_param

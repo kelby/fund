@@ -55,7 +55,7 @@ Rails.application.routes.draw do
     mount Sidekiq::Web => '/sidekiq'
   end
 
-  resources :projects do
+  resources :projects, path: "fund" do
     member do
       get :popularity, to: "repos#popularity"
 
@@ -92,7 +92,7 @@ Rails.application.routes.draw do
   get ':author/:name/popularity', to: "repos#popularity", as: :popularity_repo
 
 
-  resources :catalogs
+  resources :catalogs, path: "company"
   resources :categories
 
   get 'home/index'
@@ -119,7 +119,7 @@ Rails.application.routes.draw do
     # get :id
   end
 
-  get ':author/:name', to: "projects#repo", as: :repo
+  get 'projects/:code-:slug', to: "projects#repo", as: :repo
 
   get ':name', to: "developers#show", as: :show_developer
 end

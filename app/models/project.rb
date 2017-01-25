@@ -89,6 +89,8 @@ class Project < ApplicationRecord
 
   # before_validation :set_github_identity
 
+  before_create :set_slug
+
   after_update :detect_and_set_recommend_at
   after_update :detect_given_name_changed
   after_update :detect_set_category_online
@@ -325,7 +327,7 @@ class Project < ApplicationRecord
   end
 
   def repo_params
-    {name: self.name, author: self.author}
+    {code: self.code, slug: self.slug}
   end
 
   def convert_github_to_repo_url
@@ -617,9 +619,9 @@ class Project < ApplicationRecord
     self.create(source_code: github_url, identity: Project.identities['pod'], category_id: category_id)
   end
 
-  # def to_param
-    # "#{self.id}-#{self.name}"
-  # end
+  def to_param
+    "#{self.code}-#{self.slug}"
+  end
 
   def self.pending_detect_and_set_online
     Project.pending.includes(:gem_info, :package_info, :pod_info).joins(:github_info).each do |project|
@@ -718,6 +720,9 @@ class Project < ApplicationRecord
     end
   end
 
+  def set_slug
+    self.slug = Pinyin.t(self.name, splitter: '-')
+  end
 
   mapping do
     indexes :id, type: :integer
