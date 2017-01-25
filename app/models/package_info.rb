@@ -6,7 +6,7 @@
 #  project_id      :integer
 #  total_downloads :decimal(10, )
 #  releases        :integer
-#  current_version :string(191)
+#  current_version :string(255)
 #  released        :datetime
 #  first_release   :datetime
 #  created_at      :datetime         not null

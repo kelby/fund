@@ -26,6 +26,8 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   def show
     get_relate_data
+
+    @net_worths = @project.net_worths
   end
 
   def repo

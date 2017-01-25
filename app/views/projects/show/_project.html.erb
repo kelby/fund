@@ -54,47 +54,26 @@
 
   <div class="tab-content">
     <div class="tab-pane active" id="readme">
-
-      <p></p>
-
-      <p>Makes setting up a collection of stacked views simple.
-        Uses <a href="https://github.com/dkduck/FLKAutoLayout">FLKAutoLayout</a> to simplify the API, you should
-        probably be using it anyway. Depending on demand this can be switched out. If you're interested in more
-        information you can read
-        <a href="https://github.com/orta/ORStackView/blob/master/Classes/ios/ORStackView.h">ORStackView.h</a>
-      </p>
-
-
-      <h3>
-        <a id="user-content-orstackview-1" class="anchor" href="#orstackview-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ORStackView
-      </h3>
-
-
-      <h2>
-        <a id="user-content-license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License
-      </h2>
-
-
-      <p>ORStackView is available under the MIT license. See the LICENSE file for more info.</p>
-
-      <p>ORStackView is available under the MIT license. See the LICENSE file for more info.</p>
-
-      <p>ORStackView is available under the MIT license. See the LICENSE file for more info.</p>
-
-      <p>ORStackView is available under the MIT license. See the LICENSE file for more info.</p>
-
-
-      <p>ORStackView is available under the MIT license. See the LICENSE file for more info.</p>
-
-
-      <p>ORStackView is available under the MIT license. See the LICENSE file for more info.</p>
-      <p>ORStackView is available under the MIT license. See the LICENSE file for more info.</p>
-      <p>ORStackView is available under the MIT license. See the LICENSE file for more info.</p>
-      <p>ORStackView is available under the MIT license. See the LICENSE file for more info.</p>
-
-      <% 20.times do %>
-              <p>ORStackView is available under the MIT license. See the LICENSE file for more info.</p>
-              <% end %>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="row">发布日期</th>
+          <td>单位净值</td>
+          <td>累计净值</td>
+          <td>日增长率</td>
+        </tr>
+      </thead>
+      <tbody>
+        <% @net_worths.order(record_at: :desc).each do |net_worth| %>
+          <tr>
+            <th scope="row"><%= net_worth.record_at.strftime("%F") %></th>
+            <td><%= net_worth.dwjz %></td>
+            <td><%= net_worth.ljjz %></td>
+            <td><%= net_worth.accnav %>%</td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
     </div>
     <div class="tab-pane" id="changelog_content"></div>
   </div>

@@ -44,10 +44,10 @@ namespace :company do
       # catalog = Catalog.find_by(code: '80205268')
       url = "http://fund.eastmoney.com/company/#{catalog.code}.html"
       # catalog
-      # fetch_content = sb.page_for_url(url)
-      # doc = fetch_content.doc
+      fetch_content = sb.page_for_url(url)
+      doc = fetch_content.doc
 
-      doc = Nokogiri::HTML(open(url))
+      # doc = Nokogiri::HTML(open(url))
 
       # doc.encoding = 'gb2312'
 

@@ -3,14 +3,15 @@
 # Table name: authentications
 #
 #  id            :integer          not null, primary key
-#  provider      :string(191)
-#  uid           :string(191)
+#  provider      :string(255)
+#  uid           :string(255)
 #  user_id       :integer
 #  info          :text(65535)
 #  extra         :text(65535)
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
-#  refresh_token :string(191)
+#  refresh_token :string(255)
+#  credentials   :text(65535)
 #
 
 class Authentication < ApplicationRecord

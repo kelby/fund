@@ -4,10 +4,11 @@
 #
 #  id           :integer          not null, primary key
 #  human_id     :integer
-#  project_list :string(191)
+#  project_list :string(255)
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  status       :integer          default("offline")
+#  recommend_at :datetime
 #
 
 class Episode < ApplicationRecord

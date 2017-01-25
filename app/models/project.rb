@@ -3,11 +3,11 @@
 # Table name: projects
 #
 #  id              :integer          not null, primary key
-#  name            :string(191)
+#  name            :string(255)
 #  description     :text(65535)
-#  website         :string(191)
-#  wiki            :string(191)
-#  source_code     :string(191)
+#  website         :string(255)
+#  wiki            :string(255)
+#  source_code     :string(255)
 #  category_id     :integer
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
@@ -18,8 +18,13 @@
 #  developer_id    :integer
 #  today_recommend :boolean
 #  recommend_at    :datetime
-#  human_name      :string(191)
-#  given_name      :string(191)
+#  human_name      :string(255)
+#  given_name      :string(255)
+#  view_times      :integer          default(0)
+#  code            :string(255)
+#  catalog_id      :integer
+#  mold            :string(255)
+#  slug            :string(255)
 #
 
 require 'elasticsearch/model'
@@ -51,6 +56,8 @@ class Project < ApplicationRecord
 
   has_many :star_by_users, through: :user_star_projects, source: :user
   has_many :recommend_by_users, through: :user_recommend_projects, source: :user
+
+  has_many :net_worths
   # END
 
 
