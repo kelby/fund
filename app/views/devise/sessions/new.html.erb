@@ -4,14 +4,20 @@
   <h2>Log in</h2>
 
   <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-    <div class="field">
-      <%= f.label :email %><br />
-      <%= f.email_field :email, autofocus: true %>
+    <div class="form-group">
+      <%= f.label :email %>
+      <%= f.email_field :email, autofocus: true, class: "form-control" %>
     </div>
   
-    <div class="field">
-      <%= f.label :password %><br />
-      <%= f.password_field :password, autocomplete: "off" %>
+    <div class="form-group">
+      <%= f.label :password %>
+      <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= label_tag :_rucaptcha, "验证码" %><br />
+      <%= rucaptcha_image_tag(alt: 'Captcha') %>
+      <%= rucaptcha_input_tag(class: 'form-control', placeholder: 'Input Captcha') %>
     </div>
   
     <% if devise_mapping.rememberable? -%>
@@ -22,7 +28,7 @@
     <% end -%>
   
     <div class="actions">
-      <%= f.submit "Log in" %>
+      <%= f.submit "Log in", class: "btn btn-primary" %>
     </div>
   <% end %>
 

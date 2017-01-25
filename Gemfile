@@ -119,3 +119,5 @@ gem "sitemap_generator"
 
 
 gem 'anemone'
+
+gem 'rucaptcha'

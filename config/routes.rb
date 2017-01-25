@@ -7,6 +7,8 @@ Rails.application.routes.draw do
 
   get 'pages/:name', to: "pages#show"
 
+  mount RuCaptcha::Engine => "/rucaptcha"
+
   authenticate :user, lambda { |u| u.is_admin? } do
     namespace :panel do
       resources :episodes
