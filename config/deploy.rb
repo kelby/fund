@@ -25,7 +25,7 @@ set :repo_url, 'git@bitbucket.org:kelbylee/fund.git'
 
 # Default value for :linked_files is []
 append :linked_files, 'config/database.yml', 'config/secrets.yml', 'config/settings/production.yml',
-  'public/sitemap.xml.gz'
+  'public/sitemap.xml.gz', 'public/company', 'public/manager'
 
 # Default value for linked_dirs is []
 append :linked_dirs, 'log', 'tmp/pids', 'tmp/sockets', '.well-known', 'public/uploads' #, 'tmp/cache', 'public/system'

@@ -16,18 +16,21 @@ task :fetch_manager_info => [:environment] do
     FileUtils::mkdir_p(manager_dir)
 
     # yourfile = Rails.public_path.join("company/#{catalog.code}.html")
-    file_name_with_path = manager_dir.join("#{developer.code}.html")
+    file_name_with_path = manager_dir.join("#{developer.id}.html")
 
 
     begin
       File.open(file_name_with_path, 'w:GB2312') { |file| file.write(browser.html) }
     rescue Exception => e
-      puts "=============Error #{catalog.code}"
+      puts "=============Error #{developer.id}"
     end
 
     # 基金经理：丁杰科
     jlinfo = browser.div(class: 'jlinfo')
     developer.description = jlinfo.p.text
+    if developer.description_changed?
+      developer.save
+    end
 
 
     # 丁杰科管理过的基金一览
@@ -44,18 +47,33 @@ task :fetch_manager_info => [:environment] do
       i = tr_ele.tds[7]
 
       _code = a.text
-      project_id = Project.find_by(code: _code).id
+      _project = Project.find_by(code: _code)
+
+      _catalog_id = developer.catalogs.last.id if developer.catalogs.present?
+
+      if _project.blank?
+        puts "code #{_code} without proejct."
+        _project = Project.create(code: _code, name: b.text, mold: d.text, catalog_id: _catalog_id) if _catalog_id.present?
+        next
+      end
+
+      project_id = _project.id
       beginning_work_date = f.text.split(" ").first.try(:to_time)
       end_of_work_date = f.text.split(" ").last.try(:to_time)
 
+      puts "developer_id #{developer.id}, project_id #{project_id}, beginning_work_date #{beginning_work_date}, end_of_work_date #{end_of_work_date}"
+
       DeveloperProject.find_or_create_by(developer_id: developer.id, project_id: project_id) do |dp|
-        dp.beginning_work_date = f.text.split("~")
+        dp.beginning_work_date = beginning_work_date
+        dp.beginning_work_date = end_of_work_date
       end
     end
 
 
     # 丁杰科现任基金业绩与排名详情
     old_projects_ele = browser.tables(class: 'ftrs')[1]
+
+    sleep(rand(1..10.0))
   end
 
 
