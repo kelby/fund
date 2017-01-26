@@ -58,6 +58,7 @@ class Project < ApplicationRecord
   has_many :recommend_by_users, through: :user_recommend_projects, source: :user
 
   has_many :net_worths
+  has_many :developer_projects
   # END
 
 

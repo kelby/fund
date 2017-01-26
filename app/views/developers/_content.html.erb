@@ -4,21 +4,34 @@
   </div>
   <!-- <div class="panel-body"> -->
     
-    <div class="list-group">
-      <% @projects.each do |project| %>
-        <%= link_to repo_path(project.repo_params), class: "list-group-item paginated_full_item" do %>
-          <span class="login">
-            <%= project.show_name %>
-          </span>
+    <!-- <div class="list-group"> -->
 
-          <span class="stargazers_count pull-right">
-            <i class="fa fa-star"></i>
-            <%= project.github_info.subscribers_count %>
-          </span>
-        <% end %>
-      <% end %>
 
-    </div>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>基金代码</th>
+              <th>基金名称</th>
+              <th>基金类型</th>
+              <th>规模（亿元）</th>
+              <th>任职时间</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @projects.each do |project| %>
+              <tr>
+                <th><%= link_to project.code, project %></th>
+                <th><%= link_to project.name, project %></th>
+                <th><%= project.mold %></th>
+                <th> -- </th>
+                <th><%=  %></th>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+
+
+    <!-- </div> -->
   <!-- </div> -->
 
   <div class="panel-footer clearfix">

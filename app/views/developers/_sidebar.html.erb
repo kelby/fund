@@ -29,8 +29,8 @@
         </div>
         <div class="item number">
           <span title="注册日期">
-            <%= link_to "#{Developer::GITHUB_URL}#{@developer.name}", target: "_blank" do %>
-              Go to GitHub
+            <%= link_to @developer.eastmoney_url, target: "_blank" do %>
+              Go to Eastmoney
               <i class="fa fa-external-link"></i>
             <% end %>
           </span>

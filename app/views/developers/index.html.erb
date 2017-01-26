@@ -2,13 +2,13 @@
 
 <h1>Developers</h1>
 
-<table>
+<table class="table table-striped">
   <thead>
     <tr>
       <th>Name</th>
       <th>就职于某基金公司</th>
       <th>Avatar</th>
-      <th>Github</th>
+      <th>eastmoney</th>
       <th>Public repos</th>
       <th>Subscribers count</th>
       <th>Watchers count</th>
@@ -24,11 +24,13 @@
         <td>
           <% developer.catalogs.each do |catalog| %>
             <%= link_to catalog.code, catalog %>
+            -
+            <%= catalog.name %>
           <% end %>
         </td>
         <td><%= developer.avatar %></td>
-        <td><%= developer.github_id %></td>
-        <td><%= developer.public_repos %></td>
+        <td><%= developer.eastmoney_url %></td>
+        <td><%= developer.developer_projects.count %></td>
         <td><%= developer.subscribers_count %></td>
         <td><%= developer.watchers_count %></td>
         <td><%= developer.forks_count %></td>

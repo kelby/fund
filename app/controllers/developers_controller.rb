@@ -1,15 +1,15 @@
 class DevelopersController < ApplicationController
-  before_action :set_developer, only: [:edit, :update, :destroy]
+  before_action :set_developer, only: [:edit, :update, :destroy, :show]
 
   # GET /developers
   def index
-    @developers = Developer.all.includes(:catalogs).page(params[:page])
+    @developers = Developer.all.includes(:catalogs).page(params[:page]).per(50)
   end
 
   # GET /developers/1
   def show
-    @developer = Developer.find_by(name: params[:name])
-    @projects = @developer.projects.show_status.includes(:github_info).page(params[:page])
+    # @developer = Developer.find_by(name: params[:name])
+    @projects = @developer.projects.page(params[:page]) #.show_status.includes(:github_info)
   end
 
   # GET /developers/new

@@ -26,6 +26,7 @@ class Developer < ApplicationRecord
 
   has_many :catalog_developers
   has_many :catalogs, through: :catalog_developers
+  has_many :developer_projects
   # END
 
 
