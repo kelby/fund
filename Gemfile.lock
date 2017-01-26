@@ -327,6 +327,8 @@ GEM
       execjs (>= 0.3.0, < 3)
     warden (1.2.6)
       rack (>= 1.0)
+    watir (6.1.0)
+      selenium-webdriver (~> 3.0)
     watir-webdriver (0.9.9)
       selenium-webdriver (>= 2.46.2)
     web-console (3.4.0)
@@ -397,6 +399,7 @@ DEPENDENCIES
   spring-watcher-listen (~> 2.0.0)
   tzinfo-data
   uglifier (>= 1.3.0)
+  watir
   watir-webdriver
   web-console
   whenever

@@ -123,5 +123,6 @@ gem 'anemone'
 gem 'rucaptcha'
 
 # crawl
+gem 'watir'
 gem 'watir-webdriver'
 gem 'headless'
