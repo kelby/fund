@@ -13,6 +13,7 @@
 #  identity          :integer          default(0)
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
+#  eastmoney_url     :string(255)
 #
 
 class Developer < ApplicationRecord
@@ -36,6 +37,10 @@ class Developer < ApplicationRecord
   # Callbacks
   # after_create :set_projects_data
   # after_create :delay_set_avatar
+  # END
+
+  # Validates
+  validates_uniqueness_of :name, scope: :eastmoney_url
   # END
 
 

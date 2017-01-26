@@ -45,10 +45,10 @@ task :fetch_manager => [:environment] do
         catalog = Catalog.create(code: company_id, short_name: company)
       end
 
-      developer = Developer.create(name: name)
+      developer = Developer.find_or_create_by(name: name, eastmoney_url: name_url)
 
       CatalogDeveloper.find_or_create_by(catalog_id: catalog.id, developer_id: developer.id) do |cd|
-        cd.eastmoney_url = name_url
+        # cd.eastmoney_url = name_url
       end
     end
   end

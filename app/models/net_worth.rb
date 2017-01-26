@@ -9,6 +9,8 @@
 #  ljjz       :decimal(15, 4)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  project_id :integer
+#  record_at  :date
 #
 
 # iopv 日增长值, accnav 日增长率
