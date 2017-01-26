@@ -121,3 +121,7 @@ gem "sitemap_generator"
 gem 'anemone'
 
 gem 'rucaptcha'
+
+# crawl
+gem 'watir-webdriver'
+gem 'headless'

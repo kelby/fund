@@ -6,6 +6,7 @@
   <thead>
     <tr>
       <th>Name</th>
+      <th>就职于某基金公司</th>
       <th>Avatar</th>
       <th>Github</th>
       <th>Public repos</th>
@@ -20,6 +21,11 @@
     <% @developers.each do |developer| %>
       <tr>
         <td><%= developer.name %></td>
+        <td>
+          <% developer.catalog_developers.map(&:catalog).each do |catalog| %>
+            <%= link_to catalog.code, catalog %>
+          <% end %>
+        </td>
         <td><%= developer.avatar %></td>
         <td><%= developer.github_id %></td>
         <td><%= developer.public_repos %></td>

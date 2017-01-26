@@ -45,6 +45,8 @@ class Catalog < ApplicationRecord
   has_many :projects
   has_many :categories
   has_many :online_categories, -> { where(status: Category.statuses['online']) }, class_name: "Category"
+
+  has_many :catalog_developers
   # END
 
 

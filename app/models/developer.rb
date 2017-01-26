@@ -18,6 +18,8 @@
 class Developer < ApplicationRecord
   # Associations
   has_many :projects
+
+  has_many :catalog_developers
   # END
 
 
@@ -32,8 +34,8 @@ class Developer < ApplicationRecord
 
 
   # Callbacks
-  after_create :set_projects_data
-  after_create :delay_set_avatar
+  # after_create :set_projects_data
+  # after_create :delay_set_avatar
   # END
 
 

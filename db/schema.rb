@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170125155957) do
+ActiveRecord::Schema.define(version: 20170126072632) do
 
   create_table "authentications", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string   "provider"
@@ -22,6 +22,14 @@ ActiveRecord::Schema.define(version: 20170125155957) do
     t.datetime "updated_at",                  null: false
     t.string   "refresh_token"
     t.text     "credentials",   limit: 65535
+  end
+
+  create_table "catalog_developers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.integer  "catalog_id"
+    t.integer  "developer_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["catalog_id", "developer_id"], name: "index_catalog_developers_on_catalog_id_and_developer_id", using: :btree
   end
 
   create_table "catalogs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
