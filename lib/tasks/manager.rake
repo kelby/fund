@@ -23,6 +23,8 @@ task :fetch_manager => [:environment] do
     url = "http://fund.eastmoney.com/manager/default.html#dt14;mcreturnjson;ftall;pn50;pi#{page_number};scabbname;stasc" # our example
 
     browser.goto url
+    browser.refresh
+
     el = browser.element :css => '#datalist'
     # puts el.text
 
