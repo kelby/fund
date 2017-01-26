@@ -22,7 +22,7 @@
       <tr>
         <td><%= developer.name %></td>
         <td>
-          <% developer.catalog_developers.map(&:catalog).each do |catalog| %>
+          <% developer.catalogs.each do |catalog| %>
             <%= link_to catalog.code, catalog %>
           <% end %>
         </td>
@@ -39,6 +39,10 @@
     <% end %>
   </tbody>
 </table>
+
+<br>
+
+    <%= magic_paginate @developers %>
 
 <br>
 

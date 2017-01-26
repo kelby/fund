@@ -14,6 +14,10 @@
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  eastmoney_url     :string(255)
+#  take_office_date  :date
+#  description       :text(65535)
+#  age               :integer          default(0)
+#  degree            :string(255)
 #
 
 class Developer < ApplicationRecord
@@ -21,6 +25,7 @@ class Developer < ApplicationRecord
   has_many :projects
 
   has_many :catalog_developers
+  has_many :catalogs, through: :catalog_developers
   # END
 
 

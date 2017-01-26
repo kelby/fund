@@ -44,7 +44,7 @@ Rails.application.routes.draw do
     end
   end
   # resources :developers, only: [:show]
-  resources :developers
+  resources :developers, path: "manager"
 
   resources :user_recommend_projects, only: [:create, :destroy]
   resources :user_star_projects, only: [:create, :destroy]

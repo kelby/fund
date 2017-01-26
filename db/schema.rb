@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170126084512) do
+ActiveRecord::Schema.define(version: 20170126114744) do
 
   create_table "authentications", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string   "provider"
@@ -79,6 +79,16 @@ ActiveRecord::Schema.define(version: 20170126084512) do
     t.index ["deleted_at"], name: "index_comments_on_deleted_at", using: :btree
   end
 
+  create_table "developer_projects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.integer  "developer_id"
+    t.integer  "project_id"
+    t.date     "beginning_work_date"
+    t.date     "end_of_work_date"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.index ["developer_id", "project_id"], name: "index_developer_projects_on_developer_id_and_project_id", using: :btree
+  end
+
   create_table "developers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string   "name"
     t.string   "avatar"
@@ -87,10 +97,14 @@ ActiveRecord::Schema.define(version: 20170126084512) do
     t.integer  "subscribers_count"
     t.integer  "watchers_count"
     t.integer  "forks_count"
-    t.integer  "identity",          default: 0
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.integer  "identity",                        default: 0
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
     t.string   "eastmoney_url"
+    t.date     "take_office_date"
+    t.text     "description",       limit: 65535
+    t.integer  "age",                             default: 0
+    t.string   "degree"
   end
 
   create_table "episodes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
