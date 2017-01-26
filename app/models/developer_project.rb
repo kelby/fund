@@ -14,4 +14,8 @@
 class DeveloperProject < ApplicationRecord
   belongs_to :developer
   belongs_to :project
+
+  validates_presence_of :developer_id, :project_id
+  # 可以没有 end_of_work_date
+  validates_presence_of :beginning_work_date
 end
