@@ -124,5 +124,5 @@ gem 'rucaptcha'
 
 # crawl
 gem 'watir'
-gem 'watir-webdriver'
+# gem 'watir-webdriver'
 gem 'headless'
