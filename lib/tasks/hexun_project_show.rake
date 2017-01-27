@@ -4,7 +4,9 @@ task :fetch_hexun_project_show => [:environment] do
   headless.start
   browser = Watir::Browser.new
 
-  Project.where(set_up_at: [nil, '']).find_each.with_index do |project|
+  number = 0
+
+  Project.where(set_up_at: [nil, '']).where("id > ?", number).find_each.with_index do |project, index|
   # Project.limit(20).each_with_index do |project, index|
     code = project.code
 
@@ -44,6 +46,8 @@ task :fetch_hexun_project_show => [:environment] do
       project.save
     end
     # ...
+
+    # sleep(rand(1..10.0))
   end
 
   browser.close
