@@ -41,7 +41,7 @@ class Project < ApplicationRecord
   counter_culture :category
   counter_culture :category, :column_name => proc {|model| model.online? ? 'online_projects_count' : nil }
 
-  belongs_to :developer
+  # belongs_to :developer
 
   has_one :github_info
 

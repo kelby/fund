@@ -22,11 +22,13 @@
 
 class Developer < ApplicationRecord
   # Associations
-  has_many :projects
-
   has_many :catalog_developers
+  # 基金公司
   has_many :catalogs, through: :catalog_developers
+
   has_many :developer_projects
+  # 基金
+  has_many :projects, through: :developer_projects
   # END
 
 

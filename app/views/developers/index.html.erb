@@ -1,6 +1,12 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Developers</h1>
+<h1>
+  基金经理
+
+  <small>
+    <%= @developers.unscope(:limit, :offset).count %>
+  </small>
+</h1>
 
 <table class="table table-striped">
   <thead>
@@ -20,7 +26,7 @@
   <tbody>
     <% @developers.each do |developer| %>
       <tr>
-        <td><%= developer.name %></td>
+        <td><%= link_to developer.name, developer %></td>
         <td>
           <% developer.catalogs.each do |catalog| %>
             <%= link_to catalog.code, catalog %>
