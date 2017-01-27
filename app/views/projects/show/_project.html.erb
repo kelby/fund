@@ -9,11 +9,12 @@
 
   <ul class="attribution">
     <li>By</li>
-    <li>Orta Therox</li>
-    <li class="twitter">
+    <li><%= project.developers.pluck(:name).join(',') %></li>
+
+    <!-- <li class="twitter">
       <i class="fa fa-twitter"></i>
       <a href="https://twitter.com/orta">orta</a>
-    </li>
+    </li> -->
   </ul>
 
 
@@ -57,7 +58,7 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th scope="row">发布日期</th>
+          <th scope="row">更新日期</th>
           <td>单位净值</td>
           <td>累计净值</td>
           <td>日增长率</td>

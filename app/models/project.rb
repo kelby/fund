@@ -60,6 +60,7 @@ class Project < ApplicationRecord
 
   has_many :net_worths
   has_many :developer_projects
+  has_many :developers, through: :developer_projects
   # END
 
 
