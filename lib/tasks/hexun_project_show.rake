@@ -5,6 +5,7 @@ task :fetch_hexun_project_show => [:environment] do
   browser = Watir::Browser.new
 
   number = 0
+  number = Project.where.not(set_up_at: [nil, '']).last.id
 
   Project.where(set_up_at: [nil, '']).where("id > ?", number).find_each.with_index do |project, index|
   # Project.limit(20).each_with_index do |project, index|
@@ -36,6 +37,13 @@ task :fetch_hexun_project_show => [:environment] do
     set_up_at = browser.span(id: "signdate").text
 
     if set_up_at.blank?
+      # 为空
+      project.nightspot!
+      next
+    end
+
+    if set_up_at == "未成立"
+      project.offline!
       next
     end
 
