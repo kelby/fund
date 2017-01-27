@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170127043530) do
+ActiveRecord::Schema.define(version: 20170127121642) do
 
   create_table "authentications", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string   "provider"
@@ -150,6 +150,8 @@ ActiveRecord::Schema.define(version: 20170127043530) do
     t.datetime "updated_at",                          null: false
     t.integer  "project_id"
     t.date     "record_at"
+    t.index ["project_id", "record_at"], name: "index_net_worths_on_project_id_and_record_at", using: :btree
+    t.index ["project_id"], name: "index_net_worths_on_project_id", using: :btree
   end
 
   create_table "package_infos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
