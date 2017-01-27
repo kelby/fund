@@ -12,7 +12,7 @@ task :fetch_manager_info => [:environment] do
 
 
 
-    manager_dir = Rails.public_path.join("manager")
+    manager_dir = Rails.public_path.join("manager/eastmoney")
     FileUtils::mkdir_p(manager_dir)
 
     # yourfile = Rails.public_path.join("company/#{catalog.code}.html")

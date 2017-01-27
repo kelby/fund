@@ -25,6 +25,7 @@
 #  catalog_id      :integer
 #  mold            :string(255)
 #  slug            :string(255)
+#  set_up_at       :date
 #
 
 require 'elasticsearch/model'

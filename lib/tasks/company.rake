@@ -53,7 +53,7 @@ namespace :company do
 
       # catalog.update(raw_show_html: doc.to_html)
 
-      company_dir = Rails.public_path.join("company")
+      company_dir = Rails.public_path.join("company/eastmoney")
       FileUtils::mkdir_p(company_dir)
 
       # yourfile = Rails.public_path.join("company/#{catalog.code}.html")
