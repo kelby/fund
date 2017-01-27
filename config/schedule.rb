@@ -19,6 +19,11 @@
 
 # Learn more: http://github.com/javan/whenever
 
+every 1.hours, :roles => [:app] do
+  runner "fetch_hexun_project_show"
+  runner "jzzs"
+end
+
 =begin
 every 1.hours do
   runner "Project.delay_set_popularity"
