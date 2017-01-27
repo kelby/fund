@@ -1,9 +1,10 @@
 desc "project net worth"
 task :jzzs => [:environment] do
   number = 0
+  number = Project.joins(:net_worths).last.id
   enddate = Time.now.strftime("%F")
 
-  Project.where.not(set_up_at: [nil, '']).where("id > ?", number).find_each.with_index do |project, index|
+  Project.where.not(set_up_at: [nil, '']).where("id >= ?", number).find_each.with_index do |project, index|
     code = project.code
     startdate = project.set_up_at.strftime("%F")
 
