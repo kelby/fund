@@ -22,6 +22,7 @@
 every 30.minutes, :roles => [:app] do
   rake "fetch_manager_info_for_current_catalog"
   rake "jzzs"
+  rake "fetch_eastmoney_fund_jbgk"
 end
 
 =begin
