@@ -90,9 +90,12 @@ task :fetch_manager_info_for_current_catalog => [:environment] do
 
   # developers ||= Developer.where(name: "石大怿")
 
+  # take_office_date
+  number = Developer.where.not(take_office_date: [nil, '']).last.id
+
   # 这种方法比较轻巧
   # Developer.limit(10).each_with_index do |developer, index|
-  Developer.find_each.each_with_index do |developer, index|
+  Developer.where("id >= ?", number).find_each.each_with_index do |developer, index|
     url = developer.eastmoney_url
 
     # next if url.blank?
@@ -143,9 +146,17 @@ task :fetch_manager_info_for_current_catalog => [:environment] do
       end
     end
 
+    # 基金经理：丁杰科
+    jlinfo = doc.css('.jlinfo')
+    developer.description = jlinfo.css("p").text.try(:strip)
+
+    developer.remote_avatar_url = doc.css(".left > #photo").attr('src').value
+
+
     if developer.changed?
       developer.save
     end
+
 
 
     # 丁杰科管理过的基金一览

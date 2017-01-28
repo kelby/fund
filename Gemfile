@@ -126,3 +126,6 @@ gem 'rucaptcha'
 gem 'watir'
 # gem 'watir-webdriver'
 gem 'headless'
+
+# POST data to server from my local server.
+gem 'rest-client'

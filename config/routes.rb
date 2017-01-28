@@ -48,6 +48,8 @@ Rails.application.routes.draw do
   # resources :developers, only: [:show]
   resources :developers, path: "manager"
 
+  resources :net_worths
+
   resources :user_recommend_projects, only: [:create, :destroy]
   resources :user_star_projects, only: [:create, :destroy]
   resources :comments

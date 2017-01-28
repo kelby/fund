@@ -5,6 +5,7 @@ task :jzzs => [:environment] do
   enddate = Time.now.strftime("%F")
 
   Project.where.not(set_up_at: [nil, '']).where("id >= ?", number).find_each.with_index do |project, index|
+  # Project.where.not(set_up_at: [nil, '']).where("id >= ?", number).order(id: :desc).each_with_index do |project, index|
     code = project.code
     startdate = project.set_up_at.strftime("%F")
 
@@ -35,10 +36,32 @@ task :jzzs => [:environment] do
           dwjz: dwjz,
           ljjz: ljjz,
           accnav: accnav)
+
+        if Rails.env.development?
+          post_data_to_server({
+            net_worth: {
+              record_at: record_at,
+              dwjz: dwjz,
+              ljjz: ljjz,
+              accnav: accnav
+            },
+            :project_code: project.code
+          })
+        end
       end
     end
 
     # iopv 日增长值, accnav 日增长率
     # dwjz 单位净值, ljjz 累计净值
   end
+end
+
+def post_data_to_server(params={}, headers={})
+  headers ||= {:headers => {'Content-Type' => 'application/json',
+    "Authorization" => "key",
+    "Accept" => "application/json"}
+    :cookies => {:_zhenkuan_session => Settings.cookies}
+  }
+
+  RestClient.post( "http://localhost:3000/net_worths", params, headers )
 end

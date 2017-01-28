@@ -28,17 +28,27 @@
           <!-- </span> -->
         </div>
         <div class="item number">
-          <span title="注册日期">
-            <%= link_to @developer.eastmoney_url, target: "_blank" do %>
-              Go to Eastmoney
-              <i class="fa fa-external-link"></i>
-            <% end %>
+          <span>
+
+              <!-- <i class="fa fa-external-link"></i> -->
+              任职起始日期：
+              <%= @developer.take_office_date.strftime("%F") %>
+
           </span>
         </div>
         <div class="item counts">
           <span>
-            Fetched on
+            数据更新于：
             <%= @developer.updated_at.strftime("%F %R") %>
+          </span>
+        </div>
+
+        <div class="item counts">
+          <span>
+            现任基金公司：
+            <%= link_to @developer.catalog do %>
+              <%= @developer.catalog.name %>
+            <% end %>
           </span>
         </div>
       </div>
@@ -47,21 +57,21 @@
     <div class="follow-info row">
       <div class="col-sm-4 col-xs-4 watch">
         <section class="counter">
-          <%= @developer.watchers_count %>
+          <%= @developer.projects.count %>支
         </section>
 
         <section class="text">
-          Watch
+          目前管理基金
         </section>
       </div>
 
       <div class="col-sm-4 col-xs-4 star">
         <section class="counter">
-          <%= @developer.subscribers_count %>
+          1602.71亿元
         </section>
 
         <section class="text">
-          Star
+          现任基金资产总规模
         </section>
       </div>
 
@@ -69,11 +79,11 @@
 
       <div class="col-sm-4 col-xs-4 fork">
         <section class="counter">
-          <%= @developer.forks_count %>
+          21.26%
         </section>
 
         <section class="text">
-          Fork
+          任职期间最佳基金回报
         </section>
       </div>
     </div>

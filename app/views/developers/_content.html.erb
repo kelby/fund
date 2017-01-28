@@ -1,4 +1,11 @@
 <div class="panel panel-default">
+  <div class="panel-heading">基金经理简介：</div>
+  <div class="panel-body">
+    <%= developer.description %>
+  </div>
+</div>
+
+<div class="panel panel-default">
   <div class="panel-heading">
     <%= @projects.size %> 个项目
   </div>
@@ -36,11 +43,5 @@
 
   <div class="panel-footer clearfix">
     <%= magic_paginate @projects %>
-  </div>
-</div>
-
-<div class="panel panel-default">
-  <div class="panel-body">
-    <%= developer.description %>
   </div>
 </div>

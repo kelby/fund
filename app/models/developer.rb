@@ -53,6 +53,9 @@ class Developer < ApplicationRecord
   # validates_presence_of :name, scope: :catalog_id
   # END
 
+  def catalog
+    self.catalogs.last
+  end
 
   def self.create_developer_from_projects
     Project.where(developer_id: nil).includes(:developer).joins(:github_info).find_each do |project|
