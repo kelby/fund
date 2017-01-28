@@ -49,8 +49,8 @@ class Developer < ApplicationRecord
 
   # Validates
   validates_uniqueness_of :name, scope: :eastmoney_url
-  validates_presence_of :catalog_id
-  validates_presence_of :name, scope: :catalog_id
+  # validates_presence_of :catalog_id
+  # validates_presence_of :name, scope: :catalog_id
   # END
 
 
