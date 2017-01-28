@@ -29,7 +29,7 @@ task :fetch_eastmoney_fund_jbgk => [:environment] do
 
       case th_text
       when "基金全称"
-        jbgk.full_name = th_ele.next_element.text
+        jbgk.full_name = th_ele.next_element.text.try(:strip)
       when "基金简称"
         jbgk.short_name = th_ele.next_element.text
       when "基金代码"

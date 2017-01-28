@@ -45,7 +45,7 @@ task :jzzs => [:environment] do
               ljjz: ljjz,
               accnav: accnav
             },
-            :project_code: project.code
+            project_code: project.code
           })
         end
       end
@@ -59,8 +59,8 @@ end
 def post_data_to_server(params={}, headers={})
   headers ||= {:headers => {'Content-Type' => 'application/json',
     "Authorization" => "key",
-    "Accept" => "application/json"}
-    :cookies => {:_zhenkuan_session => Settings.cookies}
+    "Accept" => "application/json"},
+    :cookies => {:_zhenkuan_session => Settings.production_cookies}
   }
 
   RestClient.post( "http://localhost:3000/net_worths", params, headers )
