@@ -19,9 +19,9 @@
 
 # Learn more: http://github.com/javan/whenever
 
-every 1.hours, :roles => [:app] do
-  runner "fetch_hexun_project_show"
-  runner "jzzs"
+every 30.minutes, :roles => [:app] do
+  rake "fetch_manager_info_for_current_catalog"
+  rake "jzzs"
 end
 
 =begin
