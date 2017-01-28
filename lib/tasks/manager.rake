@@ -35,19 +35,25 @@ task :fetch_manager => [:environment] do
 
       company = tr_ele[2].text
       company_url = tr_ele[2].a.href
-      company_id = company_url.split(/\.|\//)[-2]
+      catalog_id = company_url.split(/\.|\//)[-2]
 
-      if company_id =~ /\d$/
-        catalog = Catalog.find_by(code: company_id)
+      if catalog_id =~ /\d$/
+        catalog = Catalog.find_by(code: catalog_id)
       else
         next
       end
 
       if catalog.blank?
-        catalog = Catalog.create(code: company_id, short_name: company)
+        catalog = Catalog.create(code: catalog_id, short_name: company)
+
+        unless catalog.persisted?
+          next
+        end
       end
 
-      developer = Developer.find_or_create_by(name: name, eastmoney_url: name_url)
+      developer = Developer.find_or_create_by(name: name, eastmoney_url: name_url) do |x|
+        x.catalog_id = catalog.id
+      end
 
       CatalogDeveloper.find_or_create_by(catalog_id: catalog.id, developer_id: developer.id) do |cd|
         # cd.eastmoney_url = name_url

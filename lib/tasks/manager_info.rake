@@ -1,9 +1,11 @@
+# 方法一
 desc "fetch manager info. show"
 task :fetch_manager_info => [:environment] do
   headless = Headless.new
   headless.start
   browser = Watir::Browser.new
 
+  # 这种方法用的是浏览器，比较笨重
   Developer.find_each do |developer|
     url = developer.eastmoney_url
 
@@ -79,4 +81,112 @@ task :fetch_manager_info => [:environment] do
 
   browser.close
   headless.destroy
+end
+
+# 方法二
+desc "Fetch manager/developer data for association catalog. show"
+task :fetch_manager_info_for_current_catalog => [:environment] do
+  sb = SpiderBase.new
+
+  # developers ||= Developer.where(name: "石大怿")
+
+  # 这种方法比较轻巧
+  # Developer.limit(10).each_with_index do |developer, index|
+  Developer.find_each.each_with_index do |developer, index|
+    url = developer.eastmoney_url
+
+    # next if url.blank?
+
+    sb ||= SpiderBase.new
+
+    fetch_content = sb.page_for_url(url);
+    puts "Fetch developer #{developer.id} data from #{url} =========== #{index}"
+
+    doc = fetch_content.doc;
+
+    jd = doc.css(".right.jd")
+
+    want_span_ele = jd.css("span")
+
+    want_span_ele.each do |span_ele|
+      span_text = span_ele.text
+
+      if span_text =~ /任职起始日期/
+        take_office_date = span_ele.next_sibling.text.try(:strip)
+
+        developer.take_office_date = take_office_date
+        next
+      end
+
+      if span_text =~ /现任基金公司/
+        company_url = span_ele.next_element.attributes['href'].value
+
+        codes = developer.catalogs.pluck(:code)
+
+        if codes.any?{|code| company_url.include?(code) }
+          # ...
+          next
+        else
+          # ...
+          company_code = company_url.split(/\.|\//)[-2]
+
+
+          unless company_code =~ /\d$/
+            next
+          end
+
+          catalog = Catalog.find_by(code: company_code)
+          CatalogDeveloper.find_or_create_by(catalog_id: catalog.id, developer_id: developer.id)
+        end
+
+        next
+      end
+    end
+
+    if developer.changed?
+      developer.save
+    end
+
+
+    # 丁杰科管理过的基金一览
+    now_projects_ele = doc.css("table.ftrs")[0]
+
+    now_projects_ele.css("tbody tr").each do |tr_ele|
+      # 基金代码  基金名称  相关链接  基金类型  规模（亿元）  任职时间  任职天数  任职回报
+      a = tr_ele.css("td")[0]
+      b = tr_ele.css("td")[1]
+      c = tr_ele.css("td")[2]
+      d = tr_ele.css("td")[3]
+      e = tr_ele.css("td")[4]
+      f = tr_ele.css("td")[5]
+      g = tr_ele.css("td")[6]
+      i = tr_ele.css("td")[7]
+
+      _code = a.text
+      _project = Project.find_by(code: _code)
+
+
+      _catalog_id = developer.catalogs.last.id if developer.catalogs.present?
+
+
+      if _project.blank?
+        puts "code #{_code} without proejct."
+        _project = Project.create(code: _code, name: b.text, mold: d.text, catalog_id: _catalog_id) if _catalog_id.present?
+        next
+      end
+
+      project_id = _project.id
+      beginning_work_date = f.text.split(" ").first.try(:to_time)
+      end_of_work_date = f.text.split(" ").last.try(:to_time)
+
+      puts "developer_id #{developer.id}, project_id #{project_id}, beginning_work_date #{beginning_work_date}, end_of_work_date #{end_of_work_date}"
+
+      DeveloperProject.find_or_create_by(developer_id: developer.id, project_id: project_id) do |dp|
+        dp.beginning_work_date = beginning_work_date
+        dp.beginning_work_date = end_of_work_date
+      end
+    end
+
+
+  end
 end

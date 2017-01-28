@@ -1,0 +1,81 @@
+<h1>网站部分统计数据</h1>
+
+<table class="table">
+  <caption>基金公司</caption>
+
+  <tr>
+    <td>基金公司总数</td>
+    <td><%= Catalog.count %></td>
+  </tr>
+
+  <tr>
+    <td>从基金，逆推基金公司总数</td>
+    <td><%= Project.pluck(:catalog_id).uniq.count %></td>
+  </tr>
+
+  <tr>
+    <td>从基金公司与基金经理关联，逆推基金公司总数</td>
+    <td>
+      <%= CatalogDeveloper.pluck(:catalog_id).uniq.count %>
+    </td>
+  </tr>
+
+</table>
+
+<table class="table">
+  <caption>基金经理</caption>
+
+  <tr>
+    <td>基金经理总数</td>
+    <td><%= Developer.count %></td>
+  </tr>
+
+  <tr>
+    <td>从基金公司与基金经理关联，逆推基金经理总数</td>
+    <td>
+      <%= CatalogDeveloper.pluck(:developer_id).uniq.count %>
+    </td>
+  </tr>
+
+  <tr>
+    <td>从基金与基金经理关联，逆推基金经理总数</td>
+    <td>
+      <%= DeveloperProject.pluck(:developer_id).uniq.count %>
+    </td>
+  </tr>
+
+  <tr>
+    <td>有任职起始时间</td>
+    <td><%= Developer.where.not(take_office_date: [nil, '']).count %></td>
+  </tr>
+</table>
+
+<table class="table">
+  <caption>基金</caption>
+  <tr>
+    <td>基金总数</td>
+    <td><%= Project.count %></td>
+  </tr>
+
+  <tr>
+    <td>从基金与基金经理关联，逆推基金总数</td>
+    <td>
+      <%= DeveloperProject.pluck(:project_id).uniq.count %>
+    </td>
+  </tr>
+
+  <tr>
+    <td>有运营数据的基金总数</td>
+    <td><%= Project.joins(:net_worths).distinct.count %></td>
+  </tr>
+</table>
+
+<table class="table">
+  <caption>其它</caption>
+  <tr>
+    <td>基金公司与基金经理关联总数</td>
+    <td>
+      <%= CatalogDeveloper.count %>
+    </td>
+  </tr>
+</table>

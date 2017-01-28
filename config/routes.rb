@@ -11,6 +11,8 @@ Rails.application.routes.draw do
 
   authenticate :user, lambda { |u| u.is_admin? } do
     namespace :panel do
+      resources :stats
+
       resources :episodes
 
       resources :categories do
