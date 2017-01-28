@@ -5,26 +5,18 @@
 <% end %>
 
 
-<% if @project.category.present? %>
+<%# if @project.category.present? %>
   <div class="panel panel-default popular-projects">
     <ol class="breadcrumb catalog-category-etc">
       <li class="normal">
-        <% url = @project.category.catalog.type.downcase.gsub(/catalog$/, '_path') %>
-
-        <%= link_to eval(url) do %>
-          <%= @project.category.catalog.human_supercatalog_name %>
+        <%= link_to catalogs_path do %>
+          全部基金
         <% end %>
       </li>
 
       <li class="normal">
-        <%= link_to catalog_path(@project.category.catalog) do %>
-          <%= @project.category.catalog.name %>
-        <% end %>
-      </li>
-
-      <li class="normal">
-        <%= link_to @project.category, target: "_blank" do %>
-          <%= @project.category.name %>
+        <%= link_to catalog_path(@project.catalog) do %>
+          <%= @project.catalog.name %>
         <% end %>
       </li>
 
@@ -32,15 +24,85 @@
 
       <% if can? :create, 'RecommendProject' %>
         <li class="pull-right">
-          <%= link_to "今日推荐", new_project_recommend_project_path(@project), remote: true %>
+          <%#= link_to "今日推荐", new_project_recommend_project_path(@project), remote: true %>
         </li>
       <% end %>
     </ol>
 
-    <%= render "projects/popular_item" %>
+    <%#= render "projects/popular_item" %>
   </div>
-<% end %>
+<%# end %>
 
+<div class="panel panel-default">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>更新日期</th>
+        <th>单位净值</th>
+        <th>累计净值</th>
+        <th>日增长率</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @project.net_worths.order(record_at: :desc).limit(5).each do |net_worth| %>
+        <tr>
+          <th scope="row"><%= net_worth.record_at.strftime("%F") %></th>
+          <td><%= net_worth.dwjz %></td>
+          <td><%= net_worth.ljjz %></td>
+          <td><%= net_worth.accnav %>%</td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div class="panel panel-default">
+  <dl>
+     <dt>近1月：</dt>
+     <dd>-1.77%</dd>
+     <dt>近3月：</dt>
+     <dd>-3.41%</dd>
+     <dt>近6月：</dt>
+     <dd>3.91%</dd>
+     <dt>近1年：</dt>
+     <dd>36.91%</dd>
+     <dt>近3年：</dt>
+     <dd>--</dd>
+     <dt>成立来：</dt>
+     <dd>27.60%</dd>
+  </dl>
+</div>
+
+<div class="panel panel-default">
+
+  <table class="table">
+    <tbody>
+      <tr>
+        <td>
+          基金类型：
+          <a href="http://fund.eastmoney.com/GP_jzzzl.html#os_0;isall_0;ft_;pt_2">股票型</a>&nbsp;&nbsp;|&nbsp;&nbsp;高风险
+        </td>
+        <td>
+          <a href="http://fund.eastmoney.com/f10/gmbd_001421.html">基金规模</a>：12.95亿元（2016-12-31）
+        </td>
+        <td>
+          基金经理：<a href="http://fund.eastmoney.com/f10/jjjl_001421.html">雷俊</a>
+        </td>
+      </tr>
+      <tr>
+        <td>
+        <span class="letterSpace01">成 立 日</span>：2015-06-29</td>
+        <td>
+          <span class="letterSpace01">基金公司</span>：<a href="http://fund.eastmoney.com/company/80000220.html">南方基金</a>
+        </td>
+        <td>
+          <a class="floatleft" href="http://fund.eastmoney.com/f10/jjpj_001421.html">基金评级</a><span class="floatleft">：</span>
+          <span class="jjpj">暂无评级</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 <div class="project-wraper clearfix">
   <% case @project.identity %>
