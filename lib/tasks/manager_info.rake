@@ -1,4 +1,4 @@
-desc "fetch manager info."
+desc "fetch manager info. show"
 task :fetch_manager_info => [:environment] do
   headless = Headless.new
   headless.start

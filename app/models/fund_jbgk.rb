@@ -1,0 +1,28 @@
+# == Schema Information
+#
+# Table name: fund_jbgks
+#
+#  id                 :integer          not null, primary key
+#  full_name          :string(255)
+#  short_name         :string(255)
+#  code               :string(255)
+#  mold               :string(255)
+#  set_up_at          :string(255)
+#  build_at_and_scale :string(255)
+#  assets_scale       :string(255)
+#  portion_scale      :string(255)
+#  benchmark          :string(255)
+#  dividend_policy    :text(65535)
+#  risk_yield         :string(255)
+#  others             :text(65535)
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#
+
+class FundJbgk < ApplicationRecord
+  validates_uniqueness_of :code
+
+  validates_presence_of :code, :full_name
+
+  serialize :others, Hash
+end

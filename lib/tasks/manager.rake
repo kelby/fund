@@ -1,7 +1,7 @@
 require 'watir'
 require 'headless'
 
-desc "fetch company, manages."
+desc "fetch company, manages. list"
 task :fetch_manager => [:environment] do
 
   # browser = Watir::Browser.new

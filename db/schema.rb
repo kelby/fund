@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170127121642) do
+ActiveRecord::Schema.define(version: 20170128082003) do
 
   create_table "authentications", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string   "provider"
@@ -116,6 +116,23 @@ ActiveRecord::Schema.define(version: 20170127121642) do
     t.datetime "updated_at",               null: false
     t.integer  "status",       default: 0
     t.datetime "recommend_at"
+  end
+
+  create_table "fund_jbgks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.string   "full_name"
+    t.string   "short_name"
+    t.string   "code"
+    t.string   "mold"
+    t.string   "set_up_at"
+    t.string   "build_at_and_scale"
+    t.string   "assets_scale"
+    t.string   "portion_scale"
+    t.string   "benchmark"
+    t.text     "dividend_policy",    limit: 65535
+    t.string   "risk_yield"
+    t.text     "others",             limit: 65535
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
   end
 
   create_table "gem_infos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
