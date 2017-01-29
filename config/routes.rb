@@ -1,6 +1,7 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  resources :articles
   resources :index_reports
   get 'user_favor_comment/create'
 
