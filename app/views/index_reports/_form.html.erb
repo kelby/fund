@@ -1,0 +1,57 @@
+<%= form_for(index_report) do |f| %>
+  <% if index_report.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(index_report.errors.count, "error") %> prohibited this index_report from being saved:</h2>
+
+      <ul>
+      <% index_report.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :catalog %>
+    <%= f.text_field :catalog %>
+  </div>
+
+  <div class="field">
+    <%= f.label :category %>
+    <%= f.text_field :category %>
+  </div>
+
+  <div class="field">
+    <%= f.label :category_intro %>
+    <%= f.text_field :category_intro %>
+  </div>
+
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :intro %>
+    <%= f.text_area :intro %>
+  </div>
+
+  <div class="field">
+    <%= f.label :website %>
+    <%= f.text_field :website %>
+  </div>
+
+  <div class="field">
+    <%= f.label :code %>
+    <%= f.text_field :code %>
+  </div>
+
+  <div class="field">
+    <%= f.label :set_up_at %>
+    <%= f.date_select :set_up_at %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,1 @@
+json.array! @index_reports, partial: 'index_reports/index_report', as: :index_report
