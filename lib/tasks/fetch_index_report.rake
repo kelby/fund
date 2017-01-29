@@ -132,7 +132,7 @@ task :fetch_index_report_detail => [:environment] do
   # base_url = "http://www.csindex.com.cn"
   index ||= 0
 
-  IndexReport.each_with_index do |index_report, index|
+  IndexReport.find_each.with_index do |index_report, index|
     # IndexReport.limit(20).each_with_index do |index_report, index|
 
     url = index_report.website
