@@ -17,12 +17,15 @@
 #  others             :text(65535)
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
+#  project_id         :integer
 #
 
 class FundJbgk < ApplicationRecord
-  validates_uniqueness_of :code
+  # validates_uniqueness_of :code
 
   validates_presence_of :code, :full_name
 
   serialize :others, Hash
+
+  belongs_to :project
 end

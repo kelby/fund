@@ -20,7 +20,7 @@ task :fetch_eastmoney_fund_jbgk => [:environment] do
     table_ele = doc.css(".box table")
 
 
-    jbgk = FundJbgk.new
+    jbgk = project.fund_jbgks.build
 
 
     table_ele.css("th").each do |th_ele|
@@ -49,6 +49,11 @@ task :fetch_eastmoney_fund_jbgk => [:environment] do
         jbgk.others[th_text] = th_ele.next_element.text
       end
 
+      set_up_at = jbgk.build_at_and_scale.split(" ").first.gsub(/年|月/, '-').gsub(/日/, "")
+
+      if project.set_up_at.blank? && (set_up_at =~ /^\d/ && set_up_at =~ /\d$/)
+        project.update(set_up_at: set_up_at)
+      end
 
       # 基金全称
       # 基金简称

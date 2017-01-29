@@ -50,6 +50,8 @@ class Project < ApplicationRecord
   has_one :pod_info
   has_one :package_info
 
+  has_many :fund_jbgks
+
   has_many :comments, as: :commentable
 
   has_many :user_star_projects
