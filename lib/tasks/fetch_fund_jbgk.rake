@@ -2,8 +2,10 @@ desc "Fetch eastmoney fund jbgk"
 task :fetch_eastmoney_fund_jbgk => [:environment] do
   sb = SpiderBase.new
 
+  number = Project.joins(:fund_jbgks).last.id
+
   # Project.limit(10).each_with_index do |project, index|
-  Project.find_each.each_with_index do |project, index|
+  Project.where("number > ?", number).find_each.each_with_index do |project, index|
     code = project.code
 
     sb ||= SpiderBase.new
@@ -49,11 +51,7 @@ task :fetch_eastmoney_fund_jbgk => [:environment] do
         jbgk.others[th_text] = th_ele.next_element.text
       end
 
-      set_up_at = jbgk.build_at_and_scale.split(" ").first.gsub(/年|月/, '-').gsub(/日/, "")
 
-      if project.set_up_at.blank? && (set_up_at =~ /^\d/ && set_up_at =~ /\d$/)
-        project.update(set_up_at: set_up_at)
-      end
 
       # 基金全称
       # 基金简称
@@ -77,6 +75,16 @@ task :fetch_eastmoney_fund_jbgk => [:environment] do
       # t.text :dividend_policy
       # t.string :risk_yield
     end
+
+
+    if jbgk.build_at_and_scale.present?
+      set_up_at = jbgk.build_at_and_scale.split(" ").first.gsub(/年|月/, '-').gsub(/日/, "")
+
+      if project.set_up_at.blank? && (set_up_at =~ /^\d/ && set_up_at =~ /\d$/)
+        project.update(set_up_at: set_up_at)
+      end
+    end
+
 
     section_ele = doc.css("h4.t")
 

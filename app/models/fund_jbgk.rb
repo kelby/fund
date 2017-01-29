@@ -13,7 +13,7 @@
 #  portion_scale      :string(255)
 #  benchmark          :string(255)
 #  dividend_policy    :text(65535)
-#  risk_yield         :string(255)
+#  risk_yield         :text(65535)
 #  others             :text(65535)
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
