@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170129082751) do
+ActiveRecord::Schema.define(version: 20170129091213) do
 
   create_table "authentications", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string   "provider"
@@ -127,7 +127,7 @@ ActiveRecord::Schema.define(version: 20170129082751) do
     t.string   "build_at_and_scale"
     t.string   "assets_scale"
     t.string   "portion_scale"
-    t.string   "benchmark"
+    t.text     "benchmark",          limit: 65535
     t.text     "dividend_policy",    limit: 65535
     t.text     "risk_yield",         limit: 65535
     t.text     "others",             limit: 65535

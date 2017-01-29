@@ -11,7 +11,7 @@
 #  build_at_and_scale :string(255)
 #  assets_scale       :string(255)
 #  portion_scale      :string(255)
-#  benchmark          :string(255)
+#  benchmark          :text(65535)
 #  dividend_policy    :text(65535)
 #  risk_yield         :text(65535)
 #  others             :text(65535)

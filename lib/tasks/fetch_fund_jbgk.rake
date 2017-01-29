@@ -5,7 +5,7 @@ task :fetch_eastmoney_fund_jbgk => [:environment] do
   number = Project.joins(:fund_jbgks).last.id
 
   # Project.limit(10).each_with_index do |project, index|
-  Project.where("number > ?", number).find_each.each_with_index do |project, index|
+  Project.where("id > ?", number).find_each.each_with_index do |project, index|
     code = project.code
 
     sb ||= SpiderBase.new
