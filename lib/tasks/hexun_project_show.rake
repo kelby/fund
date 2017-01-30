@@ -18,7 +18,7 @@ task :fetch_hexun_project_show => [:environment] do
     browser.refresh
 
 
-    fund_dir = Rails.public_path.join("fund/hexun")
+    fund_dir = Rails.public_path.join("fund/hexun/show")
     FileUtils::mkdir_p(fund_dir)
 
     file_name_with_path = fund_dir.join("#{project.code}.html")
