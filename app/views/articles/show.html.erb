@@ -7,7 +7,7 @@
 
 <p>
   <strong>Description:</strong>
-  <%= format_content @article.description %>
+  <%= format_content @article.description, 'article-content' %>
 </p>
 
 <%= link_to 'Edit', edit_article_path(@article) %> |

@@ -131,7 +131,8 @@ gem 'headless'
 gem 'rest-client'
 
 # The auto_link function from Rails
-gem "rails_autolink"
+# 处理 article 内容，用不上了（影响了样式）
+# gem "rails_autolink"
 
 # integrates the Redactor editor with the Rails 3.2 asset pipeline.
 # 本网站只有一个编辑器。但代码却由两部分构成，一个负责前端，一个负责涉及到的后端（文件上传）
