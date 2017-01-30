@@ -23,6 +23,10 @@
     <h2 class="panel-title top-catalog">
       <%= link_to catalog_path(@catalog) do %>
         <%= @catalog.name %>
+
+        <small>
+          简称：<%= @catalog.short_name %>
+        </small>
       <% end %>
 
       <% if @catalog.sketch.present? %>

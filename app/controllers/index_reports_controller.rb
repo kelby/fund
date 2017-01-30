@@ -5,7 +5,7 @@ class IndexReportsController < ApplicationController
   # GET /index_reports
   # GET /index_reports.json
   def index
-    @index_reports = IndexReport.all
+    @index_reports = IndexReport.all.page(params[:page]).per(50)
 
     if params[:filter_type].present? && params[:filter_code].present?
       filter = {}
