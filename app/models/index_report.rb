@@ -7,7 +7,7 @@
 #  category       :string(255)
 #  category_intro :string(255)
 #  name           :string(255)
-#  intro          :text(65535)
+#  intro          :text(16777215)
 #  website        :string(255)
 #  code           :string(255)
 #  set_up_at      :date

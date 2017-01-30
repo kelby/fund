@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170130132718) do
+ActiveRecord::Schema.define(version: 20170130132720) do
 
   create_table "articles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string   "title"
@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 20170130132718) do
     t.text     "credentials",   limit: 65535
   end
 
-  create_table "catalog_developers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "catalog_developers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.integer  "catalog_id"
     t.integer  "developer_id"
     t.string   "eastmoney_url"
@@ -88,7 +88,7 @@ ActiveRecord::Schema.define(version: 20170130132718) do
     t.index ["deleted_at"], name: "index_comments_on_deleted_at", using: :btree
   end
 
-  create_table "developer_projects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "developer_projects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.integer  "developer_id"
     t.integer  "project_id"
     t.date     "beginning_work_date"
@@ -135,11 +135,11 @@ ActiveRecord::Schema.define(version: 20170130132718) do
     t.string   "assets_scale"
     t.string   "portion_scale"
     t.text     "benchmark",          limit: 65535
-    t.text     "dividend_policy",    limit: 65535
+    t.text     "dividend_policy",    limit: 16777215
     t.text     "risk_yield",         limit: 65535
-    t.text     "others",             limit: 65535
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.text     "others",             limit: 16777215
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.integer  "project_id"
     t.index ["project_id"], name: "index_fund_jbgks_on_project_id", using: :btree
   end
@@ -172,12 +172,20 @@ ActiveRecord::Schema.define(version: 20170130132718) do
     t.string   "category"
     t.string   "category_intro"
     t.string   "name"
-    t.text     "intro",          limit: 65535
+    t.text     "intro",          limit: 16777215
     t.string   "website"
     t.string   "code"
     t.date     "set_up_at"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+  end
+
+  create_table "kinsfolks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.integer  "mother_id"
+    t.integer  "son_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["mother_id", "son_id"], name: "index_kinsfolks_on_mother_id_and_son_id", using: :btree
   end
 
   create_table "net_worths", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
@@ -241,6 +249,7 @@ ActiveRecord::Schema.define(version: 20170130132718) do
     t.string   "mold"
     t.string   "slug"
     t.date     "set_up_at"
+    t.integer  "mother_son",                                             default: 0
   end
 
   create_table "redactor_assets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
@@ -282,20 +291,20 @@ ActiveRecord::Schema.define(version: 20170130132718) do
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
-    t.string   "email",                  default: "",    null: false
-    t.string   "encrypted_password",     default: "",    null: false
-    t.string   "reset_password_token"
+    t.string   "email",                  limit: 191,                 null: false
+    t.string   "encrypted_password",                                 null: false
+    t.string   "reset_password_token",   limit: 191
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,     null: false
+    t.integer  "sign_in_count",                      default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
     t.string   "name"
-    t.boolean  "is_admin",               default: false
+    t.boolean  "is_admin",                           default: false
     t.string   "avatar"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree

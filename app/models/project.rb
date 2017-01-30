@@ -26,6 +26,7 @@
 #  mold            :string(255)
 #  slug            :string(255)
 #  set_up_at       :date
+#  mother_son      :integer          default("mother_son_normal")
 #
 
 require 'elasticsearch/model'
@@ -63,6 +64,17 @@ class Project < ApplicationRecord
   has_many :net_worths
   has_many :developer_projects
   has_many :developers, through: :developer_projects
+
+
+  # 关系比较复杂时，先从简单的开始。所以，这是第二步
+  has_many :son_project_associations, class_name: 'Kinsfolk', foreign_key: :mother_id
+  # 关系比较复杂时，先从简单的开始。有了第二步，自然到这第三步
+  has_many :son_projects, class_name: 'Project', through: :son_project_associations, foreign_key: :mother_id
+
+  # 关系比较复杂时，先从简单的开始。所以，这是第二步
+  has_one :mother_project_association, class_name: 'Kinsfolk', foreign_key: :son_id
+  # 关系比较复杂时，先从简单的开始。有了第二步，自然到这第三步
+  has_one :mother_project, class_name: 'Project', through: :mother_project_association, foreign_key: :son_id
   # END
 
 
@@ -72,6 +84,9 @@ class Project < ApplicationRecord
   enum status: {pending: 0, offline: 4, online: 6, nightspot: 8,
     deprecated: 10, site_invalid: 12, not_want: 14}
 
+  enum mother_son: { mother_son_normal: 0, mother: 2, son: 4 }
+
+  scope :confirm_lineal, -> { where(mother_son: [Project.mother_sons['mother_son_normal'], Project.mother_sons['mother']]) }
   scope :nolimit, -> { unscope(:limit, :offset) }
   scope :show_status, -> { where(status: [Project.statuses['online'], Project.statuses['nightspot'], Project.statuses['deprecated']]) }
 
@@ -116,6 +131,10 @@ class Project < ApplicationRecord
   SWIFT_BASE = {'watchers' => 2406, 'stars' => 35406, 'forks' => 5135, 'downloads' => 81138762}
   LARAVEL_BASE = {'watchers' => 3522, 'stars' => 27582, 'forks' => 9131, 'downloads' => 3941137}
   # END
+
+  def confirm_lineal?
+    self.mother_son_normal? || self.mother?
+  end
 
   def short_github_indentity
     "#{self.author}/#{self.name}"
