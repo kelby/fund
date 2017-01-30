@@ -4,3 +4,5 @@
 //= require simditor/simditor
 //= require simditor/simditor-autosave
 //= require simditor/simditor-dropzone
+//= require simditor/simditor-mark
+//= require simditor/simditor-checklist
