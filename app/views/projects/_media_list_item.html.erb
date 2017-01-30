@@ -16,11 +16,15 @@
         <%#= link_to (url_for repo_url(project.repo_params)), (url_for repo_path(project.repo_params)) %>
       </small>
 
-      <% if project.mother? %>
-        <br>
-        有子基金
-      <% end %>
     </h4>
+
+    <% if project.mother? %>
+      有子基金
+      <br>
+      <% project.son_projects.each do |son_project| %>
+        <%= link_to son_project.name, son_project %>
+      <% end %>
+    <% end %>
 
     <%= simple_format project.description, {class: "text-muted description"} %>
 
