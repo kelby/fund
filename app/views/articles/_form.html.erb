@@ -11,17 +11,19 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :title %>
-    <%= f.text_field :title %>
+    <%= f.text_field :title, class: "form-control" %>
   </div>
 
   <div class="field">
     <%= f.label :description %>
-    <%= f.text_area :description %>
+    <%= f.text_area :description, id: "editor", autofocus: true %>
   </div>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "提交", class: "btn btn-primary" %>
   </div>
 <% end %>
+
+<%= javascript_include_tag 'simditor/use' %>
