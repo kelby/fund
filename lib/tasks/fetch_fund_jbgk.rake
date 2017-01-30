@@ -19,6 +19,19 @@ task :fetch_eastmoney_fund_jbgk => [:environment] do
 
     doc = fetch_content.doc;
 
+
+    jbgk_dir = Rails.public_path.join("fund/eastmoney/jbgk")
+    FileUtils::mkdir_p(jbgk_dir)
+
+    file_name_with_path = jbgk_dir.join("#{project.code}.html")
+
+    begin
+      File.open(file_name_with_path, 'w') { |file| file.write(doc.to_html) }
+    rescue Exception => e
+      puts "=============Error #{project.id} #{project.code}"
+    end
+
+
     table_ele = doc.css(".box table")
 
 
