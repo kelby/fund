@@ -3,7 +3,7 @@ require 'open-uri'
 
 namespace :local do
   desc "fetch fund jbgk, for kinsfolk."
-  task :fetch_fund_jbgk => [:dependent, :tasks] do
+  task :fetch_fund_jbgk => [:environment] do
 
     jbgk_dir = Rails.public_path.join("fund/eastmoney/jbgk")
 
