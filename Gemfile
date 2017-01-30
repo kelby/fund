@@ -129,3 +129,6 @@ gem 'headless'
 
 # POST data to server from my local server.
 gem 'rest-client'
+
+# The auto_link function from Rails
+gem "rails_autolink"
