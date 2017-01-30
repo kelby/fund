@@ -24,14 +24,15 @@ var editor = new Simditor({
       'alignment'],
   tabIndent: false,
   placeholder: "正文内容",
-  defaultImage: "/assets/default-simditor.png",
+  // defaultImage: "/assets/default-simditor.png",
 
   imageButton: 'upload',
+
   upload: {
     url: '/redactor_rails/pictures',
     fileKey: 'file',
     params: {
-      authenticity_token: "<%= form_authenticity_token %>"
+      authenticity_token: $("form input[name='authenticity_token']").val()
     },
     connectionCount: 3,
     leaveConfirm: '正在上传文件，如果离开上传会自动取消'

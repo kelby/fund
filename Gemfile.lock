@@ -1,4 +1,13 @@
 GIT
+  remote: git://github.com/shixiancom/redactor-rails.git
+  revision: a5774fc43ef1a9efc89a6e4548006b3a7c43538d
+  specs:
+    redactor-rails (0.5.0)
+      devise
+      mime-types
+      orm_adapter
+
+GIT
   remote: git://github.com/sinatra/sinatra.git
   revision: 63e81bc539b36778c6bd50a303750ab52ee2b2fb
   branch: master
@@ -399,6 +408,7 @@ DEPENDENCIES
   rails (~> 5.0.0, >= 5.0.0.1)
   rails_admin (~> 1.0)
   rails_autolink
+  redactor-rails!
   redcarpet
   redis (~> 3.2)
   redis-namespace
