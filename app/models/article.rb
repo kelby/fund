@@ -11,4 +11,6 @@
 
 class Article < ApplicationRecord
   validates_presence_of :title, :description
+
+  has_many :comments, as: :commentable
 end

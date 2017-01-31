@@ -22,14 +22,17 @@ class CommentsController < ApplicationController
 
   # POST /comments
   def create
-    @project = Project.find(params[:project_id])
+    if params[:project_id].present?
+      commentable = Project.find(params[:project_id])
+    elsif params[:article_id].present?
+      commentable = Article.find(params[:article_id])
+    end
 
-    @comment = @project.comments.build(comment_params.merge(user_id: current_user.id))
+    @comment = commentable.comments.build(comment_params.merge(user_id: current_user.id))
 
     respond_to do |format|
       if @comment.save
-        @commentable = @comment.commentable
-        format.html { redirect_to polymorphic_path(@commentable, anchor: "floor-#{@comment.floor}"), notice: 'Comment was successfully created.' }
+        format.html { redirect_to polymorphic_path(commentable, anchor: "floor-#{@comment.floor}"), notice: 'Comment was successfully created.' }
       else
         format.html { redirect_to :back, alert: "#{@comment.errors.full_messages.join(';')}" }
       end
@@ -69,6 +72,7 @@ class CommentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def comment_params
-      params.require(:comment).permit(:content, :commentable_id, :commentable_type, :user_id)
+      params.require(:comment).permit(:content, :commentable_id,
+        :commentable_type)
     end
 end

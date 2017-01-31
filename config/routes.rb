@@ -2,8 +2,12 @@ require 'sidekiq/web'
 
 Rails.application.routes.draw do
   mount RedactorRails::Engine => '/redactor_rails'
-  resources :articles
+  resources :articles do
+    resources :comments
+  end
+
   resources :index_reports
+
   get 'user_favor_comment/create'
 
   get 'user_favor_comment/destroy'
