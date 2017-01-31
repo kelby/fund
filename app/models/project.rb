@@ -27,6 +27,7 @@
 #  slug            :string(255)
 #  set_up_at       :date
 #  mother_son      :integer          default("mother_son_normal")
+#  release_status  :integer          default("release_end")
 #
 
 require 'elasticsearch/model'
@@ -51,6 +52,7 @@ class Project < ApplicationRecord
   has_one :pod_info
   has_one :package_info
 
+  has_one :fund_raise
   has_many :fund_jbgks
 
   has_many :comments, as: :commentable
@@ -85,6 +87,9 @@ class Project < ApplicationRecord
     deprecated: 10, site_invalid: 12, not_want: 14}
 
   enum mother_son: { mother_son_normal: 0, mother: 2, son: 4 }
+
+  # 已发行完毕，正常买卖、或暂停；正在发行；将要发行
+  enum release_status: { release_end: 0, release_now: 2, release_will: 4 }
 
   scope :confirm_lineal, -> { where(mother_son: [Project.mother_sons['mother_son_normal'], Project.mother_sons['mother']]) }
   scope :nolimit, -> { unscope(:limit, :offset) }
