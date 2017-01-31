@@ -9,7 +9,12 @@
 
   <ul class="attribution">
     <li>By</li>
-    <li><%= project.developers.pluck(:name).join(',') %></li>
+    <li>
+      <%#= project.developers.pluck(:name).join(',') %>
+      <% project.developers.each do |developer| %>
+        <%= link_to developer.name, developer %>
+      <% end %>
+    </li>
 
     <!-- <li class="twitter">
       <i class="fa fa-twitter"></i>

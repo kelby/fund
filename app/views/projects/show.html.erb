@@ -91,12 +91,18 @@
       </tr>
       <tr>
         <td>
-        <span class="letterSpace01">成 立 日</span>：2015-06-29</td>
-        <td>
-          <span class="letterSpace01">基金公司</span>：<a href="http://fund.eastmoney.com/company/80000220.html">南方基金</a>
+          <span class="letterSpace01">成 立 日</span>：
+          <%= @project.set_up_at.strftime("%F") %>
         </td>
         <td>
-          <a class="floatleft" href="http://fund.eastmoney.com/f10/jjpj_001421.html">基金评级</a><span class="floatleft">：</span>
+          <span class="letterSpace01">基金公司</span>：
+          <%= link_to @project.catalog do %>
+            <%= @project.catalog.short_name %>
+          <% end %>
+        </td>
+        <td>
+          <a class="floatleft" href="http://fund.eastmoney.com/f10/jjpj_001421.html">基金评级</a>
+          <span class="floatleft">：</span>
           <span class="jjpj">暂无评级</span>
         </td>
       </tr>
