@@ -7,6 +7,9 @@ namespace :local do
 
     jzzs_dir = Rails.public_path.join("fund/hexun/jzzs")
 
+    # 有条件的从本地更新部分数据
+    # Project.where.not(set_up_at: [nil, ""]).includes(:net_worths).where(net_worths: {project_id: nil}).distinct.find_each.with_index do |project, index|
+      # file_name = project.code + ".html"
     Dir.entries(jzzs_dir).each_with_index do |file_name, index|
       file_path = jzzs_dir.join(file_name)
 
