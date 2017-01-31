@@ -90,10 +90,16 @@
         </td>
       </tr>
       <tr>
-        <td>
-          <span class="letterSpace01">成 立 日</span>：
-          <%= @project.set_up_at.strftime("%F") %>
-        </td>
+          <td>
+            <span class="letterSpace01">成 立 日</span>：
+
+            <% if @project.set_up_at.present? %>
+              <%= @project.set_up_at.strftime("%F") %>
+            <% else %>
+              --
+            <% end %>
+          </td>
+
         <td>
           <span class="letterSpace01">基金公司</span>：
           <%= link_to @project.catalog do %>
