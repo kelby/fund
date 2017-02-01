@@ -19,10 +19,14 @@
 #  volume_of_business     :decimal(10, )
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  stock_id               :integer
 #
 
 class Quote < ApplicationRecord
   validates_presence_of :code, :name
 
   validates_uniqueness_of :code
+
+
+  belongs_to :stock
 end

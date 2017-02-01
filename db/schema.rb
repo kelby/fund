@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170131174520) do
+ActiveRecord::Schema.define(version: 20170201132509) do
 
   create_table "articles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string   "title"
@@ -278,6 +278,8 @@ ActiveRecord::Schema.define(version: 20170131174520) do
     t.decimal  "volume_of_business",     precision: 10
     t.datetime "created_at",                            null: false
     t.datetime "updated_at",                            null: false
+    t.integer  "stock_id"
+    t.index ["stock_id", "record_at"], name: "index_quotes_on_stock_id_and_record_at", using: :btree
   end
 
   create_table "redactor_assets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
@@ -294,6 +296,15 @@ ActiveRecord::Schema.define(version: 20170131174520) do
     t.datetime "updated_at"
     t.index ["assetable_type", "assetable_id"], name: "idx_redactor_assetable", using: :btree
     t.index ["assetable_type", "type", "assetable_id"], name: "idx_redactor_assetable_type", using: :btree
+  end
+
+  create_table "stocks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.string   "name"
+    t.string   "code"
+    t.string   "catalog"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["code"], name: "index_stocks_on_code", using: :btree
   end
 
   create_table "user_favor_comments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
