@@ -37,6 +37,95 @@ namespace :eastmoney do
     headless.destroy
   end
 
+  # 未完成!
+  desc "Task description"
+  task :task_name => [:dependent, :tasks] do
+
+
+    headless = Headless.new
+    headless.start
+    browser = Watir::Browser.new
+
+
+    names = [Pinyin.t("上海指数", splitter: "_"),
+            Pinyin.t("深圳指数", splitter: "_"),
+            Pinyin.t("指数成分", splitter: "_")]
+
+    urls = ["http://quote.eastmoney.com/center/list.html#15_0_1",
+    "http://quote.eastmoney.com/center/list.html#25_0_1",
+    "http://quote.eastmoney.com/center/list.html#35_0_1"]
+    pages = [15, 18, 23]
+
+
+
+    url = "http://quote.eastmoney.com/center/list.html#15_0_1"
+    browser.goto url
+
+
+
+    # browser.refresh
+
+    browser.table(class: "table-data").text
+
+
+    pagenav = browser.div(id: "pagenav")
+    # pagenav.text
+
+    # pagenav.as.each do |a_ele|
+    #   puts a_ele.text
+    # end
+
+
+    pagenav.as[4].text
+    # pagenav.as[4].click
+    # pagenav.as[4].attribute_value
+    pagenav.as[4].attribute_value("data-page")
+    pagenav.as[4].set("data-page", 5)
+    pagenav.as[4].field_set("data-page", 5)
+
+
+    pagenav.as[4].element
+    pagenav.as[4].text
+
+
+    xx = pagenav.as[4]
+    # browser.refresh
+
+    # browser.table(class: "table-data").text
+
+
+
+
+    urls.each_with_index do |url, index|
+      browser.goto url
+      # browser.refresh
+
+      fund_dir = Rails.public_path.join("quote/eastmoney/zyzs/#{names[index]}")
+      FileUtils::mkdir_p(fund_dir)
+
+
+      times = pages[index]
+
+
+      times.times do |page_number|
+        file_name_with_path = fund_dir.join("#{index + 1}.html")
+
+        begin
+          File.open(file_name_with_path, 'w') { |file| file.write(browser.html) }
+        rescue Exception => e
+          puts "============= Exception #{e}"
+        end
+
+        pagenav = browser.div(id: "pagenav")
+        pagenav.as[0]
+      end
+    end
+
+
+    browser.close
+    headless.destroy
+  end
+
   # 沪深指数
   desc "Task description"
   task :local_hu_shen_zhi_shu => [:environment] do
