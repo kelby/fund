@@ -1,6 +1,7 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  resources :quotes
   mount RedactorRails::Engine => '/redactor_rails'
   resources :articles do
     resources :comments

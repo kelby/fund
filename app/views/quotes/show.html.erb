@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Code:</strong>
+  <%= @quote.code %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @quote.name %>
+</p>
+
+<p>
+  <strong>Record at:</strong>
+  <%= @quote.record_at %>
+</p>
+
+<p>
+  <strong>Catalog:</strong>
+  <%= @quote.catalog %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @quote.price %>
+</p>
+
+<p>
+  <strong>Up down number:</strong>
+  <%= @quote.up_down_number %>
+</p>
+
+<p>
+  <strong>Up down rate:</strong>
+  <%= @quote.up_down_rate %>
+</p>
+
+<p>
+  <strong>Last updated at:</strong>
+  <%= @quote.last_updated_at %>
+</p>
+
+<%= link_to 'Edit', edit_quote_path(@quote) %> |
+<%= link_to 'Back', quotes_path %>

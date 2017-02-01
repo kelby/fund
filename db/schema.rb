@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170131091137) do
+ActiveRecord::Schema.define(version: 20170131174520) do
 
   create_table "articles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string   "title"
@@ -259,6 +259,25 @@ ActiveRecord::Schema.define(version: 20170131091137) do
     t.date     "set_up_at"
     t.integer  "mother_son",                                             default: 0
     t.integer  "release_status",                                         default: 0
+  end
+
+  create_table "quotes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.string   "code"
+    t.string   "name"
+    t.date     "record_at"
+    t.string   "catalog"
+    t.decimal  "price",                  precision: 10
+    t.decimal  "up_down_number",         precision: 10
+    t.decimal  "max_up_number",          precision: 10
+    t.decimal  "min_down_number",        precision: 10
+    t.decimal  "open_number",            precision: 10
+    t.decimal  "yesterday_close_number", precision: 10
+    t.decimal  "up_down_rate",           precision: 10
+    t.datetime "last_updated_at"
+    t.decimal  "turnover",               precision: 10
+    t.decimal  "volume_of_business",     precision: 10
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
   end
 
   create_table "redactor_assets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|

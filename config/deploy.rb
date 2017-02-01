@@ -29,7 +29,7 @@ append :linked_files, 'config/database.yml', 'config/secrets.yml', 'config/setti
 
 # Default value for linked_dirs is []
 append :linked_dirs, 'log', 'tmp/pids', 'tmp/sockets', '.well-known', 'public/uploads',
-'public/company', 'public/manager', 'public/fund', 'tmp/cache' #, 'public/system'
+'public/company', 'public/manager', 'public/fund', 'tmp/cache', 'public/quote' #, 'public/system'
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
