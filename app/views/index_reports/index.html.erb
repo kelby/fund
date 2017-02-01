@@ -2,9 +2,17 @@
   Index Reports
 
   <small>
-    <%= @index_reports.count %>
+    <%= @index_reports.unscope(:limit, :offset).count %>
   </small>
 </h1>
+
+<ul class="nav nav-pills">
+  <% IndexReport.pluck(:catalog).uniq.each do |catalog| %>
+    <li>
+      <%= link_to catalog, index_reports_path(filter_type: 'catalog', filter_code: catalog) %>
+    </li>
+  <% end %>
+</ul>
 
 <table>
   <thead>
@@ -24,7 +32,9 @@
   <tbody>
     <% @index_reports.each do |index_report| %>
       <tr>
-        <td><%= link_to index_report.catalog, index_reports_path(filter_type: 'catalog', filter_code: index_report.catalog) %></td>
+        <td>
+          <%= link_to index_report.catalog, index_reports_path(filter_type: 'catalog', filter_code: index_report.catalog) %>
+        </td>
         <td><%= link_to index_report.category, index_reports_path(filter_type: 'category', filter_code: index_report.category) %></td>
         <td><%#= index_report.category_intro.try(:first, 10) || "" %></td>
         <td><%= link_to index_report.name, index_report %></td>

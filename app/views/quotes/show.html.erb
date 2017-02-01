@@ -1,4 +1,12 @@
-<p id="notice"><%= notice %></p>
+<% index_report = IndexReport.where(code: @quote.code).first %>
+
+<% if index_report.present? %>
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <%= simple_format index_report.intro %>
+    </div>
+  </div>
+<% end %>
 
 <p>
   <strong>Code:</strong>
