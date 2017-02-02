@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170202100106) do
+ActiveRecord::Schema.define(version: 20170202113252) do
 
   create_table "articles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string   "title"
@@ -153,6 +153,40 @@ ActiveRecord::Schema.define(version: 20170202100106) do
     t.date     "endding_at"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+  end
+
+  create_table "fund_rankings", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.integer  "project_id"
+    t.string   "code"
+    t.string   "name"
+    t.decimal  "dwjz",                                  precision: 10
+    t.integer  "three_year_rating"
+    t.integer  "five_year_rating"
+    t.decimal  "last_week_total_return",                precision: 10
+    t.integer  "last_week_ranking"
+    t.decimal  "last_month_total_return",               precision: 10
+    t.integer  "last_month_ranking"
+    t.decimal  "last_three_month_total_return",         precision: 10
+    t.integer  "last_three_month_ranking"
+    t.decimal  "last_six_month_total_return",           precision: 10
+    t.integer  "last_six_month_ranking"
+    t.decimal  "last_year_total_return",                precision: 10
+    t.integer  "last_year_ranking"
+    t.decimal  "last_two_year_total_return",            precision: 10
+    t.integer  "last_two_year_ranking"
+    t.decimal  "this_year_total_return",                precision: 10
+    t.integer  "this_year_ranking"
+    t.decimal  "since_the_inception_total_return",      precision: 10
+    t.decimal  "last_three_year_volatility",            precision: 10
+    t.string   "last_three_year_volatility_evaluate"
+    t.decimal  "last_three_year_risk_factor",           precision: 10
+    t.string   "last_three_year_risk_factor_evaluate"
+    t.decimal  "last_three_year_sharpe_ratio",          precision: 10
+    t.string   "last_three_year_sharpe_ratio_evaluate"
+    t.date     "record_at"
+    t.datetime "created_at",                                           null: false
+    t.datetime "updated_at",                                           null: false
+    t.index ["project_id", "record_at"], name: "index_fund_rankings_on_project_id_and_record_at", using: :btree
   end
 
   create_table "gem_infos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|

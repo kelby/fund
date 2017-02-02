@@ -1,0 +1,79 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Fund Rankings</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Project</th>
+      <th>Code</th>
+      <th>Name</th>
+      <th>Dwjz</th>
+      <th>Three year rating</th>
+      <th>Five year rating</th>
+      <th>Last week total return</th>
+      <th>Last week ranking</th>
+      <th>Last month total return</th>
+      <th>Last month ranking</th>
+      <th>Last three month total return</th>
+      <th>Last three month ranking</th>
+      <th>Last six month total return</th>
+      <th>Last six month ranking</th>
+      <th>Last year total return</th>
+      <th>Last year ranking</th>
+      <th>Last two year total return</th>
+      <th>Last two year ranking</th>
+      <th>This year total return</th>
+      <th>This year ranking</th>
+      <th>Since the inception total return</th>
+      <th>Volatility</th>
+      <th>Volatility evaluate</th>
+      <th>Risk factor</th>
+      <th>Risk factor evaluate</th>
+      <th>Last three year sharpe ratio</th>
+      <th>Last three year sharpe ratio evaluate</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @fund_rankings.each do |fund_ranking| %>
+      <tr>
+        <td><%= fund_ranking.project_id %></td>
+        <td><%= fund_ranking.code %></td>
+        <td><%= fund_ranking.name %></td>
+        <td><%= fund_ranking.dwjz %></td>
+        <td><%= fund_ranking.three_year_rating %></td>
+        <td><%= fund_ranking.five_year_rating %></td>
+        <td><%= fund_ranking.last_week_total_return %></td>
+        <td><%= fund_ranking.last_week_ranking %></td>
+        <td><%= fund_ranking.last_month_total_return %></td>
+        <td><%= fund_ranking.last_month_ranking %></td>
+        <td><%= fund_ranking.last_three_month_total_return %></td>
+        <td><%= fund_ranking.last_three_month_ranking %></td>
+        <td><%= fund_ranking.last_six_month_total_return %></td>
+        <td><%= fund_ranking.last_six_month_ranking %></td>
+        <td><%= fund_ranking.last_year_total_return %></td>
+        <td><%= fund_ranking.last_year_ranking %></td>
+        <td><%= fund_ranking.last_two_year_total_return %></td>
+        <td><%= fund_ranking.last_two_year_ranking %></td>
+        <td><%= fund_ranking.this_year_total_return %></td>
+        <td><%= fund_ranking.this_year_ranking %></td>
+        <td><%= fund_ranking.since_the_inception_total_return %></td>
+        <td><%= fund_ranking.volatility %></td>
+        <td><%= fund_ranking.volatility_evaluate %></td>
+        <td><%= fund_ranking.risk_factor %></td>
+        <td><%= fund_ranking.risk_factor_evaluate %></td>
+        <td><%= fund_ranking.last_three_year_sharpe_ratio %></td>
+        <td><%= fund_ranking.last_three_year_sharpe_ratio_evaluate %></td>
+        <td><%= link_to 'Show', fund_ranking %></td>
+        <td><%= link_to 'Edit', edit_fund_ranking_path(fund_ranking) %></td>
+        <td><%= link_to 'Destroy', fund_ranking, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Fund Ranking', new_fund_ranking_path %>
