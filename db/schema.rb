@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170202070552) do
+ActiveRecord::Schema.define(version: 20170202100106) do
 
   create_table "articles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string   "title"
@@ -234,6 +234,20 @@ ActiveRecord::Schema.define(version: 20170202070552) do
     t.datetime "created_at",                                   null: false
     t.datetime "updated_at",                                   null: false
     t.text     "others",          limit: 65535
+  end
+
+  create_table "project_items", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.string   "code"
+    t.integer  "project_id"
+    t.boolean  "boolean_value"
+    t.string   "string_value"
+    t.integer  "integer_value"
+    t.text     "text_value",     limit: 65535
+    t.datetime "datetime_value"
+    t.date     "date_value"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.index ["project_id", "code"], name: "index_project_items_on_project_id_and_code", using: :btree
   end
 
   create_table "projects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|

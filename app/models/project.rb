@@ -77,6 +77,8 @@ class Project < ApplicationRecord
   has_one :mother_project_association, class_name: 'Kinsfolk', foreign_key: :son_id
   # 关系比较复杂时，先从简单的开始。有了第二步，自然到这第三步
   has_one :mother_project, class_name: 'Project', through: :mother_project_association, foreign_key: :son_id
+
+  has_many :project_items
   # END
 
 
