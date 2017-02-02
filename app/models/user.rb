@@ -18,6 +18,7 @@
 #  name                   :string(255)
 #  is_admin               :boolean          default(FALSE)
 #  avatar                 :string(255)
+#  username               :string(255)
 #
 
 class User < ApplicationRecord
@@ -41,6 +42,8 @@ class User < ApplicationRecord
 
   has_many :star_projects, through: :user_star_projects, source: :project
   has_many :recommend_projects, through: :user_recommend_projects, source: :project
+
+  has_many :articles
   # END
 
 

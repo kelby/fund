@@ -1,29 +1,32 @@
-<p id="notice"><%= notice %></p>
+<%= stylesheet_link_tag 'rich_media' %>
 
-<h1>Articles</h1>
+<div class="rich_media_inner">
+  <h1>最新文章</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Description</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
+  <ul class="media-list">
     <% @articles.each do |article| %>
-      <tr>
-        <td><%= article.title %></td>
-        <td><%= article.description %></td>
-        <td><%= link_to 'Show', article %></td>
-        <td><%= link_to 'Edit', edit_article_path(article) %></td>
-        <td><%= link_to 'Destroy', article, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+      <li class="media">
+        <div class="media-body">
+          <h4 class="media-heading">
+            <%= link_to article do %>
+              <%= article.title %>
+            <% end %>
+          </h4>
+
+          <%= truncate(sanitize(article.description, tags: %w(em), attributes: %w(href)), length: 150, omission: '...') %>
+          <%= link_to "查看全文", article %>
+        </div>
+
+        <div class="media-footer">
+          <section class="pull-left">
+            <%= link_to article.user.username, article.user %> · <%= time_ago_in_words(article.created_at) %>
+          </section>
+
+          <section class="pull-right">
+            90 赞 · 17 条评论 · <%= article.view_times %> 次浏览
+          </section>
+        </div>
+      </li>
     <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Article', new_article_path %>
+  </ul>
+</div>
