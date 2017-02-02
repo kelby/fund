@@ -1,1 +1,0 @@
-json.partial! "index_reports/index_report", index_report: @index_report
