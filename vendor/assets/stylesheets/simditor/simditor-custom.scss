@@ -1,0 +1,14 @@
+.simditor {
+
+  .simditor-toolbar {
+    & > ul {
+      padding: 0;
+
+      & > li {
+        & > .toolbar-item {
+          width: 45px;
+        }
+      }
+    }
+  }
+}

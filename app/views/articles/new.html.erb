@@ -1,9 +1,11 @@
 <%= stylesheet_link_tag 'simditor/simditor' %>
+<%= stylesheet_link_tag 'rich_media' %>
+
 <%= javascript_include_tag 'simditor/all' %>
 
 
-<h1>New Article</h1>
+<div class="rich_media_inner">
+  <h1>New Article</h1>
 
-<%= render 'form', article: @article %>
-
-<%= link_to 'Back', articles_path %>
+  <%= render 'form', article: @article %>
+</div>
