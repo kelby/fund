@@ -27,7 +27,7 @@ class ProjectsController < ApplicationController
   def show
     get_relate_data
 
-    @net_worths = @project.net_worths
+    @net_worths = @project.net_worths.page(params[:page]).per(50)
   end
 
   def repo

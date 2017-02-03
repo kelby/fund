@@ -9,7 +9,7 @@
   <div class="panel panel-default popular-projects">
     <ol class="breadcrumb catalog-category-etc">
       <li class="normal">
-        <%= link_to catalogs_path do %>
+        <%= link_to projects_path do %>
           全部基金
         <% end %>
       </li>
@@ -44,12 +44,15 @@
       </tr>
     </thead>
     <tbody>
-      <% @project.net_worths.order(record_at: :desc).limit(5).each do |net_worth| %>
+      <% @project.net_worths.order(record_at: :desc).limit(6).each do |net_worth| %>
         <tr>
           <th scope="row"><%= net_worth.record_at.strftime("%F") %></th>
           <td><%= net_worth.dwjz %></td>
           <td><%= net_worth.ljjz %></td>
-          <td><%= net_worth.accnav %>%</td>
+
+          <td class="<%= net_worth.accnav_color %>">
+            <%= net_worth.accnav %>%
+          </td>
         </tr>
       <% end %>
     </tbody>
@@ -76,6 +79,27 @@
      <dt class="col-md-1">成立来：</dt>
      <dd class="col-md-1">27.60%</dd>
   </dl>
+
+  <div class="panel-footer">
+    <% first_net_worth = @project.net_worths.order(record_at: :desc).limit(6).first %>
+    <% last_net_worth = @project.net_worths.order(record_at: :desc).limit(6).last %>
+
+    近一周增长率：
+
+    (
+    <%= first_net_worth.dwjz %>
+    -
+    <%= last_net_worth.dwjz %>
+    )
+    /
+    <%= last_net_worth.dwjz %>
+
+    =
+
+    <%= ((first_net_worth.dwjz * 1000 - last_net_worth.dwjz * 1000) / (last_net_worth.dwjz * 1000).to_f * 100).round(2) %>
+
+    %
+  </div>
 </div>
 
 <div class="panel panel-default">
