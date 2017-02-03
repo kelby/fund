@@ -50,12 +50,19 @@ namespace :howbuy do
       project = Project.find_by(code: code)
 
       if project.blank?
-        blank_funds << "#{code}-#{fund_name}"
+        blank_funds << "#{code}--#{fund_name}"
       end
     end
 
     if blank_funds.present?
-      puts "如下 #{blank_funds.size} 支基金，我们还没有：#{blank_funds.join(', ')}"
+      puts "如下 #{blank_funds.size} 支基金，我们还没有：\n#{blank_funds.join(', ')}"
+    end
+
+    blank_funds.each do |blank_fund|
+      blank_fund_code = blank_fund.split("--").first
+      blank_fund_name = blank_fund.split("--").last
+
+      Project.create(code: blank_fund_code, name: blank_fund_name)
     end
   end
 
