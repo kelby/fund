@@ -40,6 +40,8 @@ class QuotesController < ApplicationController
   # PATCH/PUT /quotes/1
   # PATCH/PUT /quotes/1.json
   def update
+    authorize! :update, @quote
+
     respond_to do |format|
       if @quote.update(quote_params)
         format.html { redirect_to @quote, notice: 'Quote was successfully updated.' }
@@ -54,6 +56,8 @@ class QuotesController < ApplicationController
   # DELETE /quotes/1
   # DELETE /quotes/1.json
   def destroy
+    authorize! :destroy, @quote
+
     @quote.destroy
     respond_to do |format|
       format.html { redirect_to quotes_url, notice: 'Quote was successfully destroyed.' }

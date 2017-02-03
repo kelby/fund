@@ -40,6 +40,8 @@ class FundRankingsController < ApplicationController
   # PATCH/PUT /fund_rankings/1
   # PATCH/PUT /fund_rankings/1.json
   def update
+    authorize! :update, @fund_ranking
+
     respond_to do |format|
       if @fund_ranking.update(fund_ranking_params)
         format.html { redirect_to @fund_ranking, notice: 'Fund ranking was successfully updated.' }
@@ -54,6 +56,8 @@ class FundRankingsController < ApplicationController
   # DELETE /fund_rankings/1
   # DELETE /fund_rankings/1.json
   def destroy
+    authorize! :destroy, @fund_ranking
+
     @fund_ranking.destroy
     respond_to do |format|
       format.html { redirect_to fund_rankings_url, notice: 'Fund ranking was successfully destroyed.' }

@@ -55,6 +55,8 @@ class EpisodesController < ApplicationController
   # PATCH/PUT /episodes/1
   # PATCH/PUT /episodes/1.json
   def update
+    authorize! :update, @episode
+
     respond_to do |format|
       if @episode.update(episode_params)
         format.html { redirect_to @episode, notice: 'Episode was successfully updated.' }
@@ -69,6 +71,8 @@ class EpisodesController < ApplicationController
   # DELETE /episodes/1
   # DELETE /episodes/1.json
   def destroy
+    authorize! :destroy, @episode
+
     @episode.destroy
     respond_to do |format|
       format.html { redirect_to episodes_url, notice: 'Episode was successfully destroyed.' }

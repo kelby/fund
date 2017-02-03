@@ -49,6 +49,8 @@ class IndexReportsController < ApplicationController
   # PATCH/PUT /index_reports/1
   # PATCH/PUT /index_reports/1.json
   def update
+    authorize! :update, @index_report
+
     respond_to do |format|
       if @index_report.update(index_report_params)
         format.html { redirect_to @index_report, notice: 'Index report was successfully updated.' }
@@ -63,6 +65,8 @@ class IndexReportsController < ApplicationController
   # DELETE /index_reports/1
   # DELETE /index_reports/1.json
   def destroy
+    authorize! :destroy, @index_report
+
     @index_report.destroy
     respond_to do |format|
       format.html { redirect_to index_reports_url, notice: 'Index report was successfully destroyed.' }

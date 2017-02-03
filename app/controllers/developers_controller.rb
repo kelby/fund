@@ -36,6 +36,8 @@ class DevelopersController < ApplicationController
 
   # PATCH/PUT /developers/1
   def update
+    authorize! :update, @developer
+
     respond_to do |format|
       if @developer.update(developer_params)
         format.html { redirect_to @developer, notice: 'Developer was successfully updated.' }
@@ -47,6 +49,8 @@ class DevelopersController < ApplicationController
 
   # DELETE /developers/1
   def destroy
+    authorize! :destroy, @developer
+
     @developer.destroy
     respond_to do |format|
       format.html { redirect_to developers_url, notice: 'Developer was successfully destroyed.' }
