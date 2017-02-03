@@ -80,26 +80,28 @@
      <dd class="col-md-1">27.60%</dd>
   </dl>
 
-  <div class="panel-footer">
-    <% first_net_worth = @project.net_worths.order(record_at: :desc).limit(6).first %>
-    <% last_net_worth = @project.net_worths.order(record_at: :desc).limit(6).last %>
+  <% first_net_worth = @project.net_worths.order(record_at: :desc).limit(6).first %>
+  <% last_net_worth = @project.net_worths.order(record_at: :desc).limit(6).last %>
 
-    近一周增长率：
+  <% if first_net_worth.present? && last_net_worth.present? %>
+    <div class="panel-footer">
+      近一周增长率：
 
-    (
-    <%= first_net_worth.dwjz %>
-    -
-    <%= last_net_worth.dwjz %>
-    )
-    /
-    <%= last_net_worth.dwjz %>
+      (
+      <%= first_net_worth.dwjz %>
+      -
+      <%= last_net_worth.dwjz %>
+      )
+      /
+      <%= last_net_worth.dwjz %>
 
-    =
+      =
 
-    <%= ((first_net_worth.dwjz * 1000 - last_net_worth.dwjz * 1000) / (last_net_worth.dwjz * 1000).to_f * 100).round(2) %>
+      <%= ((first_net_worth.dwjz * 1000 - last_net_worth.dwjz * 1000) / (last_net_worth.dwjz * 1000).to_f * 100).round(2) %>
 
-    %
-  </div>
+      %
+    </div>
+  <% end %>
 </div>
 
 <div class="panel panel-default">
