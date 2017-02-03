@@ -3,7 +3,13 @@
 <%= stylesheet_link_tag 'rich_media' %>
 
 <div class="rich_media_inner">
-  <h1>最新文章</h1>
+  <h1>
+    最新文章
+
+    <small class="pull-right">
+      <%= link_to "发布文章", new_article_path, class: "btn btn-default" %>
+    </small>
+  </h1>
 
   <ul class="media-list">
     <% @articles.each do |article| %>
@@ -25,7 +31,7 @@
           </section>
 
           <section class="pull-right">
-            90 赞 · 17 条评论 · <%= article.view_times %> 次浏览
+            90 赞 · <%= article.comments_count %> 条评论 · <%= article.view_times %> 次浏览
           </section>
         </div>
       </li>

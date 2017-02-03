@@ -2,13 +2,15 @@
 #
 # Table name: articles
 #
-#  id          :integer          not null, primary key
-#  title       :string(255)
-#  description :text(65535)
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  user_id     :integer
-#  view_times  :integer          default(0)
+#  id             :integer          not null, primary key
+#  title          :string(255)
+#  description    :text(65535)
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  user_id        :integer
+#  view_times     :integer          default(0)
+#  comments_count :integer          default(0)
+#  slug           :string(255)
 #
 
 class Article < ApplicationRecord

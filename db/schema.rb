@@ -10,15 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170202113252) do
+ActiveRecord::Schema.define(version: 20170203053351) do
 
   create_table "articles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string   "title"
-    t.text     "description", limit: 65535
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.text     "description",    limit: 65535
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
     t.integer  "user_id"
-    t.integer  "view_times",                default: 0
+    t.integer  "view_times",                   default: 0
+    t.integer  "comments_count",               default: 0
+    t.string   "slug"
     t.index ["user_id"], name: "index_articles_on_user_id", using: :btree
   end
 
@@ -310,6 +312,7 @@ ActiveRecord::Schema.define(version: 20170202113252) do
     t.date     "set_up_at"
     t.integer  "mother_son",                                             default: 0
     t.integer  "release_status",                                         default: 0
+    t.integer  "comments_count",                                         default: 0
   end
 
   create_table "quotes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|

@@ -34,7 +34,7 @@ class User < ApplicationRecord
 
   # Associations
   has_many :authentications
-  has_many :comments, as: :commentable
+  has_many :comments
 
   has_many :user_star_projects
   has_many :user_recommend_projects

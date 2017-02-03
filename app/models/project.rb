@@ -28,6 +28,7 @@
 #  set_up_at       :date
 #  mother_son      :integer          default("mother_son_normal")
 #  release_status  :integer          default("release_end")
+#  comments_count  :integer          default(0)
 #
 
 require 'elasticsearch/model'
