@@ -57,7 +57,7 @@ namespace :eastmoney do
     headless.destroy
   end
 
-  desc "save_manager_list_to_dir"
+  desc "save_manager_list_to_dir. list"
   task :save_manager_list_to_dir => [:environment] do
     headless = Headless.new
     headless.start
