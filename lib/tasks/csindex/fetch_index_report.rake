@@ -77,16 +77,26 @@ namespace :csindex do
 
             aa, bb, cc, dd = td_eles
 
+
+
             website_value = aa.css("a").attr('href').value
 
             website = "#{base_url}#{website_value}"
+
+
+            uri = URI(website)
+            query = uri.query
+            ary = URI.decode_www_form(query)
+            _code = ary.assoc('code').last
+
 
             IndexReport.create(catalog: catalog,
               category: category,
               category_intro: category_intro,
               name: aa.text.strip,
               set_up_at: bb.text.strip,
-              website: website)
+              website: website,
+              code: _code)
           end
 
 
