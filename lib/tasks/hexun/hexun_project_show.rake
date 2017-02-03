@@ -7,8 +7,16 @@ task :fetch_hexun_project_show => [:environment] do
   number = 0
   number = Project.where.not(set_up_at: [nil, '']).last.id
 
-  Project.where(set_up_at: [nil, '']).where("id > ?", number).find_each.with_index do |project, index|
   # Project.limit(20).each_with_index do |project, index|
+  Project.where(set_up_at: [nil, '']).where("id > ?", number).find_each.with_index do |project, index|
+    if project.nightspot?
+      next
+    end
+
+    if project.offline?
+      next
+    end
+
     code = project.code
 
     url = "http://jingzhi.funds.hexun.com/#{code}.shtml"
