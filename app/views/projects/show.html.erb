@@ -62,13 +62,13 @@
 <div class="panel panel-default">
   <dl>
      <dt class="col-md-1">近1月：</dt>
-     <dd class="col-md-1">-1.77%</dd>
+     <dd class="col-md-1"><%= @project.last_month_ranking %>%</dd>
 
      <dt class="col-md-1">近3月：</dt>
-     <dd class="col-md-1">-3.41%</dd>
+     <dd class="col-md-1"><%= @project.last_three_month_ranking %>%</dd>
 
      <dt class="col-md-1">近6月：</dt>
-     <dd class="col-md-1">3.91%</dd>
+     <dd class="col-md-1"><%= @project.last_six_month_ranking %>%</dd>
 
      <dt class="col-md-1">近1年：</dt>
      <dd class="col-md-1">36.91%</dd>
@@ -100,6 +100,35 @@
       <%= ((first_net_worth.dwjz * 1000 - last_net_worth.dwjz * 1000) / (last_net_worth.dwjz * 1000).to_f * 100).round(2) %>
 
       %
+
+
+      <br>
+      最后一个交易日 <%= @project.last_trade_day %> |
+      <%= @project.last_week_trade_day %> |
+      <%= @project.last_week_trade_day_net_worth.record_at %> |
+      <%= @project.last_week_trade_day_net_worth.dwjz %> |
+      <%= @project.last_week_trade_day_net_worth.ljjz %>
+      =>
+      <%= @project.last_week_ranking %>
+
+      <br>
+      最后一个交易日 <%= @project.last_trade_day %> |
+      <%= @project.last_month_trade_day %> |
+      <%= @project.last_month_trade_day_net_worth.record_at %> |
+      <%= @project.last_month_trade_day_net_worth.dwjz %> |
+      <%= @project.last_month_trade_day_net_worth.ljjz %>
+      =>
+      <%= @project.last_month_ranking %>
+
+      <br>
+      最后一个交易日 <%= @project.last_trade_day %> |
+      <%= @project.last_three_month_trade_day %> |
+      <%= @project.last_three_month_trade_day_net_worth.record_at %> |
+      <%= @project.last_three_month_trade_day_net_worth.dwjz %> |
+      <%= @project.last_three_month_trade_day_net_worth.ljjz %>
+      =>
+      <%= @project.last_three_month_ranking %>
+
     </div>
   <% end %>
 </div>

@@ -141,36 +141,68 @@ class Project < ApplicationRecord
   # END
 
   def last_trade_net_worth
-    self.net_worths.order(record_at: :desc).last
+    self.net_worths.order(record_at: :desc).first
   end
 
   def last_trade_day
     self.last_trade_net_worth.record_at
   end
 
+  # begin last week
   def last_week_trade_day
-    self.last_trade_day.weeks_ago(1).next_day
+    self.last_trade_day.weeks_ago(1)
   end
 
   def last_week_trade_day_net_worth
-    self.net_worths.where("record_at >= ?", last_week_trade_day).order(record_at: :asc).first
-  end
-
-  def last_month_trade_day
-    self.last_trade_day.months_ago(1).next_day
-  end
-
-  def last_month_trade_day_net_worth
-    self.net_worths.where("record_at >= ?", last_month_trade_day).order(record_at: :asc).first
+    self.net_worths.where("record_at <= ?", last_week_trade_day).order(record_at: :desc).first
   end
 
   def last_week_ranking
     ((last_trade_net_worth.dwjz - last_week_trade_day_net_worth.dwjz) / last_week_trade_day_net_worth.dwjz * 100).round(2)
   end
+  # end last week
+
+  # begin last month
+  def last_month_trade_day
+    self.last_trade_day.months_ago(1)
+  end
+
+  def last_month_trade_day_net_worth
+    self.net_worths.where("record_at <= ?", last_month_trade_day).order(record_at: :desc).first
+  end
 
   def last_month_ranking
     ((last_trade_net_worth.dwjz - last_month_trade_day_net_worth.dwjz) / last_month_trade_day_net_worth.dwjz * 100).round(2)
   end
+  # end last month
+
+  # begin last three month
+  def last_three_month_trade_day
+    self.last_trade_day.months_ago(3)
+  end
+
+  def last_three_month_trade_day_net_worth
+    self.net_worths.where("record_at <= ?", last_three_month_trade_day).order(record_at: :desc).first
+  end
+
+  def last_three_month_ranking
+    ((last_trade_net_worth.dwjz - last_three_month_trade_day_net_worth.dwjz) / last_three_month_trade_day_net_worth.dwjz * 100).round(2)
+  end
+  # end last three month
+
+  # begin last six month
+  def last_six_month_trade_day
+    self.last_trade_day.months_ago(6)
+  end
+
+  def last_six_month_trade_day_net_worth
+    self.net_worths.where("record_at <= ?", last_six_month_trade_day).order(record_at: :desc).first
+  end
+
+  def last_six_month_ranking
+    ((last_trade_net_worth.dwjz - last_six_month_trade_day_net_worth.dwjz) / last_six_month_trade_day_net_worth.dwjz * 100).round(2)
+  end
+  # end last six month
 
   def confirm_lineal?
     self.mother_son_normal? || self.mother?
