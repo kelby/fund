@@ -209,6 +209,8 @@ class Project < ApplicationRecord
   end
 
   def last_six_month_ranking
+    return if last_six_month_trade_day_net_worth.blank?
+
     ((last_trade_net_worth.dwjz - last_six_month_trade_day_net_worth.dwjz) / last_six_month_trade_day_net_worth.dwjz * 100).round(2)
   end
   # end last six month
