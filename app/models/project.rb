@@ -140,6 +140,38 @@ class Project < ApplicationRecord
   LARAVEL_BASE = {'watchers' => 3522, 'stars' => 27582, 'forks' => 9131, 'downloads' => 3941137}
   # END
 
+  def last_trade_net_worth
+    self.net_worths.order(record_at: :desc).last
+  end
+
+  def last_trade_day
+    self.last_trade_net_worth.record_at
+  end
+
+  def last_week_trade_day
+    self.last_trade_day.weeks_ago 1
+  end
+
+  def last_week_trade_day_net_worth
+    self.net_worths.where(record_at: last_week_trade_day).order(record_at: :desc).last
+  end
+
+  def last_month_trade_day
+    self.last_trade_day.months_ago 1
+  end
+
+  def last_month_trade_day_net_worth
+    self.net_worths.where(record_at: last_month_trade_day).order(record_at: :desc).last
+  end
+
+  def last_week_ranking
+    ((last_trade_net_worth.dwjz - last_week_trade_day_net_worth.dwjz) / last_week_trade_day_net_worth.dwjz * 100).round(2)
+  end
+
+  def last_month_ranking
+    ((last_trade_net_worth.dwjz - last_month_trade_day_net_worth.dwjz) / last_month_trade_day_net_worth.dwjz * 100).round(2)
+  end
+
   def confirm_lineal?
     self.mother_son_normal? || self.mother?
   end
