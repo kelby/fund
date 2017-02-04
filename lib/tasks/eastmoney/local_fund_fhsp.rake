@@ -77,7 +77,7 @@ namespace :eastmoney do
               dividend_distribution_at: dividend_distribution_at,
               project_id: project.id)
           else
-            fen_hong_blank_net_worths << "#{project.id}--#{project.name}"
+            fen_hong_blank_net_worths << "#{project.code}--#{project.name}"
           end
         end
       end
@@ -120,13 +120,13 @@ namespace :eastmoney do
               break_ratio: break_ratio,
               project_id: project.id)
           else
-            chai_fen_blank_net_worths << "#{project.id}--#{project.name}"
+            chai_fen_blank_net_worths << "#{project.code}--#{project.name}"
           end
         end
       end
     end
 
-    puts "以下基金数据可能有问题\n#{fen_hong_blank_net_worths.join(',')}\n#{chai_fen_blank_net_worths.join(',')}"
+    puts "以下基金数据可能有问题\n#{fen_hong_blank_net_worths.join(', ')}\n#{chai_fen_blank_net_worths.join(', ')}"
 
 
   end
