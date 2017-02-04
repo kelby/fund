@@ -80,6 +80,9 @@ class Project < ApplicationRecord
   has_one :mother_project, class_name: 'Project', through: :mother_project_association, foreign_key: :son_id
 
   has_many :project_items
+
+  has_many :fund_chai_fens
+  has_many :fund_fen_hongs
   # END
 
 

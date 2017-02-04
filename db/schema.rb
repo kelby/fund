@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170203053351) do
+ActiveRecord::Schema.define(version: 20170204093157) do
 
   create_table "articles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string   "title"
@@ -130,6 +130,27 @@ ActiveRecord::Schema.define(version: 20170203053351) do
     t.datetime "recommend_at"
   end
 
+  create_table "fund_chai_fens", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.date     "break_convert_at"
+    t.string   "break_type"
+    t.string   "break_ratio"
+    t.integer  "project_id"
+    t.integer  "net_worth_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  create_table "fund_fen_hongs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.date     "register_at"
+    t.date     "ex_dividend_at"
+    t.string   "bonus_per"
+    t.date     "dividend_distribution_at"
+    t.integer  "project_id"
+    t.integer  "net_worth_id"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
   create_table "fund_jbgks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string   "full_name"
     t.string   "short_name"
@@ -240,10 +261,11 @@ ActiveRecord::Schema.define(version: 20170203053351) do
     t.decimal  "dwjz",       precision: 15, scale: 4
     t.decimal  "accnav",     precision: 15, scale: 4
     t.decimal  "ljjz",       precision: 15, scale: 4
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
     t.integer  "project_id"
     t.date     "record_at"
+    t.integer  "status",                              default: 0
     t.index ["project_id", "record_at"], name: "index_net_worths_on_project_id_and_record_at", using: :btree
     t.index ["project_id"], name: "index_net_worths_on_project_id", using: :btree
   end
