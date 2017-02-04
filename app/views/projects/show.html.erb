@@ -102,32 +102,38 @@
       %
 
 
-      <br>
-      最后一个交易日 <%= @project.last_trade_day %> |
-      <%= @project.last_week_trade_day %> |
-      <%= @project.last_week_trade_day_net_worth.record_at %> |
-      <%= @project.last_week_trade_day_net_worth.dwjz %> |
-      <%= @project.last_week_trade_day_net_worth.ljjz %>
-      =>
-      <%= @project.last_week_ranking %>
+      <% if @project.last_week_trade_day_net_worth.present? %>
+        <br>
+        最后一个交易日 <%= @project.last_trade_day %> |
+        <%= @project.last_week_trade_day %> |
+        <%= @project.last_week_trade_day_net_worth.record_at %> |
+        <%= @project.last_week_trade_day_net_worth.dwjz %> |
+        <%= @project.last_week_trade_day_net_worth.ljjz %>
+        =>
+        <%= @project.last_week_ranking %>
+      <% end %>
 
-      <br>
-      最后一个交易日 <%= @project.last_trade_day %> |
-      <%= @project.last_month_trade_day %> |
-      <%= @project.last_month_trade_day_net_worth.record_at %> |
-      <%= @project.last_month_trade_day_net_worth.dwjz %> |
-      <%= @project.last_month_trade_day_net_worth.ljjz %>
-      =>
-      <%= @project.last_month_ranking %>
+      <% if @project.last_month_trade_day_net_worth.present? %>
+        <br>
+        最后一个交易日 <%= @project.last_trade_day %> |
+        <%= @project.last_month_trade_day %> |
+        <%= @project.last_month_trade_day_net_worth.record_at %> |
+        <%= @project.last_month_trade_day_net_worth.dwjz %> |
+        <%= @project.last_month_trade_day_net_worth.ljjz %>
+        =>
+        <%= @project.last_month_ranking %>
+      <% end %>
 
-      <br>
-      最后一个交易日 <%= @project.last_trade_day %> |
-      <%= @project.last_three_month_trade_day %> |
-      <%= @project.last_three_month_trade_day_net_worth.record_at %> |
-      <%= @project.last_three_month_trade_day_net_worth.dwjz %> |
-      <%= @project.last_three_month_trade_day_net_worth.ljjz %>
-      =>
-      <%= @project.last_three_month_ranking %>
+      <% if @project.last_three_month_trade_day_net_worth.present? %>
+        <br>
+        最后一个交易日 <%= @project.last_trade_day %> |
+        <%= @project.last_three_month_trade_day %> |
+        <%= @project.last_three_month_trade_day_net_worth.record_at %> |
+        <%= @project.last_three_month_trade_day_net_worth.dwjz %> |
+        <%= @project.last_three_month_trade_day_net_worth.ljjz %>
+        =>
+        <%= @project.last_three_month_ranking %>
+      <% end %>
 
     </div>
   <% end %>
