@@ -161,6 +161,8 @@ class Project < ApplicationRecord
   end
 
   def last_week_ranking
+    return if last_week_trade_day_net_worth.blank?
+
     ((last_trade_net_worth.dwjz - last_week_trade_day_net_worth.dwjz) / last_week_trade_day_net_worth.dwjz * 100).round(2)
   end
   # end last week
@@ -175,6 +177,8 @@ class Project < ApplicationRecord
   end
 
   def last_month_ranking
+    return if last_month_trade_day_net_worth.blank?
+
     ((last_trade_net_worth.dwjz - last_month_trade_day_net_worth.dwjz) / last_month_trade_day_net_worth.dwjz * 100).round(2)
   end
   # end last month
@@ -189,6 +193,8 @@ class Project < ApplicationRecord
   end
 
   def last_three_month_ranking
+    return if last_three_month_trade_day_net_worth.blank?
+
     ((last_trade_net_worth.dwjz - last_three_month_trade_day_net_worth.dwjz) / last_three_month_trade_day_net_worth.dwjz * 100).round(2)
   end
   # end last three month
