@@ -7,6 +7,8 @@ namespace :local do
 
     jzzs_dir = Rails.public_path.join("fund/hexun/jzzs")
 
+    blank_net_worth_projects = []
+
     # 有条件的从本地更新部分数据
     # Project.where.not(set_up_at: [nil, ""]).includes(:net_worths).where(net_worths: {project_id: nil}).distinct.find_each.with_index do |project, index|
       # file_name = project.code + ".html"
@@ -27,6 +29,11 @@ namespace :local do
 
       datas_ele = doc.css(".n_table.m_table tbody tr");
 
+      if datas_ele.blank?
+        blank_net_worth_projects << "#{project.code}--#{project.name}"
+        next
+      end
+
       datas_ele.each do |data_ele|
         _record_at, _dwjz, _ljjz, _accnav = data_ele.children.select{|x| x.name == "td"}
 
@@ -42,8 +49,11 @@ namespace :local do
             accnav: accnav)
         end
       end
-
     end
 
+    puts "以下 #{blank_net_worth_projects.size} 基金没有数据，是因为抓取有误吗？\n"
+    puts blank_net_worth_projects.join(', ')
+
+    # blank_net_worth_projects.map{|x| x.split("--").first }
   end
 end
