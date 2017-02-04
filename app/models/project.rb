@@ -149,19 +149,19 @@ class Project < ApplicationRecord
   end
 
   def last_week_trade_day
-    self.last_trade_day.weeks_ago 1
+    self.last_trade_day.weeks_ago(1).next_day
   end
 
   def last_week_trade_day_net_worth
-    self.net_worths.where(record_at: last_week_trade_day).order(record_at: :desc).last
+    self.net_worths.where("record_at >= ?", last_week_trade_day).order(record_at: :asc).first
   end
 
   def last_month_trade_day
-    self.last_trade_day.months_ago 1
+    self.last_trade_day.months_ago(1).next_day
   end
 
   def last_month_trade_day_net_worth
-    self.net_worths.where(record_at: last_month_trade_day).order(record_at: :desc).last
+    self.net_worths.where("record_at >= ?", last_month_trade_day).order(record_at: :asc).first
   end
 
   def last_week_ranking
