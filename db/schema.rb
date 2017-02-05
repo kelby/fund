@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170205093801) do
+ActiveRecord::Schema.define(version: 20170205155548) do
 
   create_table "articles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string   "title"
@@ -67,6 +67,8 @@ ActiveRecord::Schema.define(version: 20170205093801) do
     t.string   "code"
     t.text     "raw_show_html",           limit: 65535
     t.integer  "projects_count",                        default: 0, null: false
+    t.string   "sina_code"
+    t.index ["sina_code"], name: "index_catalogs_on_sina_code", using: :btree
   end
 
   create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|

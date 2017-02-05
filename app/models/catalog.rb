@@ -23,6 +23,7 @@
 #  code                    :string(255)
 #  raw_show_html           :text(65535)
 #  projects_count          :integer          default(0), not null
+#  sina_code               :string(255)
 #
 
 # initial 拼音首字母
@@ -34,6 +35,7 @@
 class Catalog < ApplicationRecord
   # Validates
   validates_uniqueness_of :name #, scope: :type
+  validates_uniqueness_of :short_name, allow_blank: true
 
   validates_presence_of :name
   # validates_presence_of :code

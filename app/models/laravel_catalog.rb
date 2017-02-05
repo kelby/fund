@@ -23,6 +23,7 @@
 #  code                    :string(255)
 #  raw_show_html           :text(65535)
 #  projects_count          :integer          default(0), not null
+#  sina_code               :string(255)
 #
 
 class LaravelCatalog < Catalog
