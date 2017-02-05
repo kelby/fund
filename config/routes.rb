@@ -1,6 +1,7 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  resources :task_logs
   resources :fund_rankings
   resources :stocks
   resources :quotes

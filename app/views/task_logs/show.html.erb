@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Code:</strong>
+  <%= @task_log.code %>
+</p>
+
+<p>
+  <strong>Level:</strong>
+  <%= @task_log.level %>
+</p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @task_log.content %>
+</p>
+
+<p>
+  <strong>Ext info:</strong>
+  <%= @task_log.ext_info %>
+</p>
+
+<%= link_to 'Edit', edit_task_log_path(@task_log) %> |
+<%= link_to 'Back', task_logs_path %>

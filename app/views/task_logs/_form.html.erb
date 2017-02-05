@@ -1,0 +1,37 @@
+<%= form_for(task_log) do |f| %>
+  <% if task_log.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(task_log.errors.count, "error") %> prohibited this task_log from being saved:</h2>
+
+      <ul>
+      <% task_log.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :code %>
+    <%= f.text_field :code %>
+  </div>
+
+  <div class="field">
+    <%= f.label :level %>
+    <%= f.text_field :level %>
+  </div>
+
+  <div class="field">
+    <%= f.label :content %>
+    <%= f.text_area :content %>
+  </div>
+
+  <div class="field">
+    <%= f.label :ext_info %>
+    <%= f.text_area :ext_info %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
