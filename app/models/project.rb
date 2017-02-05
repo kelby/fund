@@ -110,6 +110,8 @@ class Project < ApplicationRecord
   enum mold_type: {mold_not_set: 0, mold_gp: 2, mold_hh: 4, mold_zq: 6, mold_zs: 8, mold_qdii: 10,
     mold_etf: 12, mold_lof: 14, mold_cnjy: 16, mold_cx: 18, mold_fof: 20,
     mold_bb: 22, mold_lc: 24, mold_hb: 26, mold_fj: 28}
+
+  scope :not_hb_lc, -> {where(mold_type: [22, 24, 26])}
   # END
 
   MOLD_TYPE_HASH = {'mold_gp' => "股票型", 'mold_hh' => "混合型", 'mold_zq' => "债券型",
@@ -155,6 +157,10 @@ class Project < ApplicationRecord
   SWIFT_BASE = {'watchers' => 2406, 'stars' => 35406, 'forks' => 5135, 'downloads' => 81138762}
   LARAVEL_BASE = {'watchers' => 3522, 'stars' => 27582, 'forks' => 9131, 'downloads' => 3941137}
   # END
+
+  def is_hb_lc?
+    self.mold_hb? || self.mold_lc? || self.mold_bb?
+  end
 
   def last_trade_net_worth
     self.net_worths.order(record_at: :desc).first
