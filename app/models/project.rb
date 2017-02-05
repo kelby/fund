@@ -165,6 +165,10 @@ class Project < ApplicationRecord
     self.mold_hb? || self.mold_lc? || self.mold_bb?
   end
 
+  def release_cannot_show?
+    self.release_now? || self.release_will? || self.release_not_set?
+  end
+
   def last_trade_net_worth
     self.net_worths.order(record_at: :desc).first
   end

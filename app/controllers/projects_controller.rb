@@ -28,7 +28,11 @@ class ProjectsController < ApplicationController
     get_relate_data
 
     if @project.is_hb_lc?
-      return redirect_to projects_url, alert: "暂时不能提供货币、理财、保本基金的数据", status: 301
+      return redirect_to :back, alert: "暂时不能提供货币、理财、保本基金的数据", status: 301
+    end
+
+    if @project.release_cannot_show?
+      return redirect_to :back, alert: "该基金尚未正式发行，暂时不能提供数据", status: 301
     end
 
     @net_worths = @project.net_worths.page(params[:page]).per(50)
@@ -117,5 +121,9 @@ class ProjectsController < ApplicationController
 
     def inc_view_times
       @project.increment!(:view_times)
+    end
+
+    def redirect_to_default
+      redirect_to projects_url
     end
 end
