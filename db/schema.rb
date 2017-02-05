@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170205031508) do
+ActiveRecord::Schema.define(version: 20170205060158) do
 
   create_table "articles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string   "title"
@@ -182,42 +182,42 @@ ActiveRecord::Schema.define(version: 20170205031508) do
     t.integer  "project_id"
     t.string   "code"
     t.string   "name"
-    t.decimal  "dwjz",                                  precision: 10
+    t.decimal  "dwjz",                                  precision: 15, scale: 4
     t.integer  "three_year_rating"
     t.integer  "five_year_rating"
-    t.decimal  "last_week_total_return",                precision: 10
+    t.decimal  "last_week_total_return",                precision: 15, scale: 4
     t.integer  "last_week_ranking"
-    t.decimal  "last_month_total_return",               precision: 10
+    t.decimal  "last_month_total_return",               precision: 15, scale: 4
     t.integer  "last_month_ranking"
-    t.decimal  "last_three_month_total_return",         precision: 10
+    t.decimal  "last_three_month_total_return",         precision: 15, scale: 4
     t.integer  "last_three_month_ranking"
-    t.decimal  "last_six_month_total_return",           precision: 10
+    t.decimal  "last_six_month_total_return",           precision: 15, scale: 4
     t.integer  "last_six_month_ranking"
-    t.decimal  "last_year_total_return",                precision: 10
+    t.decimal  "last_year_total_return",                precision: 15, scale: 4
     t.integer  "last_year_ranking"
-    t.decimal  "last_two_year_total_return",            precision: 10
+    t.decimal  "last_two_year_total_return",            precision: 15, scale: 4
     t.integer  "last_two_year_ranking"
-    t.decimal  "this_year_total_return",                precision: 10
+    t.decimal  "this_year_total_return",                precision: 15, scale: 4
     t.integer  "this_year_ranking"
-    t.decimal  "since_the_inception_total_return",      precision: 10
-    t.decimal  "last_three_year_volatility",            precision: 10
+    t.decimal  "since_the_inception_total_return",      precision: 15, scale: 4
+    t.decimal  "last_three_year_volatility",            precision: 15, scale: 4
     t.string   "last_three_year_volatility_evaluate"
-    t.decimal  "last_three_year_risk_factor",           precision: 10
+    t.decimal  "last_three_year_risk_factor",           precision: 15, scale: 4
     t.string   "last_three_year_risk_factor_evaluate"
-    t.decimal  "last_three_year_sharpe_ratio",          precision: 10
+    t.decimal  "last_three_year_sharpe_ratio",          precision: 15, scale: 4
     t.string   "last_three_year_sharpe_ratio_evaluate"
     t.date     "record_at"
-    t.datetime "created_at",                                           null: false
-    t.datetime "updated_at",                                           null: false
+    t.datetime "created_at",                                                     null: false
+    t.datetime "updated_at",                                                     null: false
     t.string   "fund_type"
     t.string   "evaluate_type"
     t.integer  "two_year_rating"
     t.integer  "one_year_rating"
-    t.decimal  "last_one_year_volatility",              precision: 10
+    t.decimal  "last_one_year_volatility",              precision: 15, scale: 4
     t.string   "last_one_year_volatility_evaluate"
-    t.decimal  "last_one_year_risk_factor",             precision: 10
+    t.decimal  "last_one_year_risk_factor",             precision: 15, scale: 4
     t.string   "last_one_year_risk_factor_evaluate"
-    t.decimal  "last_one_year_sharpe_ratio",            precision: 10
+    t.decimal  "last_one_year_sharpe_ratio",            precision: 15, scale: 4
     t.string   "last_one_year_sharpe_ratio_evaluate"
     t.index ["project_id", "record_at"], name: "index_fund_rankings_on_project_id_and_record_at", using: :btree
   end
@@ -352,18 +352,18 @@ ActiveRecord::Schema.define(version: 20170205031508) do
     t.string   "name"
     t.date     "record_at"
     t.string   "catalog"
-    t.decimal  "price",                  precision: 10
-    t.decimal  "up_down_number",         precision: 10
-    t.decimal  "max_up_number",          precision: 10
-    t.decimal  "min_down_number",        precision: 10
-    t.decimal  "open_number",            precision: 10
-    t.decimal  "yesterday_close_number", precision: 10
-    t.decimal  "up_down_rate",           precision: 10
+    t.decimal  "price",                  precision: 15, scale: 4
+    t.decimal  "up_down_number",         precision: 15, scale: 4
+    t.decimal  "max_up_number",          precision: 15, scale: 4
+    t.decimal  "min_down_number",        precision: 15, scale: 4
+    t.decimal  "open_number",            precision: 15, scale: 4
+    t.decimal  "yesterday_close_number", precision: 15, scale: 4
+    t.decimal  "up_down_rate",           precision: 15, scale: 4
     t.datetime "last_updated_at"
-    t.decimal  "turnover",               precision: 10
-    t.decimal  "volume_of_business",     precision: 10
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.decimal  "turnover",               precision: 15, scale: 4
+    t.decimal  "volume_of_business",     precision: 15, scale: 4
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
     t.integer  "stock_id"
     t.index ["stock_id", "record_at"], name: "index_quotes_on_stock_id_and_record_at", using: :btree
   end
