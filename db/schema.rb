@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170205084414) do
+ActiveRecord::Schema.define(version: 20170205093249) do
 
   create_table "articles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string   "title"
@@ -220,6 +220,7 @@ ActiveRecord::Schema.define(version: 20170205084414) do
     t.decimal  "last_one_year_sharpe_ratio",            precision: 15, scale: 4
     t.string   "last_one_year_sharpe_ratio_evaluate"
     t.index ["project_id", "record_at"], name: "index_fund_rankings_on_project_id_and_record_at", using: :btree
+    t.index ["record_at", "code"], name: "index_fund_rankings_on_record_at_and_code", using: :btree
   end
 
   create_table "gem_infos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
