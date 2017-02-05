@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170205093249) do
+ActiveRecord::Schema.define(version: 20170205093801) do
 
   create_table "articles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string   "title"
@@ -347,6 +347,7 @@ ActiveRecord::Schema.define(version: 20170205093249) do
     t.integer  "release_status",                                         default: 0
     t.integer  "comments_count",                                         default: 0
     t.integer  "mold_type",                                              default: 0
+    t.index ["code"], name: "index_projects_on_code", using: :btree
   end
 
   create_table "quotes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
