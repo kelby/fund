@@ -474,39 +474,26 @@
 
       <hr>
 
-      <h3>GitHub</h3>
+      <h3>分红送配详情</h3>
       <table class="inset">
+        <thead>
+          <tr>
+            <td>权益登记日</td>
+            <td>除息日</td>
+            <td>每份分红</td>
+            <td>分红发放日</td>
+          </tr>
+        </thead>
         <tbody>
-          <tr>
-            <td>Watchers</td>
-            <td class="pull-right"><%= github.watchers_count %></td>
-          </tr>
-
-          <tr>
-            <td>Stars</td>
-            <td class="pull-right"><%= github.subscribers_count %></td>
-          </tr>
-
-          <tr>
-            <td>Forks</td>
-            <td class="pull-right"><%= github.forks_count %></td>
-          </tr>
-
-          <tr>
-            <td>创建于</td>
-            <td class="pull-right">
-              <%#= (github.others['pushed_at']).to_time.strftime("%F %R") %>
-              <%= (github.others['created_at']).to_time.strftime("%Y.%-m.%d") %>
-            </td>
-          </tr>
-
-          <tr>
-            <td>最后更新</td>
-            <td class="pull-right">
-              <%= time_ago_in_words(github.others['pushed_at']) %>
-            </td>
-          </tr>
-        </tbody>
+          <% @project.fund_fen_hongs.each do |fen_hong| %>
+            <tr>
+              <td><%= fen_hong.register_at %></td>
+              <td><%= fen_hong.ex_dividend_at %></td>
+              <td><%= fen_hong.bonus_per %></td>
+              <td><%= fen_hong.dividend_distribution_at %></td>
+            </tr>
+          <% end %>
+         </tbody>
       </table>
 
 
