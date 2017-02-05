@@ -25,21 +25,21 @@
 #  projects_count          :integer          default(0), not null
 #
 
+# initial 拼音首字母
+# short_name 简称
+# founder 总经理
+# set_up_at 成立时间
+# scale
+# scale_record_at
 class Catalog < ApplicationRecord
   # Validates
-  validates_uniqueness_of :name, scope: :type
+  validates_uniqueness_of :name #, scope: :type
 
   validates_presence_of :name
-  validates_presence_of :code
+  # validates_presence_of :code
   # validates_presence_of :type
   # END
 
-  # initial 拼音首字母
-  # short_name 简称
-  # founder 总经理
-  # set_up_at 成立时间
-  # scale
-  # scale_record_at
 
   # Associations
   has_many :projects
