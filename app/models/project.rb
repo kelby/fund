@@ -90,6 +90,14 @@ class Project < ApplicationRecord
   # END
 
 
+  MOLD_TYPE_HASH = {'mold_gp' => "股票型", 'mold_hh' => "混合型", 'mold_zq' => "债券型",
+    'mold_zs' => "指数型", 'mold_qdii' => "QDII", 'mold_etf' => "ETF联接", 'mold_lof' => "LOF",
+    'mold_cnjy' => "场内交易基金", 'mold_cx' => "创新型", 'mold_fof' => "FOF",
+    'mold_bb' => "保本型", 'mold_lc' => "理财", 'mold_hb' => "货币型", 'mold_fj' => "分级基金"}
+
+  RELEASE_STATUS_HASH = {'release_end' => "发行完毕", 'release_now' => "正在发行",
+    'release_will' => "将要发行", 'release_not_set' => "发行状态未知"}
+
   # Rails class methods
   enum identity: {unknow: 0, gemspec: 2, package: 4, pod: 6}
 
@@ -101,7 +109,7 @@ class Project < ApplicationRecord
   enum mother_son: { mother_son_normal: 0, mother: 2, son: 4 }
 
   # 发行状态：已发行完毕，正常买卖、或暂停；正在发行；将要发行
-  enum release_status: { release_end: 0, release_now: 2, release_will: 4 }
+  enum release_status: { release_end: 0, release_now: 2, release_will: 4, release_not_set: 6 }
 
   scope :confirm_lineal, -> { where(mother_son: [Project.mother_sons['mother_son_normal'], Project.mother_sons['mother']]) }
   scope :nolimit, -> { unscope(:limit, :offset) }
@@ -113,11 +121,6 @@ class Project < ApplicationRecord
 
   scope :not_hb_lc, -> {where(mold_type: [22, 24, 26])}
   # END
-
-  MOLD_TYPE_HASH = {'mold_gp' => "股票型", 'mold_hh' => "混合型", 'mold_zq' => "债券型",
-    'mold_zs' => "指数型", 'mold_qdii' => "QDII", 'mold_etf' => "ETF联接", 'mold_lof' => "LOF",
-    'mold_cnjy' => "场内交易基金", 'mold_cx' => "创新型", 'mold_fof' => "FOF",
-    'mold_bb' => "保本型", 'mold_lc' => "理财", 'mold_hb' => "货币型", 'mold_fj' => "分级基金"}
 
 
   # Validates
