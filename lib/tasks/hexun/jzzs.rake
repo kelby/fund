@@ -63,6 +63,9 @@ task :store_jzzs_to_dir => [:environment] do
   enddate = Time.now.strftime("%F")
   sb ||= SpiderBase.new
 
+  fund_dir = Rails.public_path.join("fund/hexun/jzzs")
+  FileUtils::mkdir_p(fund_dir)
+
   Project.where.not(set_up_at: [nil, '']).where("id >= ?", number).find_each.with_index do |project, index|
     code = project.code
     startdate = project.set_up_at.strftime("%F")
@@ -80,8 +83,10 @@ task :store_jzzs_to_dir => [:environment] do
     doc = fetch_content.doc;
 
 
-    fund_dir = Rails.public_path.join("fund/hexun/jzzs")
-    FileUtils::mkdir_p(fund_dir)
+    if doc.css(".n_table.m_table").blank?
+      next
+    end
+
 
     file_name_with_path = fund_dir.join("#{project.code}.html")
 
