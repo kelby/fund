@@ -29,6 +29,7 @@
 #  mother_son      :integer          default("mother_son_normal")
 #  release_status  :integer          default("release_end")
 #  comments_count  :integer          default(0)
+#  mold_type       :integer          default(0)
 #
 
 require 'elasticsearch/model'
@@ -106,8 +107,15 @@ class Project < ApplicationRecord
   scope :nolimit, -> { unscope(:limit, :offset) }
   scope :show_status, -> { where(status: [Project.statuses['online'], Project.statuses['nightspot'], Project.statuses['deprecated']]) }
 
-  # enum mold: {mold_unknow: 0, general: 2, cur: 4, fq: 6, mold_other: 8}
+  enum mold_type: {mold_not_set: 0, mold_gp: 2, mold_hh: 4, mold_zq: 6, mold_zs: 8, mold_qdii: 10,
+    mold_etf: 12, mold_lof: 14, mold_cnjy: 16, mold_cx: 18, mold_fof: 20,
+    mold_bb: 22, mold_lc: 24, mold_hb: 26, mold_fj: 28}
   # END
+
+  MOLD_TYPE_HASH = {'mold_gp' => "股票型", 'mold_hh' => "混合型", 'mold_zq' => "债券型",
+    'mold_zs' => "指数型", 'mold_qdii' => "QDII", 'mold_etf' => "ETF联接", 'mold_lof' => "LOF",
+    'mold_cnjy' => "场内交易基金", 'mold_cx' => "创新型", 'mold_fof' => "FOF",
+    'mold_bb' => "保本型", 'mold_lc' => "理财", 'mold_hb' => "货币型", 'mold_fj' => "分级基金"}
 
 
   # Validates
