@@ -91,13 +91,15 @@ class Project < ApplicationRecord
 
   # Rails class methods
   enum identity: {unknow: 0, gemspec: 2, package: 4, pod: 6}
+
   # 等待处理，下线，上线；Star 数目小于100; 长时间不更新、废弃；只是单纯的github项目、不是插件
   enum status: {pending: 0, offline: 4, online: 6, nightspot: 8,
     deprecated: 10, site_invalid: 12, not_want: 14}
 
+  # 分级基金的母子特性
   enum mother_son: { mother_son_normal: 0, mother: 2, son: 4 }
 
-  # 已发行完毕，正常买卖、或暂停；正在发行；将要发行
+  # 发行状态：已发行完毕，正常买卖、或暂停；正在发行；将要发行
   enum release_status: { release_end: 0, release_now: 2, release_will: 4 }
 
   scope :confirm_lineal, -> { where(mother_son: [Project.mother_sons['mother_son_normal'], Project.mother_sons['mother']]) }
