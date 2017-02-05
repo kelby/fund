@@ -1,5 +1,5 @@
 desc "Task description"
-task :task_name => [:dependent, :tasks] do
+task :task_name => [:environment] do
   invalid_stock = []
 
   IndexReport.find_each.with_index do |index_report, index|
