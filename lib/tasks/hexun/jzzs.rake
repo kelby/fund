@@ -66,16 +66,14 @@ task :store_jzzs_to_dir => [:environment] do
   fund_dir = Rails.public_path.join("fund/hexun/jzzs")
   FileUtils::mkdir_p(fund_dir)
 
+  hb_fund_dir = Rails.public_path.join("fund/hexun/jzzshb")
+  FileUtils::mkdir_p(hb_fund_dir)
+
   Project.where.not(set_up_at: [nil, '']).where("id >= ?", number).find_each.with_index do |project, index|
     code = project.code
     startdate = project.set_up_at.strftime("%F")
 
     url = "http://jingzhi.funds.hexun.com/DataBase/jzzs.aspx?fundcode=#{code}&startdate=#{startdate}&enddate=#{enddate}"
-
-    # project = Project.find_by(code: '110011')
-
-    # doc = Nokogiri::HTML(open url);
-    sb ||= SpiderBase.new
 
     fetch_content = sb.page_for_url(url);
     puts "Fetch project #{code} data from #{url} =========== #{index}"
@@ -83,8 +81,14 @@ task :store_jzzs_to_dir => [:environment] do
     doc = fetch_content.doc;
 
 
-    if doc.css(".n_table.m_table").blank?
-      next
+    if doc.css(".n_table.m_table tbody tr").blank?
+      fund_is_hb = true
+      url = "http://jingzhi.funds.hexun.com/DataBase/jzzshb.aspx?fundcode=#{code}&startdate=#{startdate}&enddate=#{enddate}"
+
+      fetch_content = sb.page_for_url(url);
+      puts "Fetch hb_project #{code} data from #{url} =========== #{index}"
+
+      doc = fetch_content.doc;
     end
 
 
