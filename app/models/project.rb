@@ -83,6 +83,9 @@ class Project < ApplicationRecord
 
   has_many :fund_chai_fens
   has_many :fund_fen_hongs
+
+  has_many :fund_rankings
+  has_one :lastest_fund_ranking, class_name: 'FundRanking'
   # END
 
 

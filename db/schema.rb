@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170204093157) do
+ActiveRecord::Schema.define(version: 20170205031508) do
 
   create_table "articles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string   "title"
@@ -209,6 +209,16 @@ ActiveRecord::Schema.define(version: 20170204093157) do
     t.date     "record_at"
     t.datetime "created_at",                                           null: false
     t.datetime "updated_at",                                           null: false
+    t.string   "fund_type"
+    t.string   "evaluate_type"
+    t.integer  "two_year_rating"
+    t.integer  "one_year_rating"
+    t.decimal  "last_one_year_volatility",              precision: 10
+    t.string   "last_one_year_volatility_evaluate"
+    t.decimal  "last_one_year_risk_factor",             precision: 10
+    t.string   "last_one_year_risk_factor_evaluate"
+    t.decimal  "last_one_year_sharpe_ratio",            precision: 10
+    t.string   "last_one_year_sharpe_ratio_evaluate"
     t.index ["project_id", "record_at"], name: "index_fund_rankings_on_project_id_and_record_at", using: :btree
   end
 

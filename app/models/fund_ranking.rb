@@ -33,7 +33,38 @@
 #  record_at                             :date
 #  created_at                            :datetime         not null
 #  updated_at                            :datetime         not null
+#  fund_type                             :string(255)
+#  evaluate_type                         :string(255)
+#  two_year_rating                       :integer
+#  one_year_rating                       :integer
+#  last_one_year_volatility              :decimal(10, )
+#  last_one_year_volatility_evaluate     :string(255)
+#  last_one_year_risk_factor             :decimal(10, )
+#  last_one_year_risk_factor_evaluate    :string(255)
+#  last_one_year_sharpe_ratio            :decimal(10, )
+#  last_one_year_sharpe_ratio_evaluate   :string(255)
 #
 
 class FundRanking < ApplicationRecord
+  # Associations
+  belongs_to :project
+
+
+  # Validates
+  validates_presence_of :code
+  validates_presence_of :record_at
+
+  validates_uniqueness_of :record_at, scope: :code
+
+
+  # Callbacks
+  after_create :set_project_id
+
+  def set_project_id
+    project = Project.find_by(code: self.code)
+
+    if project.present?
+      self.update_columns(project_id: project.id)
+    end
+  end
 end

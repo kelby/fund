@@ -185,36 +185,52 @@
   <hr>
 
 
-  <h3>GitHub</h3>
+
+  <h3>分红送配详情</h3>
   <table class="inset">
+    <thead>
+      <tr>
+        <td>权益登记日</td>
+        <td>除息日</td>
+        <td>每份分红</td>
+        <td>分红发放日</td>
+      </tr>
+    </thead>
     <tbody>
-    <tr>
-      <td>Stars</td>
-      <td>407</td>
-    </tr>
-    <tr>
-      <td>Watchers</td>
-      <td>12</td>
-    </tr>
-    <tr>
-      <td>Forks</td>
-      <td>28</td>
-    </tr>
-    <tr>
-      <td>Issues</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <td>Contributors</td>
-      <td>11</td>
-    </tr>
-    <tr>
-      <td>Pull Requests</td>
-      <td>1</td>
-    </tr>
-    </tbody>
+      <% @project.fund_fen_hongs.each do |fen_hong| %>
+        <tr>
+          <td><%= fen_hong.register_at %></td>
+          <td><%= fen_hong.ex_dividend_at %></td>
+          <td><%= fen_hong.bonus_per %></td>
+          <td><%= fen_hong.dividend_distribution_at %></td>
+        </tr>
+      <% end %>
+     </tbody>
   </table>
 
+  <hr>
+
+
+
+  <h3>拆分详情</h3>
+  <table class="inset">
+    <thead>
+      <tr>
+        <td>拆分折算日</td>
+        <td>拆分类型</td>
+        <td>拆分折算比例</td>
+      </tr>
+    </thead>
+    <tbody>
+      <% @project.fund_chai_fens.each do |chai_fen| %>
+        <tr>
+          <td><%= chai_fen.break_convert_at %></td>
+          <td><%= chai_fen.break_type %></td>
+          <td><%= chai_fen.break_ratio %></td>
+        </tr>
+      <% end %>
+     </tbody>
+  </table>
 
   <hr>
 
