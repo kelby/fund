@@ -53,8 +53,8 @@ namespace :sina do
 
     # 危险操作，请先大致查看页面内容，确认是安全的！
     # 页面内容奇怪，不能直接使用 JSON.parse
-    h = eval(json_str.as_json)
-    company_array = h[:data]
+    result_hash = eval(json_str.as_json)
+    company_array = result_hash[:data]
 
     company_array.each do |company_hash|
       # {:FundCompanyId=>"80199117",
