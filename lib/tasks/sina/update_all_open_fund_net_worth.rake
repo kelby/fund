@@ -1,6 +1,5 @@
 namespace :sina do
-  namespace : do
-  desc "Task description"
+  desc "update all open fund net worth"
   task :update_all_open_fund_net_worth => [:environment] do
 
     headless = Headless.new
