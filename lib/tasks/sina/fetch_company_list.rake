@@ -1,4 +1,5 @@
 namespace :sina do
+  # http://vip.stock.finance.sina.com.cn/fund_center/index.html#jjgs
   # 获取数据
   desc "get sina fund company list"
   task :fetch_company_list => [:environment] do
