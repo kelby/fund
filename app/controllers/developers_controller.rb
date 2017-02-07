@@ -8,8 +8,7 @@ class DevelopersController < ApplicationController
 
   # GET /developers/1
   def show
-    # @developer = Developer.find_by(name: params[:name])
-    @projects = @developer.projects.page(params[:page]) #.show_status.includes(:github_info)
+    @developer_projects = @developer.developer_projects.includes(:project).page(params[:page]) #.show_status.includes(:github_info)
   end
 
   # GET /developers/new

@@ -7,7 +7,7 @@
 
 <div class="panel panel-default">
   <div class="panel-heading">
-    <%= @projects.size %> 个项目
+    <%= @developer_projects.size %> 个项目
   </div>
   <!-- <div class="panel-body"> -->
     
@@ -25,13 +25,19 @@
             </tr>
           </thead>
           <tbody>
-            <% @projects.each do |project| %>
+            <% @developer_projects.each do |developer_project| %>
+              <% project = developer_project.project %>
+
               <tr>
                 <th><%= link_to project.code, project %></th>
                 <th><%= link_to project.name, project %></th>
                 <th><%= project.mold %></th>
                 <th> -- </th>
-                <th><%=  %></th>
+                <th>
+                  <%= developer_project.beginning_work_date.strftime("%F") %>
+                  --
+                  <%= developer_project.end_of_work_date.strftime("%F") if developer_project.end_of_work_date.present? %>
+                </th>
               </tr>
             <% end %>
           </tbody>
@@ -42,6 +48,6 @@
   <!-- </div> -->
 
   <div class="panel-footer clearfix">
-    <%= magic_paginate @projects %>
+    <%= magic_paginate @developer_projects %>
   </div>
 </div>
