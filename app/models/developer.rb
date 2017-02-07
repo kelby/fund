@@ -55,6 +55,13 @@ class Developer < ApplicationRecord
   # validates_presence_of :name, scope: :catalog_id
   # END
 
+  def self.set_eastmoney_code
+    self.find_each do |developer|
+      eastmoney_code = developer.eastmoney_url.split(/\/|\./)[-2]
+      developer.update_columns(eastmoney_code: eastmoney_code)
+    end
+  end
+
   def catalog
     self.catalogs.last
   end
