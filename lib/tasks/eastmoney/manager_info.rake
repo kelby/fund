@@ -31,6 +31,9 @@ namespace :eastmoney do
       # 基金经理：丁杰科
       jlinfo = browser.div(class: 'jlinfo')
       developer.description = jlinfo.p.text
+
+      developer.description.strip.gsub(/^基金经理简介：/, "") if developer.description.present?
+
       if developer.description_changed?
         developer.save
       end
@@ -235,6 +238,101 @@ namespace :eastmoney do
         break
       end
 
+    end
+  end
+
+  desc "set manager description"
+  task :set_manager_description => [:environment] do
+    Developer.where(description: [nil, ""]).find_each.with_index do |developer, index|
+      manager_dir = Rails.public_path.join("manager/eastmoney/info")
+      # FileUtils::mkdir_p(manager_dir)
+
+      # yourfile = Rails.public_path.join("company/#{catalog.code}.html")
+      file_name_with_path = manager_dir.join("#{developer.id}.html")
+
+
+      # begin
+      #   File.open(file_name_with_path, 'w:GB2312') { |file| file.write(browser.html) }
+      # rescue Exception => e
+      #   puts "=============Error #{developer.id}"
+      # end
+
+      doc = Nokogiri::HTML(open(file_name_with_path).read);
+
+      # 基金经理：丁杰科
+      jlinfo = doc.css('.jlinfo')
+      developer.description = jlinfo.css("p").text
+
+      developer.description.strip.gsub(/^基金经理简介：/, "") if developer.description.present?
+
+      if developer.description_changed?
+        developer.save
+      end
+
+
+      # 丁杰科管理过的基金一览
+      now_projects_ele = doc.css("table.ftrs")[0]
+
+      now_projects_ele.css("tbody tr").each do |tr_ele|
+        # 基金代码  基金名称  相关链接  基金类型  规模（亿元）  任职时间  任职天数  任职回报
+        a = tr_ele.css("td")[0]
+        b = tr_ele.css("td")[1]
+        c = tr_ele.css("td")[2]
+        d = tr_ele.css("td")[3]
+        e = tr_ele.css("td")[4]
+        f = tr_ele.css("td")[5]
+        g = tr_ele.css("td")[6]
+        i = tr_ele.css("td")[7]
+
+        _code = a.text
+        _project = Project.find_by(code: _code)
+
+        _catalog_id = developer.catalogs.last.id if developer.catalogs.present?
+
+        if _project.blank?
+          puts "code #{_code} without proejct."
+          _project = Project.create(code: _code, name: b.text, mold: d.text, catalog_id: _catalog_id) if _catalog_id.present?
+          next
+        end
+
+        project_id = _project.id
+        beginning_work_date = f.text.split(" ").first.try(:to_time)
+        end_of_work_date = f.text.split(" ").last.try(:to_time)
+
+        puts "developer_id #{developer.id}, project_id #{project_id}, beginning_work_date #{beginning_work_date}, end_of_work_date #{end_of_work_date}"
+
+        DeveloperProject.find_or_create_by(developer_id: developer.id, project_id: project_id) do |dp|
+          dp.beginning_work_date = beginning_work_date
+          dp.beginning_work_date = end_of_work_date
+        end
+      end
+    end
+  end
+
+  desc "set manager avatar"
+  task :set_manager_avatar => [:environment] do
+    Developer.where(avatar: [nil, ""]).find_each.with_index do |developer, index|
+      manager_dir = Rails.public_path.join("manager/eastmoney/info")
+      # FileUtils::mkdir_p(manager_dir)
+
+      # yourfile = Rails.public_path.join("company/#{catalog.code}.html")
+      file_name_with_path = manager_dir.join("#{developer.id}.html")
+
+
+      # begin
+      #   File.open(file_name_with_path, 'w:GB2312') { |file| file.write(browser.html) }
+      # rescue Exception => e
+      #   puts "=============Error #{developer.id}"
+      # end
+
+      doc = Nokogiri::HTML(open(file_name_with_path).read);
+
+      # 基金经理：丁杰科
+      developer.remote_avatar_url = doc.css(".left > #photo").attr('src').value
+
+      if developer.changed?
+        developer.save
+      end
     end
   end
 end
