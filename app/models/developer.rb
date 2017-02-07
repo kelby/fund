@@ -20,6 +20,7 @@
 #  degree            :string(255)
 #  eastmoney_code    :string(255)
 #  sina_code         :string(255)
+#  rh_at             :date
 #
 
 class Developer < ApplicationRecord

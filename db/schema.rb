@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170207002237) do
+ActiveRecord::Schema.define(version: 20170207134406) do
 
   create_table "articles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string   "title"
@@ -103,8 +103,11 @@ ActiveRecord::Schema.define(version: 20170207002237) do
     t.integer  "project_id"
     t.date     "beginning_work_date"
     t.date     "end_of_work_date"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.string   "developer_eastmoney_code"
+    t.string   "developer_sina_code"
+    t.string   "project_code"
     t.index ["developer_id", "project_id"], name: "index_developer_projects_on_developer_id_and_project_id", using: :btree
   end
 
@@ -126,6 +129,7 @@ ActiveRecord::Schema.define(version: 20170207002237) do
     t.string   "degree"
     t.string   "eastmoney_code"
     t.string   "sina_code"
+    t.date     "rh_at"
     t.index ["eastmoney_code"], name: "index_developers_on_eastmoney_code", using: :btree
     t.index ["sina_code"], name: "index_developers_on_sina_code", using: :btree
   end
