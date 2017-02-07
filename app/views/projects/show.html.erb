@@ -146,13 +146,17 @@
       <tr>
         <td>
           基金类型：
-          <a href="http://fund.eastmoney.com/GP_jzzzl.html#os_0;isall_0;ft_;pt_2">股票型</a>&nbsp;&nbsp;|&nbsp;&nbsp;高风险
+          <%= link_to @project.mold, @project %>
+          &nbsp;&nbsp;|&nbsp;&nbsp;高风险
         </td>
         <td>
-          <a href="http://fund.eastmoney.com/f10/gmbd_001421.html">基金规模</a>：12.95亿元（2016-12-31）
+          基金规模：12.95亿元（2016-12-31）
         </td>
         <td>
-          基金经理：<a href="http://fund.eastmoney.com/f10/jjjl_001421.html">雷俊</a>
+          基金经理：
+          <% @project.developers.each do |developer| %>
+            <%= link_to developer.name, developer %>
+          <% end %>
         </td>
       </tr>
       <tr>
@@ -173,7 +177,7 @@
           <% end %>
         </td>
         <td>
-          <a class="floatleft" href="http://fund.eastmoney.com/f10/jjpj_001421.html">基金评级</a>
+          基金评级
           <span class="floatleft">：</span>
           <span class="jjpj">暂无评级</span>
         </td>
