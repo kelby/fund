@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170205155548) do
+ActiveRecord::Schema.define(version: 20170207002237) do
 
   create_table "articles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string   "title"
@@ -41,8 +41,11 @@ ActiveRecord::Schema.define(version: 20170205155548) do
     t.integer  "developer_id"
     t.string   "eastmoney_url"
     t.string   "sina_url"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.string   "catalog_code"
+    t.string   "developer_eastmoney_code"
+    t.string   "developer_sina_code"
     t.index ["catalog_id", "developer_id"], name: "index_catalog_developers_on_catalog_id_and_developer_id", using: :btree
   end
 
@@ -121,6 +124,10 @@ ActiveRecord::Schema.define(version: 20170205155548) do
     t.text     "description",       limit: 65535
     t.integer  "age",                             default: 0
     t.string   "degree"
+    t.string   "eastmoney_code"
+    t.string   "sina_code"
+    t.index ["eastmoney_code"], name: "index_developers_on_eastmoney_code", using: :btree
+    t.index ["sina_code"], name: "index_developers_on_sina_code", using: :btree
   end
 
   create_table "episodes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|

@@ -18,6 +18,8 @@
 #  description       :text(65535)
 #  age               :integer          default(0)
 #  degree            :string(255)
+#  eastmoney_code    :string(255)
+#  sina_code         :string(255)
 #
 
 class Developer < ApplicationRecord
