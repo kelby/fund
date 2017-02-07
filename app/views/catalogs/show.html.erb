@@ -85,7 +85,7 @@
 
 <div class="panel panel-default">
   <div class="panel-heading">
-    本类目下共有 <%= @projects.confirm_lineal.size %> 个项目
+    本基金公司旗下共有 <%= @projects.confirm_lineal.size %> 支基金
   </div>
 
   <div class="panel-body">
@@ -96,6 +96,33 @@
     <% else %>
       <ul class="media-list">
         <%= render partial: "projects/media_list_item", collection: @projects, as: :project %>
+      </ul>
+    <% end %>
+  </div>
+</div>
+
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    本基金公司旗下共有 <%= @catalog.catalog_developers.size %> 名基金经理
+  </div>
+
+  <div class="panel-body">
+    <% if @catalog.catalog_developers.blank? %>
+      <div class="text-center text-muted">
+        没有
+      </div>
+    <% else %>
+      <ul class="media-list">
+        <% @catalog.developers.each do |developer| %>
+          <li class="list-group-item">
+            <%= link_to developer do %>
+              <%= image_tag(developer.avatar_url(:thumb), size: "50") %>
+              -
+              <%= developer.name %>
+            <% end %>
+          </li>
+        <% end %>
       </ul>
     <% end %>
   </div>
