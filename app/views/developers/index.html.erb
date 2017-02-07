@@ -15,10 +15,9 @@
       <th>就职于某基金公司</th>
       <th>Avatar</th>
       <th>eastmoney</th>
+      <th>sina</th>
       <th>Public repos</th>
-      <th>Subscribers count</th>
-      <th>Watchers count</th>
-      <th>Forks count</th>
+
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -35,14 +34,19 @@
           <% end %>
         </td>
         <td><%= developer.avatar %></td>
-        <td><%= developer.eastmoney_url %></td>
+        <td><%= developer.eastmoney_code %></td>
+        <td><%= developer.sina_code %></td>
         <td><%= developer.developer_projects.count %></td>
-        <td><%= developer.subscribers_count %></td>
-        <td><%= developer.watchers_count %></td>
-        <td><%= developer.forks_count %></td>
+
         <td><%= link_to 'Show', developer %></td>
-        <td><%= link_to 'Edit', edit_developer_path(developer) %></td>
-        <td><%= link_to 'Destroy', developer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+
+        <% if can? :edit, developer %>
+          <td><%= link_to 'Edit', edit_developer_path(developer) %></td>
+        <% end %>
+
+        <% if can? :destroy, developer %>
+          <td><%= link_to 'Destroy', developer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
