@@ -97,7 +97,12 @@ namespace :sina do
 
     desc "set confirm manager sina_code"
     task :set_confirm_manager_sina_code => [:environment] do
+      problem_names = []
+      dup_names = []
+      blank_names = []
+
       1.upto(6) do |page|
+        puts "process page #{page} data ==================="
         association_project_dir = Rails.public_path.join("manager/sina/association_project/zz")
         file_name_with_path = association_project_dir.join("#{page}.html")
 
@@ -116,6 +121,7 @@ namespace :sina do
 
         # 危险操作，请先大致查看页面内容，确认是安全的！
         # 页面内容奇怪，不能直接使用 JSON.parse
+        json_str = json_str.gsub(/:null/, ":'null'") # 原字符串里有 null 关键字
         result_hash = eval(json_str.as_json);
         result_hash.keys
 
@@ -146,11 +152,30 @@ namespace :sina do
             elsif developer.sina_code == cd_association[:ManagerId]
               # ...
             else
-              # ...
+              problem_names << name
             end
+          elsif developers.blank?
+            blank_names << name
+          else
+            dup_names << name
           end
           # ...
         end
+      end
+
+      if problem_names.present?
+        puts "#{problem_names.size} problem_names\n"
+        puts problem_names.join(', ')
+      end
+
+      if blank_names.present?
+        puts "#{blank_names.size} blank_names\n"
+        puts blank_names.join(', ')
+      end
+
+      if dup_names.present?
+        puts "#{dup_names.size} dup_names\n"
+        puts dup_names.join(', ')
       end
     end
   end
