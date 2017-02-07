@@ -57,7 +57,7 @@ namespace :sina do
         association_array.size
         # [:Name, 姓名
         # :ManagerId,
-        # :RHDate, 任职日期
+        # :RHDate, 入行时间
         # :Symbol, 基金代码
         # :ShortName, 基金简称
         # :BDate, 开始时间
@@ -130,7 +130,7 @@ namespace :sina do
 
         # [:Name, 姓名
         # :ManagerId,
-        # :RHDate, 任职日期
+        # :RHDate, 入行时间
         # :Symbol, 基金代码
         # :ShortName, 基金简称
         # :BDate, 开始时间
@@ -155,8 +155,17 @@ namespace :sina do
               problem_names << name
             end
           elsif developers.blank?
+            Developer.create(name: name, sina_code: cd_association[:ManagerId])
+
             blank_names << name
           else
+            developers.each do |developer_item|
+              project_codes = developer_item.projects.pluck(:code)
+              if project_codes.include?(cd_association[:Symbol])
+                developer_item.update_columns(sina_code: cd_association[:ManagerId])
+              end
+            end
+
             dup_names << name
           end
           # ...
@@ -177,6 +186,54 @@ namespace :sina do
         puts "#{dup_names.size} dup_names\n"
         puts dup_names.join(', ')
       end
+    end
+
+    desc "set developer project, by project_code & developer_sina_code."
+    task :set_developer_project => [:environment] do
+
+      1.upto(6) do |page|
+        puts "process page #{page} data ==================="
+        association_project_dir = Rails.public_path.join("manager/sina/association_project/zz")
+        file_name_with_path = association_project_dir.join("#{page}.html")
+
+        doc = Nokogiri::HTML(open(file_name_with_path).read);
+
+
+        body_text = doc.css("body").text;
+        dup_body_text = body_text;
+
+
+        valid_content = dup_body_text.scan(/\(\(.*?\)\)/)[0];
+        json_str = valid_content.gsub(/^\(\(/, "").gsub(/\)\)$/, "");
+
+        # 危险操作，请先大致查看页面内容，确认是安全的！
+        # 页面内容奇怪，不能直接使用 JSON.parse
+        json_str = json_str.gsub(/:null/, ":'null'"); # 原字符串里有 null 关键字
+        result_hash = eval(json_str.as_json);
+        result_hash.keys
+
+        association_array = result_hash[:data];
+        association_array.size
+
+        # [:Name, 姓名
+        # :ManagerId,
+        # :RHDate, 入行时间
+        # :Symbol, 基金代码
+        # :ShortName, 基金简称
+        # :BDate, 开始时间
+        # :EDate, 结束时间
+        # :NavRate, 任期回报率(%)
+        # :HYNavRate, 同类平均回报(%)
+        # :Rank, 任期回报排名
+        # :AllNum] 同类经理数量
+
+        association_array.each do |cd_association|
+          DeveloperProject.find_or_create_by(project_code: cd_association[:Symbol], developer_sina_code: cd_association[:ManagerId]) do |dp|
+            dp.beginning_work_date = cd_association[:BDate]
+          end
+        end
+      end
+
     end
   end
 
