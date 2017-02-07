@@ -27,5 +27,16 @@ class DeveloperProject < ApplicationRecord
   before_validation :detect_and_set_attributes
 
   def detect_and_set_attributes
+    if self.project_code.present? && self.project_id.blank?
+      self.project_id = Project.find_by(code: self.project_code).try(:id)
+    end
+
+    if self.developer_sina_code.present? && self.developer_id.blank?
+      self.developer_id = Developer.find_by(sina_code: self.developer_sina_code).try(:id)
+    end
+
+    if self.developer_eastmoney_code.present? && self.developer_id.blank?
+      self.developer_id = Developer.find_by(eastmoney_code: self.developer_eastmoney_code).try(:id)
+    end
   end
 end
