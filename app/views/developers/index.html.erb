@@ -16,16 +16,19 @@
       <th>Avatar</th>
       <th>eastmoney</th>
       <th>sina</th>
-      <th>Public repos</th>
+      <th>管理基金数量</th>
 
-      <th colspan="3"></th>
+      <th colspan="2"></th>
     </tr>
   </thead>
 
   <tbody>
     <% @developers.each do |developer| %>
       <tr>
-        <td><%= link_to developer.name, developer %></td>
+        <td>
+          <%= link_to developer.name, developer %>
+        </td>
+
         <td>
           <% developer.catalogs.each do |catalog| %>
             <%= link_to catalog.code, catalog %>
@@ -33,12 +36,22 @@
             <%= catalog.name %>
           <% end %>
         </td>
-        <td><%= developer.avatar %></td>
-        <td><%= developer.eastmoney_code %></td>
-        <td><%= developer.sina_code %></td>
-        <td><%= developer.developer_projects.count %></td>
 
-        <td><%= link_to 'Show', developer %></td>
+        <td>
+          <%= link_to developer do %>
+            <%= image_tag(developer.avatar_url(:thumb), height: '50', width: '50') %>
+          <% end %>
+        </td>
+
+        <td>
+          <%= developer.eastmoney_code %>
+        </td>
+        <td>
+          <%= developer.sina_code %>
+        </td>
+        <td>
+          <%= developer.developer_projects.count %>
+        </td>
 
         <% if can? :edit, developer %>
           <td><%= link_to 'Edit', edit_developer_path(developer) %></td>
@@ -56,6 +69,4 @@
 
     <%= magic_paginate @developers %>
 
-<br>
 
-<%= link_to 'New Developer', new_developer_path %>
