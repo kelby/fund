@@ -364,4 +364,50 @@ namespace :eastmoney do
       end
     end
   end
+
+  desc "set developer_project from manager show"
+  task :set_developer_project => [:environment] do
+    Developer.where.not(eastmoney_url: [nil, ""]).find_each.with_index do |developer, index|
+      manager_dir = Rails.public_path.join("manager/eastmoney/info")
+
+      file_name_with_path = manager_dir.join("#{developer.id}.html")
+
+
+      doc = Nokogiri::HTML(open(file_name_with_path).read);
+
+
+      jd = doc.css(".right.jd")
+
+      want_span_ele = jd.css("span")
+
+      want_span_ele.each do |span_ele|
+        span_text = span_ele.text
+
+        if span_text =~ /任职起始日期/
+          take_office_date = span_ele.next_sibling.text.try(:strip)
+
+          developer.take_office_date = take_office_date
+          next
+        end
+
+        if span_text =~ /现任基金公司/
+          company_url = span_ele.next_element.attributes['href'].value
+
+          company_code = company_url.split(/\.|\//)[-2]
+
+
+          if company_code =~ /\d$/
+            developer.catalog = Catalog.find_by(code: company_code)
+          end
+
+          next
+        end
+      end
+
+      if developer.changed?
+        developer.save
+      end
+    end
+
+  end
 end
