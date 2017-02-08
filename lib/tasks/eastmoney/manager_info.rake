@@ -206,7 +206,7 @@ namespace :eastmoney do
     end
   end
 
-  desc "save eastmoney manager info to dir"
+  desc "fetch and save eastmoney manager info to dir"
   task :save_eastmoney_manager_info => [:environment] do
     sb ||= SpiderBase.new
     number ||= 0
@@ -332,6 +332,35 @@ namespace :eastmoney do
 
       if developer.changed?
         developer.save
+      end
+    end
+  end
+
+  desc "set developer_project from manager show"
+  task :set_developer_project => [:environment] do
+    Developer.where.not(eastmoney_url: [nil, ""]).find_each.with_index do |developer, index|
+      manager_dir = Rails.public_path.join("manager/eastmoney/info")
+
+      file_name_with_path = manager_dir.join("#{developer.id}.html")
+
+
+      doc = Nokogiri::HTML(open(file_name_with_path).read);
+
+
+      manager_funds_ele = doc.css("table.ftrs")[0];
+      trs_ele = manager_funds_ele.css("tbody tr")
+
+      trs_ele.each do |tr_ele|
+        aa, bb, cc, dd, ee, ff, gg, hh = tr_ele.css("td")
+
+        code = aa.css("a").text
+        name = bb.css("a").text
+        date_range = ff.text
+
+        DeveloperProject.find_or_create_by(developer_id: developer.id, project_code: code) do |developer_project|
+          developer_project.beginning_work_date = date_range.split(" ").first.try(:to_time)
+          developer_project.end_of_work_date = date_range.split(" ").last.try(:to_time)
+        end
       end
     end
   end
