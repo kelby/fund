@@ -21,17 +21,21 @@
 #  eastmoney_code    :string(255)
 #  sina_code         :string(255)
 #  rh_at             :date
+#  catalog_id        :integer
 #
 
 class Developer < ApplicationRecord
   # Associations
   has_many :catalog_developers
-  # 基金公司
+  # 就职过的基金公司（两者是多对多关联，虽然一个基金经理就职过多个基金公司的情况比较少，但仍然是多对多）
   has_many :catalogs, through: :catalog_developers
 
   has_many :developer_projects
   # 基金
   has_many :projects, through: :developer_projects
+
+  # 当前就职的基金（这个关系是孤立的，catalog 那边没有 has_many）
+  belongs_to :catalog
   # END
 
 
@@ -61,10 +65,6 @@ class Developer < ApplicationRecord
       eastmoney_code = developer.eastmoney_url.split(/\/|\./)[-2]
       developer.update_columns(eastmoney_code: eastmoney_code)
     end
-  end
-
-  def catalog
-    self.catalogs.last
   end
 
   def self.create_developer_from_projects
