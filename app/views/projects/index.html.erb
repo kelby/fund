@@ -1,20 +1,26 @@
 <% set_meta_tags title: "Projects" %>
 
-<div class="title">
+<% content_for :content_css_link_yield do %>
+  <%= stylesheet_link_tag 'projects' %>
+<% end %>
+
+
+<div class="title-box">
 
   <h1>
-    Projects
+    股票型、混合型、债券型、指数型、保本型、QDII、LOF等基金数据。
 
-    <small>
-      <%= @projects.unscope(:limit, :offset).count %>
-    </small>
+    <!-- <small> -->
+    <!-- </small> -->
 
     <small class="pull-right">
-      <%= link_to 'New Project', new_project_path %>
+      <%= @projects.unscope(:limit, :offset).count %>
+      <%#= link_to 'New Project', new_project_path %>
     </small>
   </h1>
 
 </div>
+
 
 <% @projects.each_slice(2).each do |projects| %>
   <div class="col-md-12">

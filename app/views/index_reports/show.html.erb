@@ -1,21 +1,17 @@
-<p>
-  <strong>Catalog:</strong>
-  <%= @index_report.catalog %>
-</p>
+<ol class="breadcrumb no-padding-left">
+  <li><a href="#"><%= @index_report.catalog %></a></li>
+  <li><a href="#"><%= @index_report.category %></a></li>
+  <li class="active"><%= @index_report.name %></li>
+</ol>
 
-<p>
-  <strong>Category:</strong>
-  <%= @index_report.category %>
-</p>
+<h1>
+  <%= @index_report.name %>
+</h1>
+
 
 <p>
   <strong>Category intro:</strong>
   <%= @index_report.category_intro %>
-</p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @index_report.name %>
 </p>
 
 <p>
@@ -28,6 +24,7 @@
   <%= @index_report.website %>
 </p>
 
+
 <p>
   <strong>Code:</strong>
   <%= @index_report.code %>
@@ -38,5 +35,6 @@
   <%= @index_report.set_up_at %>
 </p>
 
-<%= link_to 'Edit', edit_index_report_path(@index_report) %> |
-<%= link_to 'Back', index_reports_path %>
+<% if can? :edit, @index_report %>
+  <%= link_to 'Edit', edit_index_report_path(@index_report) %>
+<% end %>

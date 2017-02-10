@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     resources :comments
   end
 
-  resources :index_reports
+  resources :index_reports, path: 'index_report'
 
   get 'user_favor_comment/create'
 

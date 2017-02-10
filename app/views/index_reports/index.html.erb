@@ -14,7 +14,7 @@
   <% end %>
 </ul>
 
-<div class="col-md-3">
+<div class="col-md-3 no-padding-left">
   <div class="panel-group" id="accordion">
     <% IndexReport.pluck(:catalog).uniq.each do |catalog| %>
       <div class="panel panel-default">
@@ -60,7 +60,7 @@
         <th>Website</th>
         <th>Code</th>
         <th>Set up at</th>
-        <th colspan="3"></th>
+        <th colspan="2"></th>
       </tr>
     </thead>
 
@@ -77,9 +77,18 @@
           <td><%#= index_report.website %></td>
           <td><%= index_report.code %></td>
           <td><%= index_report.set_up_at %></td>
-          <td><%= link_to 'Show', index_report %></td>
-          <td><%= link_to 'Edit', edit_index_report_path(index_report) %></td>
-          <td><%= link_to 'Destroy', index_report, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+
+          <% if can? :edit, index_report %>
+            <td>
+              <%= link_to 'Edit', edit_index_report_path(index_report) %>
+            </td>
+          <% end %>
+
+          <% if can? :destroy, index_report %>
+            <td>
+              <%= link_to 'Destroy', index_report, method: :delete, data: { confirm: 'Are you sure?' } %>
+            </td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>

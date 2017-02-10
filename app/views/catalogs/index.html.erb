@@ -23,7 +23,11 @@
     <h2>
       基金公司一览
       <small>
-        <%= Catalog.group(:initial).count.size %>
+        首字母拼音排序
+      </small>
+
+      <small class="pull-right">
+        <%= Catalog.unscope(:limit, :offset).count %>
       </small>
     </h2>
   </div>
@@ -51,8 +55,11 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     <h2>
-      Others
-      <small><%= @catalogs.size %></small>
+      基金公司列表
+
+      <small>
+        <%= @catalogs.size %>
+      </small>
     </h2>
   </div>
 
