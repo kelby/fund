@@ -12,6 +12,8 @@
 #  developer_eastmoney_code :string(255)
 #  developer_sina_code      :string(255)
 #  project_code             :string(255)
+#  term_of_office           :string(255)
+#  as_return                :decimal(15, 4)
 #
 
 class DeveloperProject < ApplicationRecord
@@ -22,7 +24,7 @@ class DeveloperProject < ApplicationRecord
   # 可以没有 end_of_work_date
   validates_presence_of :beginning_work_date
 
-  validates_uniqueness_of :project_id, scope: :developer_id
+  validates_uniqueness_of :project_id, scope: [:developer_id, :beginning_work_date]
 
   before_validation :detect_and_set_attributes
 
