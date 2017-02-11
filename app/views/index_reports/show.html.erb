@@ -1,3 +1,5 @@
+<% set_meta_tags title: "#{@index_report.name}(#{@index_report.code})", description: @index_report.intro %>
+
 <ol class="breadcrumb no-padding-left">
   <li>
     <%= link_to index_reports_path(filter_type: 'catalog', filter_code: @index_report.catalog) do %>
