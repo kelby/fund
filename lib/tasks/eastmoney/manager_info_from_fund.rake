@@ -33,11 +33,10 @@ namespace :eastmoney do
 
 
   desc "set_developer_project_from_fund."
-  task :set_developer_project_from_fund => [:environment] do
+  task :set_developer_project_from_fund => [:environment, :set_present_dp_eastmoney_code] do
     # sb ||= SpiderBase.new
     number = 0
     fund_managers_dir = Rails.public_path.join("fund/eastmoney/managers")
-
 
     # Project.limit(3).each_with_index do |project, index|
     Project.where("id > ?", number).find_each.each_with_index do |project, index|
@@ -79,6 +78,22 @@ namespace :eastmoney do
           as_return = ee.text.to_f
 
           fund_codes.each do |developer_eastmoney_code|
+            dp = DeveloperProject.where(beginning_work_date: beginning_work_date,
+              project_id: project.id,
+              developer_eastmoney_code: developer_eastmoney_code)
+
+            if dp.present?
+              dp.end_of_work_date = end_of_work_date
+              dp.term_of_office = term_of_office
+              dp.as_return = as_return
+
+              if dp.changed?
+                dp.save
+              end
+
+              next
+            end
+
             DeveloperProject.create(project_id: project.id,
               # developer_id: developer.id,
               beginning_work_date: beginning_work_date,
@@ -96,5 +111,26 @@ namespace :eastmoney do
       #   puts "=============Error #{project.id} #{code}"
       # end
     end
+  end
+
+  desc "set present developer_project's eastmoney_code"
+  task :set_present_dp_eastmoney_code => [:environment] do
+
+    DeveloperProject.count
+    DeveloperProject.where(developer_eastmoney_code: [nil, '']).count
+
+    DeveloperProject.where(developer_eastmoney_code: [nil, '']).find_each do |dp|
+      dp.developer_eastmoney_code = dp.developer.eastmoney_code;
+
+      if dp.changed?
+        dp.save
+      else
+        next
+      end
+    end
+
+    DeveloperProject.count
+    DeveloperProject.where(developer_eastmoney_code: [nil, '']).count
+
   end
 end
