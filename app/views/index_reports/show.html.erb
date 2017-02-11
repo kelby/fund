@@ -1,6 +1,14 @@
 <ol class="breadcrumb no-padding-left">
-  <li><a href="#"><%= @index_report.catalog %></a></li>
-  <li><a href="#"><%= @index_report.category %></a></li>
+  <li>
+    <%= link_to index_reports_path(filter_type: 'catalog', filter_code: @index_report.catalog) do %>
+      <%= @index_report.catalog %>
+    <% end %>
+  </li>
+  <li>
+    <%= link_to index_reports_path(filter_type: 'category', filter_code: @index_report.category) do %>
+      <%= @index_report.category %>
+    <% end %>
+  </li>
   <li class="active"><%= @index_report.name %></li>
 </ol>
 
@@ -38,3 +46,30 @@
 <% if can? :edit, @index_report %>
   <%= link_to 'Edit', edit_index_report_path(@index_report) %>
 <% end %>
+
+<hr>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    可能关联的基金
+
+    <small>
+      <%= Project.where("name LIKE ?", "%#{@index_report.name}%").count %>
+    </small>
+  </div>
+
+  <ul class="list-group">
+    <% Project.where("name LIKE ?", "%#{@index_report.name}%").each do |project| %>
+      <li class="list-group-item">
+        <%= link_to project.code, project %>
+        <%= link_to project, target: "_blank" do %>
+          <%= project.name %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+
+  <div class="panel-footer">
+    共有 <%= Project.joins(:fund_jbgk).where("fund_jbgks.benchmark LIKE ?", "%#{@index_report.name}%").distinct.count %> 支基金其作为“业绩比较基准”因子。
+  </div>
+</div>
