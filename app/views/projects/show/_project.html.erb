@@ -240,25 +240,11 @@
   <hr>
 
 
-  <h3>Code</h3>
-  <table class="inset">
-    <tbody>
-    <tr>
-      <td>Files</td>
-      <td>12</td>
-    </tr>
-    <tr>
-      <td><span class="hidden-lg-span">Size</span><span class="visible-lg-span">Integration Size</span>
-      </td>
-      <td>72 kb</td>
-    </tr>
-    <tr>
-      <td><span class="hidden-lg-span">LOC</span><span class="visible-lg-span">Lines of Code</span>
-      </td>
-      <td>398</td>
-    </tr>
-    </tbody>
-  </table>
+  <h3>业绩比较基准</h3>
+      <% if @project.fund_jbgk.present? %>
+        <%= @project.fund_jbgk.benchmark %>
+      <% end %>
+
 
 
 

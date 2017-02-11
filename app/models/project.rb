@@ -55,6 +55,7 @@ class Project < ApplicationRecord
   has_one :package_info
 
   has_one :fund_raise
+  has_one :fund_jbgk
   has_many :fund_jbgks
 
   has_many :comments, as: :commentable
