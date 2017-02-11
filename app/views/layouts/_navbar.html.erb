@@ -13,21 +13,29 @@
 
       <ul class="nav navbar-nav custom-nav visible-xs hidden-md hidden-sm">
 
-        <li class="<%= current_page?(rails_path)? 'active' : nil %>">
-          <%= link_to "Gems", rails_path %>
+        <li>
+          <%= link_to "基金", projects_path %>
         </li>
+
+        <li>
+          <%= link_to "文章", articles_path %>
+        </li>
+
+        <!-- <li class="<%#= current_page?(rails_path)? 'active' : nil %>">
+          <%#= link_to "Gems", rails_path %>
+        </li> -->
 
         <!-- <li class="<%#= current_page?(laravel_path)? 'active' : nil %>">
           <%#= link_to "Packages", laravel_path %>
         </li> -->
 
-        <li class="<%= current_page?(swift_path)? 'active' : nil %>">
-          <%= link_to "Pods", swift_path %>
-        </li>
+        <!-- <li class="<%#= current_page?(swift_path)? 'active' : nil %>">
+          <%#= link_to "Pods", swift_path %>
+        </li> -->
 
-        <li class="<%= current_page?(today_episodes_path)? 'active' : nil %>">
-          <%= link_to "今日推荐", today_episodes_path %>
-        </li>
+        <!-- <li class="<%#= current_page?(today_episodes_path)? 'active' : nil %>">
+          <%#= link_to "今日推荐", today_episodes_path %>
+        </li> -->
       </ul>
     </div>
 
@@ -82,7 +90,7 @@
         <li class="dropdown">
           <% if user_signed_in? %>
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-              <%= current_user.name %> <span class="caret"></span>
+              <%= current_user.username %> <span class="caret"></span>
             </a>
           <% else %>
             <!-- <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">

@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   resources :fund_rankings
   resources :stocks
   resources :quotes
+
   mount RedactorRails::Engine => '/redactor_rails'
+
   resources :articles do
     resources :comments
   end
@@ -76,6 +78,8 @@ Rails.application.routes.draw do
 
       get :star, to: "repos#star"
       get :recommend, to: "repos#recommend"
+
+      get :calculus, to: "project_arithmetic#calculus"
     end
 
     resource :recommend_project, only: [:new, :create] do

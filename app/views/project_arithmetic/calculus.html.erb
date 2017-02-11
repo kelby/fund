@@ -1,0 +1,123 @@
+<% set_meta_tags title: "#{@project.name}(#{@project.code})", description: @project.description %>
+
+<!-- <div class="panel panel-default popular-projects"> -->
+
+
+  <div class="panel panel-default">
+    <div class="panel-body">
+      基金：<%= @project.name %>(<%= @project.code %>) 的增长率、收益计算
+
+      <small class="pull-right">
+        <%= link_to "返回", @project %>
+      </small>
+    </div>
+  </div>
+
+  <%#= render "projects/popular_item" %>
+<!-- </div> -->
+
+
+<div class="panel panel-default">
+  <div class="panel-heading">近一周增长率</div>
+  <div class="panel-body">
+    
+    <% if @project.last_week_trade_day_net_worth.present? %>
+      <%= @project.last_trade_day %> |
+      <%= @project.last_week_trade_day %> |
+
+      <%= @project.last_week_trade_day_net_worth.record_at %> |
+      <%= @project.last_week_trade_day_net_worth.dwjz %> |
+      <%= @project.last_week_trade_day_net_worth.ljjz %>
+      =>
+      <%= @project.last_week_ranking %>
+    <% end %>
+  </div>
+</div>
+
+
+<div class="panel panel-default">
+  <div class="panel-heading">近一月增长率</div>
+  <div class="panel-body">
+    
+    <% if @project.last_month_trade_day_net_worth.present? %>
+      <%= @project.last_trade_day %> |
+      <%= @project.last_month_trade_day %> |
+      <%= @project.last_month_trade_day_net_worth.record_at %> |
+      <%= @project.last_month_trade_day_net_worth.dwjz %> |
+      <%= @project.last_month_trade_day_net_worth.ljjz %>
+      =>
+      <%= @project.last_month_ranking %>
+    <% end %>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">近三月增长率</div>
+  <div class="panel-body">
+    <% if @project.last_three_month_trade_day_net_worth.present? %>
+      <%= @project.last_trade_day %> |
+      <%= @project.last_three_month_trade_day %> |
+      <%= @project.last_three_month_trade_day_net_worth.record_at %> |
+      <%= @project.last_three_month_trade_day_net_worth.dwjz %> |
+      <%= @project.last_three_month_trade_day_net_worth.ljjz %>
+      =>
+      <%= @project.last_three_month_ranking %>
+    <% end %>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">近六月增长率</div>
+  <div class="panel-body">
+    Panel content
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">近一年增长率</div>
+  <div class="panel-body">
+    Panel content
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">近二年增长率</div>
+  <div class="panel-body">
+    Panel content
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">近三年增长率</div>
+  <div class="panel-body">
+    Panel content
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">近五年增长率</div>
+  <div class="panel-body">
+    Panel content
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">近七年增长率</div>
+  <div class="panel-body">
+    Panel content
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">近十年增长率</div>
+  <div class="panel-body">
+    Panel content
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">成立以来</div>
+  <div class="panel-body">
+    Panel content
+  </div>
+</div>

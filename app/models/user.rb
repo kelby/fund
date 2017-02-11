@@ -48,8 +48,8 @@ class User < ApplicationRecord
 
 
   # Validates
-  validates_presence_of :name
-  validates_uniqueness_of :name
+  validates_presence_of :username
+  validates_uniqueness_of :username
   # END
 
   # Callbacks

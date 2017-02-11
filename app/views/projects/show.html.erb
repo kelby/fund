@@ -1,4 +1,4 @@
-<% set_meta_tags title: "#{@project.short_github_indentity}: #{@project.description}", description: @project.description %>
+<% set_meta_tags title: "#{@project.name}(#{@project.code})", description: @project.description %>
 
 <% content_for :content_css_link_yield do %>
   <%= stylesheet_link_tag 'projects' %>
@@ -20,13 +20,16 @@
         <% end %>
       </li>
 
-      <li class="active"><%= @project.name %></li>
+      <li class="active">
+        <%= @project.name %>
+        (<%= @project.code %>)
+      </li>
 
-      <% if can? :create, 'RecommendProject' %>
-        <li class="pull-right">
+      <%# if can? :create, 'RecommendProject' %>
+        <!-- <li class="pull-right"> -->
           <%#= link_to "今日推荐", new_project_recommend_project_path(@project), remote: true %>
-        </li>
-      <% end %>
+        <!-- </li> -->
+      <%# end %>
     </ol>
 
     <%#= render "projects/popular_item" %>
@@ -101,40 +104,9 @@
 
       %
 
-
-      <% if @project.last_week_trade_day_net_worth.present? %>
-        <br>
-        最后一个交易日 <%= @project.last_trade_day %> |
-        <%= @project.last_week_trade_day %> |
-        <%= @project.last_week_trade_day_net_worth.record_at %> |
-        <%= @project.last_week_trade_day_net_worth.dwjz %> |
-        <%= @project.last_week_trade_day_net_worth.ljjz %>
-        =>
-        <%= @project.last_week_ranking %>
-      <% end %>
-
-      <% if @project.last_month_trade_day_net_worth.present? %>
-        <br>
-        最后一个交易日 <%= @project.last_trade_day %> |
-        <%= @project.last_month_trade_day %> |
-        <%= @project.last_month_trade_day_net_worth.record_at %> |
-        <%= @project.last_month_trade_day_net_worth.dwjz %> |
-        <%= @project.last_month_trade_day_net_worth.ljjz %>
-        =>
-        <%= @project.last_month_ranking %>
-      <% end %>
-
-      <% if @project.last_three_month_trade_day_net_worth.present? %>
-        <br>
-        最后一个交易日 <%= @project.last_trade_day %> |
-        <%= @project.last_three_month_trade_day %> |
-        <%= @project.last_three_month_trade_day_net_worth.record_at %> |
-        <%= @project.last_three_month_trade_day_net_worth.dwjz %> |
-        <%= @project.last_three_month_trade_day_net_worth.ljjz %>
-        =>
-        <%= @project.last_three_month_ranking %>
-      <% end %>
-
+      <small class="pull-right">
+        <%= link_to "计算公式", calculus_project_path(@project) %>
+      </small>
     </div>
   <% end %>
 </div>
