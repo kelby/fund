@@ -174,3 +174,49 @@
     </ul>
   </div>
 <% end %>
+
+<% catalog_eastmoney_info = @catalog.catalog_eastmoney_info %>
+
+<% if catalog_eastmoney_info.present? %>
+  <div class="panel panel-default">
+    <div class="panel-heading">Header info</div>
+
+    <ul class="list-group">
+      <% catalog_eastmoney_info.header_info.each_pair do |key, value| %>
+        <li class="list-group-item">
+          <%= key %>
+          <br>
+          <%= value %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">Body info</div>
+
+    <ul class="list-group">
+      <% catalog_eastmoney_info.body_info.each_pair do |key, value| %>
+        <li class="list-group-item">
+          <%= key %>
+          <br>
+          <%= value %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">Table info</div>
+
+    <ul class="list-group">
+      <% catalog_eastmoney_info.table_info.each_pair do |key, value| %>
+        <li class="list-group-item">
+          <%= key %>
+          <br>
+          <%= value %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
