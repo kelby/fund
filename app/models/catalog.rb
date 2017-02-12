@@ -54,6 +54,7 @@ class Catalog < ApplicationRecord
   has_many :developers, through: :catalog_developers
 
   has_one :catalog_sina_info
+  has_one :catalog_eastmoney_info
   # END
 
 
