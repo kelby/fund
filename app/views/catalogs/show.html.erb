@@ -128,5 +128,49 @@
   </div>
 </div>
 
-<%#= link_to 'Edit', edit_catalog_path(@catalog) %>
-<%#= link_to 'Back', catalogs_path %>
+
+<% catalog_sina_info = @catalog.catalog_sina_info %>
+
+<% if catalog_sina_info.present? %>
+  <div class="panel panel-default">
+    <div class="panel-heading">Header info</div>
+
+    <ul class="list-group">
+      <% catalog_sina_info.header_info.each_pair do |key, value| %>
+        <li class="list-group-item">
+          <%= key %>
+          <br>
+          <%= value %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">Body info</div>
+
+    <ul class="list-group">
+      <% catalog_sina_info.body_info.each_pair do |key, value| %>
+        <li class="list-group-item">
+          <%= key %>
+          <br>
+          <%= value %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">Table info</div>
+
+    <ul class="list-group">
+      <% catalog_sina_info.table_info.each_pair do |key, value| %>
+        <li class="list-group-item">
+          <%= key %>
+          <br>
+          <%= value %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
