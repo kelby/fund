@@ -33,6 +33,38 @@ namespace :eastmoney do
     end
   end
 
+  # 这支基金比较特殊，上述方式抓取不完全内容，所以特别处理
+  desc "Task description"
+  task :task_name => [:dependent, :tasks] do
+    headless = Headless.new
+    headless.start
+    browser = Watir::Browser.new
+
+    company_show_dir = Rails.public_path.join("company/eastmoney/show")
+
+    index ||= 0
+
+    catalog = Catalog.find_by code: '80000095'
+
+
+    code = catalog.code
+
+    url = "http://fund.eastmoney.com/company/#{code}.html"
+
+    fetch_content = browser.goto(url);
+    puts "Fetch company #{code} data from #{url} =========== #{index}"
+
+    # doc = fetch_content.doc;
+
+    file_name_with_path = company_show_dir.join("#{code}.html")
+
+    begin
+      File.open(file_name_with_path, 'w') { |file| file.write(browser.html) }
+    rescue Exception => e
+      puts "=============Error #{code}, Exception #{e}"
+    end
+  end
+
   desc "Task description"
   task :set_company_show_info => [:dependent, :tasks] do
     company_show_dir = Rails.public_path.join("company/eastmoney/show")
