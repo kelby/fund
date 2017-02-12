@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: catalog_sina_infos
+# Table name: catalog_eastmoney_infos
 #
 #  id                :integer          not null, primary key
 #  catalog_id        :integer
@@ -13,7 +13,7 @@
 #  updated_at        :datetime         not null
 #
 
-class CatalogSinaInfo < ApplicationRecord
+class CatalogEastmoneyInfo < ApplicationRecord
   belongs_to :catalog
 
 
