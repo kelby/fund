@@ -78,11 +78,13 @@ namespace :eastmoney do
           as_return = ee.text.to_f
 
           fund_codes.each do |developer_eastmoney_code|
-            dp = DeveloperProject.where(beginning_work_date: beginning_work_date,
+            dps = DeveloperProject.where(beginning_work_date: beginning_work_date,
               project_id: project.id,
               developer_eastmoney_code: developer_eastmoney_code)
 
-            if dp.present?
+            if dps.present? && dps.one?
+              dp = dps.first
+
               dp.end_of_work_date = end_of_work_date
               dp.term_of_office = term_of_office
               dp.as_return = as_return
