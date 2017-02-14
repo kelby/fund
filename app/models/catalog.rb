@@ -24,6 +24,8 @@
 #  raw_show_html           :text(65535)
 #  projects_count          :integer          default(0), not null
 #  sina_code               :string(255)
+#  cover                   :string(255)
+#  description             :text(65535)
 #
 
 # initial 拼音首字母
@@ -81,6 +83,10 @@ class Catalog < ApplicationRecord
   # END
 
 
+  # Plugins
+  mount_uploader :cover, AvatarUploader
+  # END
+
   def self.no_online_categories_so_offline
     Catalog.online.includes(:categories).map{|c| c.offline! if c.categories.all?{|x| x.offline? }}
   end
@@ -113,7 +119,7 @@ class Catalog < ApplicationRecord
     "Testing",
     "Time & Space",
     "Web Apps, Services & Interaction"].each do |category|
-      RailsCatalog.create(name: category, slug: Pinyin.t(category, splitter: '_'))
+      # RailsCatalog.create(name: category, slug: Pinyin.t(category, splitter: '_'))
     end
   end
 
@@ -129,7 +135,7 @@ class Catalog < ApplicationRecord
     "图片处理",
     "数据库(Database)",
     "日志(log)"].each do |category|
-      SwiftCatalog.create(name: category, slug: Pinyin.t(category, splitter: '_'))
+      # SwiftCatalog.create(name: category, slug: Pinyin.t(category, splitter: '_'))
     end
   end
 
@@ -234,7 +240,7 @@ class Catalog < ApplicationRecord
     "laroute",
     "laravel-analytics",
     "active"].each do |category|
-      LaravelCatalog.create(name: category, slug: Pinyin.t(category, splitter: '_'))
+      # LaravelCatalog.create(name: category, slug: Pinyin.t(category, splitter: '_'))
     end
   end
 
@@ -253,29 +259,29 @@ class Catalog < ApplicationRecord
   end
 
   def human_type
-    case self.type
-    when "RailsCatalog"
-      TOP_SINGULAR['gemspec']
-    when "LaravelCatalog"
-      TOP_SINGULAR['package']
-    when "SwiftCatalog"
-      TOP_SINGULAR['pod']
-    else
+    # case self.type
+    # when "RailsCatalog"
+    #   TOP_SINGULAR['gemspec']
+    # when "LaravelCatalog"
+    #   TOP_SINGULAR['package']
+    # when "SwiftCatalog"
+    #   TOP_SINGULAR['pod']
+    # else
       "未知"
-    end
+    # end
   end
 
   def project_identity
-    case self.type
-    when "SwiftCatalog"
-      'pod'
-    when "RailsCatalog"
-      'gemspec'
-    when "LaravelCatalog"
-      'package'
-    else
+    # case self.type
+    # when "SwiftCatalog"
+    #   'pod'
+    # when "RailsCatalog"
+    #   'gemspec'
+    # when "LaravelCatalog"
+    #   'package'
+    # else
       nil
-    end
+    # end
   end
 
   def set_slug

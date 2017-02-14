@@ -21,6 +21,26 @@
   <% end %>
 </ol>
 
+<% if @catalog.catalog_sina_info.present? %>
+  <div class="media">
+    <div class="media-left media-middle">
+      <%= link_to @catalog do %>
+        <%= image_tag @catalog.cover_url, class: "media-object", alt: @catalog.name %>
+      <% end %>
+    </div>
+    <div class="media-body">
+      <h4 class="media-heading">
+        <%= @catalog.catalog_sina_info.header_info['name_with_ltd'] %>
+      </h4>
+
+      <%= @catalog.description %>
+    </div>
+    <div class="media-right">
+      <%= @catalog.catalog_sina_info.header_info['kefu'] %>
+    </div>
+  </div>
+<% end %>
+
 <!-- <div class="col-md-12"> -->
 <div class="panel panel-default show-catalog">
   <div class="panel-heading">
