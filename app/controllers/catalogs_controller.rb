@@ -3,31 +3,31 @@ class CatalogsController < ApplicationController
   before_action :set_catalog, only: [:show, :edit, :update, :destroy]
 
   # GET
-  def rails
-    @catalogs = RailsCatalog.online.includes(:online_categories)
+  # def rails
+  #   @catalogs = RailsCatalog.online.includes(:online_categories)
 
-    @title = Catalog::TOP_PLURAL['gemspec']
-    render :language
-  end
+  #   @title = Catalog::TOP_PLURAL['gemspec']
+  #   render :language
+  # end
 
-  def swift
-    @catalogs = SwiftCatalog.online.includes(:online_categories)
+  # def swift
+  #   @catalogs = SwiftCatalog.online.includes(:online_categories)
 
-    @title = Catalog::TOP_PLURAL['pod']
-    render :language
-  end
+  #   @title = Catalog::TOP_PLURAL['pod']
+  #   render :language
+  # end
 
-  def laravel
-    @catalogs = LaravelCatalog.online.includes(:online_categories)
+  # def laravel
+  #   @catalogs = LaravelCatalog.online.includes(:online_categories)
 
-    render :language
-  end
+  #   render :language
+  # end
 
   # GET /catalogs
   def index
-    @rails_catalogs = RailsCatalog.online
-    @laravel_catalogs = LaravelCatalog.online
-    @swift_catalogs = SwiftCatalog.online
+    # @rails_catalogs = RailsCatalog.online
+    # @laravel_catalogs = LaravelCatalog.online
+    # @swift_catalogs = SwiftCatalog.online
 
     @catalogs = Catalog.where(type: [nil, ''])
   end

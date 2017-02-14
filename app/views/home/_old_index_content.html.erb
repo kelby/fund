@@ -8,7 +8,7 @@
           <% end %>
 
           <small class="pull-right">
-            <%= RailsCatalog.online.count %>
+            <%#= RailsCatalog.online.count %>
           </small>
         </h2>
 
@@ -52,7 +52,7 @@
           <% end %>
 
           <small class="pull-right">
-            <%= SwiftCatalog.online.count %>
+            <%#= SwiftCatalog.online.count %>
           </small>
         </h2>
 
@@ -60,7 +60,7 @@
 
       <!-- <div class="panel-body"> -->
         <ul class="list-group">
-          <%= render partial: "home/catalog", as: :catalog, collection: SwiftCatalog.online.includes(:categories) %>
+          <%#= render partial: "home/catalog", as: :catalog, collection: SwiftCatalog.online.includes(:categories) %>
         </ul>
       <!-- </div> -->
     </div>

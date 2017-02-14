@@ -591,16 +591,16 @@ class Project < ApplicationRecord
   end
 
   def set_project_type
-    case self.category.catalog.type
-    when "RailsCatalog"
-      self.identity = 'gemspec'
-    when "LaravelCatalog"
-      self.identity = 'package'
-    when "SwiftCatalog"
-      self.identity = 'pod'
-    else
-      #
-    end
+    # case self.category.catalog.type
+    # when "RailsCatalog"
+    #   self.identity = 'gemspec'
+    # when "LaravelCatalog"
+    #   self.identity = 'package'
+    # when "SwiftCatalog"
+    #   self.identity = 'pod'
+    # else
+    #   #
+    # end
   end
 
   def logic_set_gem_info

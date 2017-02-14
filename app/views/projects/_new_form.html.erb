@@ -44,9 +44,9 @@
 <% end %>
 
 
-<%= select_tag :rails_catalog, options_for_select(RailsCatalog.online.collect { |p| [ p.name, p.id ] }), include_blank: true, class: "hidden" %>
-<%= select_tag :laravel_catalog, options_for_select(LaravelCatalog.online.collect { |p| [ p.name, p.id ] }), include_blank: true, class: "hidden" %>
-<%= select_tag :swift_catalog, options_for_select(SwiftCatalog.online.collect { |p| [ p.name, p.id ] }), include_blank: true, class: "hidden" %>
+<%#= select_tag :rails_catalog, options_for_select(RailsCatalog.online.collect { |p| [ p.name, p.id ] }), include_blank: true, class: "hidden" %>
+<%#= select_tag :laravel_catalog, options_for_select(LaravelCatalog.online.collect { |p| [ p.name, p.id ] }), include_blank: true, class: "hidden" %>
+<%#= select_tag :swift_catalog, options_for_select(SwiftCatalog.online.collect { |p| [ p.name, p.id ] }), include_blank: true, class: "hidden" %>
 
 
 <% content_for :javascripts do %>
