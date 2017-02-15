@@ -18,4 +18,15 @@ namespace :manager do
   #     end
   #   end
   # end
+  desc "set catalog cover and description from sina_info."
+  task :set_cover_and_description_from_sina_info => [:environment] do
+    Catalog.joins(:catalog_sina_info).each do |catalog|
+      catalog.remote_cover_url = catalog.catalog_sina_info.header_info['cover']
+      catalog.description = catalog.catalog_sina_info.table_info['公司简介']
+
+      if catalog.changed?
+        catalog.save
+      end
+    end
+  end
 end
