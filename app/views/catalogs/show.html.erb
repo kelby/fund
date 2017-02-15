@@ -5,7 +5,6 @@
 <% end %>
 
 <ol class="breadcrumb bg-color-white catalog-category-etc">
-
   <li>
     <%= link_to "基金公司", catalogs_path %>
   </li>
@@ -21,7 +20,7 @@
   <% end %>
 </ol>
 
-<% if @catalog.catalog_sina_info.present? %>
+<% if @catalog_sina_info.present? %>
   <div class="media">
     <div class="media-left media-middle">
       <%= link_to @catalog do %>
@@ -30,18 +29,17 @@
     </div>
     <div class="media-body">
       <h4 class="media-heading">
-        <%= @catalog.catalog_sina_info.header_info['name_with_ltd'] %>
+        <%= @catalog_sina_info.header_info['name_with_ltd'] %>
       </h4>
 
       <%= @catalog.description %>
     </div>
     <div class="media-right">
-      <%= @catalog.catalog_sina_info.header_info['kefu'] %>
+      <%= @catalog_sina_info.header_info['kefu'] %>
     </div>
   </div>
 <% end %>
 
-<!-- <div class="col-md-12"> -->
 <div class="panel panel-default show-catalog">
   <div class="panel-heading">
     <h2 class="panel-title top-catalog">
@@ -60,40 +58,27 @@
       <% end %>
 
       <small class="pull-right">
-        <%= @catalog.online_categories_count %>
+        <%= @catalog.projects.count %>
       </small>
     </h2>
   </div>
 
-  <!-- <div class="panel-body no-padding"> -->
-
-    <ul class="list-group">
-      <%#= render partial: "categories/list_item", collection: @catalog.categories.online, as: :category %>
+  <% if @catalog_sina_info.present? %>
+    <ul class="list-group clearfix">
       <% if @catalog.set_up_at.present? %>
-        <li class="list-group-item">
-          成立: <%= @catalog.set_up_at.strftime("%F") %>
+        <li class="list-group-item col-md-3">
+          成立日期: <%= @catalog.set_up_at.strftime("%F") %>
         </li>
       <% end %>
 
-      <% if @catalog.scale_record_at.present? %>
-        <li class="list-group-item">
-          管理规模: <%= @catalog.scale %>
-
-          <small>
-            <%= @catalog.scale_record_at.strftime("%F") %>
-          </small>
+      <% @catalog_sina_info.body_info.each_pair do |key, value| %>
+        <li class="list-group-item col-md-3">
+          <%= key %>
+          <%= value %>
         </li>
       <% end %>
-
-      <li class="list-group-item">
-        简称: <%= @catalog.short_name %>
-      </li>
-
-      <li class="list-group-item">
-        总经理: <%= @catalog.founder %>
-      </li>
     </ul>
-  <!-- </div> -->
+  <% end %>
 
   <% if @catalog.footnote.present? %>
     <div class="panel-footer">
@@ -101,7 +86,6 @@
     </div>
   <% end %>
 </div>
-
 
 <div class="panel panel-default">
   <div class="panel-heading">
@@ -149,14 +133,13 @@
 </div>
 
 
-<% catalog_sina_info = @catalog.catalog_sina_info %>
 
-<% if catalog_sina_info.present? %>
+<% if @catalog_sina_info.present? %>
   <div class="panel panel-default">
     <div class="panel-heading">Header info</div>
 
     <ul class="list-group">
-      <% catalog_sina_info.header_info.each_pair do |key, value| %>
+      <% @catalog_sina_info.header_info.each_pair do |key, value| %>
         <li class="list-group-item">
           <%= key %>
           <br>
@@ -170,7 +153,7 @@
     <div class="panel-heading">Body info</div>
 
     <ul class="list-group">
-      <% catalog_sina_info.body_info.each_pair do |key, value| %>
+      <% @catalog_sina_info.body_info.each_pair do |key, value| %>
         <li class="list-group-item">
           <%= key %>
           <br>
@@ -184,7 +167,7 @@
     <div class="panel-heading">Table info</div>
 
     <ul class="list-group">
-      <% catalog_sina_info.table_info.each_pair do |key, value| %>
+      <% @catalog_sina_info.table_info.each_pair do |key, value| %>
         <li class="list-group-item">
           <%= key %>
           <br>
@@ -195,14 +178,13 @@
   </div>
 <% end %>
 
-<% catalog_eastmoney_info = @catalog.catalog_eastmoney_info %>
 
-<% if catalog_eastmoney_info.present? %>
+<% if @catalog_eastmoney_info.present? %>
   <div class="panel panel-default">
     <div class="panel-heading">Header info</div>
 
     <ul class="list-group">
-      <% catalog_eastmoney_info.header_info.each_pair do |key, value| %>
+      <% @catalog_eastmoney_info.header_info.each_pair do |key, value| %>
         <li class="list-group-item">
           <%= key %>
           <br>
@@ -216,7 +198,7 @@
     <div class="panel-heading">Body info</div>
 
     <ul class="list-group">
-      <% catalog_eastmoney_info.body_info.each_pair do |key, value| %>
+      <% @catalog_eastmoney_info.body_info.each_pair do |key, value| %>
         <li class="list-group-item">
           <%= key %>
           <br>
@@ -230,7 +212,7 @@
     <div class="panel-heading">Table info</div>
 
     <ul class="list-group">
-      <% catalog_eastmoney_info.table_info.each_pair do |key, value| %>
+      <% @catalog_eastmoney_info.table_info.each_pair do |key, value| %>
         <li class="list-group-item">
           <%= key %>
           <br>

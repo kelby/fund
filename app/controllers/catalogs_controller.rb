@@ -35,6 +35,9 @@ class CatalogsController < ApplicationController
   # GET /catalogs/1
   def show
     @projects = @catalog.projects.confirm_lineal
+
+    @catalog_sina_info = @catalog.catalog_sina_info
+    @catalog_eastmoney_info = @catalog.catalog_eastmoney_info
   end
 
   # GET /catalogs/new
