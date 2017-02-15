@@ -22,7 +22,7 @@
 
 <% if @catalog_sina_info.present? %>
   <div class="media">
-    <div class="media-left media-middle">
+    <div class="media-left">
       <%= link_to @catalog do %>
         <%= image_tag @catalog.cover_url, class: "media-object", alt: @catalog.name %>
       <% end %>
@@ -33,9 +33,6 @@
       </h4>
 
       <%= @catalog.description %>
-    </div>
-    <div class="media-right">
-      <%= @catalog_sina_info.header_info['kefu'] %>
     </div>
   </div>
 <% end %>
