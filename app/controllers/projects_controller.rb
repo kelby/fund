@@ -2,7 +2,7 @@ class ProjectsController < ApplicationController
   before_action :authenticate_user!, only: [:create, :update, :edit, :destroy]
 
   before_action :set_project, only: [:show, :edit, :update, :destroy,
-    :popularity, :star, :recommend]
+    :popularity, :star, :recommend, :managers]
 
   after_action :inc_view_times, only: [:show, :repo]
 
@@ -91,6 +91,9 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def managers
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_project
@@ -117,6 +120,8 @@ class ProjectsController < ApplicationController
       if @project.category.present?
         @projects = @project.category.projects.online.order(popularity: :desc).limit(6)
       end
+
+      @online_developers = @project.online_developers
     end
 
     def inc_view_times

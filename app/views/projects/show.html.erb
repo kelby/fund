@@ -126,9 +126,13 @@
         </td>
         <td>
           基金经理：
-          <% @project.developers.each do |developer| %>
+          <% @online_developers.each do |developer| %>
             <%= link_to developer.name, developer %>
           <% end %>
+
+          <small class="pull-right">
+            <%= link_to "所有记录", managers_project_path(@project) %>
+          </small>
         </td>
       </tr>
       <tr>

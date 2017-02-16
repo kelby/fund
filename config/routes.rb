@@ -80,6 +80,8 @@ Rails.application.routes.draw do
       get :recommend, to: "repos#recommend"
 
       get :calculus, to: "project_arithmetic#calculus"
+
+      get :managers
     end
 
     resource :recommend_project, only: [:new, :create] do

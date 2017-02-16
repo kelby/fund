@@ -11,7 +11,7 @@
     <li>By</li>
     <li>
       <%#= project.developers.pluck(:name).join(',') %>
-      <% project.developers.each do |developer| %>
+      <% @online_developers.each do |developer| %>
         <%= link_to developer.name, developer %>
       <% end %>
     </li>
