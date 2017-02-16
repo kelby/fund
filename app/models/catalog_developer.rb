@@ -12,6 +12,7 @@
 #  catalog_code             :string(255)
 #  developer_eastmoney_code :string(255)
 #  developer_sina_code      :string(255)
+#  status                   :integer          default("online")
 #
 
 class CatalogDeveloper < ApplicationRecord
@@ -20,4 +21,6 @@ class CatalogDeveloper < ApplicationRecord
 
 
   validates_uniqueness_of :catalog_id, scope: :developer_id
+
+  enum status: { online: 0, offline: 1 }
 end
