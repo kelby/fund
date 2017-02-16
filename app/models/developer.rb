@@ -50,7 +50,7 @@ class Developer < ApplicationRecord
   # END
 
 
-  delegate :name, to: :catalog, allow_nil: true
+  delegate :name, to: :catalog, allow_nil: true, prefix: true
   enum status: { online: 0, offline: 1 }
 
 

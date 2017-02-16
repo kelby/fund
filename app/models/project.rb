@@ -95,7 +95,7 @@ class Project < ApplicationRecord
   # END
 
 
-  delegate :name, to: :catalog, allow_nil: true
+  delegate :name, to: :catalog, allow_nil: true, prefix: true
 
 
   MOLD_TYPE_HASH = {'mold_gp' => "股票型", 'mold_hh' => "混合型", 'mold_zq' => "债券型",
