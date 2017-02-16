@@ -62,6 +62,8 @@ namespace :eastmoney do
       else
         table_ele = table_eles[0]
 
+        pairs = {code => []}
+
         table_ele.css("tbody tr").each do |tr_ele|
           aa = tr_ele.css("td")[0]
           bb = tr_ele.css("td")[1]
@@ -74,8 +76,13 @@ namespace :eastmoney do
           end_of_work_date = bb.text.to_time
 
           fund_codes = cc.css("a").map{|x| x.attr('href') }.map { |e| e.split(/\/|\./)[-2] }
+          # fund_codes_hash = cc.css("a").map{|x| x.attr('href') }.map { |e| (e.split(/\/|\./)[-2]) => e }
+          magic_fund_hash = cc.css("a").map{|x| {x.attr('href').split(/\/|\./)[-2] =>[(x.attr('href')), x.text] }}
+
           term_of_office = dd.text
           as_return = ee.text.to_f
+
+          pairs[code] += fund_codes
 
           fund_codes.each do |developer_eastmoney_code|
             dps = DeveloperProject.where(beginning_work_date: beginning_work_date,
@@ -96,6 +103,16 @@ namespace :eastmoney do
               next
             end
 
+            if dps.blank?
+              magic_fund_hash.each do |_x|
+                _x.each_pair do |_eastmoney_code, eastmoney_url_name|
+                  Developer.find_or_create_by(eastmoney_code: _eastmoney_code, name: eastmoney_url_name.last) do |_developer|
+                    _developer.eastmoney_url = eastmoney_url_name.first
+                  end
+                end
+              end
+            end
+
             DeveloperProject.create(project_id: project.id,
               # developer_id: developer.id,
               beginning_work_date: beginning_work_date,
@@ -107,6 +124,12 @@ namespace :eastmoney do
         end
       end
 
+      if project.developer_projects.count != pairs[code].size
+        puts "project.developer_projects.count"
+        puts project.developer_projects.count
+        puts pairs[code].size
+        puts pairs[code]
+      end
       # begin
       #   File.open(file_name_with_path, 'w') { |file| file.write(doc.to_html) }
       # rescue Exception => e
