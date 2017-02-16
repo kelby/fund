@@ -22,6 +22,7 @@
 #  sina_code         :string(255)
 #  rh_at             :date
 #  catalog_id        :integer
+#  status            :integer          default("online")
 #
 
 class Developer < ApplicationRecord
@@ -50,6 +51,7 @@ class Developer < ApplicationRecord
 
 
   delegate :name, to: :catalog, allow_nil: true
+  enum status: { online: 0, offline: 1 }
 
 
   # Callbacks

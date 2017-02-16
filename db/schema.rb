@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170216223520) do
+ActiveRecord::Schema.define(version: 20170216231651) do
 
   create_table "articles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string   "title"
@@ -159,6 +159,7 @@ ActiveRecord::Schema.define(version: 20170216223520) do
     t.string   "sina_code"
     t.date     "rh_at"
     t.integer  "catalog_id"
+    t.integer  "status",                          default: 0
     t.index ["eastmoney_code"], name: "index_developers_on_eastmoney_code", using: :btree
     t.index ["sina_code"], name: "index_developers_on_sina_code", using: :btree
   end

@@ -3,7 +3,7 @@ class DevelopersController < ApplicationController
 
   # GET /developers
   def index
-    @developers = Developer.all.includes(:catalogs).page(params[:page]).per(50)
+    @developers = Developer.online.includes(:catalogs).page(params[:page]).per(50)
   end
 
   # GET /developers/1
