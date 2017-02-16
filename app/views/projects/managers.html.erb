@@ -28,6 +28,12 @@
           <td><%= link_to dp.developer.name, dp.developer, target: "_blank" %></td>
           <td><%= dp.term_of_office %></td>
           <td><%= dp.as_return %>%</td>
+
+          <td>
+            <% if can? :delete, dp %>
+              <%= link_to 'Destroy', dp, method: :delete, data: { confirm: 'Are you sure?' } %>
+            <% end %>
+          </td>
         </tr>
       <% end %>
     </tbody>

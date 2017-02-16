@@ -107,6 +107,7 @@ Rails.application.routes.draw do
     resources :comments
   end
 
+  resources :developer_projects, only: [:destroy]
 
   get ':author/:name/star', to: "repos#star", as: :star_repo
   get ':author/:name/recommend', to: "repos#recommend", as: :recommend_repo
