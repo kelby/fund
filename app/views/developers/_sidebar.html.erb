@@ -46,8 +46,13 @@
         <div class="item counts">
           <span>
             现任基金公司：
-            <%= link_to @developer.catalog do %>
-              <%= @developer.catalog.name %>
+
+            <% if @developer.catalog.present? %>
+              <%= link_to @developer.catalog do %>
+                <%= @developer.catalog_name %>
+              <% end %>
+            <% else %>
+              --
             <% end %>
           </span>
         </div>

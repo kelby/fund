@@ -49,6 +49,9 @@ class Developer < ApplicationRecord
   # END
 
 
+  delegate :name, to: :catalog, allow_nil: true
+
+
   # Callbacks
   # after_create :set_projects_data
   # after_create :delay_set_avatar
