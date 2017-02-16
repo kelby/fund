@@ -5,47 +5,76 @@
   </div>
 </div>
 
+
 <div class="panel panel-default">
   <div class="panel-heading">
-    <%= @developer_projects.size %> 个项目
+    当前任职 <%= @developer_projects.where(end_of_work_date: [nil, ""]).size %> 个基金
   </div>
-  <!-- <div class="panel-body"> -->
-    
-    <!-- <div class="list-group"> -->
 
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>基金代码</th>
+        <th>基金名称</th>
+        <th>基金类型</th>
+        <th>规模（亿元）</th>
+        <th>任职时间</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @developer_projects.where(end_of_work_date: [nil, ""]).each do |developer_project| %>
+        <% project = developer_project.project %>
 
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>基金代码</th>
-              <th>基金名称</th>
-              <th>基金类型</th>
-              <th>规模（亿元）</th>
-              <th>任职时间</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @developer_projects.each do |developer_project| %>
-              <% project = developer_project.project %>
+        <tr>
+          <th><%= link_to project.code, project %></th>
+          <th><%= link_to project.name, project %></th>
+          <th><%= project.mold %></th>
+          <th> -- </th>
+          <th>
+            <%= developer_project.beginning_work_date.strftime("%F") %>
+            --
+            <%#= developer_project.end_of_work_date.strftime("%F") if developer_project.end_of_work_date.present? %>
+            至今
+          </th>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
 
-              <tr>
-                <th><%= link_to project.code, project %></th>
-                <th><%= link_to project.name, project %></th>
-                <th><%= project.mold %></th>
-                <th> -- </th>
-                <th>
-                  <%= developer_project.beginning_work_date.strftime("%F") %>
-                  --
-                  <%= developer_project.end_of_work_date.strftime("%F") if developer_project.end_of_work_date.present? %>
-                </th>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    所有任职 <%= @developer_projects.size %> 个基金
+  </div>
 
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>基金代码</th>
+        <th>基金名称</th>
+        <th>基金类型</th>
+        <th>规模（亿元）</th>
+        <th>任职时间</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @developer_projects.each do |developer_project| %>
+        <% project = developer_project.project %>
 
-    <!-- </div> -->
-  <!-- </div> -->
+        <tr>
+          <th><%= link_to project.code, project %></th>
+          <th><%= link_to project.name, project %></th>
+          <th><%= project.mold %></th>
+          <th> -- </th>
+          <th>
+            <%= developer_project.beginning_work_date.strftime("%F") %>
+            --
+            <%= developer_project.end_of_work_date.strftime("%F") if developer_project.end_of_work_date.present? %>
+          </th>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
   <div class="panel-footer clearfix">
     <%= magic_paginate @developer_projects %>
