@@ -2,39 +2,41 @@
 
 <%= stylesheet_link_tag 'rich_media' %>
 
-<div class="rich_media_inner">
-  <h1>
-    最新文章
+<div class="bg-with-white">
+  <div class="rich_media_inner">
+    <h1 class="title">
+      最新文章
 
-    <small class="pull-right">
-      <%= link_to "发布文章", new_article_path, class: "btn btn-default" %>
-    </small>
-  </h1>
+      <small class="pull-right">
+        <%= link_to "发布文章", new_article_path, class: "btn btn-default" %>
+      </small>
+    </h1>
 
-  <ul class="media-list">
-    <% @articles.each do |article| %>
-      <li class="media">
-        <div class="media-body">
-          <h4 class="media-heading">
-            <%= link_to article do %>
-              <%= article.title %>
-            <% end %>
-          </h4>
+    <ul class="media-list">
+      <% @articles.each do |article| %>
+        <li class="media">
+          <div class="media-body">
+            <h4 class="media-heading">
+              <%= link_to article do %>
+                <%= article.title %>
+              <% end %>
+            </h4>
 
-          <%= truncate(sanitize(article.description, tags: %w(em), attributes: %w(href)), length: 150, omission: '...') %>
-          <%= link_to "查看全文", article %>
-        </div>
+            <%= truncate(sanitize(article.description, tags: %w(em), attributes: %w(href)), length: 150, omission: '...') %>
+            <%= link_to "查看全文", article %>
+          </div>
 
-        <div class="media-footer">
-          <section class="pull-left">
-            <%= link_to article.user.username, article.user %> · <%= time_ago_in_words(article.created_at) %>
-          </section>
+          <div class="media-footer">
+            <section class="pull-left">
+              <%= link_to article.user.username, article.user %> · <%= time_ago_in_words(article.created_at) %>
+            </section>
 
-          <section class="pull-right">
-            90 赞 · <%= article.comments_count %> 条评论 · <%= article.view_times %> 次浏览
-          </section>
-        </div>
-      </li>
-    <% end %>
-  </ul>
+            <section class="pull-right">
+              90 赞 · <%= article.comments_count %> 条评论 · <%= article.view_times %> 次浏览
+            </section>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
 </div>

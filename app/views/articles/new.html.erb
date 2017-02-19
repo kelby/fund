@@ -5,11 +5,12 @@
 
 <%= javascript_include_tag 'simditor/all' %>
 
+<div class="bg-with-white">
+  <div class="rich_media_inner">
+    <h1 class="title">New Article</h1>
 
-<div class="rich_media_inner">
-  <h1>New Article</h1>
-
-  <div class="article-content">
-    <%= render 'form', article: @article %>
+    <div class="article-content">
+      <%= render 'form', article: @article %>
+    </div>
   </div>
 </div>

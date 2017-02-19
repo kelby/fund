@@ -2,6 +2,10 @@
   max-width: 768px;
   margin: auto;
 
+  h1.title {
+    margin-top: 0;
+  }
+
   .article-content img {
     max-width: 100%;
   }
