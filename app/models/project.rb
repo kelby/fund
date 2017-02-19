@@ -169,6 +169,10 @@ class Project < ApplicationRecord
   LARAVEL_BASE = {'watchers' => 3522, 'stars' => 27582, 'forks' => 9131, 'downloads' => 3941137}
   # END
 
+  # Plugins
+  acts_as_taggable
+  # END
+
   def is_hb_lc?
     self.mold_hb? || self.mold_lc? || self.mold_bb?
   end
