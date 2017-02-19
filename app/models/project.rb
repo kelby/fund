@@ -69,7 +69,7 @@ class Project < ApplicationRecord
   has_many :net_worths
 
 
-  has_many :developer_projects
+  has_many :developer_projects, -> { desc }
   has_many :developers, through: :developer_projects
   has_many :online_developer_projects, -> { online }, class_name: "DeveloperProject"
   has_many :online_developers, through: :online_developer_projects, source: :developer

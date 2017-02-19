@@ -18,20 +18,31 @@
 #
 
 class DeveloperProject < ApplicationRecord
+  # Associations
   belongs_to :developer
   belongs_to :project
+  # END
 
 
+  # Validates
   validates_presence_of :developer_id, :project_id
   # 可以没有 end_of_work_date
   validates_presence_of :beginning_work_date
 
   validates_uniqueness_of :project_id, scope: [:developer_id, :beginning_work_date]
+  # END
 
+
+  # Callbacks
   before_validation :detect_and_set_attributes
+  # END
 
 
+  # Rails class methods
   enum status: { online: 0, offline: 1 }
+
+  scope :desc, -> { order(beginning_work_date: :desc) }
+  # END
 
   def detect_and_set_attributes
     if self.project_code.present? && self.project_id.blank?
