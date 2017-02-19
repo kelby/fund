@@ -29,4 +29,15 @@ namespace :manager do
       end
     end
   end
+
+  desc "Task description"
+  task :task_name => [:dependent, :tasks] do
+    Developer.where.not(description: [nil, ""]).find_each.with_index do |developer, index|
+      developer.description = developer.description.strip.gsub(/^基金经理简介：/, "")
+
+      if developer.description_changed?
+        developer.save
+      end
+    end
+  end
 end

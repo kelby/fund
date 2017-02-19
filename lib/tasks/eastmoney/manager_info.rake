@@ -100,7 +100,13 @@ namespace :eastmoney do
     # 这种方法比较轻巧
     # Developer.limit(10).each_with_index do |developer, index|
     Developer.where("id >= ?", number).find_each.each_with_index do |developer, index|
+      eastmoney_code = developer.eastmoney_code
       url = developer.eastmoney_url
+
+      if url.blank? && eastmoney_code.present?
+        url = "http://fund.eastmoney.com/manager/#{eastmoney_code}.html"
+        developer.update_columns eastmoney_url: url
+      end
 
       # next if url.blank?
 
@@ -139,6 +145,7 @@ namespace :eastmoney do
 
 
             unless company_code =~ /\d$/
+              developer.catalog_developers.update_all(status: 1)
               next
             end
 
@@ -210,9 +217,18 @@ namespace :eastmoney do
   task :save_eastmoney_manager_info => [:environment] do
     sb ||= SpiderBase.new
     number ||= 0
+    number = Developer.where.not(take_office_date: [nil, '']).last.id
 
     Developer.where("id >= ?", number).find_each.each_with_index do |developer, index|
       url = developer.eastmoney_url
+
+      eastmoney_code = developer.eastmoney_code
+      url = developer.eastmoney_url
+
+      if url.blank? && eastmoney_code.present?
+        url = "http://fund.eastmoney.com/manager/#{eastmoney_code}.html"
+        developer.update_columns eastmoney_url: url
+      end
 
       if url.blank?
         next
@@ -243,8 +259,9 @@ namespace :eastmoney do
 
   desc "set manager description"
   task :set_manager_description => [:environment] do
+    manager_dir = Rails.public_path.join("manager/eastmoney/info")
+
     Developer.where(description: [nil, ""]).find_each.with_index do |developer, index|
-      manager_dir = Rails.public_path.join("manager/eastmoney/info")
       # FileUtils::mkdir_p(manager_dir)
 
       # yourfile = Rails.public_path.join("company/#{catalog.code}.html")
@@ -256,6 +273,10 @@ namespace :eastmoney do
       # rescue Exception => e
       #   puts "=============Error #{developer.id}"
       # end
+
+      unless File.exist?(file_name_with_path)
+        next
+      end
 
       doc = Nokogiri::HTML(open(file_name_with_path).read);
 
@@ -272,6 +293,10 @@ namespace :eastmoney do
 
       # 丁杰科管理过的基金一览
       now_projects_ele = doc.css("table.ftrs")[0]
+
+      if now_projects_ele.blank?
+        next
+      end
 
       now_projects_ele.css("tbody tr").each do |tr_ele|
         # 基金代码  基金名称  相关链接  基金类型  规模（亿元）  任职时间  任职天数  任职回报
@@ -325,10 +350,21 @@ namespace :eastmoney do
       #   puts "=============Error #{developer.id}"
       # end
 
+
+      unless File.exist?(file_name_with_path)
+        next
+      end
+
       doc = Nokogiri::HTML(open(file_name_with_path).read);
 
       # 基金经理：丁杰科
-      developer.remote_avatar_url = doc.css(".left > #photo").attr('src').value
+      photo_ele = doc.css(".left > #photo")
+
+      if photo_ele.blank?
+        next
+      end
+
+      developer.remote_avatar_url = photo_ele.attr('src').value
 
       if developer.changed?
         developer.save
@@ -367,11 +403,16 @@ namespace :eastmoney do
 
   desc "set developer_project from manager show"
   task :set_developer_project => [:environment] do
-    Developer.where.not(eastmoney_url: [nil, ""]).find_each.with_index do |developer, index|
+    # Developer.where.not(eastmoney_url: [nil, ""]).find_each.with_index do |developer, index|
+    Developer.where.not(eastmoney_url: [nil, ""]).where("created_at > ?", 1.days.ago).find_each.with_index do |developer, index|
       manager_dir = Rails.public_path.join("manager/eastmoney/info")
 
       file_name_with_path = manager_dir.join("#{developer.id}.html")
 
+
+      unless File.exist?(file_name_with_path)
+        next
+      end
 
       doc = Nokogiri::HTML(open(file_name_with_path).read);
 
@@ -398,6 +439,8 @@ namespace :eastmoney do
 
           if company_code =~ /\d$/
             developer.catalog = Catalog.find_by(code: company_code)
+          else
+            developer.catalog_developers.update_all(status: 1)
           end
 
           next
@@ -408,6 +451,5 @@ namespace :eastmoney do
         developer.save
       end
     end
-
   end
 end
