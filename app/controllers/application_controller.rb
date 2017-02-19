@@ -11,6 +11,8 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user?
 
+  add_flash_types :danger
+
   private
   def get_recommend_episode
     @today_episode ||= Episode.online.recommend_before_today.last

@@ -36,10 +36,10 @@
     <!-- Fixed navbar -->
     <%= render "layouts/navbar" %>
 
+    <%= render "layouts/notice_or_alert" %>
 
     <!-- Begin page content -->
     <div class="container <%= params[:controller] %>">
-      <%= render "layouts/notice_or_alert" %>
 
       <%= yield :prefix %>
 
