@@ -14,6 +14,8 @@
   <% end %>
 </ul>
 
+<br>
+
 <div class="col-md-3 no-padding-left">
   <div class="panel-group" id="accordion">
     <% IndexReport.pluck(:catalog).uniq.each do |catalog| %>
@@ -96,10 +98,10 @@
 
   <br>
 
-  <%= magic_paginate @index_reports %>
+  <div class="text-center">
+    <%= magic_paginate @index_reports %>
+  </div>
 </div>
-
-<hr>
 
 
 <style>

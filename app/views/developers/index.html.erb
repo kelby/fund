@@ -12,13 +12,9 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>就职于某基金公司</th>
       <th>Avatar</th>
-      <th>eastmoney</th>
-      <th>sina</th>
+      <th>就职于某基金公司</th>
       <th>管理基金数量</th>
-
-      <th colspan="2"></th>
     </tr>
   </thead>
 
@@ -30,6 +26,12 @@
         </td>
 
         <td>
+          <%= link_to developer do %>
+            <%= image_tag(developer.avatar_url(:thumb), height: '50', width: '50') %>
+          <% end %>
+        </td>
+
+        <td>
           <% developer.catalogs.each do |catalog| %>
             <%= link_to catalog.code, catalog %>
             -
@@ -38,35 +40,13 @@
         </td>
 
         <td>
-          <%= link_to developer do %>
-            <%= image_tag(developer.avatar_url(:thumb), height: '50', width: '50') %>
-          <% end %>
-        </td>
-
-        <td>
-          <%= developer.eastmoney_code %>
-        </td>
-        <td>
-          <%= developer.sina_code %>
-        </td>
-        <td>
           <%= developer.developer_projects.count %>
         </td>
-
-        <% if can? :edit, developer %>
-          <td><%= link_to 'Edit', edit_developer_path(developer) %></td>
-        <% end %>
-
-        <% if can? :destroy, developer %>
-          <td><%= link_to 'Destroy', developer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
-
-    <%= magic_paginate @developers %>
-
-
+<div class="text-center">
+  <%= magic_paginate @developers %>
+</div>
