@@ -3,7 +3,7 @@ class Users::SessionsController < Devise::SessionsController
     if verify_rucaptcha?
       super
     else
-      redirect_to :back
+      redirect_back fallback_location: new_user_session_path
     end
   end
 end

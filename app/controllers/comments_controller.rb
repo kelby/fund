@@ -34,7 +34,7 @@ class CommentsController < ApplicationController
       if @comment.save
         format.html { redirect_to polymorphic_path(commentable, anchor: "floor-#{@comment.floor}"), notice: 'Comment was successfully created.' }
       else
-        format.html { redirect_to :back, alert: "#{@comment.errors.full_messages.join(';')}" }
+        format.html { redirect_back fallback_location: commentable, alert: "#{@comment.errors.full_messages.join(';')}" }
       end
     end
   end

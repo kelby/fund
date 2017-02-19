@@ -3,7 +3,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     if verify_rucaptcha?
       super
     else
-      redirect_to :back
+      redirect_back fallback_location: new_user_registration_path
     end
   end
 end
