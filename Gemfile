@@ -138,3 +138,5 @@ gem 'rest-client'
 # 本网站只有一个编辑器。但代码却由两部分构成，一个负责前端，一个负责涉及到的后端（文件上传）
 # 后者由此 gem 实现。协作的时候有问题，所以需要一点定制。不要其前端、配置其保存路径。
 gem 'redactor-rails', :github => 'shixiancom/redactor-rails'
+
+gem 'sanitize'
