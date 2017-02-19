@@ -140,3 +140,5 @@ gem 'rest-client'
 gem 'redactor-rails', :github => 'shixiancom/redactor-rails'
 
 gem 'sanitize'
+
+gem 'acts-as-taggable-on', '~> 4.0'
