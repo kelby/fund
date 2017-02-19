@@ -122,6 +122,12 @@
               -
               <%= developer.name %>
             <% end %>
+
+            <% if developer.offline? %>
+              <small class="pull-right">
+                已离职
+              </small>
+            <% end %>
           </li>
         <% end %>
       </ul>
@@ -129,93 +135,92 @@
   </div>
 </div>
 
+<% if can? :edit, @catalog %>
+  <% if @catalog_sina_info.present? %>
+    <div class="panel panel-default">
+      <div class="panel-heading">Header info</div>
 
+      <ul class="list-group">
+        <% @catalog_sina_info.header_info.each_pair do |key, value| %>
+          <li class="list-group-item">
+            <%= key %>
+            <br>
+            <%= value %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
 
-<% if @catalog_sina_info.present? %>
-  <div class="panel panel-default">
-    <div class="panel-heading">Header info</div>
+    <div class="panel panel-default">
+      <div class="panel-heading">Body info</div>
 
-    <ul class="list-group">
-      <% @catalog_sina_info.header_info.each_pair do |key, value| %>
-        <li class="list-group-item">
-          <%= key %>
-          <br>
-          <%= value %>
-        </li>
-      <% end %>
-    </ul>
-  </div>
+      <ul class="list-group">
+        <% @catalog_sina_info.body_info.each_pair do |key, value| %>
+          <li class="list-group-item">
+            <%= key %>
+            <br>
+            <%= value %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
 
-  <div class="panel panel-default">
-    <div class="panel-heading">Body info</div>
+    <div class="panel panel-default">
+      <div class="panel-heading">Table info</div>
 
-    <ul class="list-group">
-      <% @catalog_sina_info.body_info.each_pair do |key, value| %>
-        <li class="list-group-item">
-          <%= key %>
-          <br>
-          <%= value %>
-        </li>
-      <% end %>
-    </ul>
-  </div>
+      <ul class="list-group">
+        <% @catalog_sina_info.table_info.each_pair do |key, value| %>
+          <li class="list-group-item">
+            <%= key %>
+            <br>
+            <%= value %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 
-  <div class="panel panel-default">
-    <div class="panel-heading">Table info</div>
+  <% if @catalog_eastmoney_info.present? %>
+    <div class="panel panel-default">
+      <div class="panel-heading">Header info</div>
 
-    <ul class="list-group">
-      <% @catalog_sina_info.table_info.each_pair do |key, value| %>
-        <li class="list-group-item">
-          <%= key %>
-          <br>
-          <%= value %>
-        </li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
+      <ul class="list-group">
+        <% @catalog_eastmoney_info.header_info.each_pair do |key, value| %>
+          <li class="list-group-item">
+            <%= key %>
+            <br>
+            <%= value %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
 
+    <div class="panel panel-default">
+      <div class="panel-heading">Body info</div>
 
-<% if @catalog_eastmoney_info.present? %>
-  <div class="panel panel-default">
-    <div class="panel-heading">Header info</div>
+      <ul class="list-group">
+        <% @catalog_eastmoney_info.body_info.each_pair do |key, value| %>
+          <li class="list-group-item">
+            <%= key %>
+            <br>
+            <%= value %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
 
-    <ul class="list-group">
-      <% @catalog_eastmoney_info.header_info.each_pair do |key, value| %>
-        <li class="list-group-item">
-          <%= key %>
-          <br>
-          <%= value %>
-        </li>
-      <% end %>
-    </ul>
-  </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">Table info</div>
 
-  <div class="panel panel-default">
-    <div class="panel-heading">Body info</div>
-
-    <ul class="list-group">
-      <% @catalog_eastmoney_info.body_info.each_pair do |key, value| %>
-        <li class="list-group-item">
-          <%= key %>
-          <br>
-          <%= value %>
-        </li>
-      <% end %>
-    </ul>
-  </div>
-
-  <div class="panel panel-default">
-    <div class="panel-heading">Table info</div>
-
-    <ul class="list-group">
-      <% @catalog_eastmoney_info.table_info.each_pair do |key, value| %>
-        <li class="list-group-item">
-          <%= key %>
-          <br>
-          <%= value %>
-        </li>
-      <% end %>
-    </ul>
-  </div>
+      <ul class="list-group">
+        <% @catalog_eastmoney_info.table_info.each_pair do |key, value| %>
+          <li class="list-group-item">
+            <%= key %>
+            <br>
+            <%= value %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 <% end %>

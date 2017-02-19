@@ -23,6 +23,7 @@
 #  rh_at             :date
 #  catalog_id        :integer
 #  status            :integer          default("online")
+#  slug              :string(255)
 #
 
 class Developer < ApplicationRecord
@@ -64,6 +65,12 @@ class Developer < ApplicationRecord
   # validates_presence_of :catalog_id
   # validates_presence_of :name, scope: :catalog_id
   # END
+
+
+  # Callbacks
+  before_create :set_slug
+  # END
+
 
   def self.set_eastmoney_code
     self.find_each do |developer|
@@ -138,5 +145,13 @@ class Developer < ApplicationRecord
 
   def project_ids
     self.projects.ids
+  end
+
+  def to_param
+    "#{self.id}-#{self.slug}"
+  end
+
+  def set_slug
+    self.slug = Pinyin.t(self.name, splitter: '')
   end
 end

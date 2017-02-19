@@ -9,6 +9,12 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     当前任职 <%= @developer_projects.where(end_of_work_date: [nil, ""]).size %> 个基金
+
+    <% if @developer_projects.where(end_of_work_date: [nil, ""]).blank? %>
+      <small class="pull-right">
+        已离职
+      </small>
+    <% end %>
   </div>
 
   <table class="table table-striped">
