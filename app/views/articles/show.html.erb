@@ -20,7 +20,9 @@
       </div>
     </div>
 
-    <%= format_content @article.description, 'article-content' %>
+    <div class="article-content">
+      <%= format_content @article.description, 'article-content' %>
+    </div>
 
     <% if can? :edit, @article %>
       <%= link_to 'Edit', edit_article_path(@article) %>

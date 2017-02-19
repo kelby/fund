@@ -1,9 +1,11 @@
 module ArticlesHelper
   def format_content(content, clazz="")
-    _content = sanitize(content, tags: allowed_tags, attributes: allowed_attributes)
+    Sanitize.fragment(content, Sanitize::Config::RELAXED).html_safe
+
+    # _content = sanitize(content, tags: allowed_tags, attributes: allowed_attributes)
 
     # 这里不用消毒了，因为前一步已经做了
-    _content = simple_format(_content, {class: clazz}, sanitize: false, wrapper_tag: 'div')
+    # _content = simple_format(_content, {class: clazz}, sanitize: false, wrapper_tag: 'div')
 
     # _content = auto_link(_content, :link => :urls, :html => {:target => '_blank', :rel =>'nofollow' } )
   end

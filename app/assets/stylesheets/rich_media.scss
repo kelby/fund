@@ -2,11 +2,31 @@
   max-width: 768px;
   margin: auto;
 
+  padding-top: 30px;
+  padding-bottom: 30px;
+
   h1.title {
     margin-top: 0;
   }
 
   .article-content img {
     max-width: 100%;
+  }
+
+  .article-content {
+    margin-top: 30px;
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 767px) {
+  .rich_media_inner {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .article-content {
+    margin-top: 15px;
+    margin-bottom: 10px;
   }
 }
