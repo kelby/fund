@@ -51,18 +51,18 @@
 </div>
 
 <div class="col-md-9">
-  <table>
+  <table class="table table-striped">
     <thead>
       <tr>
         <th>Catalog</th>
         <th>Category</th>
-        <th>Category intro</th>
+
         <th>Name</th>
-        <th>Intro</th>
-        <th>Website</th>
+
+
         <th>Code</th>
         <th>Set up at</th>
-        <th colspan="2"></th>
+
       </tr>
     </thead>
 
@@ -73,24 +73,12 @@
             <%= link_to index_report.catalog, index_reports_path(filter_type: 'catalog', filter_code: index_report.catalog) %>
           </td>
           <td><%= link_to index_report.category, index_reports_path(filter_type: 'category', filter_code: index_report.category) %></td>
-          <td><%#= index_report.category_intro.try(:first, 10) || "" %></td>
+
           <td><%= link_to index_report.name, index_report %></td>
-          <td><%#= index_report.intro.try(:first, 10) || "" %></td>
-          <td><%#= index_report.website %></td>
+
+
           <td><%= index_report.code %></td>
           <td><%= index_report.set_up_at %></td>
-
-          <% if can? :edit, index_report %>
-            <td>
-              <%= link_to 'Edit', edit_index_report_path(index_report) %>
-            </td>
-          <% end %>
-
-          <% if can? :destroy, index_report %>
-            <td>
-              <%= link_to 'Destroy', index_report, method: :delete, data: { confirm: 'Are you sure?' } %>
-            </td>
-          <% end %>
         </tr>
       <% end %>
     </tbody>

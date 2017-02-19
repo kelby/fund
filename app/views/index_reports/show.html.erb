@@ -29,11 +29,12 @@
   <%= @index_report.intro %>
 </p>
 
-<p>
-  <strong>Website:</strong>
-  <%= @index_report.website %>
-</p>
-
+<% if can? :edit, @index_report %>
+  <p>
+    <strong>Website:</strong>
+    <%= @index_report.website %>
+  </p>
+<% end %>
 
 <p>
   <strong>Code:</strong>
