@@ -23,7 +23,7 @@ class IndexReport < ApplicationRecord
   before_create :set_slug
 
   def set_slug
-    self.slug = Pinyin.t(self.name, splitter: '-')
+    self.slug = Pinyin.t(self.name, splitter: '')
   end
 
   def to_param
