@@ -1,4 +1,5 @@
+# encoding: utf-8
 module ActsAsTaggableOn
-  class Tagging < ::ActiveRecord::Base #:nodoc:
+  class Tagging
   end
 end
