@@ -14,6 +14,9 @@ Rails.application.routes.draw do
 
   resources :index_reports, path: 'index_report'
 
+  # resources :index_catalogs
+  # resources :index_categories
+
   get 'user_favor_comment/create'
 
   get 'user_favor_comment/destroy'

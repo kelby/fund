@@ -18,4 +18,14 @@
 class IndexReport < ApplicationRecord
   validates_presence_of :name
   validates_uniqueness_of :website
+
+  before_create :set_slug
+
+  def set_slug
+    self.slug = Pinyin.t(self.name, splitter: '-')
+  end
+
+  def to_param
+    "#{self.code}-#{self.slug}"
+  end
 end

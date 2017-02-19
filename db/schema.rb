@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170219053241) do
+ActiveRecord::Schema.define(version: 20170219071933) do
 
   create_table "articles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string   "title"
@@ -289,6 +289,25 @@ ActiveRecord::Schema.define(version: 20170219053241) do
     t.text     "readme",            limit: 65535
   end
 
+  create_table "index_catalogs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.string   "name"
+    t.string   "website"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_index_catalogs_on_name", using: :btree
+  end
+
+  create_table "index_categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.string   "name"
+    t.string   "website"
+    t.integer  "index_catalog_id"
+    t.text     "intro",            limit: 65535
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.index ["index_catalog_id"], name: "index_index_categories_on_index_catalog_id", using: :btree
+    t.index ["name"], name: "index_index_categories_on_name", using: :btree
+  end
+
   create_table "index_reports", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string   "catalog"
     t.string   "category"
@@ -300,6 +319,7 @@ ActiveRecord::Schema.define(version: 20170219053241) do
     t.date     "set_up_at"
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
+    t.string   "slug"
   end
 
   create_table "kinsfolks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
