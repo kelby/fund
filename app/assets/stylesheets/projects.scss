@@ -176,4 +176,15 @@ img.radius-50 {
       font-size: 24px;
     }
   }
+
+  .projects-wraper {
+    padding-top: 25px;
+  }
+
+  @media (max-width: 767px) {
+    .projects-wraper {
+      background-color: inherit;
+      padding-top: 0;
+    }
+  }
 }

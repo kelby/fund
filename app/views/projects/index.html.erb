@@ -22,17 +22,10 @@
 </div>
 
 
-<% @projects.each_slice(2).each do |projects| %>
-  <div class="col-md-12">
-    <% projects.each do |project| %>
-      <div class="col-md-6 xs-no-padding">
-        <%= render "projects/item", project: project %>
-      </div>
-    <% end %>
-  </div>
+<div class="bg-with-white clearfix projects-wraper">
+  <%= render partial: "projects/item", collection: @projects, as: :project %>
+</div>
 
-  <hr>
-<% end %>
 
 <div class="col-md-12">
   <div class="text-center">

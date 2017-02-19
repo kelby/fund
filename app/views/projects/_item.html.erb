@@ -1,22 +1,24 @@
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <%= link_to project do %>
-      <%= project.name %>
-    <% end %>
+<div class="col-md-6 xs-no-padding">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <%= link_to project do %>
+        <%= project.name %>
+      <% end %>
 
-    <section class="pull-right">
-      <%= project.code %>
-    </section>
-  </div>
+      <section class="pull-right">
+        <%= project.code %>
+      </section>
+    </div>
 
-  <div class="panel-body">
-    基金类型: <%= project.mold %>
-    <br>
-    基金公司: <%= link_to project.catalog_name, project.catalog %>
-    <%= project.description %>
-  </div>
+    <div class="panel-body">
+      基金类型: <%= project.mold %>
+      <br>
+      基金公司: <%= link_to project.catalog_name, project.catalog %>
+      <%= project.description %>
+    </div>
 
-  <div class="panel-footer">
-    <%#= render "projects/footer_info", project: project %>
+    <!-- <div class="panel-footer"> -->
+      <%#= render "projects/footer_info", project: project %>
+    <!-- </div> -->
   </div>
 </div>
