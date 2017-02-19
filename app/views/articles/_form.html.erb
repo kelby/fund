@@ -1,24 +1,12 @@
 <%= form_for(article) do |f| %>
-  <% if article.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(article.errors.count, "error") %> prohibited this article from being saved:</h2>
-
-      <ul>
-      <% article.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
   <div class="form-group">
     <%= f.label :title, "标题" %>
-    <%= f.text_field :title, class: "form-control" %>
+    <%= f.text_field :title, class: "form-control", required: true %>
   </div>
 
   <div class="field">
     <%= f.label :description, "正文内容" %>
-    <%= f.text_area :description, id: "editor", autofocus: true %>
+    <%= f.text_area :description, id: "editor", autofocus: true, required: true %>
   </div>
 
   <div class="actions">
