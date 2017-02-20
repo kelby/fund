@@ -93,10 +93,25 @@
     LOF基金，英文全称是"Listed Open-Ended Fund"，汉语称为"上市型开放式基金"。
   </div>
 </div>
+
+
+<div class="panel panel-default">
+  <div class="panel-heading">全部基金分类</div>
+  <ul class="list-group">
+    <% ActsAsTaggableOn::Tag.all.each do |tag| %>
+      <li class="list-group-item">
+        <span class="badge"><%= tag.taggings_count %></span>
+        <%= tag.name %>
+      </li>
+    <% end %>
+  </ul>
+</div>
+
+
 <% content_for :postfix do %>
   <!-- <div class="col-md-12 bg-color-white postfix">
     <h1 class="slogan">
       随便放点东西，以查看布局。。。
     </h1>
-  </div> -->
+  </div>
 <% end %>
