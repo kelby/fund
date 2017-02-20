@@ -114,9 +114,10 @@
 <div class="panel panel-default">
   <div class="panel-heading">全部基金分类</div>
 
+  <div class="panel-body">
   <% ActsAsTaggableOn::Tag.all.each_slice(6) do |tags| %>
 
-    <dl>
+    <dl class="clearfix">
       <% tags.each do |tag| %>
        <dt class="col-md-1">
          <%= tag.name %>
@@ -131,6 +132,7 @@
     </dl>
 
   <% end %>
+  </div>
 </div>
 
 
