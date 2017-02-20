@@ -40,4 +40,22 @@ namespace :manager do
       end
     end
   end
+
+  desc "Task description"
+  task :task_name => [:dependent, :tasks] do
+    DeveloperProject.where(end_of_work_date: nil).includes(:developer, :project).find_each do |dp|
+      project = dp.project
+
+      if project.blank? || project.set_up_at.blank?
+        puts "基金 #{project.code} 存在问题 ============="
+        next
+      end
+
+      if dp.term_of_office.blank? && dp.as_return.blank?
+        dp.destroy
+
+        puts "删除 #{project.code} 基金经理 #{dp.developer.name} 就职经历, #{dp.beginning_work_date}"
+      end
+    end
+  end
 end

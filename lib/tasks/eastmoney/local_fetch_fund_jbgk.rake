@@ -95,6 +95,7 @@ namespace :local do
         end
 
         if project.mold_changed?
+          project.tag_list.add(td_text)
           project.save
         end
       end
