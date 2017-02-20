@@ -94,6 +94,21 @@ class Project < ApplicationRecord
   has_one :lastest_fund_ranking, class_name: 'FundRanking'
 
   has_many :fund_yields
+
+
+  has_one :last_one_week_yield, ->{where(yield_type: FundYield.yield_types['last_one_week'])}, class_name: 'FundYield'
+  has_one :last_one_month_yield, ->{where(yield_type: FundYield.yield_types['last_one_month'])}, class_name: 'FundYield'
+  has_one :last_two_month_yield, ->{where(yield_type: FundYield.yield_types['last_two_month'])}, class_name: 'FundYield'
+  has_one :last_three_month_yield, ->{where(yield_type: FundYield.yield_types['last_three_month'])}, class_name: 'FundYield'
+  has_one :last_six_month_yield, ->{where(yield_type: FundYield.yield_types['last_six_month'])}, class_name: 'FundYield'
+  has_one :last_one_year_yield, ->{where(yield_type: FundYield.yield_types['last_one_year'])}, class_name: 'FundYield'
+  has_one :last_two_year_yield, ->{where(yield_type: FundYield.yield_types['last_two_year'])}, class_name: 'FundYield'
+  has_one :last_three_year_yield, ->{where(yield_type: FundYield.yield_types['last_three_year'])}, class_name: 'FundYield'
+  has_one :this_year_yield, ->{where(yield_type: FundYield.yield_types['this_year'])}, class_name: 'FundYield'
+  has_one :last_five_year_yield, ->{where(yield_type: FundYield.yield_types['last_five_year'])}, class_name: 'FundYield'
+  has_one :last_seven_year_yield, ->{where(yield_type: FundYield.yield_types['last_seven_year'])}, class_name: 'FundYield'
+  has_one :last_ten_year_yield, ->{where(yield_type: FundYield.yield_types['last_ten_year'])}, class_name: 'FundYield'
+  has_one :since_the_inception_yield, ->{where(yield_type: FundYield.yield_types['since_the_inception'])}, class_name: 'FundYield'
   # END
 
 
@@ -174,6 +189,59 @@ class Project < ApplicationRecord
   # Plugins
   acts_as_taggable
   # END
+
+  def set_up_its_last_one_week_yield
+    _beginning_day = self.last_week_trade_day.record_at
+    _end_day = self.last_trade_day.record_at
+
+    _beginning_net_worth = self.last_week_trade_day_net_worth.dwjz
+    _end_net_worth = self.last_trade_net_worth.dwjz
+
+    _day_range = self.last_week_trade_day.record_at..self.last_trade_day.record_at
+
+    _fund_chai_fens_count = self.fund_chai_fens.where(break_convert_at: _day_range)
+    _fund_fen_hongs = self.fund_fen_hongs.where(ex_dividend_at: _day_range)
+
+    # _yield_type =
+    # _yield_rate =
+  end
+
+  def set_up_its_last_one_month_yield
+  end
+
+  def set_up_its_last_two_month_yield
+  end
+
+  def set_up_its_last_three_month_yield
+  end
+
+  def set_up_its_last_six_month_yield
+  end
+
+  def set_up_its_last_one_year_yield
+  end
+
+  def set_up_its_last_two_year_yield
+  end
+
+  def set_up_its_last_three_year_yield
+  end
+
+  def set_up_its_this_year_yield
+  end
+
+  def set_up_its_last_five_year_yield
+  end
+
+  def set_up_its_last_seven_year_yield
+  end
+
+  def set_up_its_last_ten_year_yield
+  end
+
+  def set_up_its_since_the_inception_yield
+  end
+
 
   def is_hb_lc?
     self.mold_hb? || self.mold_lc? || self.mold_bb?

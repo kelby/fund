@@ -20,7 +20,6 @@
 <div class="panel panel-default">
   <div class="panel-heading">近一周增长率</div>
   <div class="panel-body">
-    
     <% if @project.last_week_trade_day_net_worth.present? %>
       <%= @project.last_trade_day %> |
       <%= @project.last_week_trade_day %> |
@@ -121,3 +120,48 @@
     Panel content
   </div>
 </div>
+
+
+<% @project.fund_yields.order(yield_type: :desc).each do |fund_yield| %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <%= FundYield::YIELD_TYPE_HASH[fund_yield.yield_type] %>
+
+      <small>
+        分红：<%= fund_yield.fund_fen_hongs %> 次
+      </small>
+
+      <small>
+        拆分：<%= fund_yield.fund_chai_fens_count %> 次
+      </small>
+    </div>
+
+    <ul class="list-group">
+      <li class="list-group-item">
+        初始日期：
+        <%= fund_yield.beginning_day %>
+      </li>
+
+      <li class="list-group-item">
+        变更日期：
+        <%= fund_yield.end_day %>
+      </li>
+
+      <li class="list-group-item">
+        初始净值：
+        <%= fund_yield.beginning_net_worth %>
+      </li>
+
+      <li class="list-group-item">
+        变更净值：
+        <%= fund_yield.end_net_worth %>
+      </li>
+
+      <li class="list-group-item">
+        收益率：
+        <%= fund_yield.yield_rate %>
+        %
+      </li>
+    </ul>
+  </div>
+<% end %>

@@ -17,7 +17,7 @@
 #
 
 class FundYield < ApplicationRecord
-  belongs_to :project_id
+  belongs_to :project
 
 
   enum yield_type: { yield_type_unknow: 0,
@@ -26,4 +26,21 @@ class FundYield < ApplicationRecord
     last_one_year: 13, last_two_year: 15, last_three_year: 17, this_year: 19,
     last_five_year: 21, last_seven_year: 23, last_ten_year: 25,
     since_the_inception: 33}
+
+  YIELD_TYPE_HASH = {
+    'yield_type_unknow' => "",
+    'last_one_week' => "近1周",
+    'last_one_month' => "近1月",
+    'last_two_month' => "近2月",
+    'last_three_month' => "近3月",
+    'last_six_month' => "近6月",
+    'last_one_year' => "近1年",
+    'last_two_year' => "近2年",
+    'last_three_year' => "近3年",
+    'this_year' => "今年来",
+    'last_five_year' => "近5年",
+    'last_seven_year' => "近7年",
+    'last_ten_year' => "近10年",
+    'since_the_inception' => "成立来"
+  }
 end
