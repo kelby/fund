@@ -1,0 +1,1 @@
+json.array! @fund_yields, partial: 'fund_yields/fund_yield', as: :fund_yield

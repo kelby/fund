@@ -1,0 +1,2 @@
+json.extract! fund_yield, :id, :project_id, :beginning_day, :end_day, :beginning_net_worth, :end_net_worth, :fund_chai_fens_count, :fund_fen_hongs, :yield_type, :yield_rate, :created_at, :updated_at
+json.url fund_yield_url(fund_yield, format: :json)

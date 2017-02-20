@@ -1,0 +1,43 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Fund Yields</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Project</th>
+      <th>Beginning day</th>
+      <th>End day</th>
+      <th>Beginning net worth</th>
+      <th>End net worth</th>
+      <th>Fund chai fens count</th>
+      <th>Fund fen hongs</th>
+      <th>Yield type</th>
+      <th>Yield rate</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @fund_yields.each do |fund_yield| %>
+      <tr>
+        <td><%= fund_yield.project_id %></td>
+        <td><%= fund_yield.beginning_day %></td>
+        <td><%= fund_yield.end_day %></td>
+        <td><%= fund_yield.beginning_net_worth %></td>
+        <td><%= fund_yield.end_net_worth %></td>
+        <td><%= fund_yield.fund_chai_fens_count %></td>
+        <td><%= fund_yield.fund_fen_hongs %></td>
+        <td><%= fund_yield.yield_type %></td>
+        <td><%= fund_yield.yield_rate %></td>
+        <td><%= link_to 'Show', fund_yield %></td>
+        <td><%= link_to 'Edit', edit_fund_yield_path(fund_yield) %></td>
+        <td><%= link_to 'Destroy', fund_yield, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Fund Yield', new_fund_yield_path %>

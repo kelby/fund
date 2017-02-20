@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170219075014) do
+ActiveRecord::Schema.define(version: 20170220004213) do
 
   create_table "articles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string   "title"
@@ -265,6 +265,20 @@ ActiveRecord::Schema.define(version: 20170219075014) do
     t.string   "last_one_year_sharpe_ratio_evaluate"
     t.index ["project_id", "record_at"], name: "index_fund_rankings_on_project_id_and_record_at", using: :btree
     t.index ["record_at", "code"], name: "index_fund_rankings_on_record_at_and_code", using: :btree
+  end
+
+  create_table "fund_yields", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.integer  "project_id"
+    t.date     "beginning_day"
+    t.date     "end_day"
+    t.decimal  "beginning_net_worth",  precision: 15, scale: 4
+    t.decimal  "end_net_worth",        precision: 15, scale: 4
+    t.integer  "fund_chai_fens_count",                          default: 0
+    t.integer  "fund_fen_hongs",                                default: 0
+    t.integer  "yield_type",                                    default: 0
+    t.decimal  "yield_rate",           precision: 15, scale: 4
+    t.datetime "created_at",                                                null: false
+    t.datetime "updated_at",                                                null: false
   end
 
   create_table "gem_infos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|

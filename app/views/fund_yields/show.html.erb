@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Project:</strong>
+  <%= @fund_yield.project_id %>
+</p>
+
+<p>
+  <strong>Beginning day:</strong>
+  <%= @fund_yield.beginning_day %>
+</p>
+
+<p>
+  <strong>End day:</strong>
+  <%= @fund_yield.end_day %>
+</p>
+
+<p>
+  <strong>Beginning net worth:</strong>
+  <%= @fund_yield.beginning_net_worth %>
+</p>
+
+<p>
+  <strong>End net worth:</strong>
+  <%= @fund_yield.end_net_worth %>
+</p>
+
+<p>
+  <strong>Fund chai fens count:</strong>
+  <%= @fund_yield.fund_chai_fens_count %>
+</p>
+
+<p>
+  <strong>Fund fen hongs:</strong>
+  <%= @fund_yield.fund_fen_hongs %>
+</p>
+
+<p>
+  <strong>Yield type:</strong>
+  <%= @fund_yield.yield_type %>
+</p>
+
+<p>
+  <strong>Yield rate:</strong>
+  <%= @fund_yield.yield_rate %>
+</p>
+
+<%= link_to 'Edit', edit_fund_yield_path(@fund_yield) %> |
+<%= link_to 'Back', fund_yields_path %>

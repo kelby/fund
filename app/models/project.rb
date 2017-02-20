@@ -92,6 +92,8 @@ class Project < ApplicationRecord
 
   has_many :fund_rankings
   has_one :lastest_fund_ranking, class_name: 'FundRanking'
+
+  has_many :fund_yields
   # END
 
 

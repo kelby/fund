@@ -1,0 +1,62 @@
+<%= form_for(fund_yield) do |f| %>
+  <% if fund_yield.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(fund_yield.errors.count, "error") %> prohibited this fund_yield from being saved:</h2>
+
+      <ul>
+      <% fund_yield.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :project_id %>
+    <%= f.number_field :project_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :beginning_day %>
+    <%= f.date_select :beginning_day %>
+  </div>
+
+  <div class="field">
+    <%= f.label :end_day %>
+    <%= f.date_select :end_day %>
+  </div>
+
+  <div class="field">
+    <%= f.label :beginning_net_worth %>
+    <%= f.text_field :beginning_net_worth %>
+  </div>
+
+  <div class="field">
+    <%= f.label :end_net_worth %>
+    <%= f.text_field :end_net_worth %>
+  </div>
+
+  <div class="field">
+    <%= f.label :fund_chai_fens_count %>
+    <%= f.number_field :fund_chai_fens_count %>
+  </div>
+
+  <div class="field">
+    <%= f.label :fund_fen_hongs %>
+    <%= f.number_field :fund_fen_hongs %>
+  </div>
+
+  <div class="field">
+    <%= f.label :yield_type %>
+    <%= f.number_field :yield_type %>
+  </div>
+
+  <div class="field">
+    <%= f.label :yield_rate %>
+    <%= f.text_field :yield_rate %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

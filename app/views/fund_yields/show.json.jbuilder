@@ -1,0 +1,1 @@
+json.partial! "fund_yields/fund_yield", fund_yield: @fund_yield

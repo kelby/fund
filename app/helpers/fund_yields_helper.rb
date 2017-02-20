@@ -1,0 +1,2 @@
+module FundYieldsHelper
+end
