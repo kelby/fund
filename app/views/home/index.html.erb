@@ -95,32 +95,20 @@
 </div>
 
 
-<div class="panel panel-default">
-  <div class="panel-heading">全部基金分类</div>
-  <ul class="list-group">
-    <% ActsAsTaggableOn::Tag.all.each do |tag| %>
-      <li class="list-group-item">
-        <span class="badge">
-          <%= tag.taggings_count %>
-        </span>
-
-        <%= tag.name %>
-      </li>
-    <% end %>
-  </ul>
-</div>
 
 
 <div class="panel panel-default">
   <div class="panel-heading">全部基金分类</div>
 
   <div class="panel-body">
-  <% ActsAsTaggableOn::Tag.all.each_slice(6) do |tags| %>
+  <% CustomTag.all.each_slice(6) do |tags| %>
 
     <dl class="clearfix">
       <% tags.each do |tag| %>
        <dt class="col-md-1 col-xs-6 no-padding">
-         <%= tag.name %>
+          <%= link_to tag_path(tag), target: "_blank" do %>
+           <%= tag.name %>
+         <% end %>
        </dt>
 
        <dd class="col-md-1 col-xs-6">

@@ -1,6 +1,8 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  resources :tags, path: 'tag', only: [:index, :show]
+
   resources :fund_yields
   resources :task_logs
   resources :fund_rankings

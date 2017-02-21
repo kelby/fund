@@ -145,6 +145,8 @@ class Project < ApplicationRecord
     mold_bb: 22, mold_lc: 24, mold_hb: 26, mold_fj: 28}
 
   scope :not_hb_lc, -> {where(mold_type: [22, 24, 26])}
+
+  scope :by_join_date, -> {order(id: :desc)}
   # END
 
 

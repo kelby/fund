@@ -1,0 +1,39 @@
+<% set_meta_tags title: @tag.name, description: @tag.description %>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <%= @tag.name %>
+
+    <small>
+      关联
+      <%= @tag.taggings_count %>
+      支基金
+    </small>
+
+    <small class="pull-right">
+      <%= link_to "返回首页", root_path %>
+    </small>
+  </div>
+
+  <% if @tag.description.present? %>
+    <div class="panel-body">
+      <%= @tag.description %>
+    </div>
+  <% end %>
+
+  <ul class="list-group">
+    <% @projects.each do |project| %>
+    <li class="list-group-item">
+      <%= link_to project do %>
+        <%= project.code %>
+        <%= project.name %>
+      <% end %>
+    </li>
+    <% end %>
+  </ul>
+</div>
+
+
+<div class="text-center">
+  <%= magic_paginate @projects %>
+</div>

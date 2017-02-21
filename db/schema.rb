@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170220004213) do
+ActiveRecord::Schema.define(version: 20170221045529) do
 
   create_table "articles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string   "title"
@@ -494,8 +494,10 @@ ActiveRecord::Schema.define(version: 20170220004213) do
   end
 
   create_table "tags", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
-    t.string  "name",                       collation: "utf8_bin"
-    t.integer "taggings_count", default: 0
+    t.string  "name",                                     collation: "utf8_bin"
+    t.integer "taggings_count",               default: 0
+    t.string  "slug"
+    t.text    "description",    limit: 65535
     t.index ["name"], name: "index_tags_on_name", unique: true, using: :btree
   end
 
