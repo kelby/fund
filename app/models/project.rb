@@ -117,6 +117,9 @@ class Project < ApplicationRecord
 
   delegate :name, to: :catalog, allow_nil: true, prefix: true
 
+  delegate :net_asset, to: :default_asset_allocation, allow_nil: true, prefix: false
+  delegate :record_at, to: :default_asset_allocation, allow_nil: true, prefix: false
+
 
   MOLD_TYPE_HASH = {'mold_gp' => "股票型", 'mold_hh' => "混合型", 'mold_zq' => "债券型",
     'mold_zs' => "指数型", 'mold_qdii' => "QDII", 'mold_etf' => "ETF联接", 'mold_lof' => "LOF",
