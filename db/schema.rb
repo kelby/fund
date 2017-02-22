@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170221045529) do
+ActiveRecord::Schema.define(version: 20170222055900) do
 
   create_table "articles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string   "title"
@@ -22,6 +22,19 @@ ActiveRecord::Schema.define(version: 20170221045529) do
     t.integer  "comments_count",               default: 0
     t.string   "slug"
     t.index ["user_id"], name: "index_articles_on_user_id", using: :btree
+  end
+
+  create_table "asset_allocations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.integer  "project_id"
+    t.date     "record_at"
+    t.decimal  "stock_ratio", precision: 15, scale: 4
+    t.decimal  "bond_ratio",  precision: 15, scale: 4
+    t.decimal  "cash_ratio",  precision: 15, scale: 4
+    t.decimal  "net_asset",   precision: 15, scale: 4
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.index ["project_id", "record_at"], name: "index_asset_allocations_on_project_id_and_record_at", using: :btree
+    t.index ["project_id"], name: "index_asset_allocations_on_project_id", using: :btree
   end
 
   create_table "authentications", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|

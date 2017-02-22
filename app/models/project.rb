@@ -68,6 +68,9 @@ class Project < ApplicationRecord
 
   has_many :net_worths
 
+  has_many :asset_allocations
+  has_one :default_asset_allocation, -> { order(record_at: :desc).limit(1) }, class_name: 'AssetAllocation'
+
 
   has_many :developer_projects, -> { desc }
   has_many :developers, through: :developer_projects

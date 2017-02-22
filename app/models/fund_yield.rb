@@ -10,7 +10,7 @@
 #  end_net_worth        :decimal(15, 4)
 #  fund_chai_fens_count :integer          default(0)
 #  fund_fen_hongs       :integer          default(0)
-#  yield_type           :integer          default(0)
+#  yield_type           :integer          default("yield_type_unknow")
 #  yield_rate           :decimal(15, 4)
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
