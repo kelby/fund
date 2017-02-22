@@ -8,9 +8,9 @@
 
 <div class="panel panel-default">
   <div class="panel-heading">
-    当前任职 <%= @developer_projects.where(end_of_work_date: [nil, ""]).size %> 个基金
+    当前任职 <%= @online_developer_projects.size %> 个基金
 
-    <% if @developer_projects.where(end_of_work_date: [nil, ""]).blank? %>
+    <% if @online_developer_projects.blank? %>
       <small class="pull-right">
         已离职
       </small>
@@ -28,7 +28,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @developer_projects.where(end_of_work_date: [nil, ""]).each do |developer_project| %>
+      <% @online_developer_projects.each do |developer_project| %>
         <% project = developer_project.project %>
 
         <tr>
@@ -39,8 +39,11 @@
           <th>
             <%= developer_project.beginning_work_date.strftime("%F") %>
             --
-            <%#= developer_project.end_of_work_date.strftime("%F") if developer_project.end_of_work_date.present? %>
-            至今
+            <% if developer_project.end_of_work_date.present? %>
+              <%= developer_project.end_of_work_date.strftime("%F") %>
+            <% else %>
+              至今
+            <% end %>
           </th>
         </tr>
       <% end %>

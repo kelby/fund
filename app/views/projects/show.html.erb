@@ -118,11 +118,6 @@
       <tr>
         <td>
           基金类型：
-          <%#= link_to @project.mold, @project %>
-          <%# @project.tags.each do |tag| %>
-            <%#= link_to tag.name, tag_path(tag), target: "_blank" %>
-          <%# end %>
-          <%#= @project.tag_list.join(', ') %>
           <%= render partial: 'projects/show/tag_item', collection: @project.tags, as: :tag, spacer_template: 'projects/show/tag_item_spacer_template' %>
         </td>
         <td>

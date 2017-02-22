@@ -2,24 +2,43 @@
   <div class="inline-headline">
     <h1 class="">
       <%= link_to project.name, project %>
-      <span class="text-muted"><%= project.code %></span>
+      <small class="text-muted">
+        <%= project.code %>
+      </small>
     </h1>
   </div>
 
 
   <ul class="attribution">
-    <li>By</li>
+    <li>经理</li>
     <li>
-      <%#= project.developers.pluck(:name).join(',') %>
       <% @online_developers.each do |developer| %>
         <%= link_to developer.name, developer %>
       <% end %>
     </li>
 
-    <!-- <li class="twitter">
-      <i class="fa fa-twitter"></i>
-      <a href="https://twitter.com/orta">orta</a>
-    </li> -->
+    <% if @project.son? %>
+      <li>母基金</li>
+      <li>
+        <%= link_to @project.mother_project do %>
+          <%= @project.mother_project.name %>
+          (<%= @project.mother_project.code %>)
+        <% end %>
+      </li>
+    <% end %>
+
+    <% if @project.mother? %>
+      <li>子基金</li>
+      <% @project.son_projects.each do |project| %>
+        <li>
+          <%= link_to project do %>
+            <%= project.name %>
+            (<%= project.code %>)
+          <% end %>
+        </li>
+      <% end %>
+    <% end %>
+
   </ul>
 
 
@@ -72,7 +91,7 @@
             <th scope="row"><%= net_worth.record_at.strftime("%F") %></th>
             <td><%= net_worth.dwjz %></td>
             <td><%= net_worth.ljjz %></td>
-            <td><%= net_worth.accnav %>%</td>
+            <td class="<%= net_worth.accnav_color %>"><%= net_worth.accnav %>%</td>
           </tr>
         <% end %>
       </tbody>

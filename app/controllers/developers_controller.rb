@@ -8,7 +8,8 @@ class DevelopersController < ApplicationController
 
   # GET /developers/1
   def show
-    @developer_projects = @developer.developer_projects.includes(:project).page(params[:page]) #.show_status.includes(:github_info)
+    @developer_projects = @developer.developer_projects.includes(:project).page(params[:page])
+    @online_developer_projects = @developer.developer_projects.where(end_of_work_date: [nil, ""]).includes(:project)
   end
 
   # GET /developers/new
