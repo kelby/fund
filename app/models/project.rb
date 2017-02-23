@@ -283,6 +283,19 @@ class Project < ApplicationRecord
   end
   # end last week
 
+
+  def last_trade_net_worth_ago(date_range)
+    date = last_trade_day.ago(date_range)
+    self.net_worths.order(record_at: :desc).where("record_at >= ?", date).last
+  end
+
+  def target_ranking_ago(date_range)
+    target_net_worth = last_trade_net_worth_ago(date_range)
+
+    ((last_trade_net_worth.dwjz - target_net_worth.dwjz) / target_net_worth.dwjz * 100).round(2)
+  end
+
+
   # begin last month
   def last_month_trade_day
     self.last_trade_day.months_ago(1)
