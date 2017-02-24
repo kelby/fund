@@ -55,8 +55,10 @@
 
       <li class="list-group-item">
         收益率：
-        <%= fund_yield.yield_rate %>
-        %
+        <span class="<%= fund_yield.yield_rate_color %>">
+          <%= fund_yield.yield_rate %>
+          %
+        </span>
       </li>
     </ul>
   </div>

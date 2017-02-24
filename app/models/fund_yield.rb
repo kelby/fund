@@ -49,4 +49,15 @@ class FundYield < ApplicationRecord
     'last_ten_year' => "近10年",
     'since_the_inception' => "成立来"
   }
+
+
+  def yield_rate_color
+    if self.yield_rate > 0
+      'red'
+    elsif self.yield_rate < 0
+      'green'
+    else
+      # ...
+    end
+  end
 end
