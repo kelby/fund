@@ -198,56 +198,79 @@ class Project < ApplicationRecord
   acts_as_taggable
   # END
 
-  def set_up_its_last_one_week_yield
-    _beginning_day = self.last_week_trade_day.record_at
-    _end_day = self.last_trade_day.record_at
 
-    _beginning_net_worth = self.last_week_trade_day_net_worth.dwjz
+  def yield_type_with_date_range
+    time_now = Time.now
+
+    yield_hash = {
+      'last_one_week' => 1.week,
+      'last_one_month' => 1.month,
+      'last_two_month' => 2.month,
+      'last_three_month' => 3.month,
+      'last_six_month' => 6.month,
+      'last_one_year' => 1.year,
+      'last_two_year' => 2.year,
+      'last_three_year' => 3.year,
+      'this_year' => (time_now - time_now.beginning_of_year),
+      'last_five_year' => 5.year,
+      'last_seven_year' => 7.year,
+      'last_ten_year' => 10.year,
+      'since_the_inception' => 100.year
+    }
+  end
+
+  def set_up_from_yield_type_with_date_range
+    yield_type_with_date_range.each_pair do |yield_type, date_range|
+      set_up_fund_yields_for(date_range, yield_type)
+    end
+  end
+
+  def set_up_fund_yields_for(date_range, yield_type)
+    _beginning_day = self.last_trade_net_worth_ago(date_range).record_at
+    _end_day = self.last_trade_net_worth.record_at
+
+    _beginning_net_worth = self.last_trade_net_worth_ago(date_range).dwjz
     _end_net_worth = self.last_trade_net_worth.dwjz
 
-    _day_range = self.last_week_trade_day.record_at..self.last_trade_day.record_at
+    _fund_chai_fens_count = self.fund_chai_fens_count(_beginning_day, _end_day)
+    _fund_fen_hongs = self.fund_fen_hongs(_beginning_day, _end_day)
 
-    _fund_chai_fens_count = self.fund_chai_fens.where(break_convert_at: _day_range)
-    _fund_fen_hongs = self.fund_fen_hongs.where(ex_dividend_at: _day_range)
+    _yield_rate = self.target_ranking_ago(date_range)
 
-    # _yield_type =
-    # _yield_rate =
+    _fund_yield = self.fund_yields.find_by(yield_type: yield_type)
+
+    if _fund_yield.present?
+      _fund_yield.update(
+        beginning_day: _beginning_day,
+        end_day: _end_day,
+        beginning_net_worth: _beginning_net_worth,
+        end_net_worth: _end_net_worth,
+        fund_chai_fens_count: _fund_chai_fens_count,
+        fund_fen_hongs: _fund_fen_hongs,
+        yield_rate: _yield_rate)
+    else
+      self.fund_yields.create(
+        beginning_day: _beginning_day,
+        end_day: _end_day,
+        beginning_net_worth: _beginning_net_worth,
+        end_net_worth: _end_net_worth,
+        fund_chai_fens_count: _fund_chai_fens_count,
+        fund_fen_hongs: _fund_fen_hongs,
+        yield_rate: _yield_rate,
+        yield_type: yield_type)
+    end
   end
 
-  def set_up_its_last_one_month_yield
+  def fund_chai_fens_count(from_date, to_date)
+    _date_range = from_date..to_date
+
+    self.fund_chai_fens.where(break_convert_at: _date_range).size
   end
 
-  def set_up_its_last_two_month_yield
-  end
+  def fund_fen_hongs(from_date, to_date)
+    _date_range = from_date..to_date
 
-  def set_up_its_last_three_month_yield
-  end
-
-  def set_up_its_last_six_month_yield
-  end
-
-  def set_up_its_last_one_year_yield
-  end
-
-  def set_up_its_last_two_year_yield
-  end
-
-  def set_up_its_last_three_year_yield
-  end
-
-  def set_up_its_this_year_yield
-  end
-
-  def set_up_its_last_five_year_yield
-  end
-
-  def set_up_its_last_seven_year_yield
-  end
-
-  def set_up_its_last_ten_year_yield
-  end
-
-  def set_up_its_since_the_inception_yield
+    self.fund_fen_hongs.where(ex_dividend_at: _date_range).size
   end
 
 
@@ -286,13 +309,64 @@ class Project < ApplicationRecord
 
   def last_trade_net_worth_ago(date_range)
     date = last_trade_day.ago(date_range)
+
     self.net_worths.order(record_at: :desc).where("record_at >= ?", date).last
   end
 
   def target_ranking_ago(date_range)
     target_net_worth = last_trade_net_worth_ago(date_range)
 
-    ((last_trade_net_worth.dwjz - target_net_worth.dwjz) / target_net_worth.dwjz * 100).round(2)
+    _fund_fen_hongs = self.fund_fen_hongs.where(ex_dividend_at: date_range).order(ex_dividend_at: :asc)
+
+    if _fund_fen_hongs.blank?
+      ((last_trade_net_worth.dwjz - target_net_worth.dwjz) / target_net_worth.dwjz * 100).round(2)
+    elsif _fund_fen_hongs.one?
+      end_ratio = target_net_worth.dwjz / _fund_fen_hongs.last.dwjz
+      begin_ration = (_fund_fen_hongs.first.dwjz + _fund_fen_hong.bonus) / last_trade_net_worth.dwjz
+
+      ((end_ratio * begin_ration - 1) * 100).round(2)
+    else
+      # a --> b --> c
+   # 　　份额净值增长率=[期末份额净值/(分红日份额净值-分红金额)]×π[期内历次分红当日份额净值/每期期初份额净值]-1(其中，每次分红之间的时间当作一个区间单独计算，然后累乘)。
+
+      # last_trade_net_worth.dwjz/
+
+      _involve_net_worth = self.net_worths.where(record_at: _fund_fen_hongs.pluck(:ex_dividend_at)).order(record_at: :asc)
+
+      end_ratio = target_net_worth.dwjz / _fund_fen_hongs.last.dwjz
+      begin_ration = (_fund_fen_hongs.first.dwjz + _fund_fen_hong.bonus) / last_trade_net_worth.dwjz
+
+      _x = 1
+
+      _fund_fen_hongs.each_with_index do |_fund_fen_hong, index|
+        if index.zero?
+          next
+        end
+
+        # ...
+
+        # (_fund_fen_hong.dwjz + _fund_fen_hong.bonus) /
+
+        # 2017-02-03  1.1723  1.7623  -0.5%
+
+        # 2016-11-28  1.1785  1.7685  0.25%
+
+        # 2015-11-25  1.2388  1.5888  0.15%
+
+        # 2007-00-00  1       1       0%
+
+        # 年份  权益登记日 除息日 每份分红  分红发放日
+        # 2016年 2016-11-28  2016-11-28  每份派现金 0.2400 元  2016-11-30
+        # 2015年 2015-11-25  2015-11-25  每份派现金 0.3500 元  2015-11-27
+
+        # ...
+        _x = _x * ((_fund_fen_hong.dwjz + _fund_fen_hong.bonus) / (_fund_fen_hongs[index - 1].dwjz))
+      end
+
+      # (( ((1.2388 + 0.3500)/1) * ((1.1785 + 0.2400)/1.2388) * (1.1723/1.1785) - 1) * 100).round(2)
+      # 80.97
+      ((end_ratio * begin_ration * _x - 1) * 100).round(2)
+    end
   end
 
 

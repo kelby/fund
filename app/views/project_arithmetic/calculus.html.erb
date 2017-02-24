@@ -32,7 +32,11 @@
     <% end %>
 
     <br>
+    <%= @project.last_trade_net_worth_ago(1.weeks).record_at %>
+    <%= @project.last_trade_net_worth_ago(1.weeks).dwjz %>
+    <br>
     <%= @project.target_ranking_ago(1.weeks) %>
+    %
   </div>
 </div>
 
