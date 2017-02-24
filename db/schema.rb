@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170224053641) do
+ActiveRecord::Schema.define(version: 20170224055126) do
 
   create_table "articles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string   "title"
@@ -293,6 +293,8 @@ ActiveRecord::Schema.define(version: 20170224053641) do
     t.decimal  "yield_rate",           precision: 15, scale: 4
     t.datetime "created_at",                                                null: false
     t.datetime "updated_at",                                                null: false
+    t.index ["project_id", "yield_type"], name: "index_fund_yields_on_project_id_and_yield_type", using: :btree
+    t.index ["project_id"], name: "index_fund_yields_on_project_id", using: :btree
   end
 
   create_table "gem_infos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|

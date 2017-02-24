@@ -19,6 +19,12 @@
 class FundYield < ApplicationRecord
   belongs_to :project
 
+  validates_presence_of :project_id
+  validates_presence_of :beginning_day
+  validates_presence_of :end_day
+
+  validates_uniqueness_of :yield_type, scope: :project_id
+
 
   enum yield_type: { yield_type_unknow: 0,
     last_one_week: 1,
