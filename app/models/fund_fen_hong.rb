@@ -11,6 +11,7 @@
 #  net_worth_id             :integer
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null
+#  bonus                    :decimal(15, 4)
 #
 
 class FundFenHong < ApplicationRecord

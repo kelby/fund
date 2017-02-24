@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170223233057) do
+ActiveRecord::Schema.define(version: 20170224053641) do
 
   create_table "articles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string   "title"
@@ -288,7 +288,7 @@ ActiveRecord::Schema.define(version: 20170223233057) do
     t.decimal  "beginning_net_worth",  precision: 15, scale: 4
     t.decimal  "end_net_worth",        precision: 15, scale: 4
     t.integer  "fund_chai_fens_count",                          default: 0
-    t.integer  "fund_fen_hongs",                                default: 0
+    t.integer  "fund_fen_hongs_count",                          default: 0
     t.integer  "yield_type",                                    default: 0
     t.decimal  "yield_rate",           precision: 15, scale: 4
     t.datetime "created_at",                                                null: false
