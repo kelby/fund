@@ -615,6 +615,59 @@ namespace :fetch_fundranking do
 
   end
 
+  # ==========================
+
+
+  desc "Task description"
+  task :set_all_fund_day_net_worth => [:environment] do
+    sd = 1.year.ago.strftime("%F")
+    ed = Date.today.strftime("%F")
+
+    url = "http://fund.eastmoney.com/data/rankhandler.aspx?op=ph&dt=kf&ft=all&rs=&gs=0&sc=zzf&st=desc&sd=#{sd}&ed=#{ed}&qdii=&tabSubtype=,,,,,&pi=1&pn=10000&dx=1&v=0.19890163023559482"
+
+
+    doc = Nokogiri::HTML(open(url).read);
+
+
+    if doc.present?
+      # File.open(file_name_with_path, 'w') { |file| file.write(doc.to_html) }
+
+      result_hash = eval(doc.css("body").text.strip.gsub(/^var/, ""));
+      result_hash.keys
+      # => [:datas, :allRecords, :pageIndex, :pageNum, :allPages, :allNum, :gpNum, :hhNum, :zqNum, :zsNum, :bbNum, :qdiiNum, :etfNum, :lofNum]
+      first_data = result_hash[:datas][0]
+
+      if first_data.blank?
+        puts "no data ==================="
+      end
+
+      result_hash[:datas][0].split(",").size
+      result_hash[:datas][0].split(",")
+      # 基金代码,    基金简称,           基金首字母拼音, 净值更新日期   单位净值    累计净值   日增长率   近1周      近1月      近3月     近6月       近1年       近2年     近3年 今年来     成立来   成立日期       1折        手续费（无打折）手续费（打折） 1折 手续费 1折 管理费
+      # ["000934", "国富大中华精选混合", "GFDZHJXHH", "2017-02-16", "1.0580", "1.0580", "0.1894", "2.1236", "8.8477", "7.0850", "13.0342", "40.6915", "7.4112", "", "10.6695", "5.80", "2015-02-03", "1", "", "1.50%", "0.15%", "1", "0.15%", "1"]
+
+      # fund_codes = result_hash[:datas].map{|x| x.split(",").first }
+
+      result_hash[:datas].each do |result_string|
+        result_array = result_string.split(",")
+
+        code = result_array[0]
+        record_at = result_array[3]
+        dwjz = result_array[4].to_f
+        ljjz = result_array[5].to_f
+        accnav = result_array[6].to_f.round(2)
+
+        project = Project.find_by(code: code)
+
+        if project.present?
+          project.net_worths.create(record_at: record_at,
+                                    dwjz: dwjz,
+                                    ljjz: ljjz,
+                                    accnav: accnav)
+        end
+      end
+    end
+  end
 end
 
 
