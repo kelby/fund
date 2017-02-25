@@ -1,0 +1,56 @@
+<% set_meta_tags title: "基金分红列表" %>
+
+<h1>
+  基金分红列表
+
+  <small class="pull-right">
+    <%= link_to "基金分红排行", fund_fen_hongs_path %>
+  </small>
+</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>序号</th>
+      <th>基金代码</th>
+      <th>基金简称</th>
+
+      <th>权益登记日</th>
+      <th>除息日期</th>
+      <th>分红(元/份)</th>
+      <th>分红发放日</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @fund_fen_hongs.each_with_index do |fund_fen_hong, index| %>
+      <% project = fund_fen_hong.project %>
+
+      <% page = params[:page].to_i %>
+      <% page = 1 if page.zero? %>
+
+      <tr>
+        <th><%= (index + 1) + (page - 1) * 100 %></th>
+        <th>
+          <%= link_to project, target: "_blank" do %>
+            <%= project.code %>
+          <% end %>
+        </th>
+        <th>
+          <%= link_to project, target: "_blank" do %>
+            <%= project.name %>
+          <% end %>
+        </th>
+        <th><%= fund_fen_hong.register_at %></th>
+        <th><%= fund_fen_hong.ex_dividend_at %></th>
+        <th><%= fund_fen_hong.bonus %></th>
+        <th><%= fund_fen_hong.dividend_distribution_at %></th>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+<div class="text-center">
+  <%= magic_paginate @fund_fen_hongs %>
+</div>

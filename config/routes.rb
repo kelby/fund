@@ -9,6 +9,14 @@ Rails.application.routes.draw do
   resources :stocks
   resources :quotes
 
+
+  resources :fund_fen_hongs do
+    collection do
+      get :list
+    end
+  end
+
+
   mount RedactorRails::Engine => '/redactor_rails'
 
   resources :articles do
