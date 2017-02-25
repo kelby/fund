@@ -16,6 +16,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :fund_chai_fens
+
 
   mount RedactorRails::Engine => '/redactor_rails'
 

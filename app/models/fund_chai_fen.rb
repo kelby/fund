@@ -29,4 +29,12 @@ class FundChaiFen < ApplicationRecord
       1
     end
   end
+
+  def human_break_ratio
+    if self.break_ratio.split(':').first =~ /\d/
+      self.break_ratio.split(':').last.to_f
+    else
+      "暂未披露"
+    end
+  end
 end
