@@ -15,7 +15,8 @@
 #
 
 class FundFenHong < ApplicationRecord
-  validates_presence_of :net_worth_id
+  # validates_presence_of :net_worth_id # 实际情况，不是完全对应
+
   validates_presence_of :ex_dividend_at, :bonus_per
 
   validates_uniqueness_of :net_worth_id
@@ -24,6 +25,7 @@ class FundFenHong < ApplicationRecord
   belongs_to :project, counter_cache: true
   belongs_to :net_worth
 
+  # 实际情况，不是完全对应
   def dwjz
     self.project.net_worths.find_by(record_at: self.ex_dividend_at).try(:dwjz)
   end
