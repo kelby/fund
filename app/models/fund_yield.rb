@@ -52,6 +52,10 @@ class FundYield < ApplicationRecord
 
 
   def yield_rate_color
+    if self.yield_rate.blank?
+      return
+    end
+
     if self.yield_rate > 0
       'red'
     elsif self.yield_rate < 0

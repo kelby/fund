@@ -314,15 +314,33 @@ class Project < ApplicationRecord
   end
 
   def target_ranking_ago(date_range)
+    date = last_trade_day.ago(date_range).strftime("%F")
     target_net_worth = last_trade_net_worth_ago(date_range)
 
-    _fund_fen_hongs = self.fund_fen_hongs.where(ex_dividend_at: date_range).order(ex_dividend_at: :asc)
+    if target_net_worth.record_at != date.to_date
+      prev_net_worth = target_net_worth.prev_net_worth
+
+      if prev_net_worth.present?
+        target_net_worth = prev_net_worth
+      end
+    end
+
+    # if target_net_worth.blank?
+    #   return
+    # end
+
+    _beginning_day = target_net_worth.record_at
+    _end_day = last_trade_net_worth.record_at
+
+    _fund_fen_hongs = self.fund_fen_hongs.where(ex_dividend_at: _beginning_day.._end_day).order(ex_dividend_at: :asc)
+    _first_fund_fen_hong = _fund_fen_hongs.first
 
     if _fund_fen_hongs.blank?
       ((last_trade_net_worth.dwjz - target_net_worth.dwjz) / target_net_worth.dwjz * 100).round(2)
     elsif _fund_fen_hongs.one?
-      end_ratio = target_net_worth.dwjz / _fund_fen_hongs.last.dwjz
-      begin_ration = (_fund_fen_hongs.first.dwjz + _fund_fen_hong.bonus) / last_trade_net_worth.dwjz
+
+      end_ratio = last_trade_net_worth.dwjz / _first_fund_fen_hong.dwjz
+      begin_ration = (_first_fund_fen_hong.dwjz + _first_fund_fen_hong.bonus) / target_net_worth.dwjz
 
       ((end_ratio * begin_ration - 1) * 100).round(2)
     else
@@ -333,8 +351,8 @@ class Project < ApplicationRecord
 
       _involve_net_worth = self.net_worths.where(record_at: _fund_fen_hongs.pluck(:ex_dividend_at)).order(record_at: :asc)
 
-      end_ratio = target_net_worth.dwjz / _fund_fen_hongs.last.dwjz
-      begin_ration = (_fund_fen_hongs.first.dwjz + _fund_fen_hong.bonus) / last_trade_net_worth.dwjz
+      end_ratio = last_trade_net_worth.dwjz / _fund_fen_hongs.last.dwjz
+      begin_ration = (_first_fund_fen_hong.dwjz + _first_fund_fen_hong.bonus) / target_net_worth.dwjz
 
       _x = 1
 

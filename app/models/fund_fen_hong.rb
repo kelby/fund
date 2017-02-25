@@ -23,4 +23,8 @@ class FundFenHong < ApplicationRecord
 
   belongs_to :project
   belongs_to :net_worth
+
+  def dwjz
+    self.project.net_worths.find_by(record_at: self.ex_dividend_at).try(:dwjz)
+  end
 end

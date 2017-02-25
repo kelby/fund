@@ -37,6 +37,9 @@ class NetWorth < ApplicationRecord
   enum source_type: { source_normal: 0, source_fen_hong: 2, source_chai_fen: 4 }
   # END
 
+  def prev_net_worth
+    self.project.net_worths.where("record_at < ?", self.record_at).order(record_at: :desc).first
+  end
 
   def accnav_color
     if self.accnav > 0
