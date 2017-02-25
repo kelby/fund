@@ -17,12 +17,15 @@
 class FundFenHong < ApplicationRecord
   # validates_presence_of :net_worth_id # 实际情况，不是完全对应
 
+  validates_presence_of :project_id
   validates_presence_of :register_at, :ex_dividend_at
 
   validates_presence_of :bonus_per, if: Proc.new{|fund_fen_hong| fund_fen_hong.bonus.blank?}
   validates_presence_of :bonus, if: Proc.new{|fund_fen_hong| fund_fen_hong.bonus_per.blank?}
 
   validates_uniqueness_of :net_worth_id, allow_blank: true
+  validates_uniqueness_of :ex_dividend_at, scope: :project_id
+  validates_uniqueness_of :register_at, scope: :project_id
 
 
   belongs_to :project, counter_cache: true
