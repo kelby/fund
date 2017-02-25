@@ -273,40 +273,6 @@ class Project < ApplicationRecord
     self.fund_fen_hongs.where(ex_dividend_at: _date_range).size
   end
 
-
-  def is_hb_lc?
-    self.mold_hb? || self.mold_lc? || self.mold_bb?
-  end
-
-  def release_cannot_show?
-    self.release_now? || self.release_will? || self.release_not_set?
-  end
-
-  def last_trade_net_worth
-    self.net_worths.order(record_at: :desc).first
-  end
-
-  def last_trade_day
-    self.last_trade_net_worth.record_at
-  end
-
-  # begin last week
-  def last_week_trade_day
-    self.last_trade_day.weeks_ago(1)
-  end
-
-  def last_week_trade_day_net_worth
-    self.net_worths.where("record_at <= ?", last_week_trade_day).order(record_at: :desc).first
-  end
-
-  def last_week_ranking
-    return if last_week_trade_day_net_worth.blank?
-
-    ((last_trade_net_worth.dwjz - last_week_trade_day_net_worth.dwjz) / last_week_trade_day_net_worth.dwjz * 100).round(2)
-  end
-  # end last week
-
-
   def last_trade_net_worth_ago(date_range)
     date = last_trade_day.ago(date_range).strftime("%F")
 
@@ -335,8 +301,15 @@ class Project < ApplicationRecord
     _fund_fen_hongs = self.fund_fen_hongs.where(ex_dividend_at: _beginning_day.._end_day).order(ex_dividend_at: :asc)
     _first_fund_fen_hong = _fund_fen_hongs.first
 
+    _fund_chai_fens = self.fund_chai_fens.where(break_convert_at: _beginning_day.._end_day).order(break_convert_at: :asc)
+    # _first_fund_chai_fen = _fund_chai_fens.first
+    _chai_fen_factor = _fund_chai_fens.map { |e| e.get_break_ratio_to_f }.inject(&:*)
+
+    _chai_fen_factor ||= 1
+
+
     if _fund_fen_hongs.blank?
-      ((last_trade_net_worth.dwjz - target_net_worth.dwjz) / target_net_worth.dwjz * 100).round(2)
+      ((last_trade_net_worth.dwjz * _chai_fen_factor - target_net_worth.dwjz) / target_net_worth.dwjz * 100).round(2)
     elsif _fund_fen_hongs.one?
 
       end_ratio = last_trade_net_worth.dwjz / _first_fund_fen_hong.dwjz
@@ -386,6 +359,41 @@ class Project < ApplicationRecord
       ((end_ratio * begin_ration * _x - 1) * 100).round(2)
     end
   end
+
+
+
+  def is_hb_lc?
+    self.mold_hb? || self.mold_lc? || self.mold_bb?
+  end
+
+  def release_cannot_show?
+    self.release_now? || self.release_will? || self.release_not_set?
+  end
+
+  def last_trade_net_worth
+    self.net_worths.order(record_at: :desc).first
+  end
+
+  def last_trade_day
+    self.last_trade_net_worth.record_at
+  end
+
+  # begin last week
+  def last_week_trade_day
+    self.last_trade_day.weeks_ago(1)
+  end
+
+  def last_week_trade_day_net_worth
+    self.net_worths.where("record_at <= ?", last_week_trade_day).order(record_at: :desc).first
+  end
+
+  def last_week_ranking
+    return if last_week_trade_day_net_worth.blank?
+
+    ((last_trade_net_worth.dwjz - last_week_trade_day_net_worth.dwjz) / last_week_trade_day_net_worth.dwjz * 100).round(2)
+  end
+  # end last week
+
 
 
   # begin last month

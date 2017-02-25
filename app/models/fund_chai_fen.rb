@@ -21,4 +21,12 @@ class FundChaiFen < ApplicationRecord
 
   belongs_to :project
   belongs_to :net_worth
+
+  def get_break_ratio_to_f
+    if self.break_ratio.split(':').first =~ /\d/
+      self.break_ratio.split(':').last.to_f
+    else
+      1
+    end
+  end
 end
