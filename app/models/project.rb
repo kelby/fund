@@ -227,6 +227,8 @@ class Project < ApplicationRecord
     end
   end
 
+
+
   def set_up_fund_yields_for(date_range, yield_type)
     _beginning_day = self.last_trade_net_worth_ago(date_range).record_at
     _end_day = self.last_trade_net_worth.record_at
@@ -275,6 +277,24 @@ class Project < ApplicationRecord
     self.fund_fen_hongs.where(ex_dividend_at: _date_range).size
   end
 
+  def fund_chai_fens_from(date_range, from_date=nil, to_date=nil)
+    _beginning_day = self.last_trade_net_worth_ago(date_range).record_at
+    _end_day = self.last_trade_net_worth.record_at
+
+    _date_range = _beginning_day.._end_day
+
+    self.fund_chai_fens.where(break_convert_at: _date_range)
+  end
+
+  def fund_fen_hongs_from(date_range, from_date=nil, to_date=nil)
+    _beginning_day = self.last_trade_net_worth_ago(date_range).record_at
+    _end_day = self.last_trade_net_worth.record_at
+
+    _date_range = _beginning_day.._end_day
+
+    self.fund_fen_hongs.where(ex_dividend_at: _date_range)
+  end
+
   def last_trade_net_worth_ago(date_range)
     date = last_trade_day.ago(date_range).strftime("%F")
 
@@ -307,11 +327,13 @@ class Project < ApplicationRecord
     # _first_fund_chai_fen = _fund_chai_fens.first
     _chai_fen_factor = _fund_chai_fens.map { |e| e.get_break_ratio_to_f }.inject(&:*)
 
-    _chai_fen_factor ||= 1
+    if _chai_fen_factor.blank?
+      _chai_fen_factor = 1
+    end
 
 
     if _fund_fen_hongs.blank?
-      ((last_trade_net_worth.dwjz * _chai_fen_factor - target_net_worth.dwjz) / target_net_worth.dwjz * 100).round(2)
+      (((last_trade_net_worth.dwjz * _chai_fen_factor).round(4) - target_net_worth.dwjz) / target_net_worth.dwjz * 100).round(2)
     elsif _fund_fen_hongs.one?
 
       end_ratio = last_trade_net_worth.dwjz / _first_fund_fen_hong.dwjz
@@ -326,8 +348,27 @@ class Project < ApplicationRecord
 
       _involve_net_worth = self.net_worths.where(record_at: _fund_fen_hongs.pluck(:ex_dividend_at)).order(record_at: :asc)
 
-      end_ratio = last_trade_net_worth.dwjz / _fund_fen_hongs.last.dwjz
-      begin_ration = (_first_fund_fen_hong.dwjz + _first_fund_fen_hong.bonus) / target_net_worth.dwjz
+      # ...
+      _end_fund_chai_fens = self.fund_chai_fens.where(break_convert_at: _fund_fen_hongs.last.ex_dividend_at..last_trade_net_worth.record_at).order(break_convert_at: :asc)
+      # _first_fund_chai_fen = _fund_chai_fens.first
+      _end_chai_fen_factor = _end_fund_chai_fens.map { |e| e.get_break_ratio_to_f }.inject(&:*)
+
+      if _end_chai_fen_factor.blank?
+        _end_chai_fen_factor = 1
+      end
+
+      end_ratio = last_trade_net_worth.dwjz * _end_chai_fen_factor / _fund_fen_hongs.last.dwjz
+
+      # ...
+      _begin_fund_chai_fens = self.fund_chai_fens.where(break_convert_at: target_net_worth.record_at.._first_fund_fen_hong.ex_dividend_at).order(break_convert_at: :asc)
+      # _first_fund_chai_fen = _fund_chai_fens.first
+      _begin_chai_fen_factor = _begin_fund_chai_fens.map { |e| e.get_break_ratio_to_f }.inject(&:*)
+
+      if _begin_chai_fen_factor.blank?
+        _begin_chai_fen_factor = 1
+      end
+
+      begin_ration = (_first_fund_fen_hong.dwjz + _first_fund_fen_hong.bonus) * _begin_chai_fen_factor / target_net_worth.dwjz
 
       _x = 1
 
@@ -352,8 +393,19 @@ class Project < ApplicationRecord
         # 2016年 2016-11-28  2016-11-28  每份派现金 0.2400 元  2016-11-30
         # 2015年 2015-11-25  2015-11-25  每份派现金 0.3500 元  2015-11-27
 
+        inner_new_fen_hong = _fund_fen_hong
+        inner_old_fen_hong = _fund_fen_hongs[index - 1]
+
         # ...
-        _x = _x * ((_fund_fen_hong.dwjz + _fund_fen_hong.bonus) / (_fund_fen_hongs[index - 1].dwjz))
+        _inner_fund_chai_fens = self.fund_chai_fens.where(break_convert_at: inner_old_fen_hong.ex_dividend_at..inner_new_fen_hong.ex_dividend_at).order(break_convert_at: :asc)
+        # _first_fund_chai_fen = _fund_chai_fens.first
+        _inner_chai_fen_factor = _inner_fund_chai_fens.map { |e| e.get_break_ratio_to_f }.inject(&:*)
+
+        if _inner_chai_fen_factor.blank?
+          _inner_chai_fen_factor = 1
+        end
+
+        _x = _x * ((inner_new_fen_hong.dwjz + inner_new_fen_hong.bonus) * _inner_chai_fen_factor / (inner_old_fen_hong.dwjz))
       end
 
       # (( ((1.2388 + 0.3500)/1) * ((1.1785 + 0.2400)/1.2388) * (1.1723/1.1785) - 1) * 100).round(2)
