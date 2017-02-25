@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170224055126) do
+ActiveRecord::Schema.define(version: 20170225092014) do
 
   create_table "articles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string   "title"
@@ -415,32 +415,34 @@ ActiveRecord::Schema.define(version: 20170224055126) do
 
   create_table "projects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string   "name"
-    t.text     "description",     limit: 65535
+    t.text     "description",          limit: 65535
     t.string   "website"
     t.string   "wiki"
     t.string   "source_code"
     t.integer  "category_id"
-    t.datetime "created_at",                                                         null: false
-    t.datetime "updated_at",                                                         null: false
-    t.integer  "identity",                                               default: 0
-    t.text     "author",          limit: 65535
-    t.integer  "status",                                                 default: 0
-    t.decimal  "popularity",                    precision: 15, scale: 2
+    t.datetime "created_at",                                                              null: false
+    t.datetime "updated_at",                                                              null: false
+    t.integer  "identity",                                                    default: 0
+    t.text     "author",               limit: 65535
+    t.integer  "status",                                                      default: 0
+    t.decimal  "popularity",                         precision: 15, scale: 2
     t.integer  "developer_id"
     t.boolean  "today_recommend"
     t.datetime "recommend_at"
     t.string   "human_name"
     t.string   "given_name"
-    t.integer  "view_times",                                             default: 0
+    t.integer  "view_times",                                                  default: 0
     t.string   "code"
     t.integer  "catalog_id"
     t.string   "mold"
     t.string   "slug"
     t.date     "set_up_at"
-    t.integer  "mother_son",                                             default: 0
-    t.integer  "release_status",                                         default: 0
-    t.integer  "comments_count",                                         default: 0
-    t.integer  "mold_type",                                              default: 0
+    t.integer  "mother_son",                                                  default: 0
+    t.integer  "release_status",                                              default: 0
+    t.integer  "comments_count",                                              default: 0
+    t.integer  "mold_type",                                                   default: 0
+    t.integer  "fund_chai_fens_count",                                        default: 0, null: false
+    t.integer  "fund_fen_hongs_count",                                        default: 0, null: false
     t.index ["code"], name: "index_projects_on_code", using: :btree
   end
 

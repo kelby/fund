@@ -2,34 +2,36 @@
 #
 # Table name: projects
 #
-#  id              :integer          not null, primary key
-#  name            :string(255)
-#  description     :text(65535)
-#  website         :string(255)
-#  wiki            :string(255)
-#  source_code     :string(255)
-#  category_id     :integer
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  identity        :integer          default("unknow")
-#  author          :text(65535)
-#  status          :integer          default("pending")
-#  popularity      :decimal(15, 2)
-#  developer_id    :integer
-#  today_recommend :boolean
-#  recommend_at    :datetime
-#  human_name      :string(255)
-#  given_name      :string(255)
-#  view_times      :integer          default(0)
-#  code            :string(255)
-#  catalog_id      :integer
-#  mold            :string(255)
-#  slug            :string(255)
-#  set_up_at       :date
-#  mother_son      :integer          default("mother_son_normal")
-#  release_status  :integer          default("release_end")
-#  comments_count  :integer          default(0)
-#  mold_type       :integer          default("mold_not_set")
+#  id                   :integer          not null, primary key
+#  name                 :string(255)
+#  description          :text(65535)
+#  website              :string(255)
+#  wiki                 :string(255)
+#  source_code          :string(255)
+#  category_id          :integer
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
+#  identity             :integer          default("unknow")
+#  author               :text(65535)
+#  status               :integer          default("pending")
+#  popularity           :decimal(15, 2)
+#  developer_id         :integer
+#  today_recommend      :boolean
+#  recommend_at         :datetime
+#  human_name           :string(255)
+#  given_name           :string(255)
+#  view_times           :integer          default(0)
+#  code                 :string(255)
+#  catalog_id           :integer
+#  mold                 :string(255)
+#  slug                 :string(255)
+#  set_up_at            :date
+#  mother_son           :integer          default("mother_son_normal")
+#  release_status       :integer          default("release_end")
+#  comments_count       :integer          default(0)
+#  mold_type            :integer          default("mold_not_set")
+#  fund_chai_fens_count :integer          default(0), not null
+#  fund_fen_hongs_count :integer          default(0), not null
 #
 
 require 'elasticsearch/model'

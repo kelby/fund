@@ -21,7 +21,7 @@ class FundFenHong < ApplicationRecord
   validates_uniqueness_of :net_worth_id
 
 
-  belongs_to :project
+  belongs_to :project, counter_cache: true
   belongs_to :net_worth
 
   def dwjz

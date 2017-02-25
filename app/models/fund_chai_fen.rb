@@ -19,7 +19,7 @@ class FundChaiFen < ApplicationRecord
   validates_uniqueness_of :net_worth_id
 
 
-  belongs_to :project
+  belongs_to :project, counter_cache: true
   belongs_to :net_worth
 
   def get_break_ratio_to_f
