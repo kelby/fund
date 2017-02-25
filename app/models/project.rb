@@ -236,8 +236,8 @@ class Project < ApplicationRecord
     _beginning_net_worth = self.last_trade_net_worth_ago(date_range).dwjz
     _end_net_worth = self.last_trade_net_worth.dwjz
 
-    _fund_chai_fens_count = self.fund_chai_fens_count(_beginning_day, _end_day)
-    _fund_fen_hongs_count = self.fund_fen_hongs_count(_beginning_day, _end_day)
+    _fund_chai_fens_count = self.fund_chai_fens_count_from(_beginning_day, _end_day)
+    _fund_fen_hongs_count = self.fund_fen_hongs_count_from(_beginning_day, _end_day)
 
     _yield_rate = self.target_ranking_ago(date_range)
 
@@ -265,13 +265,13 @@ class Project < ApplicationRecord
     end
   end
 
-  def fund_chai_fens_count(from_date, to_date)
+  def fund_chai_fens_count_from(from_date, to_date)
     _date_range = from_date..to_date
 
     self.fund_chai_fens.where(break_convert_at: _date_range).size
   end
 
-  def fund_fen_hongs_count(from_date, to_date)
+  def fund_fen_hongs_count_from(from_date, to_date)
     _date_range = from_date..to_date
 
     self.fund_fen_hongs.where(ex_dividend_at: _date_range).size
