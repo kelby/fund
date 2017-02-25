@@ -308,7 +308,7 @@ class Project < ApplicationRecord
 
 
   def last_trade_net_worth_ago(date_range)
-    date = last_trade_day.ago(date_range)
+    date = last_trade_day.ago(date_range).strftime("%F")
 
     self.net_worths.order(record_at: :desc).where("record_at >= ?", date).last
   end
