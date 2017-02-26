@@ -260,6 +260,9 @@ class Project < ApplicationRecord
     api_begin_net_worth = api_begin_net_worth(begin_date)
     api_end_net_worth = api_end_net_worth(end_date)
 
+    api_fund_fen_hongs = api_fund_fen_hongs(begin_date, end_date)
+    api_fund_chai_fens = api_fund_chai_fens(begin_date, end_date)
+
     if api_begin_net_worth.blank? || api_end_net_worth.blank?
       return {}
     end
@@ -276,7 +279,13 @@ class Project < ApplicationRecord
     end
 
     if api_fund_fen_hongs.blank? && api_fund_chai_fens.present?
-      break_ratio = api_fund_chai_fens.map { |e| e.get_break_ratio_to_f }.map(&:*).round(4)
+      break_ratio = api_fund_chai_fens.map { |e| e.get_break_ratio_to_f }.inject(&:*)
+
+      if break_ratio.present?
+        break_ratio = break_ratio.round(4)
+      else
+        break_ratio = 1
+      end
       
       yield_rate = ((api_end_net_worth.dwjz * break_ratio - api_begin_net_worth.dwjz) / api_begin_net_worth.dwjz * 100).round(2)
 
@@ -428,8 +437,8 @@ class Project < ApplicationRecord
         pre_fen_hong_chai_fens = api_fund_chai_fens.where(the_real_break_convert_at: api_begin_net_worth.record_at..api_fund_fen_hong.net_worth.record_at)
         post_fen_hong_chai_fens = api_fund_chai_fens.where(the_real_break_convert_at: api_fund_fen_hong.net_worth.record_at..api_end_net_worth.record_at)
 
-        pre_fen_hong_ratio = pre_fen_hong_chai_fens.map { |e| e.get_break_ratio_to_f }.map(&:*)
-        post_fen_hong_ratio = post_fen_hong_chai_fens.map { |e| e.get_break_ratio_to_f }.map(&:*)
+        pre_fen_hong_ratio = pre_fen_hong_chai_fens.map { |e| e.get_break_ratio_to_f }.inject(&:*)
+        post_fen_hong_ratio = post_fen_hong_chai_fens.map { |e| e.get_break_ratio_to_f }.inject(&:*)
 
         if pre_fen_hong_ratio.present?
           pre_fen_hong_ratio = pre_fen_hong_ratio.round(4)
@@ -455,7 +464,7 @@ class Project < ApplicationRecord
         api_end_fund_fen_hong = api_fund_fen_hongs.first
         api_begin_fund_fen_hong = api_fund_fen_hongs.last
 
-        end_ratio = api_fund_chai_fens.where(the_real_break_convert_at: api_fund_fen_hong.the_real_ex_dividend_at..api_end_net_worth.record_at).map { |e| e.get_break_ratio_to_f }.map(&:*)
+        end_ratio = api_fund_chai_fens.where(the_real_break_convert_at: api_fund_fen_hong.the_real_ex_dividend_at..api_end_net_worth.record_at).map { |e| e.get_break_ratio_to_f }.inject(&:*)
 
         if end_ratio.present?
           end_ratio = end_ratio.round(4)
@@ -466,7 +475,7 @@ class Project < ApplicationRecord
         end_rate = api_end_net_worth.dwjz * end_ratio / api_end_fund_fen_hong.net_worth.dwjz
 
 
-        begin_ratio = api_fund_chai_fens.where(the_real_break_convert_at: api_fund_fen_hong.the_real_ex_dividend_at..api_end_net_worth.record_at).map { |e| e.get_break_ratio_to_f }.map(&:*)
+        begin_ratio = api_fund_chai_fens.where(the_real_break_convert_at: api_fund_fen_hong.the_real_ex_dividend_at..api_end_net_worth.record_at).map { |e| e.get_break_ratio_to_f }.inject(&:*)
 
         if begin_ratio.present?
           begin_ratio = begin_ratio.round(4)
@@ -487,7 +496,7 @@ class Project < ApplicationRecord
             break
           end
 
-          middle_ratio = api_fund_chai_fens.where(the_real_break_convert_at: prev_api_fund_fen_hong.the_real_ex_dividend_at..api_fund_fen_hong.the_real_ex_dividend_at).map { |e| e.get_break_ratio_to_f }.map(&:*)
+          middle_ratio = api_fund_chai_fens.where(the_real_break_convert_at: prev_api_fund_fen_hong.the_real_ex_dividend_at..api_fund_fen_hong.the_real_ex_dividend_at).map { |e| e.get_break_ratio_to_f }.inject(&:*)
 
           if middle_ratio.present?
             middle_ratio = middle_ratio.round(4)

@@ -29,6 +29,10 @@ class NetWorth < ApplicationRecord
   validates_presence_of :project_id
   validates_presence_of :record_at
 
+  validates_presence_of :dwjz
+  validates_presence_of :ljjz
+  validates_presence_of :accnav
+
   validates_uniqueness_of :record_at, scope: :project_id
   # END
 
