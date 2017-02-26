@@ -36,16 +36,20 @@ class FundFenHong < ApplicationRecord
   before_validation :detect_set_bonus_per
   before_validation :detect_set_bonus
 
-  after_create :set_the_real_ex_dividend_at
+  after_create :set_the_real_ex_dividend_at_etc
 
 
   scope :desc, ->{ order(ex_dividend_at: :desc) }
   scope :asc, ->{ order(ex_dividend_at: :asc) }
 
-  def set_the_real_ex_dividend_at
-    self.the_real_ex_dividend_at = self.project.net_worths.where("record_at >= ?", self.ex_dividend_at).order(record_at: :asc).first.try(:record_at)
+  def set_the_real_ex_dividend_at_etc
+    _net_worth = self.project.net_worths.where("record_at >= ?", self.ex_dividend_at).order(record_at: :asc).first
 
-    if self.the_real_ex_dividend_at.present?
+    if _net_worth.present?
+      self.the_real_ex_dividend_at = _net_worth.record_at
+    end
+
+    if self.changed?
       self.save
     end
   end

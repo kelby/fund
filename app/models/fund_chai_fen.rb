@@ -30,13 +30,17 @@ class FundChaiFen < ApplicationRecord
   scope :asc, ->{ order(break_convert_at: :asc) }
 
 
-  after_create :set_the_real_break_convert_at
+  after_create :set_the_real_break_convert_at_etc
 
 
-  def set_the_real_break_convert_at
-    self.the_real_break_convert_at = self.project.net_worths.where("record_at >= ?", self.break_convert_at).order(record_at: :asc).first.try(:record_at)
+  def set_the_real_break_convert_at_etc
+    _net_worth = self.project.net_worths.where("record_at >= ?", self.break_convert_at).order(record_at: :asc).first
 
-    if self.the_real_break_convert_at.present?
+    if _net_worth.present?
+      self.the_real_break_convert_at = _net_worth.record_at
+    end
+
+    if self.changed?
       self.save  
     end
   end
