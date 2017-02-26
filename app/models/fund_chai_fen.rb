@@ -13,10 +13,12 @@
 #
 
 class FundChaiFen < ApplicationRecord
-  validates_presence_of :net_worth_id
+  # validates_presence_of :net_worth_id
+  validates_presence_of :project_id
   validates_presence_of :break_convert_at, :break_type, :break_ratio
 
-  validates_uniqueness_of :net_worth_id
+  validates_uniqueness_of :net_worth_id, allow_blank: true
+  validates_uniqueness_of :break_convert_at, scope: :project_id
 
 
   belongs_to :project, counter_cache: true
