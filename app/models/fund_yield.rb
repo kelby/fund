@@ -33,6 +33,7 @@ class FundYield < ApplicationRecord
     last_five_year: 21, last_seven_year: 23, last_ten_year: 25,
     since_the_inception: 33}
 
+
   YIELD_TYPE_HASH = {
     'yield_type_unknow' => "",
     'last_one_week' => "近1周",
@@ -50,6 +51,18 @@ class FundYield < ApplicationRecord
     'since_the_inception' => "成立来"
   }
 
+
+  def date_range
+    self.beginning_day..self.end_day
+  end
+
+  def fund_fen_hongs
+    self.project.fund_fen_hongs.where(ex_dividend_at: self.date_range)
+  end
+
+  def fund_chai_fens
+    self.project.fund_chai_fens.where(break_convert_at: self.date_range)
+  end
 
   def yield_rate_color
     if self.yield_rate.blank?

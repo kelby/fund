@@ -61,5 +61,21 @@
         </span>
       </li>
     </ul>
+
+    <% if fund_yield.fund_fen_hongs.present? || fund_yield.fund_chai_fens.present? %>
+      <div class="panel-footer">
+        <% fund_yield.fund_fen_hongs.desc.each do |fund_fen_hong| %>
+          分红：
+          <%= fund_fen_hong.ex_dividend_at %>, <%= fund_fen_hong.dwjz %>, <%= fund_fen_hong.bonus_per %>
+          <br>
+        <% end %>
+
+        <% fund_yield.fund_chai_fens.desc.each do |fund_chai_fen| %>
+          拆分、折算：
+          <%= fund_chai_fen.break_convert_at %>, <%= fund_chai_fen.break_type %>, <%= fund_chai_fen.human_break_ratio %>
+          <br>
+        <% end %>
+      </div>
+    <% end %>
   </div>
 <% end %>

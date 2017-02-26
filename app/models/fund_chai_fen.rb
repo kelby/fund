@@ -24,6 +24,11 @@ class FundChaiFen < ApplicationRecord
   belongs_to :project, counter_cache: true
   belongs_to :net_worth
 
+
+  scope :desc, ->{ order(break_convert_at: :desc) }
+  scope :asc, ->{ order(break_convert_at: :asc) }
+
+
   def get_break_ratio_to_f
     if self.break_ratio.split(':').first =~ /\d/
       self.break_ratio.split(':').last.to_f

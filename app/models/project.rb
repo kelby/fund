@@ -189,11 +189,11 @@ class Project < ApplicationRecord
 
 
   # Constants
-  API_GITHUB = "https://api.github.com/"
+  # API_GITHUB = "https://api.github.com/"
 
-  RAILS_BASE = {'watchers' => 2321, 'stars' => 33566, 'forks' => 13698, 'downloads' => 81138762}
-  SWIFT_BASE = {'watchers' => 2406, 'stars' => 35406, 'forks' => 5135, 'downloads' => 81138762}
-  LARAVEL_BASE = {'watchers' => 3522, 'stars' => 27582, 'forks' => 9131, 'downloads' => 3941137}
+  # RAILS_BASE = {'watchers' => 2321, 'stars' => 33566, 'forks' => 13698, 'downloads' => 81138762}
+  # SWIFT_BASE = {'watchers' => 2406, 'stars' => 35406, 'forks' => 5135, 'downloads' => 81138762}
+  # LARAVEL_BASE = {'watchers' => 3522, 'stars' => 27582, 'forks' => 9131, 'downloads' => 3941137}
   # END
 
   # Plugins
@@ -213,12 +213,17 @@ class Project < ApplicationRecord
       'last_one_year' => 1.year,
       'last_two_year' => 2.year,
       'last_three_year' => 3.year,
-      'this_year' => (time_now - time_now.beginning_of_year),
+      # 'this_year' => Time.now.yday.days, # 不适合这种情况
       'last_five_year' => 5.year,
       'last_seven_year' => 7.year,
       'last_ten_year' => 10.year,
       'since_the_inception' => 100.year
     }
+  end
+
+
+  def yield_type_with_this_year
+    # ...
   end
 
   def set_up_from_yield_type_with_date_range
@@ -231,15 +236,25 @@ class Project < ApplicationRecord
 
   def set_up_fund_yields_for(date_range, yield_type)
     _beginning_day = self.last_trade_net_worth_ago(date_range).record_at
-    _end_day = self.last_trade_net_worth.record_at
 
     _beginning_net_worth = self.last_trade_net_worth_ago(date_range).dwjz
+
+
+
+    _end_day = self.last_trade_net_worth.record_at
     _end_net_worth = self.last_trade_net_worth.dwjz
+
 
     _fund_chai_fens_count = self.fund_chai_fens_count_from(_beginning_day, _end_day)
     _fund_fen_hongs_count = self.fund_fen_hongs_count_from(_beginning_day, _end_day)
 
-    _yield_rate = self.target_ranking_ago(date_range)
+
+    if yield_type == 'this_year'
+      _yield_rate = self.target_ranking_ago(date_range, 1.year.ago.end_of_year)
+    else
+      _yield_rate = self.target_ranking_ago(date_range)
+    end
+
 
     _fund_yield = self.fund_yields.find_by(yield_type: yield_type)
 
@@ -295,17 +310,30 @@ class Project < ApplicationRecord
     self.fund_fen_hongs.where(ex_dividend_at: _date_range)
   end
 
-  def last_trade_net_worth_ago(date_range)
-    date = last_trade_day.ago(date_range).strftime("%F")
-
-    self.net_worths.order(record_at: :desc).where("record_at >= ?", date).last
+  def last_trade_net_worth_ago(date_range, change_to_date=nil)
+    if change_to_date.present?
+      date = change_to_date
+      self.net_worths.order(record_at: :desc).where("record_at <= ?", date).first
+    else
+      date = last_trade_day.ago(date_range).strftime("%F")
+      self.net_worths.order(record_at: :desc).where("record_at >= ?", date).last
+    end
   end
 
-  def target_ranking_ago(date_range)
-    date = last_trade_day.ago(date_range).strftime("%F")
-    target_net_worth = last_trade_net_worth_ago(date_range)
+  def last_trade_net_worth_at(date)
+    self.net_worths.order(record_at: :desc).where("record_at < ?", date).first
+  end
 
-    if target_net_worth.record_at != date.to_date
+  def target_ranking_ago(date_range, change_to_date=nil)
+    if change_to_date.present?
+      date = change_to_date.strftime("%F")
+      target_net_worth = last_trade_net_worth_ago(date_range)
+    else
+      date = last_trade_day.ago(date_range).strftime("%F")
+      target_net_worth = last_trade_net_worth_ago(date_range)
+    end
+
+    if target_net_worth.record_at != date.to_date && change_to_date.blank?
       prev_net_worth = target_net_worth.prev_net_worth
 
       if prev_net_worth.present?
@@ -327,19 +355,33 @@ class Project < ApplicationRecord
     # _first_fund_chai_fen = _fund_chai_fens.first
     _chai_fen_factor = _fund_chai_fens.map { |e| e.get_break_ratio_to_f }.inject(&:*)
 
-    if _chai_fen_factor.blank?
+    if _chai_fen_factor.present?
+      _chai_fen_factor = _chai_fen_factor.round(4)
+    else
       _chai_fen_factor = 1
     end
 
 
     if _fund_fen_hongs.blank?
-      (((last_trade_net_worth.dwjz * _chai_fen_factor).round(4) - target_net_worth.dwjz) / target_net_worth.dwjz * 100).round(2)
+      (((last_trade_net_worth.dwjz * _chai_fen_factor) - target_net_worth.dwjz) / target_net_worth.dwjz * 100).round(2)
     elsif _fund_fen_hongs.one?
 
       end_ratio = last_trade_net_worth.dwjz / _first_fund_fen_hong.dwjz
       begin_ration = (_first_fund_fen_hong.dwjz + _first_fund_fen_hong.bonus) / target_net_worth.dwjz
 
-      ((end_ratio * begin_ration - 1) * 100).round(2)
+      # ...
+      _end_fund_chai_fens = self.fund_chai_fens.where(break_convert_at: _fund_fen_hongs.last.ex_dividend_at..last_trade_net_worth.record_at).order(break_convert_at: :asc)
+      # _first_fund_chai_fen = _fund_chai_fens.first
+      _end_chai_fen_factor = _end_fund_chai_fens.map { |e| e.get_break_ratio_to_f }.inject(&:*)
+
+      if _end_chai_fen_factor.present?
+        _end_chai_fen_factor = _end_chai_fen_factor.round(4)
+      else
+        _end_chai_fen_factor = 1
+      end
+
+
+      ((end_ratio * begin_ration * _end_chai_fen_factor - 1) * 100).round(2)
     else
       # a --> b --> c
    # 　　份额净值增长率=[期末份额净值/(分红日份额净值-分红金额)]×π[期内历次分红当日份额净值/每期期初份额净值]-1(其中，每次分红之间的时间当作一个区间单独计算，然后累乘)。
@@ -353,7 +395,9 @@ class Project < ApplicationRecord
       # _first_fund_chai_fen = _fund_chai_fens.first
       _end_chai_fen_factor = _end_fund_chai_fens.map { |e| e.get_break_ratio_to_f }.inject(&:*)
 
-      if _end_chai_fen_factor.blank?
+      if _end_chai_fen_factor.present?
+        _end_chai_fen_factor = _end_chai_fen_factor.round(4)
+      else
         _end_chai_fen_factor = 1
       end
 
@@ -364,7 +408,9 @@ class Project < ApplicationRecord
       # _first_fund_chai_fen = _fund_chai_fens.first
       _begin_chai_fen_factor = _begin_fund_chai_fens.map { |e| e.get_break_ratio_to_f }.inject(&:*)
 
-      if _begin_chai_fen_factor.blank?
+      if _begin_chai_fen_factor.present?
+        _begin_chai_fen_factor = _begin_chai_fen_factor.round(4)
+      else
         _begin_chai_fen_factor = 1
       end
 
@@ -413,7 +459,6 @@ class Project < ApplicationRecord
       ((end_ratio * begin_ration * _x - 1) * 100).round(2)
     end
   end
-
 
 
   def is_hb_lc?
@@ -498,144 +543,6 @@ class Project < ApplicationRecord
   end
   # end last six month
 
-  def confirm_lineal?
-    self.mother_son_normal? || self.mother?
-  end
-
-  def short_github_indentity
-    "#{self.author}/#{self.name}"
-  end
-
-  def detect_set_category_online
-    if (self.status_changed? && self.online?) && self.category.present?
-      self.category.online!
-    end
-  end
-
-  def detect_given_name_changed(force=true)
-    if given_name_changed? && given_name.present?
-      if force
-        self.logic_set_info
-      end
-    end
-  end
-
-  def self.delay_set_popularity
-    Project.pending.joins(:github_info).where(popularity: nil).map{|x| x.logic_set_popularity }
-  end
-
-  def logic_set_popularity
-    case self.identity
-    when 'gemspec'
-      self.set_gem_popularity
-    when 'package'
-      self.set_package_popularity
-    when 'pod'
-      self.set_pod_popularity
-    else
-      # ...
-    end
-  end
-
-  def self.set_gem_popularity
-    self.gemspec.joins(:github_info, :gem_info).distinct.each do |project|
-      if project.github_info.blank? || project.gem_info.blank?
-        next
-      end
-
-      project.set_gem_popularity
-      project.save!
-    end
-  end
-
-  def set_gem_popularity
-    # p self.id
-    a = self.subscribers_count.to_f / Project::RAILS_BASE['stars']
-    # p a
-    b = self.watchers_count.to_f / Project::RAILS_BASE['watchers']
-    # p b
-    c = self.forks_count.to_f / Project::RAILS_BASE['forks']
-    # p c
-
-    e = (a + b + c) / 3
-    # p e
-
-    d = self.total_downloads.to_f / Project::RAILS_BASE['downloads']
-    # p d
-
-    self.popularity = ((e + d) / 2 * 100).round(4)
-
-    if self.changed?
-      self.save
-    end
-  end
-
-
-  def self.set_package_popularity
-    self.package.joins(:github_info, :package_info).distinct.each do |project|
-      if project.github_info.blank? || project.package_info.blank?
-        next
-      end
-
-      project.set_package_popularity
-      project.save!
-    end
-  end
-
-  def set_package_popularity
-    # p self.id
-    a = self.subscribers_count.to_f / Project::LARAVEL_BASE['stars']
-    # p a
-    b = self.watchers_count.to_f / Project::LARAVEL_BASE['watchers']
-    # p b
-    c = self.forks_count.to_f / Project::LARAVEL_BASE['forks']
-    # p c
-
-    e = (a + b + c) / 3
-    # p e
-
-    d = self.total_downloads.to_f / Project::LARAVEL_BASE['downloads']
-    # p d
-
-    self.popularity = ((e + d) / 2 * 100).round(4)
-    
-    if self.changed?
-      self.save
-    end
-  end
-
-  def self.set_pod_popularity
-    self.pod.joins(:github_info, :pod_info).distinct.each do |project|
-      if project.github_info.blank? || project.pod_info.blank?
-        next
-      end
-
-      project.set_pod_popularity
-      project.save!
-    end
-  end
-
-  def set_pod_popularity
-    # p self.id
-    a = self.subscribers_count.to_f / Project::SWIFT_BASE['stars']
-    # p a
-    b = self.watchers_count.to_f / Project::SWIFT_BASE['watchers']
-    # p b
-    c = self.forks_count.to_f / Project::SWIFT_BASE['forks']
-    # p c
-
-    e = (a + b + c) / 3
-    # p e
-
-    d = self.total_downloads.to_f / Project::SWIFT_BASE['downloads']
-    # p d
-
-    self.popularity = ((e + d) / 2 * 100).round(4)
-    
-    if self.changed?
-      self.save
-    end
-  end
 
   def detect_and_set_recommend_at
     if self.today_recommend_changed? && self.today_recommend?
@@ -645,31 +552,6 @@ class Project < ApplicationRecord
     end
   end
 
-  def subscribers_count
-    self.github_info.try(:subscribers_count) || 0
-  end
-
-  def watchers_count
-    self.github_info.try(:watchers_count) || 0
-  end
-
-  def forks_count
-    self.github_info.try(:forks_count) || 0
-  end
-
-  def total_downloads
-    if self.gemspec?
-      return self.gem_info.try(:total_downloads) || 0
-    end
-
-    if self.package?
-      return self.package_info.try(:total_downloads) || 0
-    end
-
-    if self.pod?
-      return self.pod_info.try(:total_downloads) || 0
-    end
-  end
 
   def had_star_by?(user)
     UserStarProject.had_star_by?(self, user)
@@ -679,442 +561,15 @@ class Project < ApplicationRecord
     UserRecommendProject.had_recommend_by?(self, user)
   end
 
-  def set_readme
-    self.github_info.set_readme
-  end
 
-  def self.set_all_github_info
-    Project.includes(:github_info).where(github_infos: {id: nil}).find_each do |project|
-      Project.delay.set_github_info(project.id)
-    end
-  end
 
-  def self.set_github_info(project_id)
-    project = Project.find(project_id)
-
-    if project.github_info.blank?
-      project.set_github_info
-    end
-  end
-
-  def set_github_info
-    if self.github_info.blank?
-      self.build_github_info
-    end
-
-    self.set_description
-    self.set_github_others_info
-    self.set_raking_data
-
-    self.github_info.save
-
-    self.set_readme
-
-
-    self.github_info.save
-  end
-
-  def split_github
-    self.source_code.split("/")
-  end
-
-  def set_github_identity
-    self.author = split_github[-2]
-    self.name = split_github[-1]
-  end
-
-  def repo_params
-    {code: self.code, slug: self.slug}
-  end
-
-  def convert_github_to_repo_url
-    author_name = split_github[-2]
-    repo_name = split_github[-1]
-
-    unless "github.com" == split_github[-3]
-      return ""
-    end
-
-    API_GITHUB + ("repos/#{author_name}/#{repo_name}")
-  end
-
-  def fetch_info_from_github
-    url = convert_github_to_repo_url
-
-    unless url =~ /github\.com/
-      return {}
-    end
-
-    url += "?client_id=#{Settings.github_token}&client_secret=#{Settings.github_secret}"
-
-    @json ||= Timeout.timeout(10) do
-      begin
-        open(url).read
-      rescue OpenURI::HTTPError => e
-        return {}
-      end
-    end
-
-    parse_json = JSON.parse @json
-  end
-
-  # https://api.github.com/repos/rails/rails/contents/
-  def get_gem_name
-    url = convert_github_to_repo_url + "/contents"
-    url += "?client_id=#{Settings.github_token}&client_secret=#{Settings.github_secret}"
-
-    @json ||= Timeout.timeout(10) do
-      begin
-        open(url).read
-      rescue OpenURI::HTTPError => e
-        return ""
-      end
-    end
-
-    parse_json = JSON.parse @json
-
-    gemspec = parse_json.map{|x| x['name'] }.select{|xx| xx =~ /\.gemspec$/}
-
-    if gemspec.blank?
-      self.not_want!
-      return ""
-    end
-
-    if self.github_info.present?
-      self.github_info.others['gemspec'] = gemspec.join(',')
-    end
-
-    gemspec.first.gsub(/\.gemspec$/, "")
-  end
-
-  def self.delay_set_given_name(project_id)
-    project = Project.find(project_id)
-
-    project.set_given_name
-  end
-
-  def set_given_name
-    self.given_name = self.get_gem_name
-
-    if self.given_name_changed?
-      self.save
-    end
-  end
-
-  # 误杀太多，先不调用
-  def self.batch_set_offline_gems_given_name
-    self.gemspec.offline.find_each do |project|
-      if project.gem_info.present?
-        next
-      end
-
-      self.delay.delay_set_given_name(project.id)
-      project.not_want!
-    end
-  end
-
-  def set_github_others_info
-    self.github_info.others = fetch_info_from_github.except('name', 'description',
-      'subscribers_count', 'watchers_count', 'forks_count')
-  end
-
-  def set_name
-    self.name = fetch_info_from_github["name"]
-  end
-
-  def set_description
-    self.description = fetch_info_from_github["description"]
-  end
-
-  def set_website
-    # self.homepage = fetch_info_from_github["homepage"]
-  end
-
-  def set_raking_data
-    # subscribers_count =~ Watch
-    self.github_info.subscribers_count = fetch_info_from_github["watchers_count"]
-    # watchers_count =~ Star
-    self.github_info.watchers_count = fetch_info_from_github["subscribers_count"]
-    # forks_count =~ Fork
-    self.github_info.forks_count = fetch_info_from_github["forks_count"]
-
-    # self.last_updated_at = fetch_info_from_github["updated_at"]
-    # self.updated_at = Time.now
-  end
-
-  def valid_identity?
-    self.category.present? & self.category.catalog.present?
-  end
-
-  def set_project_type
-    # case self.category.catalog.type
-    # when "RailsCatalog"
-    #   self.identity = 'gemspec'
-    # when "LaravelCatalog"
-    #   self.identity = 'package'
-    # when "SwiftCatalog"
-    #   self.identity = 'pod'
-    # else
-    #   #
-    # end
-  end
-
-  def logic_set_gem_info
-    if self.gemspec?
-      self.set_gem_info
-    end
-
-    true
-  end
-
-  def set_gem_info(gem_name="")
-    if gem_name.present?
-      url = "https://rubygems.org/api/v1/gems/#{gem_name}.json"
-    elsif self.given_name.present?
-      url = "https://rubygems.org/api/v1/gems/#{given_name}.json"
-    else
-      url = "https://rubygems.org/api/v1/gems/#{name}.json"
-    end
-
-    uri = URI.parse(url)
-
-    begin
-      content = uri.read
-      _gem_info = JSON.parse content
-    rescue Exception => e
-      _gem_info = {}
-      return
-    end
-
-    gem_info = self.build_gem_info
-
-    gem_info.total_downloads = _gem_info['downloads']
-    gem_info.releases = ''
-    gem_info.current_version = _gem_info['version']
-    gem_info.released = ''
-    gem_info.first_release = ''
-    gem_info.others = _gem_info.except('name', 'downloads', 'version')
-
-    gem_info.save
-  end
-
-  def logic_set_pod_info
-    if self.pod?
-      self.set_pod_info
-    end
-  end
-
-  def set_pod_info
-    _pod_info = self.build_pod_info
-
-    if self.given_name.present?
-      _pod_info.set_pod_info(self.given_name)
-    else
-      _pod_info.set_pod_info(self.name)
-    end
-
-
-    if _pod_info.others.present?
-      _pod_info.save
-    else
-      self.offline!
-    end
-  end
-
-  def logic_set_package_info
-    if self.package?
-      self.set_package_info
-    end
-  end
-
-  def set_package_info
-    _package_info = self.build_package_info
-
-    _package_info.set_package_info(self.author, self.name)
-    _package_info.save
-  end
-
-  def self.set_info
-    pod_ps = self.where(id: (Project.pod.pending.ids - Project.pod.pending.joins(:pod_info).ids))
-    pod_ps.each do |project|
-      self.delay.set_pod_info(project.id)
-    end
-
-    pod_ps.update_all(status: ::Project.statuses['offline'])
-
-    package_ps = self.where(id: (Project.package.pending.ids - Project.package.pending.joins(:package_info).ids))
-    package_ps.each do |project|
-      self.delay.set_package_info(project.id)
-    end
-
-    package_ps.update_all(status: ::Project.statuses['offline'])
-
-    gemspec_ps = self.where(id: (Project.gemspec.pending.ids - Project.gemspec.pending.joins(:gem_info).ids))
-    gemspec_ps.each do |project|
-      self.delay.set_gem_info(project.id)
-    end
-
-    gemspec_ps.update_all(status: ::Project.statuses['offline'])
-  end
-
-  def self.set_pod_info(project_id)
-    project = Project.find(project_id)
-    project.set_pod_info
-
-    if project.pod_info.present?
-      project.online!
-    end
-  end
-
-  def self.set_gem_info(project_id)
-    project = Project.find(project_id)
-    project.set_gem_info
-
-    if project.gem_info.present?
-      project.online!
-    end
-  end
-
-  def self.set_package_info(project_id)
-    project = Project.find(project_id)
-    project.set_package_info
-
-    if project.package_info.present?
-      project.online!
-    end
-  end
-
-  def self.get_and_create_gem_project(name, category_id)
-    url = "https://www.ruby-toolbox.com/projects/#{name}"
-
-    doc = Nokogiri::HTML(` curl "#{url}" `)
-
-    x = doc.css("#content .github_repo h4>a")
-
-    github_url = x.attribute("href").value
-
-    self.get_and_create_gem_project_from(github_url, category_id)
-  end
-
-  def self.get_and_create_gem_project_from(github_url, category_id)
-    self.create(source_code: github_url, identity: Project.identities['gemspec'], category_id: category_id)
-  end
-
-  def self.get_and_create_gem_project_from_option(options={})
-    self.create(options)
-  end
-
-  def self.get_and_create_pod_project(github_url, category_id)
-    # url = "https://www.ruby-toolbox.com/projects/#{name}"
-
-    # doc = Nokogiri::HTML(` curl "#{url}" `)
-
-    # x = doc.css("#content .github_repo h4>a")
-
-    # github_url = x.attribute("href").value
-
-    self.create(source_code: github_url, identity: Project.identities['pod'], category_id: category_id)
-  end
 
   def to_param
     "#{self.code}-#{self.slug}"
   end
 
-  def self.pending_detect_and_set_online
-    Project.pending.includes(:gem_info, :package_info, :pod_info).joins(:github_info).each do |project|
-      project.set_popularity_and_status
-    end
-  end
-
-  def set_popularity_and_status
-    if self.gemspec?
-      if self.gem_info.present?
-        self.set_gem_popularity
-
-        if self.subscribers_count > 100
-          self.online!
-        else
-          self.nightspot!
-        end
-      end
-    end
-
-    if self.package?
-      if self.package_info.present?
-        self.set_package_popularity
-
-        if self.subscribers_count > 100
-          self.online!
-        else
-          self.nightspot!
-        end
-      end
-    end
-
-    if self.pod?
-      if self.pod_info.present?
-        self.set_pod_popularity
-
-        if self.subscribers_count > 100
-          self.online!
-        else
-          self.nightspot!
-        end
-      end
-    end
-  end
-
-  def logic_set_info
-    if self.gemspec?
-      self.set_gem_info
-    end
-
-    if self.package?
-      self.set_package_info
-    end
-
-    if self.pod?
-      self.set_pod_info
-    end
-  end
-
-  def delay_set_developer_info
-    delay = rand(1..3600)
-    Developer.delay_for(delay).set_developer_info(self.id)
-  end
-
-  def aysc_set_developer_info
-    Developer.delay.set_developer_info(self.id)
-  end
-
-  def relate_info
-    case self.identity
-    when 'gemspec'
-      self.gem_info
-    when 'pod'
-      self.pod_info
-    when 'package'
-      self.package_info
-    else
-      nil
-    end
-  end
-
   def show_name
     self.human_name.presence || self.name
-  end
-
-  def show_homepage
-    case self.identity
-    when 'gemspec'
-      github_info.others['homepage'].presence || gem_info.others['homepage_uri'].presence
-    when 'pod'
-      github_info.others['homepage'].presence
-    when 'package'
-      # ...
-    else
-      # ...
-    end
   end
 
   def set_slug
@@ -1124,24 +579,14 @@ class Project < ApplicationRecord
   mapping do
     indexes :id, type: :integer
 
-    indexes :identity
-    indexes :status
-
     indexes :name
-    indexes :given_name
-    indexes :human_name
-
-    indexes :description
   end
 
   def as_indexed_json(options={})
     self.as_json(
-      only: [:id,
-        :identity, :status,
-        :name, :given_name, :human_name,
-        :description],
+      only: [:id, :name],
 
-      include: { category: { only: [:name, :slug]}}
+      include: { catalog: { only: [:name, :slug]}}
     )
   end
 end

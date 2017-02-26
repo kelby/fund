@@ -35,6 +35,11 @@ class FundFenHong < ApplicationRecord
   before_validation :detect_set_bonus_per
   before_validation :detect_set_bonus
 
+
+  scope :desc, ->{ order(ex_dividend_at: :desc) }
+  scope :asc, ->{ order(ex_dividend_at: :asc) }
+
+
   def detect_set_bonus_per
     if bonus_per.blank? && bonus.present?
       self.bonus_per = "每份派现金#{self.bonus}元"
@@ -49,6 +54,6 @@ class FundFenHong < ApplicationRecord
 
   # 实际情况，不是完全对应
   def dwjz
-    self.project.net_worths.find_by(record_at: self.ex_dividend_at).try(:dwjz)
+    self.project.net_worths.where("record_at >= ?", self.ex_dividend_at).order(record_at: :asc).first.try(:dwjz)
   end
 end
