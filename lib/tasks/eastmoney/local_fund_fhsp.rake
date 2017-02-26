@@ -77,7 +77,11 @@ namespace :eastmoney do
               dividend_distribution_at: dividend_distribution_at,
               project_id: project.id)
           else
-            fen_hong_blank_net_worths << "#{project.code}--#{project.name}"
+            project.fund_fen_hongs.create(register_at: register_at,
+              ex_dividend_at: ex_dividend_at,
+              bonus_per: bonus_per,
+              dividend_distribution_at: dividend_distribution_at)
+            # fen_hong_blank_net_worths << "#{project.code}--#{project.name}"
           end
         end
       end
@@ -120,7 +124,11 @@ namespace :eastmoney do
               break_ratio: break_ratio,
               project_id: project.id)
           else
-            chai_fen_blank_net_worths << "#{project.code}--#{project.name}"
+            project.fund_chai_fens.create(break_convert_at: break_convert_at,
+              break_type: break_type,
+              break_ratio: break_ratio)
+
+            # chai_fen_blank_net_worths << "#{project.code}--#{project.name}"
           end
         end
       end
