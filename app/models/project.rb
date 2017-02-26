@@ -50,12 +50,6 @@ class Project < ApplicationRecord
 
   # belongs_to :developer
 
-  has_one :github_info
-
-  has_one :gem_info
-  has_one :pod_info
-  has_one :package_info
-
   has_one :fund_raise
   has_one :fund_jbgk
   has_many :fund_jbgks

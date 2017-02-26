@@ -37,7 +37,7 @@ class Panel::ProjectsController < Panel::PanelController
 
   # GET /panel/projects
   def index
-    @panel_projects = ::Project.all.includes(:category, :pod_info, :gem_info, :package_info).page(params[:page])
+    @panel_projects = ::Project.all.includes(:category).page(params[:page])
   end
 
   # GET /panel/projects/1
