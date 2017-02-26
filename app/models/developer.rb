@@ -134,9 +134,9 @@ class Developer < ApplicationRecord
   end
 
   def set_projects_data
-    self.subscribers_count = GithubInfo.where(project_id: project_ids).sum(:subscribers_count)
-    self.watchers_count = GithubInfo.where(project_id: project_ids).sum(:watchers_count)
-    self.forks_count = GithubInfo.where(project_id: project_ids).sum(:forks_count)
+    # self.subscribers_count = GithubInfo.where(project_id: project_ids).sum(:subscribers_count)
+    # self.watchers_count = GithubInfo.where(project_id: project_ids).sum(:watchers_count)
+    # self.forks_count = GithubInfo.where(project_id: project_ids).sum(:forks_count)
 
     if self.changed?
       self.save
