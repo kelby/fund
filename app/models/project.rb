@@ -243,17 +243,273 @@ class Project < ApplicationRecord
     begin_date = begin_date.to_time.strftime("%F")
     end_date = end_date.to_time.strftime("%F")
 
-    self.fund_fen_hongs.where(ex_dividend_at: begin_date..end_date).desc
+    self.fund_fen_hongs.where(the_real_ex_dividend_at: begin_date..end_date).desc
   end
 
   def api_fund_chai_fens(begin_date, end_date)
     begin_date = begin_date.to_time.strftime("%F")
     end_date = end_date.to_time.strftime("%F")
 
-    self.fund_chai_fens.where(break_convert_at: begin_date..end_date).desc
+    self.fund_chai_fens.where(the_real_break_convert_at: begin_date..end_date).desc
   end
 
   def api_get_fund_yield_from_to(begin_date, end_date)
+    begin_date = begin_date.to_time.strftime("%F")
+    end_date = end_date.to_time.strftime("%F")
+
+    api_begin_net_worth = api_begin_net_worth(begin_date)
+    api_end_net_worth = api_end_net_worth(end_date)
+
+    if api_begin_net_worth.blank? || api_end_net_worth.blank?
+      return {}
+    end
+
+    if api_fund_fen_hongs.blank? && api_fund_chai_fens.blank?
+      yield_rate = ((api_end_net_worth.dwjz - api_begin_net_worth.dwjz) / api_begin_net_worth.dwjz * 100).round(2)
+
+      return {begin_date: begin_date, end_date: end_date,
+        yield_rate: yield_rate,
+        beginning_day: api_begin_net_worth.record_at, end_day: api_end_net_worth.record_at,
+        beginning_net_worth: api_begin_net_worth.dwjz, end_net_worth: api_end_net_worth.dwjz,
+        fund_fen_hongs_count: api_fund_fen_hongs.size, fund_chai_fens_count: api_fund_chai_fens.size,
+        project_code: self.code}
+    end
+
+    if api_fund_fen_hongs.blank? && api_fund_chai_fens.present?
+      break_ratio = api_fund_chai_fens.map { |e| e.get_break_ratio_to_f }.map(&:*).round(4)
+      
+      yield_rate = ((api_end_net_worth.dwjz * break_ratio - api_begin_net_worth.dwjz) / api_begin_net_worth.dwjz * 100).round(2)
+
+      return {begin_date: begin_date, end_date: end_date,
+        yield_rate: yield_rate,
+        beginning_day: api_begin_net_worth.record_at, end_day: api_end_net_worth.record_at,
+        beginning_net_worth: api_begin_net_worth.dwjz, end_net_worth: api_end_net_worth.dwjz,
+        fund_fen_hongs_count: api_fund_fen_hongs.size, fund_chai_fens_count: api_fund_chai_fens.size,
+        project_code: self.code}
+    end
+
+
+    if api_fund_fen_hongs.present? && api_fund_chai_fens.blank?
+      if api_fund_fen_hongs.one?
+        api_fund_fen_hong = api_fund_fen_hongs.first
+
+        # fen_hong_day_dwjz = api_fund_fen_hong.net_worth.dwjz
+
+        yield_rate = ((((api_fund_fen_hong.net_worth.dwjz + api_fund_fen_hong.bonus) / api_begin_net_worth.dwjz) * (api_end_net_worth.dwjz / api_fund_fen_hong.net_worth.dwjz) - 1) * 100).round(2)
+
+        return {begin_date: begin_date, end_date: end_date,
+          yield_rate: yield_rate,
+          beginning_day: api_begin_net_worth.record_at, end_day: api_end_net_worth.record_at,
+          beginning_net_worth: api_begin_net_worth.dwjz, end_net_worth: api_end_net_worth.dwjz,
+          fund_fen_hongs_count: api_fund_fen_hongs.size, fund_chai_fens_count: api_fund_chai_fens.size,
+          project_code: self.code}
+      else
+        api_end_fund_fen_hong = api_fund_fen_hongs.first
+        api_begin_fund_fen_hong = api_fund_fen_hongs.last
+
+
+
+
+        # _involve_net_worth  = self.net_worths.where(record_at: _fund_fen_hongs.pluck(:ex_dividend_at)).order(record_at: :asc)
+
+        # ...
+        # _end_fund_chai_fens = self.fund_chai_fens.where(break_convert_at: _fund_fen_hongs.last.ex_dividend_at..last_trade_net_worth.record_at).order(break_convert_at: :asc)
+        # _first_fund_chai_fen = _fund_chai_fens.first
+        # _end_chai_fen_factor = _end_fund_chai_fens.map { |e| e.get_break_ratio_to_f }.inject(&:*)
+
+        # if _end_chai_fen_factor.present?
+          # _end_chai_fen_factor = _end_chai_fen_factor.round(4)
+        # else
+          # _end_chai_fen_factor = 1
+        # end
+
+        end_ratio = api_end_net_worth.dwjz / api_end_fund_fen_hong.dwjz
+
+        # ...
+        # _begin_fund_chai_fens = self.fund_chai_fens.where(break_convert_at: target_net_worth.record_at.._first_fund_fen_hong.ex_dividend_at).order(break_convert_at: :asc)
+        # _first_fund_chai_fen = _fund_chai_fens.first
+        # _begin_chai_fen_factor = _begin_fund_chai_fens.map { |e| e.get_break_ratio_to_f }.inject(&:*)
+
+        # if _begin_chai_fen_factor.present?
+          # _begin_chai_fen_factor = _begin_chai_fen_factor.round(4)
+        # else
+          # _begin_chai_fen_factor = 1
+        # end
+
+        begin_ratio = (api_begin_fund_fen_hong.dwjz + api_begin_fund_fen_hong.bonus) / api_begin_net_worth.dwjz
+
+        middle_ratio = 1
+
+        api_fund_fen_hongs.each_with_index do |_fund_fen_hong, index|
+          _prev_fund_fen_hong = api_fund_fen_hongs[index + 1]
+
+          if _prev_fund_fen_hong.blank?
+            break
+          end
+
+          middle_ratio = middle_ratio * (_fund_fen_hong.dwjz + _fund_fen_hong.bonus) / _prev_fund_fen_hong.dwjz
+          # if index.zero?
+            # next
+          # end
+
+          # ...
+
+          # (_fund_fen_hong.dwjz + _fund_fen_hong.bonus) /
+
+          # 2017-02-03  1.1723  1.7623  -0.5%
+
+          # 2016-11-28  1.1785  1.7685  0.25%
+
+          # 2015-11-25  1.2388  1.5888  0.15%
+
+          # 2007-00-00  1       1       0%
+
+          # 年份  权益登记日 除息日 每份分红  分红发放日
+          # 2016年 2016-11-28  2016-11-28  每份派现金 0.2400 元  2016-11-30
+          # 2015年 2015-11-25  2015-11-25  每份派现金 0.3500 元  2015-11-27
+
+          # inner_new_fen_hong = _fund_fen_hong
+          # inner_old_fen_hong = _fund_fen_hongs[index - 1]
+
+          # ...
+          # _inner_fund_chai_fens = self.fund_chai_fens.where(break_convert_at: inner_old_fen_hong.ex_dividend_at..inner_new_fen_hong.ex_dividend_at).order(break_convert_at: :asc)
+          # _first_fund_chai_fen = _fund_chai_fens.first
+          # _inner_chai_fen_factor = _inner_fund_chai_fens.map { |e| e.get_break_ratio_to_f }.inject(&:*)
+
+          # if _inner_chai_fen_factor.blank?
+            # _inner_chai_fen_factor = 1
+          # end
+
+          # _x = _x * ((inner_new_fen_hong.dwjz + inner_new_fen_hong.bonus) * _inner_chai_fen_factor / (inner_old_fen_hong.dwjz))
+        end
+
+        yield_rate = ((end_ratio * begin_ratio * middle_ratio - 1) * 100).round(2)
+
+        return {begin_date: begin_date, end_date: end_date,
+          yield_rate: yield_rate,
+          beginning_day: api_begin_net_worth.record_at, end_day: api_end_net_worth.record_at,
+          beginning_net_worth: api_begin_net_worth.dwjz, end_net_worth: api_end_net_worth.dwjz,
+          fund_fen_hongs_count: api_fund_fen_hongs.size, fund_chai_fens_count: api_fund_chai_fens.size,
+          project_code: self.code}
+
+        # (( ((1.2388 + 0.3500)/1) * ((1.1785 + 0.2400)/1.2388) * (1.1723/1.1785) - 1) * 100).round(2)
+        # 80.97
+        # ((end_ratio * begin_ration * _x - 1) * 100).round(2)
+
+        # (api_end_net_worth.dwjz - )
+
+        # api_fund_fen_hongs.each_with_index do |api_fund_fen_hong, index|
+          # api_fund_fen_hong.dwjz
+
+          # 2017-02-03  1.1723  1.7623  -0.5%
+
+          # 2016-11-28  1.1785  1.7685  0.25%
+
+          # 2015-11-25  1.2388  1.5888  0.15%
+
+          # 2007-00-00  1       1       0%
+
+          # 年份  权益登记日 除息日 每份分红  分红发放日
+          # 2016年 2016-11-28  2016-11-28  每份派现金 0.2400 元  2016-11-30
+          # 2015年 2015-11-25  2015-11-25  每份派现金 0.3500 元  2015-11-27
+
+          # ((((api_fund_fen_hong.dwjz + 0.3500)/1) * ((1.1785 + 0.2400)/1.2388) * (1.1723/1.1785) - 1) * 100).round(2)
+
+        # end
+      end
+    end
+
+    if api_fund_fen_hongs.present? && api_fund_chai_fens.present?
+      if api_fund_fen_hongs.one?
+        api_fund_fen_hong = api_fund_fen_hongs.first
+
+        # fen_hong_day_dwjz = api_fund_fen_hong.net_worth.dwjz
+
+        pre_fen_hong_chai_fens = api_fund_chai_fens.where(the_real_break_convert_at: api_begin_net_worth.record_at..api_fund_fen_hong.net_worth.record_at)
+        post_fen_hong_chai_fens = api_fund_chai_fens.where(the_real_break_convert_at: api_fund_fen_hong.net_worth.record_at..api_end_net_worth.record_at)
+
+        pre_fen_hong_ratio = pre_fen_hong_chai_fens.map { |e| e.get_break_ratio_to_f }.map(&:*)
+        post_fen_hong_ratio = post_fen_hong_chai_fens.map { |e| e.get_break_ratio_to_f }.map(&:*)
+
+        if pre_fen_hong_ratio.present?
+          pre_fen_hong_ratio = pre_fen_hong_ratio.round(4)
+        else
+          pre_fen_hong_ratio = 1
+        end
+
+        if post_fen_hong_ratio.present?
+          post_fen_hong_ratio = post_fen_hong_ratio.round(4)
+        else
+          post_fen_hong_ratio = 1
+        end
+
+        yield_rate = ((((api_fund_fen_hong.net_worth.dwjz + api_fund_fen_hong.bonus) * pre_fen_hong_ratio / api_begin_net_worth.dwjz) * (api_end_net_worth.dwjz * post_fen_hong_ratio / api_fund_fen_hong.net_worth.dwjz) - 1) * 100).round(2)
+
+        return {begin_date: begin_date, end_date: end_date,
+          yield_rate: yield_rate,
+          beginning_day: api_begin_net_worth.record_at, end_day: api_end_net_worth.record_at,
+          beginning_net_worth: api_begin_net_worth.dwjz, end_net_worth: api_end_net_worth.dwjz,
+          fund_fen_hongs_count: api_fund_fen_hongs.size, fund_chai_fens_count: api_fund_chai_fens.size,
+          project_code: self.code}
+      else
+        api_end_fund_fen_hong = api_fund_fen_hongs.first
+        api_begin_fund_fen_hong = api_fund_fen_hongs.last
+
+        end_ratio = api_fund_chai_fens.where(the_real_break_convert_at: api_fund_fen_hong.the_real_ex_dividend_at..api_end_net_worth.record_at).map { |e| e.get_break_ratio_to_f }.map(&:*)
+
+        if end_ratio.present?
+          end_ratio = end_ratio.round(4)
+        else
+          end_ratio = 1
+        end
+
+        end_rate = api_end_net_worth.dwjz * end_ratio / api_end_fund_fen_hong.net_worth.dwjz
+
+
+        begin_ratio = api_fund_chai_fens.where(the_real_break_convert_at: api_fund_fen_hong.the_real_ex_dividend_at..api_end_net_worth.record_at).map { |e| e.get_break_ratio_to_f }.map(&:*)
+
+        if begin_ratio.present?
+          begin_ratio = begin_ratio.round(4)
+        else
+          begin_ratio = 1
+        end
+
+        begin_rate = (api_begin_fund_fen_hong.net_worth.dwjz + api_begin_fund_fen_hong.bonus)* begin_ratio / api_begin_net_worth.dwjz
+
+
+        middle_rate = 1
+
+        # api_end_net_worth.dwjz / 
+        api_fund_fen_hongs.each_with_index do |api_fund_fen_hong, index|
+          prev_api_fund_fen_hong = api_fund_fen_hongs[index + 1]
+
+          if prev_api_fund_fen_hong.blank?
+            break
+          end
+
+          middle_ratio = api_fund_chai_fens.where(the_real_break_convert_at: prev_api_fund_fen_hong.the_real_ex_dividend_at..api_fund_fen_hong.the_real_ex_dividend_at).map { |e| e.get_break_ratio_to_f }.map(&:*)
+
+          if middle_ratio.present?
+            middle_ratio = middle_ratio.round(4)
+          else
+            middle_ratio = 1
+          end
+
+          middle_rate = middle_rate * (api_fund_fen_hong.net_worth.dwjz + api_fund_fen_hong.bonus) * middle_ratio / prev_api_fund_fen_hong.net_worth.dwjz
+
+        end
+        # ...
+
+        yield_rate = ((end_rate * begin_rate * middle_rate - 1) * 100).round(2)
+
+        return {begin_date: begin_date, end_date: end_date,
+          yield_rate: yield_rate,
+          beginning_day: api_begin_net_worth.record_at, end_day: api_end_net_worth.record_at,
+          beginning_net_worth: api_begin_net_worth.dwjz, end_net_worth: api_end_net_worth.dwjz,
+          fund_fen_hongs_count: api_fund_fen_hongs.size, fund_chai_fens_count: api_fund_chai_fens.size,
+          project_code: self.code}
+      end
+    end
     # ...
   end
 

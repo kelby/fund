@@ -12,6 +12,7 @@
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null
 #  bonus                    :decimal(15, 4)
+#  the_real_ex_dividend_at  :date
 #
 
 class FundFenHong < ApplicationRecord
@@ -35,10 +36,19 @@ class FundFenHong < ApplicationRecord
   before_validation :detect_set_bonus_per
   before_validation :detect_set_bonus
 
+  after_create :set_the_real_ex_dividend_at
+
 
   scope :desc, ->{ order(ex_dividend_at: :desc) }
   scope :asc, ->{ order(ex_dividend_at: :asc) }
 
+  def set_the_real_ex_dividend_at
+    self.the_real_ex_dividend_at = self.project.net_worths.where("record_at >= ?", self.ex_dividend_at).order(record_at: :asc).first.try(:record_at)
+
+    if self.the_real_ex_dividend_at.present?
+      self.save
+    end
+  end
 
   def detect_set_bonus_per
     if bonus_per.blank? && bonus.present?

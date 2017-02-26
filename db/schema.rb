@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170225092014) do
+ActiveRecord::Schema.define(version: 20170226090758) do
 
   create_table "articles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string   "title"
@@ -193,8 +193,9 @@ ActiveRecord::Schema.define(version: 20170225092014) do
     t.string   "break_ratio"
     t.integer  "project_id"
     t.integer  "net_worth_id"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.date     "the_real_break_convert_at"
   end
 
   create_table "fund_fen_hongs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
@@ -207,6 +208,7 @@ ActiveRecord::Schema.define(version: 20170225092014) do
     t.datetime "created_at",                                        null: false
     t.datetime "updated_at",                                        null: false
     t.decimal  "bonus",                    precision: 15, scale: 4
+    t.date     "the_real_ex_dividend_at"
   end
 
   create_table "fund_jbgks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
