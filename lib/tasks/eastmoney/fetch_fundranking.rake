@@ -623,7 +623,8 @@ namespace :fetch_fundranking do
     sd = 1.year.ago.strftime("%F")
     ed = Date.today.strftime("%F")
 
-    url = "http://fund.eastmoney.com/data/rankhandler.aspx?op=ph&dt=kf&ft=all&rs=&gs=0&sc=zzf&st=desc&sd=#{sd}&ed=#{ed}&qdii=&tabSubtype=,,,,,&pi=1&pn=10000&dx=1&v=0.19890163023559482"
+    # url = "http://fund.eastmoney.com/data/rankhandler.aspx?op=ph&dt=kf&ft=all&rs=&gs=0&sc=zzf&st=desc&sd=#{sd}&ed=#{ed}&qdii=&tabSubtype=,,,,,&pi=1&pn=10000&dx=1&v=0.19890163023559482"
+    url = "http://fund.eastmoney.com/data/rankhandler.aspx?op=ph&dt=kf&ft=all&rs=&gs=0&sc=zzf&st=desc&sd=#{sd}&ed=#{ed}&qdii=&tabSubtype=,,,,,&pi=1&pn=10000&dx=0&v=0.11866221272740218"
 
 
     doc = Nokogiri::HTML(open(url).read);
@@ -648,7 +649,7 @@ namespace :fetch_fundranking do
 
       # fund_codes = result_hash[:datas].map{|x| x.split(",").first }
 
-      result_hash[:datas].each do |result_string|
+      result_hash[:datas].each_with_index do |result_string, index|
         result_array = result_string.split(",")
 
         code = result_array[0]
@@ -660,6 +661,8 @@ namespace :fetch_fundranking do
         project = Project.find_by(code: code)
 
         if project.present?
+          puts "project #{code}, index #{index} ========="
+
           project.net_worths.create(record_at: record_at,
                                     dwjz: dwjz,
                                     ljjz: ljjz,
