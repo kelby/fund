@@ -31,6 +31,22 @@ class FundFenHong < ApplicationRecord
   belongs_to :project, counter_cache: true
   belongs_to :net_worth
 
+
+  before_validation :detect_set_bonus_per
+  before_validation :detect_set_bonus
+
+  def detect_set_bonus_per
+    if bonus_per.blank? && bonus.present?
+      self.bonus_per = "每份派现金#{self.bonus}元"
+    end
+  end
+
+  def detect_set_bonus
+    if bonus_per.present? && bonus.blank?
+      self.bonus = self.bonus_per.gsub(/^每份派现金/, "").gsub(/元$/, "").to_f
+    end
+  end
+
   # 实际情况，不是完全对应
   def dwjz
     self.project.net_worths.find_by(record_at: self.ex_dividend_at).try(:dwjz)
