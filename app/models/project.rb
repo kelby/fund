@@ -202,8 +202,6 @@ class Project < ApplicationRecord
 
 
   def yield_type_with_date_range
-    time_now = Time.now
-
     yield_hash = {
       'last_one_week' => 1.week,
       'last_one_month' => 1.month,
@@ -213,7 +211,6 @@ class Project < ApplicationRecord
       'last_one_year' => 1.year,
       'last_two_year' => 2.year,
       'last_three_year' => 3.year,
-      # 'this_year' => Time.now.yday.days, # 不适合这种情况
       'last_five_year' => 5.year,
       'last_seven_year' => 7.year,
       'last_ten_year' => 10.year,
@@ -222,8 +219,10 @@ class Project < ApplicationRecord
   end
 
 
-  def yield_type_with_this_year
-    # ...
+  def yield_type_with_specific
+    specific_yield_hash = {
+      'this_year' => 1.year.ago.end_of_year
+    }
   end
 
   def set_up_from_yield_type_with_date_range
@@ -232,50 +231,79 @@ class Project < ApplicationRecord
     end
   end
 
+  def beginning_day_record_at(date_range)
+    self.last_trade_net_worth_ago(date_range).record_at
+  end
+
+  def beginning_net_worth_dwjz(date_range)
+    self.last_trade_net_worth_ago(date_range).dwjz
+  end
+
+  def last_trade_net_worth_record_at
+    self.last_trade_net_worth.record_at
+  end
+
+  def last_trade_net_worth_dwjz
+    self.last_trade_net_worth.dwjz
+  end
+
+  # 净值变更 7 要素，1 - 开始交易日
+  def _beginning_day(date_range)
+    beginning_day_record_at(date_range)
+  end
+
+  # 净值变更 7 要素，2 - 开始交易净值
+  def _beginning_net_worth(date_range)
+    beginning_net_worth_dwjz(date_range)
+  end
+
+  # 净值变更 7 要素，3 - 结束交易日
+  def _end_day()
+    self.last_trade_net_worth_record_at
+  end
+
+  # 净值变更 7 要素，4 - 结束交易净值
+  def _end_net_worth()
+    self.last_trade_net_worth_dwjz
+  end
+
+  # 净值变更 7 要素，5 - 期间经历拆分次数
+  def _fund_chai_fens_count(date_range)
+    self.fund_chai_fens_count_from(_beginning_day(date_range), _end_day)
+  end
+
+  # 净值变更 7 要素，6 - 期间经历分红次数
+  def _fund_fen_hongs_count(date_range)
+    self.fund_fen_hongs_count_from(_beginning_day(date_range), _end_day)
+  end
+
+  # 净值变更 7 要素，7 - 净值增长率
+  def _yield_rate(date_range, yield_type)
+    self.target_ranking_ago(date_range)
+  end
 
 
   def set_up_fund_yields_for(date_range, yield_type)
-    _beginning_day = self.last_trade_net_worth_ago(date_range).record_at
-
-    _beginning_net_worth = self.last_trade_net_worth_ago(date_range).dwjz
-
-
-
-    _end_day = self.last_trade_net_worth.record_at
-    _end_net_worth = self.last_trade_net_worth.dwjz
-
-
-    _fund_chai_fens_count = self.fund_chai_fens_count_from(_beginning_day, _end_day)
-    _fund_fen_hongs_count = self.fund_fen_hongs_count_from(_beginning_day, _end_day)
-
-
-    if yield_type == 'this_year'
-      _yield_rate = self.target_ranking_ago(date_range, 1.year.ago.end_of_year)
-    else
-      _yield_rate = self.target_ranking_ago(date_range)
-    end
-
-
     _fund_yield = self.fund_yields.find_by(yield_type: yield_type)
 
     if _fund_yield.present?
       _fund_yield.update(
-        beginning_day: _beginning_day,
+        beginning_day: _beginning_day(date_range),
         end_day: _end_day,
-        beginning_net_worth: _beginning_net_worth,
+        beginning_net_worth: _beginning_net_worth(date_range),
         end_net_worth: _end_net_worth,
-        fund_chai_fens_count: _fund_chai_fens_count,
-        fund_fen_hongs_count: _fund_fen_hongs_count,
-        yield_rate: _yield_rate)
+        fund_chai_fens_count: _fund_chai_fens_count(date_range),
+        fund_fen_hongs_count: _fund_fen_hongs_count(date_range),
+        yield_rate: _yield_rate(date_range, yield_type))
     else
       self.fund_yields.create(
-        beginning_day: _beginning_day,
+        beginning_day: _beginning_day(date_range),
         end_day: _end_day,
-        beginning_net_worth: _beginning_net_worth,
+        beginning_net_worth: _beginning_net_worth(date_range),
         end_net_worth: _end_net_worth,
-        fund_chai_fens_count: _fund_chai_fens_count,
-        fund_fen_hongs_count: _fund_fen_hongs_count,
-        yield_rate: _yield_rate,
+        fund_chai_fens_count: _fund_chai_fens_count(date_range),
+        fund_fen_hongs_count: _fund_fen_hongs_count(date_range),
+        yield_rate: _yield_rate(date_range, yield_type),
         yield_type: yield_type)
     end
   end
@@ -310,19 +338,16 @@ class Project < ApplicationRecord
     self.fund_fen_hongs.where(ex_dividend_at: _date_range)
   end
 
-  def last_trade_net_worth_ago(date_range, change_to_date=nil)
-    if change_to_date.present?
-      date = change_to_date
-      self.net_worths.order(record_at: :desc).where("record_at <= ?", date).first
-    else
-      date = last_trade_day.ago(date_range).strftime("%F")
-      self.net_worths.order(record_at: :desc).where("record_at >= ?", date).last
-    end
+  # 距离最后一个交易日（没有限制条件）某段时间 最先的那个交易记录（距离现在最久）
+  def last_trade_net_worth_ago(date_range)
+    date = last_trade_day.ago(date_range).strftime("%F")
+
+    self.net_worths.order(record_at: :desc).where("record_at >= ?", date).last
   end
 
-  def last_trade_net_worth_at(date)
-    self.net_worths.order(record_at: :desc).where("record_at < ?", date).first
-  end
+  # def last_trade_net_worth_at(date)
+  #   self.net_worths.order(record_at: :desc).where("record_at < ?", date).first
+  # end
 
   def target_ranking_ago(date_range, change_to_date=nil)
     if change_to_date.present?
@@ -460,6 +485,19 @@ class Project < ApplicationRecord
     end
   end
 
+  # 最后一个交易日（没有限制条件）的交易记录
+  def last_trade_net_worth
+    self.net_worths.order(record_at: :asc).last
+  end
+
+  # 最后一个交易日（没有限制条件）
+  def last_trade_day
+    self.last_trade_net_worth.record_at
+  end
+
+
+
+
 
   def is_hb_lc?
     self.mold_hb? || self.mold_lc? || self.mold_bb?
@@ -467,14 +505,6 @@ class Project < ApplicationRecord
 
   def release_cannot_show?
     self.release_now? || self.release_will? || self.release_not_set?
-  end
-
-  def last_trade_net_worth
-    self.net_worths.order(record_at: :desc).first
-  end
-
-  def last_trade_day
-    self.last_trade_net_worth.record_at
   end
 
   # begin last week
