@@ -200,6 +200,63 @@ class Project < ApplicationRecord
   acts_as_taggable
   # END
 
+  def api_begin_net_worth(begin_date)
+    begin_date = begin_date.to_time.strftime("%F")
+
+    # 1) 当天是交易日，直接获取
+    # api_net_worth = self.net_worths.find_by(record_at: begin_date)
+
+    # if api_net_worth.blank?
+      # 2) 当天不是交易日，取上一个交易日 (小于、从大到小、第一个)
+      # api_net_worth = self.net_worths.where("record_at < ?", begin_date).desc.first
+    # end
+
+    # 上述 1, 2 注释的合并写法
+    api_net_worth = self.net_worths.where("record_at <= ?", begin_date).desc.first
+
+    if api_net_worth.blank?
+      # 3) 开始时间太早，还没有交易数据，取首个交易日
+      api_net_worth = self.net_worths.asc.first
+    end
+
+    api_net_worth
+  end
+
+  def api_end_net_worth(end_date)
+    end_date = end_date.to_time.strftime("%F")
+
+    # 1) 当天是交易日，直接获取
+    # api_net_worth = self.net_worths.find_by(record_at: end_date)
+
+    # if api_net_worth.blank?
+      # 2) 当天不是交易日，取上一个交易日 (小于、从大到小、第一个)
+      # api_net_worth = self.net_worths.where("record_at < ?", end_date).desc.first
+    # end
+
+    # 上述 1, 2 注释的合并写法
+    api_net_worth = self.net_worths.where("record_at <= ?", end_date).desc.first
+
+    api_net_worth
+  end
+
+  def api_fund_fen_hongs(begin_date, end_date)
+    begin_date = begin_date.to_time.strftime("%F")
+    end_date = end_date.to_time.strftime("%F")
+
+    self.fund_fen_hongs.where(ex_dividend_at: begin_date..end_date).desc
+  end
+
+  def api_fund_chai_fens(begin_date, end_date)
+    begin_date = begin_date.to_time.strftime("%F")
+    end_date = end_date.to_time.strftime("%F")
+
+    self.fund_chai_fens.where(break_convert_at: begin_date..end_date).desc
+  end
+
+  def api_get_fund_yield_from_to(begin_date, end_date)
+    # ...
+  end
+
 
   def yield_type_with_date_range
     yield_hash = {
