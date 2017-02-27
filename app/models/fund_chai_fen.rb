@@ -60,4 +60,16 @@ class FundChaiFen < ApplicationRecord
       "暂未披露"
     end
   end
+
+  def self.chai_fen_factor
+    _chai_fen_factor = self.all.map { |e| e.get_break_ratio_to_f }.inject(&:*)
+
+    if _chai_fen_factor.present?
+      _chai_fen_factor = _chai_fen_factor.round(4)
+    else
+      _chai_fen_factor = 1
+    end
+
+    _chai_fen_factor
+  end
 end

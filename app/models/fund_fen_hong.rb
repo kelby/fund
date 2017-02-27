@@ -68,6 +68,7 @@ class FundFenHong < ApplicationRecord
 
   # 实际情况，不是完全对应
   def dwjz
-    self.project.net_worths.where("record_at >= ?", self.ex_dividend_at).order(record_at: :asc).first.try(:dwjz)
+    # self.project.net_worths.where("record_at >= ?", self.ex_dividend_at).order(record_at: :asc).first.try(:dwjz)
+    self.net_worth.dwjz
   end
 end
