@@ -65,22 +65,22 @@
 <div class="panel panel-default">
   <dl>
      <dt class="col-md-1">近1月：</dt>
-     <dd class="col-md-1"><%= @project.last_month_ranking %>%</dd>
+     <dd class="col-md-1"><%= @project.last_one_month_yield.try(:yield_rate) %>%</dd>
 
      <dt class="col-md-1">近3月：</dt>
-     <dd class="col-md-1"><%= @project.last_three_month_ranking %>%</dd>
+     <dd class="col-md-1"><%= @project.last_three_month_yield.try(:yield_rate) %>%</dd>
 
      <dt class="col-md-1">近6月：</dt>
-     <dd class="col-md-1"><%= @project.last_six_month_ranking %>%</dd>
+     <dd class="col-md-1"><%= @project.last_six_month_yield.try(:yield_rate) %>%</dd>
 
      <dt class="col-md-1">近1年：</dt>
-     <dd class="col-md-1">36.91%</dd>
+     <dd class="col-md-1"><%= @project.last_one_year_yield.try(:yield_rate) %>%</dd>
 
      <dt class="col-md-1">近3年：</dt>
-     <dd class="col-md-1">--</dd>
+     <dd class="col-md-1"><%= @project.last_three_year_yield.try(:yield_rate) %>%</dd>
 
      <dt class="col-md-1">成立来：</dt>
-     <dd class="col-md-1">27.60%</dd>
+     <dd class="col-md-1"><%= @project.since_the_inception_yield.try(:yield_rate) %>%</dd>
   </dl>
 
   <% first_net_worth = @project.net_worths.order(record_at: :desc).limit(6).first %>
