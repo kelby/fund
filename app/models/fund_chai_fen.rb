@@ -34,10 +34,11 @@ class FundChaiFen < ApplicationRecord
 
 
   def set_the_real_break_convert_at_etc
-    _net_worth = self.project.net_worths.where("record_at >= ?", self.break_convert_at).order(record_at: :asc).first
+    _net_worth = self.project.net_worths.where("record_at >= ?", self.break_convert_at).asc.first
 
     if _net_worth.present?
       self.the_real_break_convert_at = _net_worth.record_at
+      self.net_worth_id = _net_worth.id
     end
 
     if self.changed?
