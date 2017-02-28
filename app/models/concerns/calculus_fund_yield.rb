@@ -165,7 +165,7 @@ module CalculusFundYield
         (((last_trade_dwjz * chai_fen_factor) - time_ago_begin_trade_dwjz(date_range)) / time_ago_begin_trade_dwjz(date_range) * 100).round(2)
 
       elsif valid_fund_fen_hongs(date_range).one?
-        first_fund_fen_hong = valid_fund_fen_hongs.asc.first
+        first_fund_fen_hong = valid_fund_fen_hongs(date_range).asc.first
 
         end_ratio = last_trade_dwjz / first_fund_fen_hong.dwjz
         begin_ration = (first_fund_fen_hong.dwjz + first_fund_fen_hong.bonus) / time_ago_begin_trade_dwjz(date_range)
@@ -175,7 +175,7 @@ module CalculusFundYield
         # 分析后发现都是乘除 chai_fen_factor 放的位置无所谓
         ((end_ratio * begin_ration * chai_fen_factor - 1) * 100).round(2)
       else
-        first_fund_fen_hong = valid_fund_fen_hongs.asc.first
+        first_fund_fen_hong = valid_fund_fen_hongs(date_range).asc.first
         # 份额净值增长率=[期末份额净值/(分红日份额净值-分红金额)]×π[期内历次分红当日份额净值/每期期初份额净值]-1(其中，每次分红之间的时间当作一个区间单独计算，然后累乘)。
 
         # _involve_net_worth = self.net_worths.where(record_at: _fund_fen_hongs.pluck(:ex_dividend_at)).order(record_at: :asc)
@@ -218,7 +218,9 @@ module CalculusFundYield
           _x = _x * ((inner_new_fen_hong.dwjz + inner_new_fen_hong.bonus) / (inner_old_fen_hong.dwjz))
         end
 
-        ((end_ratio * begin_ration * _x - 1) * 100).round(2)
+        chai_fen_factor = valid_fund_chai_fens(date_range).chai_fen_factor
+
+        ((end_ratio * begin_ration * _x * chai_fen_factor - 1) * 100).round(2)
       end
     end
     alias :_yield_rate :target_ranking_ago
