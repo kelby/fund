@@ -25,6 +25,12 @@ every 30.minutes, :roles => [:app] do
   # rake "fetch_eastmoney_fund_jbgk"
 end
 
+
+every 1.day, :at => '7:59 am' do
+  rake "fetch_fundranking:set_all_fund_day_net_worth"
+end
+
+
 =begin
 every 1.hours do
   runner "Project.delay_set_popularity"
