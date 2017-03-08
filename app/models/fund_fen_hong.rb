@@ -41,6 +41,8 @@ class FundFenHong < ApplicationRecord
 
   scope :desc, ->{ order(ex_dividend_at: :desc) }
   scope :asc, ->{ order(ex_dividend_at: :asc) }
+  scope :have_net_worth, -> { where.not(net_worth_id: nil) }
+
 
   def set_the_real_ex_dividend_at_etc
     _net_worth = self.project.net_worths.where("record_at >= ?", self.ex_dividend_at).asc.first

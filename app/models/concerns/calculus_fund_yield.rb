@@ -115,7 +115,7 @@ module CalculusFundYield
 
     # 净值变更 7 要素，6 - 期间经历分红次数
     def valid_fund_fen_hongs(date_range)
-      self.fund_fen_hongs.where(the_real_ex_dividend_at: time_ago_begin_trade_record_at(date_range)..last_trade_record_at)
+      self.fund_fen_hongs.have_net_worth.where(the_real_ex_dividend_at: time_ago_begin_trade_record_at(date_range)..last_trade_record_at)
     end
 
     def fund_chai_fens_count_from(from_date, to_date)
@@ -127,7 +127,7 @@ module CalculusFundYield
     def fund_fen_hongs_count_from(from_date, to_date)
       _date_range = from_date..to_date
 
-      self.fund_fen_hongs.where(the_real_ex_dividend_at: _date_range).size
+      self.fund_fen_hongs.have_net_worth.where(the_real_ex_dividend_at: _date_range).size
     end
 
     # ================== 第三梯队，核心 ==========================
