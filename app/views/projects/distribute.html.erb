@@ -1,0 +1,48 @@
+<% set_meta_tags title: "#{@project.name}(#{@project.code})涨跌分布" %>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <%= @project.name %>(<%= @project.code %>)涨跌分布：
+    最大涨幅 <%= @project.net_worths.pluck(:accnav).max %>%，最大跌幅 <%= @project.net_worths.pluck(:accnav).min %>%
+
+    <section class="pull-right">
+      <%= link_to "返回基金", @project %>
+    </section>
+  </div>
+
+  <ul class="list-group">
+    <% @project.net_worths.group_by(&:accnav_round).sort{ |x,y| y <=> x }.to_h.each_pair do |key, value| %>
+      <li class="list-group-item">
+        <strong><%= key %>%</strong>
+
+        <section class="pull-right">
+          <%= value.size %> 次
+        </section>
+      </li>
+    <% end %>
+  </ul>
+  <div class="panel-footer">
+    上述为增长率四舍五入后，涨跌分布情况。
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    按比例排序，具体涨跌分布情况：
+  </div>
+
+  <ul class="list-group">
+    <% @project.net_worths.group(:accnav).order("count_all desc").order(accnav: :desc).count.each_pair do |accnav, times| %>
+      <li class="list-group-item">
+        <strong><%= accnav %>%</strong>
+
+        <section class="pull-right">
+          <%= times %>次
+        </section>
+      </li>
+    <% end %>
+  </ul>
+  <div class="panel-footer">
+    共 <%= @project.net_worths.pluck(:accnav).uniq.count %> 项分布。最大涨幅 <%= @project.net_worths.pluck(:accnav).max %>%，最大跌幅 <%= @project.net_worths.pluck(:accnav).min %>%
+  </div>
+</div>

@@ -98,6 +98,8 @@ Rails.application.routes.draw do
       get :calculus, to: "project_arithmetic#calculus"
 
       get :managers
+
+      get :distribute
     end
 
     resource :recommend_project, only: [:new, :create] do

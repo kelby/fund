@@ -2,9 +2,12 @@ class ProjectsController < ApplicationController
   before_action :authenticate_user!, only: [:create, :update, :edit, :destroy]
 
   before_action :set_project, only: [:show, :edit, :update, :destroy,
-    :popularity, :star, :recommend, :managers]
+    :popularity, :star, :recommend, :managers, :distribute]
 
   after_action :inc_view_times, only: [:show, :repo]
+
+  def distribute
+  end
 
   def star
     @users = @project.star_by_users

@@ -171,6 +171,10 @@
       <%= render "projects/status", project: @project %>
 
 
+      &nbsp;&nbsp;
+
+      <%= link_to "涨跌分布", distribute_project_path(@project) %>
+
       <span class="pull-right view-times">
         <%= @project.view_times %> 次查看
       </span>

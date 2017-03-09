@@ -45,7 +45,9 @@ class NetWorth < ApplicationRecord
   scope :desc, ->{ order(record_at: :desc) }
   scope :asc, ->{ order(record_at: :asc) }
 
-
+  def accnav_round
+    self.accnav.round
+  end
 
   def prev_net_worth
     self.project.net_worths.where("record_at < ?", self.record_at).order(record_at: :desc).first
