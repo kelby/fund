@@ -16,7 +16,8 @@
         <strong><%= key %>%</strong>
 
         <section class="pull-right">
-          <%= value.size %> 次
+          <%= value.size %> 次，
+          占比 <%= ((value.size / @project.net_worths.count.to_f) * 100).round(2) %> %
         </section>
       </li>
     <% end %>
