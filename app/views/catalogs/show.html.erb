@@ -1,4 +1,4 @@
-<% set_meta_tags title: @catalog.name %>
+<% set_meta_tags title: @catalog.name, description: @catalog.description %>
 
 <% content_for :content_css_link_yield do %>
   <%= stylesheet_link_tag 'catalogs' %>
@@ -118,7 +118,7 @@
         <% @catalog.developers.each do |developer| %>
           <li class="list-group-item">
             <%= link_to developer do %>
-              <%= image_tag(developer.avatar_url(:thumb), size: "50") %>
+              <%= image_tag developer.avatar_url(:thumb), size: "50", alt: developer.name %>
               -
               <%= developer.name %>
             <% end %>
