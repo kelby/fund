@@ -17,6 +17,22 @@ class Article < ApplicationRecord
   validates_presence_of :title, :description
 
 
+  # Associations
   belongs_to :user
   has_many :comments, as: :commentable
+  # END
+
+
+  # Callbacks
+  before_create :set_slug
+  # END
+
+
+  def to_param
+    "#{self.id}-#{self.slug}"
+  end
+
+  def set_slug
+    self.slug = Pinyin.t(self.title, splitter: '-')
+  end
 end
