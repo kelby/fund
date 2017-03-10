@@ -1,6 +1,8 @@
 <% set_meta_tags title: @article.title %>
 <%= stylesheet_link_tag 'rich_media' %>
 
+<%= stylesheet_link_tag 'simditor/simditor' %>
+
 <div class="bg-with-white">
   <div class="rich_media_inner">
 
@@ -20,8 +22,10 @@
       </div>
     </div>
 
-    <div class="article-content">
-      <%= format_content @article.description, 'article-content' %>
+    <div class="article-content simditor">
+      <div class="simditor-body">
+        <%= format_content @article.description, 'article-content' %>
+      </div>
     </div>
 
     <% if can? :edit, @article %>
@@ -100,3 +104,9 @@
       </div>
   </div>
 </div>
+
+<style>
+  .simditor {
+    border: 1px solid #f5f5f5;
+  }
+</style>
