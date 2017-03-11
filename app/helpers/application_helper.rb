@@ -8,4 +8,14 @@ module ApplicationHelper
 
     paginate(scope, options, &block)
   end
+
+  def accnav_color(accnav)
+    if accnav > 0
+      'red'
+    elsif accnav < 0
+      'green'
+    else
+      # ...
+    end
+  end
 end
