@@ -50,9 +50,10 @@ namespace :morningstar do
     # browser.select_list(:id, "ctl00_cphMain_ddlPageSite").select_value("10000")
     # browser.select_list(id: "ctl00_cphMain_ddlPageSite").value
 
-    browser.select_list(id: "ctl00_cphMain_ddlPageSite").select_value("1000");
+    browser.select_list(id: "ctl00_cphMain_ddlPageSite").select_value("10000");
 
-    browser.trs(class: "gridItem").size
+    puts "gridItem.size"
+    puts browser.trs(class: "gridItem").size
     # browser.trs(class: "gridAlternateItem").size
 
 
@@ -60,14 +61,19 @@ namespace :morningstar do
     begin
       File.open(file_name_with_path, 'w:UTF-8') { |file| file.write(browser.html) }
     rescue Exception => e
-      puts "=============Error #{project.code}, Exception #{e}"
+      puts "============= Exception #{e}"
     end
 
-    # doc = Nokogiri::HTML(browser.html)
+    doc = Nokogiri::HTML(browser.html)
 
 
-    # doc.css("tr.gridItem").size
-    # doc.css("tr.gridIgridAlternateItemtem").size
+    if doc.present?
+      puts "gridItem.size"
+      puts doc.css("tr.gridItem").size
+
+      puts "gridIgridAlternateItemtem.size"
+      puts doc.css("tr.gridIgridAlternateItemtem").size
+    end
 
     browser.close
     headless.destroy
