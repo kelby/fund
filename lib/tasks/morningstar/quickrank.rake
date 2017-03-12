@@ -107,6 +107,8 @@ namespace :morningstar do
       browser.refresh
       puts "After browser.refresh"
       puts browser.span(id: "ctl00_cphMain_lblRatingDate").text
+
+      new_rating_date = browser.span(id: "ctl00_cphMain_lblRatingDate").text
     end
 
 
