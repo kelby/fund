@@ -72,6 +72,91 @@ namespace :morningstar do
   end
 
   desc "Task description"
+  task :performance => [:environment] do
+
+    headless ||= Headless.new
+    headless.start
+
+    browser ||= Watir::Browser.new
+
+    today_date = Time.now.strftime("%F")
+
+    public_path = Rails.public_path
+
+    morningstar_quickrank_dir = public_path.join("fund/morningstar/quickrank/performance")
+    FileUtils::mkdir_p(morningstar_quickrank_dir)
+
+
+
+    url = "https://cn.morningstar.com/quickrank/default.aspx"
+
+
+    browser.goto url
+    browser.cookies.add 'authWeb', "87DB623D94BCA76A59D5466C01049674185AC860565196DFC0D0DC3579EF98F1A22A1CA5D6638647B0763C78729230219CF858D988BB4D307C48B58DC44D5EFDC2DBCC10EBD298FEF010497CB9D146F8EFC6E153DAF5F219CDF84ECB1FED89E0AA147233CD10CFABAA9BACCB8E76FCACAFD7A7F1"
+
+    browser.a(id: "ctl00_cphMain_lbPerformance").click
+
+    old_rating_date = browser.span(id: "ctl00_cphMain_lblRatingDate").text
+    puts "old_rating_date"
+    puts old_rating_date
+
+
+    browser.table(id: "ctl00_cphMain_gridResult").text
+
+    browser.cookies.add 'authWeb', "87DB623D94BCA76A59D5466C01049674185AC860565196DFC0D0DC3579EF98F1A22A1CA5D6638647B0763C78729230219CF858D988BB4D307C48B58DC44D5EFDC2DBCC10EBD298FEF010497CB9D146F8EFC6E153DAF5F219CDF84ECB1FED89E0AA147233CD10CFABAA9BACCB8E76FCACAFD7A7F1"
+    # browser.span(id: "ctl00_cphMain_lblRatingDate").text
+
+    new_rating_date = browser.span(id: "ctl00_cphMain_lblRatingDate").text
+    puts "new_rating_date"
+    puts new_rating_date
+
+    if old_rating_date == new_rating_date
+      browser.refresh
+    end
+
+
+
+    browser.select_list(id: "ctl00_cphMain_ddlPageSite").select_value("10000");
+
+    if new_rating_date.present?
+      rating_date = new_rating_date.text.to_time.strftime("%F")
+
+      today_date = rating_date
+    else
+      return
+    end
+
+
+    file_name_with_path = morningstar_quickrank_dir.join("#{today_date}.html")
+
+
+    puts "gridItem.size"
+    puts browser.trs(class: "gridItem").size
+    # browser.trs(class: "gridAlternateItem").size
+
+    begin
+      File.open(file_name_with_path, 'w:UTF-8') { |file| file.write(browser.html) }
+    rescue Exception => e
+      puts "============= Exception #{e}"
+    end
+
+    doc = Nokogiri::HTML(browser.html)
+
+
+
+    if doc.present?
+      puts "gridItem.size"
+      puts doc.css("tr.gridItem").size
+
+      puts "gridAlternateItem.size"
+      puts doc.css("tr.gridAlternateItem").size
+    end
+
+    browser.close
+    headless.destroy
+  end
+
+  desc "Task description"
   task :set_quickrank_snapshot => [:environment] do
     headless ||= Headless.new
     headless.start
