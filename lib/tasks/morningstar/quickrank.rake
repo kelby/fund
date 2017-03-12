@@ -66,13 +66,15 @@ namespace :morningstar do
 
     doc = Nokogiri::HTML(browser.html)
 
+    doc = Nokogiri::HTML(open(file_name_with_path).read);
+
 
     if doc.present?
       puts "gridItem.size"
       puts doc.css("tr.gridItem").size
 
-      puts "gridIgridAlternateItemtem.size"
-      puts doc.css("tr.gridIgridAlternateItemtem").size
+      puts "gridAlternateItem.size"
+      puts doc.css("tr.gridAlternateItem").size
     end
 
     browser.close
