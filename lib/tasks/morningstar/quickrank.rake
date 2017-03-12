@@ -3,7 +3,7 @@ require 'watir'
 require 'nokogiri'
 require 'selenium-webdriver'
 
-namespace :morningstar: do
+namespace :morningstar do
   desc "Task description"
   task :quickrank => [:environment] do
 
