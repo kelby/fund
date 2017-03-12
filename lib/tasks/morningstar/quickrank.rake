@@ -3,7 +3,7 @@ require 'watir'
 require 'nokogiri'
 require 'selenium-webdriver'
 
-namespace :morningstar do
+namespace :morningstar: do
   desc "Task description"
   task :quickrank => [:environment] do
 
@@ -92,34 +92,50 @@ namespace :morningstar do
 
 
     browser.goto url
-    browser.cookies.add 'authWeb', "87DB623D94BCA76A59D5466C01049674185AC860565196DFC0D0DC3579EF98F1A22A1CA5D6638647B0763C78729230219CF858D988BB4D307C48B58DC44D5EFDC2DBCC10EBD298FEF010497CB9D146F8EFC6E153DAF5F219CDF84ECB1FED89E0AA147233CD10CFABAA9BACCB8E76FCACAFD7A7F1"
-
-    browser.a(id: "ctl00_cphMain_lbPerformance").click
-
+    puts browser.span(id: "ctl00_cphMain_lblRatingDate").text
     old_rating_date = browser.span(id: "ctl00_cphMain_lblRatingDate").text
     puts "old_rating_date"
     puts old_rating_date
 
 
-    browser.table(id: "ctl00_cphMain_gridResult").text
-
     browser.cookies.add 'authWeb', "87DB623D94BCA76A59D5466C01049674185AC860565196DFC0D0DC3579EF98F1A22A1CA5D6638647B0763C78729230219CF858D988BB4D307C48B58DC44D5EFDC2DBCC10EBD298FEF010497CB9D146F8EFC6E153DAF5F219CDF84ECB1FED89E0AA147233CD10CFABAA9BACCB8E76FCACAFD7A7F1"
-    # browser.span(id: "ctl00_cphMain_lblRatingDate").text
-
     new_rating_date = browser.span(id: "ctl00_cphMain_lblRatingDate").text
     puts "new_rating_date"
     puts new_rating_date
 
     if old_rating_date == new_rating_date
       browser.refresh
+      puts "After browser.refresh"
+      puts browser.span(id: "ctl00_cphMain_lblRatingDate").text
     end
 
 
+    browser.a(id: "ctl00_cphMain_lbPerformance").click
 
+    # old_rating_date = browser.span(id: "ctl00_cphMain_lblRatingDate").text
+    # puts "old_rating_date"
+    # puts old_rating_date
+
+
+    puts browser.span(id: "ctl00_cphMain_lblRatingDate").text
+    puts browser.table(id: "ctl00_cphMain_gridResult").text
+
+    # browser.cookies.add 'authWeb', "87DB623D94BCA76A59D5466C01049674185AC860565196DFC0D0DC3579EF98F1A22A1CA5D6638647B0763C78729230219CF858D988BB4D307C48B58DC44D5EFDC2DBCC10EBD298FEF010497CB9D146F8EFC6E153DAF5F219CDF84ECB1FED89E0AA147233CD10CFABAA9BACCB8E76FCACAFD7A7F1"
+
+    # new_rating_date = browser.span(id: "ctl00_cphMain_lblRatingDate").text
+
+
+    # if old_rating_date == new_rating_date
+    #   browser.refresh
+    # end
+
+
+
+    # browser.select_list(id: "ctl00_cphMain_ddlPageSite").select_value("50");
     browser.select_list(id: "ctl00_cphMain_ddlPageSite").select_value("10000");
 
     if new_rating_date.present?
-      rating_date = new_rating_date.text.to_time.strftime("%F")
+      rating_date = new_rating_date.to_time.strftime("%F")
 
       today_date = rating_date
     else
