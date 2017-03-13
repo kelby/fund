@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170312075644) do
+ActiveRecord::Schema.define(version: 20170313055518) do
 
   create_table "articles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string   "title"
@@ -446,6 +446,34 @@ ActiveRecord::Schema.define(version: 20170312075644) do
     t.integer  "fund_chai_fens_count",                                        default: 0, null: false
     t.integer  "fund_fen_hongs_count",                                        default: 0, null: false
     t.index ["code"], name: "index_projects_on_code", using: :btree
+  end
+
+  create_table "quickrank_performances", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.date     "rating_date"
+    t.integer  "project_id"
+    t.string   "project_code"
+    t.string   "morningstar_code"
+    t.string   "project_name"
+    t.decimal  "last_day_total_return",            precision: 15, scale: 4
+    t.decimal  "last_week_total_return",           precision: 15, scale: 4
+    t.decimal  "last_month_total_return",          precision: 15, scale: 4
+    t.decimal  "last_three_month_total_return",    precision: 15, scale: 4
+    t.decimal  "last_six_month_total_return",      precision: 15, scale: 4
+    t.decimal  "last_year_total_return",           precision: 15, scale: 4
+    t.decimal  "last_two_year_total_return",       precision: 15, scale: 4
+    t.decimal  "last_three_year_total_return",     precision: 15, scale: 4
+    t.decimal  "last_five_year_total_return",      precision: 15, scale: 4
+    t.decimal  "last_ten_year_total_return",       precision: 15, scale: 4
+    t.decimal  "since_the_inception_total_return", precision: 15, scale: 4
+    t.decimal  "three_year_volatility",            precision: 15, scale: 4
+    t.decimal  "three_year_risk_factor",           precision: 15, scale: 4
+    t.datetime "created_at",                                                null: false
+    t.datetime "updated_at",                                                null: false
+    t.index ["morningstar_code"], name: "index_quickrank_performances_on_morningstar_code", using: :btree
+    t.index ["project_code", "rating_date"], name: "index_quickrank_performances_on_project_code_and_rating_date", using: :btree
+    t.index ["project_code"], name: "index_quickrank_performances_on_project_code", using: :btree
+    t.index ["project_id"], name: "index_quickrank_performances_on_project_id", using: :btree
+    t.index ["rating_date"], name: "index_quickrank_performances_on_rating_date", using: :btree
   end
 
   create_table "quickrank_snapshots", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
