@@ -412,7 +412,7 @@ namespace :morningstar do
     puts old_rating_date
 
 
-    browser.cookies.add 'authWeb', "87DB623D94BCA76A59D5466C01049674185AC860565196DFC0D0DC3579EF98F1A22A1CA5D6638647B0763C78729230219CF858D988BB4D307C48B58DC44D5EFDC2DBCC10EBD298FEF010497CB9D146F8EFC6E153DAF5F219CDF84ECB1FED89E0AA147233CD10CFABAA9BACCB8E76FCACAFD7A7F1"
+    browser.cookies.add 'authWeb', "BAAF570AE579D59D6A7FCF11C9C61060F18AE9EDFD70AAF8B45B454E3A268D9BAE8757C2AF1EFA47D2CDD2447B28B2B2FB9C4708E320CC3C1CA82F8942342155A54E6B8F7478EC913F0CDDEB081EB52804752EC023F5582912D841DAEF04EE0956F631C352A712C0F5011EFAAB92139C16D4AAE9"
     new_rating_date = browser.span(id: "ctl00_cphMain_lblRatingDate").text
     puts "new_rating_date"
     puts new_rating_date
@@ -423,6 +423,22 @@ namespace :morningstar do
       puts browser.span(id: "ctl00_cphMain_lblRatingDate").text
 
       new_rating_date = browser.span(id: "ctl00_cphMain_lblRatingDate").text
+    end
+
+    if old_rating_date == new_rating_date
+      browser.goto url
+      puts browser.span(id: "ctl00_cphMain_lblRatingDate").text
+      old_rating_date = browser.span(id: "ctl00_cphMain_lblRatingDate").text
+      puts "old_rating_date"
+      puts old_rating_date
+
+
+      browser.cookies.add 'authWeb', "BAAF570AE579D59D6A7FCF11C9C61060F18AE9EDFD70AAF8B45B454E3A268D9BAE8757C2AF1EFA47D2CDD2447B28B2B2FB9C4708E320CC3C1CA82F8942342155A54E6B8F7478EC913F0CDDEB081EB52804752EC023F5582912D841DAEF04EE0956F631C352A712C0F5011EFAAB92139C16D4AAE9"
+      browser.refresh
+
+      new_rating_date = browser.span(id: "ctl00_cphMain_lblRatingDate").text
+      puts "new_rating_date"
+      puts new_rating_date
     end
 
 
