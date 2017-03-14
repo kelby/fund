@@ -600,12 +600,11 @@ namespace :morningstar do
       net_asset = x.css("td")[9]
 
       if _delivery_style.css("img").present?
-        delivery_style = _delivery_style.css("img").attr("src").value.scan(/stylesmall_new\d{1,99}/)[0].scan(/\d{1,99}/)
+        delivery_style = _delivery_style.css("img").attr("src").value.scan(/stylesmall_new\d{1,99}/)[0].scan(/\d{1,99}/)[0]
       else
         delivery_style = nil
       end
       morningstar_code = project_name.css("a").attr("href").value.split("/").last
-
 
       QuickrankPortfolio.create(rating_date: rating_date.text.to_time,
         project_code: project_code.text,
