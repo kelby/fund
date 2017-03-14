@@ -455,8 +455,8 @@ namespace :morningstar do
     # puts old_rating_date
 
 
-    puts browser.span(id: "ctl00_cphMain_lblRatingDate").text
-    puts browser.table(id: "ctl00_cphMain_gridResult").text
+    # puts browser.span(id: "ctl00_cphMain_lblRatingDate").text
+    # puts browser.table(id: "ctl00_cphMain_gridResult").text
 
     # browser.cookies.add 'authWeb', "87DB623D94BCA76A59D5466C01049674185AC860565196DFC0D0DC3579EF98F1A22A1CA5D6638647B0763C78729230219CF858D988BB4D307C48B58DC44D5EFDC2DBCC10EBD298FEF010497CB9D146F8EFC6E153DAF5F219CDF84ECB1FED89E0AA147233CD10CFABAA9BACCB8E76FCACAFD7A7F1"
 
