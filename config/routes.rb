@@ -1,6 +1,20 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  # get 'quickrank_performances/index'
+
+  # get 'quickrank_portfolios/index'
+
+  # get 'quickrank_snapshots/index'
+
+  resources :quickrank do
+    collection do
+      get :performance, to: "quickrank_performances#index"
+      get :portfolio, to: "quickrank_portfolios#index"
+      get :snapshot, to: "quickrank_snapshots#index"
+    end
+  end
+
   resources :tags, path: 'tag', only: [:index, :show]
 
   resources :fund_yields
