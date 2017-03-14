@@ -33,7 +33,12 @@ class QuickrankPerformance < ApplicationRecord
 
   validates_uniqueness_of :rating_date, scope: :project_code
 
+
   after_create :set_project_id
+
+
+  belongs_to :project
+
 
   def set_project_id
     return true if self.project_id.present?
