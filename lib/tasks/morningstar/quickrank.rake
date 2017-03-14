@@ -391,7 +391,13 @@ namespace :morningstar do
     headless ||= Headless.new
     headless.start
 
-    browser ||= Watir::Browser.new
+    client = Selenium::WebDriver::Remote::Http::Default.new
+    client.read_timeout = 180 # seconds – default is 60
+    client.open_timeout = 180 # seconds – default is 60
+
+    # b = Watir::Browser.new :firefox, :http_client => client
+
+    browser ||= Watir::Browser.new :chrome, :http_client => client
 
     today_date = Time.now.strftime("%F")
 
@@ -463,9 +469,6 @@ namespace :morningstar do
 
     # -------------------------------------------
 
-    # browser.select_list(id: "ctl00_cphMain_ddlPageSite").select_value("50");
-    browser.select_list(id: "ctl00_cphMain_ddlPageSite").select_value("10000");
-
     if new_rating_date.present?
       rating_date = new_rating_date.to_time.strftime("%F")
 
@@ -473,6 +476,9 @@ namespace :morningstar do
     else
       return
     end
+
+    # browser.select_list(id: "ctl00_cphMain_ddlPageSite").select_value("50");
+    browser.select_list(id: "ctl00_cphMain_ddlPageSite").select_value("10000");
 
 
     file_name_with_path = morningstar_quickrank_dir.join("#{today_date}.html")
@@ -488,17 +494,17 @@ namespace :morningstar do
       puts "============= Exception #{e}"
     end
 
-    doc = Nokogiri::HTML(browser.html)
+    # doc = Nokogiri::HTML(browser.html)
 
 
 
-    if doc.present?
-      puts "gridItem.size"
-      puts doc.css("tr.gridItem").size
+    # if doc.present?
+    #   puts "gridItem.size"
+    #   puts doc.css("tr.gridItem").size
 
-      puts "gridAlternateItem.size"
-      puts doc.css("tr.gridAlternateItem").size
-    end
+    #   puts "gridAlternateItem.size"
+    #   puts doc.css("tr.gridAlternateItem").size
+    # end
 
     browser.close
     headless.destroy
