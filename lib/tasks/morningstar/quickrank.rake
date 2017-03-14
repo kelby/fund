@@ -599,8 +599,11 @@ namespace :morningstar do
       top_ten_bond_ratio = x.css("td")[8]
       net_asset = x.css("td")[9]
 
-
-      delivery_style = _delivery_style.css("img").attr("src").value.scan(/stylesmall_new\d{1,99}/)[0].scan(/\d{1,99}/)
+      if _delivery_style.css("img").present?
+        delivery_style = _delivery_style.css("img").attr("src").value.scan(/stylesmall_new\d{1,99}/)[0].scan(/\d{1,99}/)
+      else
+        delivery_style = nil
+      end
       morningstar_code = project_name.css("a").attr("href").value.split("/").last
 
 
