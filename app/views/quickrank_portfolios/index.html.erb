@@ -28,8 +28,11 @@
 
   <tbody>
     <% @quickrank_portfolios.each_with_index do |quickrank_portfolio, index| %>
+      <% page = params[:page].to_i %>
+      <% page = 1 if page.zero? %>
+
       <tr>
-        <td><%= index + 1 %></td>
+        <td><%= (index + 1) + (page - 1) * 1000 %></td>
         <td>
           <% if quickrank_portfolio.project.present? %>
             <%= link_to quickrank_portfolio.project_code, quickrank_portfolio.project %>

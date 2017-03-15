@@ -34,8 +34,11 @@
 
   <tbody>
     <% @quickrank_performances.each_with_index do |quickrank_performance, index| %>
+      <% page = params[:page].to_i %>
+      <% page = 1 if page.zero? %>
+
       <tr>
-        <td><%= index + 1 %></td>
+        <td><%= (index + 1) + (page - 1) * 1000 %></td>
         <td>
           <% if quickrank_performance.project.present? %>
             <%= link_to quickrank_performance.project_code, quickrank_performance.project %>
