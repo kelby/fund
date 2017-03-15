@@ -30,7 +30,15 @@ every 1.day, :at => '7:59 am' do
   rake "fetch_fundranking:set_all_fund_day_net_worth"
 end
 
+every 1.day, :at => '13:59 am' do
+  rake "fetch_fundranking:set_all_fund_day_net_worth"
+end
+
 every 1.day, :at => '8:13 am' do
+  rake "fund_toolbox:set_up_from_yield_type_with_date_range"
+end
+
+every 1.day, :at => '13:13 am' do
   rake "fund_toolbox:set_up_from_yield_type_with_date_range"
 end
 
