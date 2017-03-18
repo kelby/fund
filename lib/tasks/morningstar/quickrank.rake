@@ -391,20 +391,20 @@ namespace :morningstar do
         morningstar_code: morningstar_code,
         project_name: project_name.text,
 
-        last_day_total_return:  ((last_day_total_return.text =~ /\d/)? last_day_total_return.text.to_f) : nil),
-        last_week_total_return:  ((last_week_total_return.text =~ /\d/)? last_week_total_return.text.to_f) : nil),
-        last_month_total_return:  ((last_month_total_return.text =~ /\d/)? last_month_total_return.text.to_f) : nil),
-        last_three_month_total_return:  ((last_three_month_total_return.text =~ /\d/)? last_three_month_total_return.text.to_f) : nil),
-        last_six_month_total_return:  ((last_six_month_total_return.text =~ /\d/)? last_six_month_total_return.text.to_f) : nil),
-        last_year_total_return:  ((last_year_total_return.text =~ /\d/)? last_year_total_return.text.to_f) : nil),
-        last_two_year_total_return:  ((last_two_year_total_return.text =~ /\d/)? last_two_year_total_return.text.to_f) : nil),
-        last_three_year_total_return:  ((last_three_year_total_return.text =~ /\d/)? last_three_year_total_return.text.to_f) : nil),
-        last_five_year_total_return:  ((last_five_year_total_return.text =~ /\d/)? last_five_year_total_return.text.to_f) : nil),
-        last_ten_year_total_return:  ((last_ten_year_total_return.text =~ /\d/)? last_ten_year_total_return.text.to_f) : nil),
-        since_the_inception_total_return:  ((since_the_inception_total_return.text =~ /\d/)? since_the_inception_total_return.text.to_f) : nil),
+        last_day_total_return:  ((last_day_total_return.text =~ /\d/)? last_day_total_return.text.to_f : nil),
+        last_week_total_return:  ((last_week_total_return.text =~ /\d/)? last_week_total_return.text.to_f : nil),
+        last_month_total_return:  ((last_month_total_return.text =~ /\d/)? last_month_total_return.text.to_f : nil),
+        last_three_month_total_return:  ((last_three_month_total_return.text =~ /\d/)? last_three_month_total_return.text.to_f : nil),
+        last_six_month_total_return:  ((last_six_month_total_return.text =~ /\d/)? last_six_month_total_return.text.to_f : nil),
+        last_year_total_return:  ((last_year_total_return.text =~ /\d/)? last_year_total_return.text.to_f : nil),
+        last_two_year_total_return:  ((last_two_year_total_return.text =~ /\d/)? last_two_year_total_return.text.to_f : nil),
+        last_three_year_total_return:  ((last_three_year_total_return.text =~ /\d/)? last_three_year_total_return.text.to_f : nil),
+        last_five_year_total_return:  ((last_five_year_total_return.text =~ /\d/)? last_five_year_total_return.text.to_f : nil),
+        last_ten_year_total_return:  ((last_ten_year_total_return.text =~ /\d/)? last_ten_year_total_return.text.to_f : nil),
+        since_the_inception_total_return:  ((since_the_inception_total_return.text =~ /\d/)? since_the_inception_total_return.text.to_f : nil),
 
-        three_year_volatility:  ((three_year_volatility.text =~ /\d/)? three_year_volatility.text.to_f) : nil),
-        three_year_risk_factor:  ((three_year_risk_factor.text =~ /\d/)? three_year_risk_factor.text.to_f) : nil))
+        three_year_volatility:  ((three_year_volatility.text =~ /\d/)? three_year_volatility.text.to_f : nil),
+        three_year_risk_factor:  ((three_year_risk_factor.text =~ /\d/)? three_year_risk_factor.text.to_f : nil))
     end
 
     browser.close
