@@ -36,16 +36,19 @@ namespace :morningstar do
 
 
     browser.cookies.add 'authWeb', "F55D8234D52DFF49CFB756CDFD89AFF1BBF231045DEA4AF8CC57B6596D92C05B8CB6376371B52D4DB9DC3108BB694716916B5CEC2C6C17D9EF972B1617AF7E0C10C35EE432F0269EA61AC91E2434BEA40A5A32A332B856DD251D307B52FA06BC5AE180DC74AA87F56227A50AF149A96C63F52366"
+
+
     new_rating_date = browser.span(id: "ctl00_cphMain_lblRatingDate").text
     puts "new_rating_date"
     puts new_rating_date
 
     if old_rating_date == new_rating_date
       browser.refresh
-      puts "After browser.refresh"
-      puts browser.span(id: "ctl00_cphMain_lblRatingDate").text
 
       new_rating_date = browser.span(id: "ctl00_cphMain_lblRatingDate").text
+
+      puts "After browser.refresh"
+      puts new_rating_date
     end
 
     # rating_date = browser.span(id: "ctl00_cphMain_lblRatingDate").text
@@ -111,20 +114,51 @@ namespace :morningstar do
 
 
     browser.goto url
+    # browser.cookies.add 'authWeb', "F55D8234D52DFF49CFB756CDFD89AFF1BBF231045DEA4AF8CC57B6596D92C05B8CB6376371B52D4DB9DC3108BB694716916B5CEC2C6C17D9EF972B1617AF7E0C10C35EE432F0269EA61AC91E2434BEA40A5A32A332B856DD251D307B52FA06BC5AE180DC74AA87F56227A50AF149A96C63F52366"
+
+    # rating_date = browser.span(id: "ctl00_cphMain_lblRatingDate").text
+
+
+    # puts browser.span(id: "ctl00_cphMain_lblRatingDate").text
+    old_rating_date = browser.span(id: "ctl00_cphMain_lblRatingDate").text
+    puts "old_rating_date"
+    puts old_rating_date
+
+
     browser.cookies.add 'authWeb', "F55D8234D52DFF49CFB756CDFD89AFF1BBF231045DEA4AF8CC57B6596D92C05B8CB6376371B52D4DB9DC3108BB694716916B5CEC2C6C17D9EF972B1617AF7E0C10C35EE432F0269EA61AC91E2434BEA40A5A32A332B856DD251D307B52FA06BC5AE180DC74AA87F56227A50AF149A96C63F52366"
 
-    browser.span(id: "ctl00_cphMain_lblRatingDate").text
 
+    new_rating_date = browser.span(id: "ctl00_cphMain_lblRatingDate").text
+    puts "new_rating_date"
+    puts new_rating_date
 
-    rating_date = browser.select_list(id: "ctl00_cphMain_ddlPageSite").select_value("10000");
+    if old_rating_date == new_rating_date
+      browser.refresh
+      new_rating_date = browser.span(id: "ctl00_cphMain_lblRatingDate").text
 
-    if rating_date.present?
-      rating_date = rating_date.text.to_time.strftime("%F")
+      puts "After browser.refresh"
+      puts new_rating_date
+    end
 
-      today_date = rating_date
+    # rating_date = browser.span(id: "ctl00_cphMain_lblRatingDate").text
+
+    if new_rating_date.present?
+      new_rating_date = new_rating_date.to_time.strftime("%F")
+
+      today_date = new_rating_date
     else
       return
     end
+
+    # browser.select_list(id: "ctl00_cphMain_ddlPageSite").select_value("10000");
+
+    # if rating_date.present?
+    #   rating_date = rating_date.to_time.strftime("%F")
+
+    #   today_date = rating_date
+    # else
+    #   return
+    # end
 
 
     file_name_with_path = morningstar_quickrank_dir.join("#{today_date}.html")
@@ -202,23 +236,24 @@ namespace :morningstar do
 
 
     browser.goto url
-    puts browser.span(id: "ctl00_cphMain_lblRatingDate").text
+    # puts browser.span(id: "ctl00_cphMain_lblRatingDate").text
     old_rating_date = browser.span(id: "ctl00_cphMain_lblRatingDate").text
     puts "old_rating_date"
     puts old_rating_date
 
 
     browser.cookies.add 'authWeb', "F55D8234D52DFF49CFB756CDFD89AFF1BBF231045DEA4AF8CC57B6596D92C05B8CB6376371B52D4DB9DC3108BB694716916B5CEC2C6C17D9EF972B1617AF7E0C10C35EE432F0269EA61AC91E2434BEA40A5A32A332B856DD251D307B52FA06BC5AE180DC74AA87F56227A50AF149A96C63F52366"
+
     new_rating_date = browser.span(id: "ctl00_cphMain_lblRatingDate").text
     puts "new_rating_date"
     puts new_rating_date
 
     if old_rating_date == new_rating_date
       browser.refresh
-      puts "After browser.refresh"
-      puts browser.span(id: "ctl00_cphMain_lblRatingDate").text
-
       new_rating_date = browser.span(id: "ctl00_cphMain_lblRatingDate").text
+
+      puts "After browser.refresh"
+      puts new_rating_date
     end
 
 
@@ -319,13 +354,13 @@ namespace :morningstar do
 
     if old_rating_date == new_rating_date
       browser.refresh
-      puts "After browser.refresh"
-      puts browser.span(id: "ctl00_cphMain_lblRatingDate").text
-
       new_rating_date = browser.span(id: "ctl00_cphMain_lblRatingDate").text
+
+      puts "After browser.refresh"
+      puts new_rating_date
     end
 
-    puts browser.span(id: "ctl00_cphMain_lblRatingDate").text
+    # puts browser.span(id: "ctl00_cphMain_lblRatingDate").text
 
 
     # rating_date = browser.select_list(id: "ctl00_cphMain_ddlPageSite").select_value("10000");
@@ -440,7 +475,7 @@ namespace :morningstar do
 
 
     browser.goto url
-    puts browser.span(id: "ctl00_cphMain_lblRatingDate").text
+    # puts browser.span(id: "ctl00_cphMain_lblRatingDate").text
     old_rating_date = browser.span(id: "ctl00_cphMain_lblRatingDate").text
     puts "old_rating_date"
     puts old_rating_date
@@ -453,27 +488,27 @@ namespace :morningstar do
 
     if old_rating_date == new_rating_date
       browser.refresh
+      new_rating_date = browser.span(id: "ctl00_cphMain_lblRatingDate").text
+
       puts "After browser.refresh"
-      puts browser.span(id: "ctl00_cphMain_lblRatingDate").text
-
-      new_rating_date = browser.span(id: "ctl00_cphMain_lblRatingDate").text
-    end
-
-    if old_rating_date == new_rating_date
-      browser.goto url
-      puts browser.span(id: "ctl00_cphMain_lblRatingDate").text
-      old_rating_date = browser.span(id: "ctl00_cphMain_lblRatingDate").text
-      puts "old_rating_date"
-      puts old_rating_date
-
-
-      browser.cookies.add 'authWeb', "BAAF570AE579D59D6A7FCF11C9C61060F18AE9EDFD70AAF8B45B454E3A268D9BAE8757C2AF1EFA47D2CDD2447B28B2B2FB9C4708E320CC3C1CA82F8942342155A54E6B8F7478EC913F0CDDEB081EB52804752EC023F5582912D841DAEF04EE0956F631C352A712C0F5011EFAAB92139C16D4AAE9"
-      browser.refresh
-
-      new_rating_date = browser.span(id: "ctl00_cphMain_lblRatingDate").text
-      puts "new_rating_date"
       puts new_rating_date
     end
+
+    # if old_rating_date == new_rating_date
+    #   browser.goto url
+    #   puts browser.span(id: "ctl00_cphMain_lblRatingDate").text
+    #   old_rating_date = browser.span(id: "ctl00_cphMain_lblRatingDate").text
+    #   puts "old_rating_date"
+    #   puts old_rating_date
+
+
+    #   browser.cookies.add 'authWeb', "BAAF570AE579D59D6A7FCF11C9C61060F18AE9EDFD70AAF8B45B454E3A268D9BAE8757C2AF1EFA47D2CDD2447B28B2B2FB9C4708E320CC3C1CA82F8942342155A54E6B8F7478EC913F0CDDEB081EB52804752EC023F5582912D841DAEF04EE0956F631C352A712C0F5011EFAAB92139C16D4AAE9"
+    #   browser.refresh
+
+    #   new_rating_date = browser.span(id: "ctl00_cphMain_lblRatingDate").text
+    #   puts "new_rating_date"
+    #   puts new_rating_date
+    # end
 
 
     browser.a(id: "ctl00_cphMain_lbPortfolio").click
@@ -570,13 +605,13 @@ namespace :morningstar do
 
     if old_rating_date == new_rating_date
       browser.refresh
-      puts "After browser.refresh"
-      puts browser.span(id: "ctl00_cphMain_lblRatingDate").text
-
       new_rating_date = browser.span(id: "ctl00_cphMain_lblRatingDate").text
+
+      puts "After browser.refresh"
+      puts new_rating_date
     end
 
-    puts browser.span(id: "ctl00_cphMain_lblRatingDate").text
+    # puts browser.span(id: "ctl00_cphMain_lblRatingDate").text
 
 
     # rating_date = browser.select_list(id: "ctl00_cphMain_ddlPageSite").select_value("10000");
