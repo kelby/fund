@@ -129,13 +129,17 @@ namespace :morningstar do
       _star_rating_three_year = x.css("td")[5]
       _star_rating_five_year = x.css("td")[6]
       record_at = x.css("td")[7]
-      dwjz = x.css("td")[8]
-      iopv = x.css("td")[9]
-      yield_rate = x.css("td")[10]
+      _dwjz = x.css("td")[8]
+      _iopv = x.css("td")[9]
+      _yield_rate = x.css("td")[10]
 
       morningstar_code = project_name.css("a").attr("href").value.split("/").last
       star_rating_three_year = _star_rating_three_year.children.css("img").attr("src").value.scan(/\d?stars/)[0].scan(/^\d?/)[0]
       star_rating_five_year = _star_rating_five_year.children.css("img").attr("src").value.scan(/\d?stars/)[0].scan(/^\d?/)[0]
+
+      dwjz = (_dwjz.text =~ /\d/)? _dwjz.text.gsub(/[^(-|\.|\d)]/, "") : nil
+      iopv = (_iopv.text =~ /\d/)? _iopv.text.gsub(/[^(-|\.|\d)]/, "") : nil
+      yield_rate = (_yield_rate.text =~ /\d/)? _yield_rate.text.gsub(/[^(-|\.|\d)]/, "") : nil
 
       QuickrankSnapshot.create(rating_date: rating_date.text.to_time,
         project_code: project_code.text,
@@ -145,9 +149,9 @@ namespace :morningstar do
         star_rating_three_year: star_rating_three_year,
         star_rating_five_year: star_rating_five_year,
         record_at: record_at.text.to_time,
-        dwjz: dwjz.text.to_f,
-        iopv: iopv.text.to_f,
-        yield_rate:  yield_rate.text.to_f)
+        dwjz: dwjz,
+        iopv: iopv,
+        yield_rate: yield_rate)
     end
 
     browser.close
@@ -363,20 +367,20 @@ namespace :morningstar do
         morningstar_code: morningstar_code,
         project_name: project_name.text,
 
-        last_day_total_return:  last_day_total_return.text.to_f,
-        last_week_total_return:  last_week_total_return.text.to_f,
-        last_month_total_return:  last_month_total_return.text.to_f,
-        last_three_month_total_return:  last_three_month_total_return.text.to_f,
-        last_six_month_total_return:  last_six_month_total_return.text.to_f,
-        last_year_total_return:  last_year_total_return.text.to_f,
-        last_two_year_total_return:  last_two_year_total_return.text.to_f,
-        last_three_year_total_return:  last_three_year_total_return.text.to_f,
-        last_five_year_total_return:  last_five_year_total_return.text.to_f,
-        last_ten_year_total_return:  last_ten_year_total_return.text.to_f,
-        since_the_inception_total_return:  since_the_inception_total_return.text.to_f,
+        last_day_total_return:  (last_day_total_return.text =~ /\d/)? last_day_total_return.text.to_f) : nil,
+        last_week_total_return:  (last_week_total_return.text =~ /\d/)? last_week_total_return.text.to_f) : nil,
+        last_month_total_return:  (last_month_total_return.text =~ /\d/)? last_month_total_return.text.to_f) : nil,
+        last_three_month_total_return:  (last_three_month_total_return.text =~ /\d/)? last_three_month_total_return.text.to_f) : nil,
+        last_six_month_total_return:  (last_six_month_total_return.text =~ /\d/)? last_six_month_total_return.text.to_f) : nil,
+        last_year_total_return:  (last_year_total_return.text =~ /\d/)? last_year_total_return.text.to_f) : nil,
+        last_two_year_total_return:  (last_two_year_total_return.text =~ /\d/)? last_two_year_total_return.text.to_f) : nil,
+        last_three_year_total_return:  (last_three_year_total_return.text =~ /\d/)? last_three_year_total_return.text.to_f) : nil,
+        last_five_year_total_return:  (last_five_year_total_return.text =~ /\d/)? last_five_year_total_return.text.to_f) : nil,
+        last_ten_year_total_return:  (last_ten_year_total_return.text =~ /\d/)? last_ten_year_total_return.text.to_f) : nil,
+        since_the_inception_total_return:  (since_the_inception_total_return.text =~ /\d/)? since_the_inception_total_return.text.to_f) : nil,
 
-        three_year_volatility:  three_year_volatility.text.to_f,
-        three_year_risk_factor:  three_year_risk_factor.text.to_f)
+        three_year_volatility:  (three_year_volatility.text =~ /\d/)? three_year_volatility.text.to_f) : nil,
+        three_year_risk_factor:  (three_year_risk_factor.text =~ /\d/)? three_year_risk_factor.text.to_f) : nil)
     end
 
     browser.close
@@ -613,12 +617,12 @@ namespace :morningstar do
 
         delivery_style: delivery_style,
 
-        stock_ratio:  stock_ratio.text.to_f,
-        bond_ratio:  bond_ratio.text.to_f,
-        top_ten_stock_ratio:  top_ten_stock_ratio.text.to_f,
-        top_ten_bond_ratio:  top_ten_bond_ratio.text.to_f,
+        stock_ratio: (stock_ratio.text =~ /\d/)? stock_ratio.text.to_f : nil,
+        bond_ratio: (bond_ratio.text =~ /\d/)? bond_ratio.text.to_f : nil,
+        top_ten_stock_ratio: (top_ten_stock_ratio.text =~ /\d/)? top_ten_stock_ratio.text.to_f : nil,
+        top_ten_bond_ratio: (top_ten_bond_ratio.text =~ /\d/)? top_ten_bond_ratio.text.to_f : nil,
 
-        net_asset:  net_asset.text.to_f)
+        net_asset: (net_asset.text =~ /\d/)? net_asset.text.to_f : nil)
     end
 
     browser.close
