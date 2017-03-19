@@ -98,46 +98,46 @@ namespace :sohu do
         end
 
         # 5, 6 - 最近一周
-        last_week_total_return = tr_ele.css("td")[5].text
+        last_week_total_return = (tr_ele.css("td")[5].text =~ /\d/)? tr_ele.css("td")[5].text : nil
         last_week_ranking = tr_ele.css("td")[6].text
 
         # 7, 8 - 最近一月
-        last_month_total_return = tr_ele.css("td")[7].text
+        last_month_total_return = (tr_ele.css("td")[7].text =~ /\d/)? tr_ele.css("td")[7].text : nil
         last_month_ranking = tr_ele.css("td")[8].text
 
         # 9, 10 - 最近三月
-        last_three_month_total_return = tr_ele.css("td")[9].text
+        last_three_month_total_return = (tr_ele.css("td")[9].text =~ /\d/)? tr_ele.css("td")[9].text : nil
         last_three_month_ranking = tr_ele.css("td")[10].text
 
         # 11, 12 - 最近六月
-        last_six_month_total_return = tr_ele.css("td")[11].text
+        last_six_month_total_return = (tr_ele.css("td")[11].text =~ /\d/)? tr_ele.css("td")[11].text : nil
         last_six_month_ranking = tr_ele.css("td")[12].text
 
         # 13, 14 - 最近一年
-        last_year_total_return = tr_ele.css("td")[13].text
+        last_year_total_return = (tr_ele.css("td")[13].text =~ /\d/)? tr_ele.css("td")[13].text : nil
         last_year_ranking = tr_ele.css("td")[14].text
 
         # 15, 16 - 最近两年
-        last_two_year_total_return = tr_ele.css("td")[15].text
+        last_two_year_total_return = (tr_ele.css("td")[15].text =~ /\d/)? tr_ele.css("td")[15].text : nil
         last_two_year_ranking = tr_ele.css("td")[16].text
 
         # 17, 18 - 今年以来
-        this_year_total_return = tr_ele.css("td")[17].text
+        this_year_total_return = (tr_ele.css("td")[17].text =~ /\d/)? tr_ele.css("td")[17].text : nil
         this_year_ranking = tr_ele.css("td")[18].text
 
         # 19 - 设立以来
-        since_the_inception_total_return = tr_ele.css("td")[19].text
+        since_the_inception_total_return = (tr_ele.css("td")[19].text =~ /\d/)? tr_ele.css("td")[19].text : nil
 
         # 20, 21, 22, 23 - 最近一/三年风险评价
         if evaluate_type == "two_one"
-          last_one_year_volatility = tr_ele.css("td")[20].text
+          last_one_year_volatility = (tr_ele.css("td")[20].text =~ /\d/)? tr_ele.css("td")[20].text : nil
           last_one_year_volatility_evaluate = tr_ele.css("td")[21].text
-          last_one_year_risk_factor = tr_ele.css("td")[22].text
+          last_one_year_risk_factor = (tr_ele.css("td")[22].text =~ /\d/)? tr_ele.css("td")[22].text : nil
           last_one_year_risk_factor_evaluate = tr_ele.css("td")[23].text
         elsif evaluate_type == "three_five"
-          last_three_year_volatility = tr_ele.css("td")[20].text
+          last_three_year_volatility = (tr_ele.css("td")[20].text =~ /\d/)? tr_ele.css("td")[20].text : nil
           last_three_year_volatility_evaluate = tr_ele.css("td")[21].text
-          last_three_year_risk_factor = tr_ele.css("td")[22].text
+          last_three_year_risk_factor = (tr_ele.css("td")[22].text =~ /\d/)? tr_ele.css("td")[22].text : nil
           last_three_year_risk_factor_evaluate = tr_ele.css("td")[23].text
         else
           last_one_year_volatility = nil
@@ -152,10 +152,10 @@ namespace :sohu do
 
         # 24, 25 - 夏普比率
         if evaluate_type == "two_one"
-          last_one_year_sharpe_ratio = tr_ele.css("td")[24].text
+          last_one_year_sharpe_ratio = (tr_ele.css("td")[24].text =~ /\d/)? tr_ele.css("td")[24].text : nil
           last_one_year_sharpe_ratio_evaluate = tr_ele.css("td")[25].text
         elsif evaluate_type == "three_five"
-          last_three_year_sharpe_ratio = tr_ele.css("td")[24].text
+          last_three_year_sharpe_ratio = (tr_ele.css("td")[24].text =~ /\d/)? tr_ele.css("td")[24].text : nil
           last_three_year_sharpe_ratio_evaluate = tr_ele.css("td")[25].text
         else
           last_one_year_sharpe_ratio = nil
@@ -211,6 +211,51 @@ namespace :sohu do
     puts "-----------------------------\n"
     puts "problem_record #{problem_record.size} \n"
     puts problem_record.join(', ')
+  end
 
-  end  
+  desc "Task description"
+  task :show_fund_type => [:environment] do
+    fund_ranking_dir = Rails.public_path.join("fund/sohu/fund_ranking")
+    fund_type = ""
+    evaluate_type = ""
+
+    # table_type = "two_one"
+    # table_type = "three_five"
+
+    had_record = []
+    problem_record = []
+
+    # Dir.entries(fund_ranking_dir).each_with_index do |file_name, index|
+    Dir.entries(fund_ranking_dir).each_with_index do |file_name, index|
+      file_name = Dir.entries(fund_ranking_dir).sample
+
+      unless file_name =~ /\d+/
+        next
+      end
+
+      file_path = fund_ranking_dir.join(file_name)
+      record_at = file_name.split(".").first
+
+      puts "set fund ranking date #{record_at} ================ #{index}"
+
+      had_record << record_at
+
+      doc = Nokogiri::HTML(open(file_path).read);
+
+      if doc.css("table").blank?
+        next
+      end
+
+      ranking_table_ele = doc.css("table")[2];
+
+      if ranking_table_ele.css("tr").blank?
+        next
+      end
+
+      target_tds = ranking_table_ele.css("tr td[colspan='26']")
+      sort_fund_type = target_tds.map{|x| x.text }.map{|x| x.gsub(/(^\d{1,99})|(\(\d{1,99}\)$)/, "") }
+
+      puts sort_fund_type
+    end
+  end
 end

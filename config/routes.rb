@@ -9,9 +9,14 @@ Rails.application.routes.draw do
 
   resources :quickrank do
     collection do
+      # get ":date_history", to: "quickrank#date_history", as: :date_history
+
       get :performance, to: "quickrank_performances#index"
       get :portfolio, to: "quickrank_portfolios#index"
       get :snapshot, to: "quickrank_snapshots#index"
+
+      get :history
+      get :search
     end
   end
 

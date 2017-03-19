@@ -1,0 +1,31 @@
+<small class="pull-right">
+
+  <!-- <input type="button" value="查询" style="color:#005991" id="searchJJPJ"> -->
+
+  <!-- <form class="form-inline"> -->
+  <%= form_tag search_quickrank_index_path, class: "form-inline", method: :get do %>
+    <%= select_tag "year", options_for_select(FundRanking.record_at_years) %>
+
+    <%= select_tag "month_day", options_for_select(FundRanking.record_at_month_day_by(FundRanking.max_record_at)) %>
+    <!-- <div class="form-group"> -->
+      <!-- <label for="exampleInputName2">Name</label> -->
+      <!-- <input type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe"> -->
+    <!-- </div> -->
+
+    <!-- <button type="submit" class="btn btn-default">Send invitation</button> -->
+    <%= button_tag "查询" %>
+  <% end %>
+</small>
+
+<script>
+  $(document).on("change", "#year", function(argument) {
+    var url = "<%= history_quickrank_index_path %>"
+    var year = $(this).val()
+
+    $.ajax({
+      url: url,
+      data: {'year': year},
+      dataType: 'script'
+    });
+  })
+</script>

@@ -7,14 +7,18 @@ namespace :sohu do
 
     url = "http://q.fund.sohu.com/r/cxo.php"
 
+    # 最近一期
+    fundranking_dir = Rails.public_path.join("fund/sohu/fundranking")
+    FileUtils::mkdir_p(fundranking_dir)
+
+    # 历史数据
+    fund_ranking_dir = Rails.public_path.join("fund/sohu/fund_ranking")
+    FileUtils::mkdir_p(fund_ranking_dir)
+
     response = RestClient.post url, {}
 
     if response.code == 200
       doc = Nokogiri::HTML(response.body);
-
-
-      fundranking_dir = Rails.public_path.join("fund/sohu/fundranking")
-      FileUtils::mkdir_p(fundranking_dir)
 
       file_name_with_path = fundranking_dir.join("latest.html")
 
@@ -40,6 +44,13 @@ namespace :sohu do
     # date_options.size
 
     date_options.each_with_index do |date, index|
+      file_name_with_path = fund_ranking_dir.join("#{date}.html")
+
+      # 已经抓取保存到硬盘的历史数据，不必重新抓取
+      if File.exists?(file_name_with_path)
+        next
+      end
+
       response = RestClient.post url, {tdate: date}
       # puts "#{date} ============= 000"
 
@@ -52,11 +63,6 @@ namespace :sohu do
         _doc = Nokogiri::HTML(response.body);
         # puts "#{date} ============= 111"
 
-        fund_ranking_dir = Rails.public_path.join("fund/sohu/fund_ranking")
-        FileUtils::mkdir_p(fund_ranking_dir)
-
-
-        file_name_with_path = fund_ranking_dir.join("#{date}.html")
 
         # puts _doc.css("select#tdate").attr('value')
         if _doc.css("select#tdate").blank?
@@ -74,7 +80,6 @@ namespace :sohu do
       # end
 
       response = nil
-
 
       # sleep( rand(0.001..1) )
     end

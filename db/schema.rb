@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170313233150) do
+ActiveRecord::Schema.define(version: 20170319011351) do
 
   create_table "articles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string   "title"
@@ -267,8 +267,8 @@ ActiveRecord::Schema.define(version: 20170313233150) do
     t.decimal  "last_three_year_sharpe_ratio",          precision: 15, scale: 4
     t.string   "last_three_year_sharpe_ratio_evaluate"
     t.date     "record_at"
-    t.datetime "created_at",                                                     null: false
-    t.datetime "updated_at",                                                     null: false
+    t.datetime "created_at",                                                                 null: false
+    t.datetime "updated_at",                                                                 null: false
     t.string   "fund_type"
     t.string   "evaluate_type"
     t.integer  "two_year_rating"
@@ -279,6 +279,7 @@ ActiveRecord::Schema.define(version: 20170313233150) do
     t.string   "last_one_year_risk_factor_evaluate"
     t.decimal  "last_one_year_sharpe_ratio",            precision: 15, scale: 4
     t.string   "last_one_year_sharpe_ratio_evaluate"
+    t.integer  "fund_type_classify",                                             default: 0
     t.index ["project_id", "record_at"], name: "index_fund_rankings_on_project_id_and_record_at", using: :btree
     t.index ["record_at", "code"], name: "index_fund_rankings_on_record_at_and_code", using: :btree
   end
