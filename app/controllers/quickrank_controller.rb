@@ -28,5 +28,7 @@ class QuickrankController < ApplicationController
 
       @fund_rankings = FundRanking.where(record_at: date_history).includes(:project) # .page(params[:page]).per(500)
     end
+
+    render "fund_rankings/index"
   end
 end

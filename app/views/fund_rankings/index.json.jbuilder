@@ -1,1 +1,0 @@
-json.array! @fund_rankings, partial: 'fund_rankings/fund_ranking', as: :fund_ranking

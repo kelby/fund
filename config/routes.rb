@@ -14,8 +14,8 @@ Rails.application.routes.draw do
       get :performance, to: "quickrank_performances#index"
       get :portfolio, to: "quickrank_portfolios#index"
       get :snapshot, to: "quickrank_snapshots#index"
+      get :history, to: "fund_rankings#index"
 
-      get :history
       get :search
     end
   end

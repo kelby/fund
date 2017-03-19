@@ -12,4 +12,4 @@ Rails.application.config.assets.precompile += %w( projects.js projects.css
   home.css catalogs.css categories.css project_search.css episodes.css
   bootstrap-datetimepicker.css bootstrap-datetimepicker.js bootstrap-datetimepicker.zh-CN.js
   simditor/simditor.css simditor/all.js simditor/use.js
-  rich_media.css)
+  rich_media.css fund_rankings.css quickrank.css)

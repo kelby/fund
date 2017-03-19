@@ -4,7 +4,9 @@ class FundRankingsController < ApplicationController
   # GET /fund_rankings
   # GET /fund_rankings.json
   def index
-    @fund_rankings = FundRanking.all
+    @rating_date = FundRanking.pluck(:record_at).uniq.max
+
+    @fund_rankings = FundRanking.where(record_at: @rating_date).includes(:project)
   end
 
   # GET /fund_rankings/1

@@ -1,3 +1,14 @@
-// Place all the styles related to the fund_rankings controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.fund_rankings, .quickrank {
+  .table {
+    thead.header-box {
+      tr {
+        th {
+          vertical-align: top;
+          text-align: center;
+          font-weight: normal;
+          border: 1px solid #ddd;
+        }
+      }
+    }
+  }
+}

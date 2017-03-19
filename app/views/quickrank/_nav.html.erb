@@ -8,4 +8,8 @@
   <li role="presentation" class="<%= active_tab(portfolio_quickrank_index_path) %>">
     <%= link_to "投资组合", portfolio_quickrank_index_path %>
   </li>
+
+  <li role="presentation" class="<%= active_tab(history_quickrank_index_path) || active_tab(search_quickrank_index_path) %>">
+    <%= link_to "晨星历史数据", history_quickrank_index_path %>
+  </li>
 </ul>

@@ -1,1 +1,0 @@
-json.partial! "fund_rankings/fund_ranking", fund_ranking: @fund_ranking

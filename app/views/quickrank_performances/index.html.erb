@@ -1,3 +1,7 @@
+<% content_for :content_css_link_yield do %>
+  <%= stylesheet_link_tag 'quickrank' %>
+<% end %>
+
 <% set_meta_tags title: "业绩和风险" %>
 
 <h1>
@@ -8,19 +12,18 @@
       (更新于 <%= @rating_date.strftime("%F") %>)
     </small>
   <% end %>
-
-  <%= render 'quickrank/history' %>
 </h1>
 
 <%= render 'quickrank/nav' %>
+<%= render 'quickrank/form_filter', delivery_style: true, project_category: true %>
 
-<table class="table table-hover">
+<table class="table table-hover quickrank-table">
   <thead>
     <tr>
       <th>#</th>
       <th>代码</th>
       <th>基金名称</th>
-      <th>1天回报(%)</th>
+      <!-- <th>1天回报(%)</th> -->
       <th>1周回报(%)</th>
       <th>1个月回报(%)</th>
       <th>3个月回报(%)</th>
@@ -55,47 +58,47 @@
           <%= quickrank_performance.project_name %>
         </td>
 
-        <td>
-          <%= quickrank_performance.last_day_total_return %>
-        </td>
+        <!-- <td class="<%#= accnav_color(quickrank_performance.last_day_total_return) %>">
+          <%#= quickrank_performance.last_day_total_return %>
+        </td> -->
 
-        <td>
+        <td class="<%= accnav_color(quickrank_performance.last_week_total_return) %>">
           <%= quickrank_performance.last_week_total_return %>
         </td>
 
-        <td>
+        <td class="<%= accnav_color(quickrank_performance.last_month_total_return) %>">
           <%= quickrank_performance.last_month_total_return %>
         </td>
 
-        <td>
+        <td class="<%= accnav_color(quickrank_performance.last_three_month_total_return) %>">
           <%= quickrank_performance.last_three_month_total_return %>
         </td>
 
-        <td>
+        <td class="<%= accnav_color(quickrank_performance.last_six_month_total_return) %>">
           <%= quickrank_performance.last_six_month_total_return %>
         </td>
 
-        <td>
+        <td class="<%= accnav_color(quickrank_performance.last_year_total_return) %>">
           <%= quickrank_performance.last_year_total_return %>
         </td>
 
-        <td>
+        <td class="<%= accnav_color(quickrank_performance.last_two_year_total_return) %>">
           <%= quickrank_performance.last_two_year_total_return %>
         </td>
 
-        <td>
+        <td class="<%= accnav_color(quickrank_performance.last_three_year_total_return) %>">
           <%= quickrank_performance.last_three_year_total_return %>
         </td>
 
-        <td>
+        <td class="<%= accnav_color(quickrank_performance.last_five_year_total_return) %>">
           <%= quickrank_performance.last_five_year_total_return %>
         </td>
 
-        <td>
+        <td class="<%= accnav_color(quickrank_performance.last_ten_year_total_return) %>">
           <%= quickrank_performance.last_ten_year_total_return %>
         </td>
 
-        <td>
+        <td class="<%= accnav_color(quickrank_performance.since_the_inception_total_return) %>">
           <%= quickrank_performance.since_the_inception_total_return %>
         </td>
 

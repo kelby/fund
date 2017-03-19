@@ -1,0 +1,28 @@
+<%= form_tag "" do %>
+  <%= render "quickrank/form/three_year_rating" %>
+
+  <%= render "quickrank/form/five_year_rating" %>
+
+  <% if defined?(delivery_style) && delivery_style %>
+    <%= render "quickrank/form/delivery_style" %>
+  <% end %>
+
+  <% if defined?(project_category) && project_category %>
+    <%= render "quickrank/form/project_category" %>
+  <% end %>
+
+  <div class="form-group clearfix">
+    <select name="ctl00$cphMain$ddlCompany" id="ctl00_cphMain_ddlCompany" style="width:180px;">
+      <option selected="selected" value="">--基金公司--</option>
+
+      <% Catalog.has_projects.pluck(:name, :id).each do |name, id| %>
+        <option value="<%= id %>"><%= name %></option>
+      <% end %>
+    </select>
+
+    <%= text_field_tag :project_name, params[:project_name], placeholder: "基金名称" %>
+
+
+    <%= submit_tag "查询", class: "btn btn-primary pull-right" %>
+  </div>
+<% end %>

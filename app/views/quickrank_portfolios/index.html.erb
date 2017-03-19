@@ -1,3 +1,7 @@
+<% content_for :content_css_link_yield do %>
+  <%= stylesheet_link_tag 'quickrank' %>
+<% end %>
+
 <% set_meta_tags title: "投资组合" %>
 
 <h1>
@@ -8,13 +12,12 @@
       (更新于 <%= @rating_date.strftime("%F") %>)
     </small>
   <% end %>
-
-  <%= render 'quickrank/history' %>
 </h1>
 
 <%= render 'quickrank/nav' %>
+<%= render 'quickrank/form_filter', delivery_style: true, project_category: true %>
 
-<table class="table table-hover">
+<table class="table table-hover quickrank-table">
   <thead>
     <tr>
       <th>#</th>

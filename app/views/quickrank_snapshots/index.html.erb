@@ -1,3 +1,7 @@
+<% content_for :content_css_link_yield do %>
+  <%= stylesheet_link_tag 'quickrank' %>
+<% end %>
+
 <% set_meta_tags title: "基金龙虎榜" %>
 
 <h1>
@@ -8,21 +12,28 @@
       (更新于 <%= @rating_date.strftime("%F") %>)
     </small>
   <% end %>
-
-  <%= render 'quickrank/history' %>
 </h1>
 
 <%= render 'quickrank/nav' %>
+<%= render 'quickrank/form_filter', delivery_style: true, project_category: true %>
 
-<table class="table table-hover">
+<table class="table table-hover quickrank-table">
   <thead>
     <tr>
       <th>#</th>
       <th>代码</th>
       <th>基金名称</th>
       <th>基金分类</th>
-      <th>晨星评级（三年）</th>
-      <th>晨星评级（五年）</th>
+      <th>
+        晨星评级
+        <br>
+       （三年）
+      </th>
+      <th>
+        晨星评级
+        <br>
+       （五年）
+      </th>
       <th>净值日期</th>
       <th>单位净值（元）</th>
       <th>净值日变动（元）</th>
@@ -71,7 +82,7 @@
           <%= quickrank_snapshot.iopv %>
         </td>
 
-        <td><%= quickrank_snapshot.yield_rate %></td>
+        <td class="<%= accnav_color(quickrank_snapshot.yield_rate) %>"><%= quickrank_snapshot.yield_rate %></td>
       </tr>
     <% end %>
   </tbody>

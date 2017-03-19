@@ -1,0 +1,12 @@
+<div class="form-group">
+  <label>基金分类：</label>
+
+  <div style="display: inline-block;">
+    <% QuickrankSnapshot.pluck(:project_category).uniq.each_with_index do |project_category, index| %>
+      <%= label_tag "project_category_#{index}" do %>
+        <%= check_box_tag "project_category_#{index}" %>
+        <%= project_category %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

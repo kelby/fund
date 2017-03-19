@@ -80,6 +80,8 @@ class Catalog < ApplicationRecord
     p: 16, q: 17, r: 18, s: 19, t: 20,
     u: 21, v: 22, w: 23, x: 24, y: 25,
     z: 26 }
+
+  scope :has_projects, -> { where("projects_count > ?", 0) }
   # END
 
 

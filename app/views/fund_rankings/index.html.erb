@@ -1,79 +1,195 @@
-<p id="notice"><%= notice %></p>
+<% content_for :content_css_link_yield do %>
+  <%= stylesheet_link_tag 'fund_rankings' %>
+<% end %>
 
-<h1>Fund Rankings</h1>
+<% set_meta_tags title: "晨星历史数据" %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Project</th>
-      <th>Code</th>
-      <th>Name</th>
-      <th>Dwjz</th>
-      <th>Three year rating</th>
-      <th>Five year rating</th>
-      <th>Last week total return</th>
-      <th>Last week ranking</th>
-      <th>Last month total return</th>
-      <th>Last month ranking</th>
-      <th>Last three month total return</th>
-      <th>Last three month ranking</th>
-      <th>Last six month total return</th>
-      <th>Last six month ranking</th>
-      <th>Last year total return</th>
-      <th>Last year ranking</th>
-      <th>Last two year total return</th>
-      <th>Last two year ranking</th>
-      <th>This year total return</th>
-      <th>This year ranking</th>
-      <th>Since the inception total return</th>
-      <th>Volatility</th>
-      <th>Volatility evaluate</th>
-      <th>Risk factor</th>
-      <th>Risk factor evaluate</th>
-      <th>Last three year sharpe ratio</th>
-      <th>Last three year sharpe ratio evaluate</th>
-      <th colspan="3"></th>
+<h1>
+  晨星历史数据
+
+  <% if @rating_date.present? %>
+    <small class="text-muted">
+      (更新于 <%= @rating_date.strftime("%F") %>)
+    </small>
+  <% end %>
+
+  <%= render 'fund_rankings/history' %>
+</h1>
+
+<%= render 'quickrank/nav' %>
+<%= render 'quickrank/form_filter', delivery_style: false, project_category: false %>
+
+<table class="table">
+  <thead class="header-box">
+    <tr align="center" bgcolor="#EEEEEE">
+      <th rowspan="2">基金代码</th>
+      <th rowspan="2">基金名称</th>
+      <th rowspan="2">单位净值<br>（元）</th>
+      <th rowspan="2">晨星评级<br>(三年)</th>
+      <th rowspan="2">晨星评级<br>(五年)</th>
+      <th colspan="2">最近一周</th>
+      <th colspan="2">最近一月</th>
+      <th colspan="2">最近三月</th>
+      <th colspan="2">最近六月</th>
+      <th colspan="2">最近一年</th>
+      <th colspan="2">最近两年</th>
+      <th colspan="2">今年以来</th>
+      <th>设立以来</th>
+      <th colspan="4">最近三年风险评价</th>
+      <th colspan="2">夏普比率</th></tr>
+      <tr align="center" bgcolor="#EEEEEE">
+      <th>总回报率<br>（%）</th>
+      <th>排名</th>
+      <th>总回报率<br>（%）</th><th>排名</th>
+      <th>总回报率<br>（%）</th>
+      <th>排名</th>
+      <th>总回报率<br>（%）</th>
+      <th>排名</th>
+      <th>总回报率<br>（%）</th>
+      <th>排名</th>
+      <th>总回报率<br>（%）</th>
+      <th>排名</th>
+      <th>总回报率<br>（%）</th>
+      <th>排名</th>
+      <th>总回报率<br>（%）</th>
+      <th>波动幅度<br>（%）</th>
+      <th>评价</th>
+      <th>晨星<br>风险系数</th>
+      <th>评价</th>
+      <th>最近<br>三年</th>
+      <th>评价</th>
     </tr>
   </thead>
 
+
   <tbody>
-    <% @fund_rankings.each do |fund_ranking| %>
-      <tr>
-        <td><%= fund_ranking.project_id %></td>
-        <td><%= fund_ranking.code %></td>
-        <td><%= fund_ranking.name %></td>
-        <td><%= fund_ranking.dwjz %></td>
-        <td><%= fund_ranking.three_year_rating %></td>
-        <td><%= fund_ranking.five_year_rating %></td>
-        <td><%= fund_ranking.last_week_total_return %></td>
-        <td><%= fund_ranking.last_week_ranking %></td>
-        <td><%= fund_ranking.last_month_total_return %></td>
-        <td><%= fund_ranking.last_month_ranking %></td>
-        <td><%= fund_ranking.last_three_month_total_return %></td>
-        <td><%= fund_ranking.last_three_month_ranking %></td>
-        <td><%= fund_ranking.last_six_month_total_return %></td>
-        <td><%= fund_ranking.last_six_month_ranking %></td>
-        <td><%= fund_ranking.last_year_total_return %></td>
-        <td><%= fund_ranking.last_year_ranking %></td>
-        <td><%= fund_ranking.last_two_year_total_return %></td>
-        <td><%= fund_ranking.last_two_year_ranking %></td>
-        <td><%= fund_ranking.this_year_total_return %></td>
-        <td><%= fund_ranking.this_year_ranking %></td>
-        <td><%= fund_ranking.since_the_inception_total_return %></td>
-        <td><%= fund_ranking.volatility %></td>
-        <td><%= fund_ranking.volatility_evaluate %></td>
-        <td><%= fund_ranking.risk_factor %></td>
-        <td><%= fund_ranking.risk_factor_evaluate %></td>
-        <td><%= fund_ranking.last_three_year_sharpe_ratio %></td>
-        <td><%= fund_ranking.last_three_year_sharpe_ratio_evaluate %></td>
-        <td><%= link_to 'Show', fund_ranking %></td>
-        <td><%= link_to 'Edit', edit_fund_ranking_path(fund_ranking) %></td>
-        <td><%= link_to 'Destroy', fund_ranking, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+
+    <% FundRanking.fund_type_classifies.each do |type_method, type_number| %>
+      <% if @fund_rankings.send(type_method).present? %>
+        <tr align="left" bgcolor="#FFFFFF">
+          <td colspan="26" style="font-weight: bold;">
+            <%= FundRanking::FUND_TYPE_SORT_HASH.invert[type_number] %>
+            (<%= @fund_rankings.send(type_method).count %>)
+          </td>
+        </tr>
+
+        <% @fund_rankings.send(type_method).each_with_index do |fund_ranking, index| %>
+          <%# page = params[:page].to_i %>
+          <%# page = 1 if page.zero? %>
+
+          <tr>
+            <!-- <td><%#= (index + 1) + (page - 1) * 500 %></td> -->
+            <td>
+              <% if fund_ranking.project.present? %>
+                <%= link_to fund_ranking.code, fund_ranking.project %>
+              <% else %>
+                <%= fund_ranking.code %>
+              <% end %>
+            </td>
+
+            <td>
+              <%= fund_ranking.name %>
+            </td>
+
+            <td>
+              <%= fund_ranking.dwjz %>
+            </td>
+
+            <td>
+              <%= fund_ranking.three_year_rating %>
+            </td>
+
+            <td>
+              <%= fund_ranking.five_year_rating %>
+            </td>
+
+            <td class="<%= accnav_color(fund_ranking.last_week_total_return) %>">
+              <%= fund_ranking.last_week_total_return %>
+            </td>
+
+            <td>
+              <%= fund_ranking.last_week_ranking %>
+            </td>
+
+            <td class="<%= accnav_color(fund_ranking.last_month_total_return) %>">
+              <%= fund_ranking.last_month_total_return %>
+            </td>
+
+            <td>
+              <%= fund_ranking.last_month_ranking %>
+            </td>
+
+            <td class="<%= accnav_color(fund_ranking.last_three_month_total_return) %>">
+              <%= fund_ranking.last_three_month_total_return %>
+            </td>
+
+            <td>
+              <%= fund_ranking.last_three_month_ranking %>
+            </td>
+
+            <td class="<%= accnav_color(fund_ranking.last_six_month_total_return) %>">
+              <%= fund_ranking.last_six_month_total_return %>
+            </td>
+
+            <td>
+              <%= fund_ranking.last_six_month_ranking %>
+            </td>
+
+            <td class="<%= accnav_color(fund_ranking.last_year_total_return) %>">
+              <%= fund_ranking.last_year_total_return %>
+            </td>
+
+            <td>
+              <%= fund_ranking.last_year_ranking %>
+            </td>
+
+            <td class="<%= accnav_color(fund_ranking.last_two_year_total_return) %>">
+              <%= fund_ranking.last_two_year_total_return %>
+            </td>
+
+            <td>
+              <%= fund_ranking.last_two_year_ranking %>
+            </td>
+
+            <td class="<%= accnav_color(fund_ranking.this_year_total_return) %>">
+              <%= fund_ranking.this_year_total_return %>
+            </td>
+
+            <td>
+              <%= fund_ranking.this_year_ranking %>
+            </td>
+
+            <td class="<%= accnav_color(fund_ranking.since_the_inception_total_return) %>">
+              <%= fund_ranking.since_the_inception_total_return %>
+            </td>
+
+
+            <td>
+              <%= fund_ranking.last_three_year_volatility %>
+            </td>
+
+            <td>
+              <%= fund_ranking.last_three_year_volatility_evaluate %>
+            </td>
+
+            <td>
+              <%= fund_ranking.last_three_year_risk_factor %>
+            </td>
+
+            <td>
+              <%= fund_ranking.last_three_year_risk_factor_evaluate %>
+            </td>
+
+            <td>
+              <%= fund_ranking.last_three_year_sharpe_ratio %>
+            </td>
+
+            <td>
+              <%= fund_ranking.last_three_year_sharpe_ratio_evaluate %>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Fund Ranking', new_fund_ranking_path %>
