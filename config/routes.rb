@@ -17,8 +17,11 @@ Rails.application.routes.draw do
       get :history, to: "fund_rankings#index"
 
       get :search
+      post :search
     end
   end
+
+  get "quickrank/history/search", to: "fund_rankings#search"
 
   resources :tags, path: 'tag', only: [:index, :show]
 

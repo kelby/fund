@@ -4,44 +4,18 @@
   </label>
 
   <div style="display: inline-block;">
-    <%= label_tag "three_year_rating_5" do %>
-      <%= check_box_tag "three_year_rating_5" %>
-      <% 5.times do %>
-        <i class="fa fa-star"></i>
-      <% end %>
-    <% end %>
+    <% 5.downto(0).each do |item| %>
+      <%= label_tag "three_year_rating_#{item}" do %>
+        <%= check_box_tag "three_year_rating", item, checked_rating('three_year_rating', item), id: "three_year_rating_#{item}" %>
 
-    <%= label_tag "three_year_rating_4" do %>
-      <%= check_box_tag "three_year_rating_4" %>
-      <% 4.times do %>
-        <i class="fa fa-star"></i>
+        <% if item.zero? %>
+          --
+        <% else %>
+          <% item.times do %>
+            <i class="fa fa-star"></i>
+          <% end %>
+        <% end %>
       <% end %>
-    <% end %>
-
-    <%= label_tag "three_year_rating_3" do %>
-      <%= check_box_tag "three_year_rating_3" %>
-      <% 3.times do %>
-        <i class="fa fa-star"></i>
-      <% end %>
-    <% end %>
-
-    <%= label_tag "three_year_rating_2" do %>
-      <%= check_box_tag "three_year_rating_2" %>
-      <% 2.times do %>
-        <i class="fa fa-star"></i>
-      <% end %>
-    <% end %>
-
-    <%= label_tag "three_year_rating_1" do %>
-      <%= check_box_tag "three_year_rating_1" %>
-      <% 1.times do %>
-        <i class="fa fa-star"></i>
-      <% end %>
-    <% end %>
-
-    <%= label_tag "three_year_rating_0" do %>
-      <%= check_box_tag "three_year_rating_0" %>
-      --
     <% end %>
   </div>
 </div>

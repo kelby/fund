@@ -1,4 +1,9 @@
-<%= form_tag "" do %>
+<%= form_tag search_quickrank_index_path do %>
+  <% if defined?(search_type) %>
+    <%= hidden_field_tag :search_type, search_type %>
+  <% end %>
+
+
   <%= render "quickrank/form/three_year_rating" %>
 
   <%= render "quickrank/form/five_year_rating" %>
@@ -12,12 +17,10 @@
   <% end %>
 
   <div class="form-group clearfix">
-    <select name="ctl00$cphMain$ddlCompany" id="ctl00_cphMain_ddlCompany" style="width:180px;">
+    <select name="company_id" id="company_id" style="width:180px;">
       <option selected="selected" value="">--基金公司--</option>
 
-      <% Catalog.has_projects.pluck(:name, :id).each do |name, id| %>
-        <option value="<%= id %>"><%= name %></option>
-      <% end %>
+      <%= options_for_select(Catalog.has_projects.pluck(:name, :id), params[:company_id]) %>
     </select>
 
     <%= text_field_tag :project_name, params[:project_name], placeholder: "基金名称" %>

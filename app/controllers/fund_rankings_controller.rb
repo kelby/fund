@@ -67,6 +67,21 @@ class FundRankingsController < ApplicationController
     end
   end
 
+
+  def search
+    # debugger
+
+    if params[:year].present? && params[:month_day].present? #{ }"year"=>"2015", "month_day"=>"12-25"
+      date_history = "#{params[:year]}-#{params[:month_day]}"
+
+      # return redirect_to date_history_quickrank_index_url()
+
+      @fund_rankings = FundRanking.where(record_at: date_history).includes(:project) # .page(params[:page]).per(500)
+    end
+
+    render :index
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_fund_ranking
