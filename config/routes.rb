@@ -45,6 +45,8 @@ Rails.application.routes.draw do
 
   resources :articles do
     resources :comments
+
+    resources :agreement_articles, only: [:create, :destroy]
   end
 
   resources :index_reports, path: 'index_report'

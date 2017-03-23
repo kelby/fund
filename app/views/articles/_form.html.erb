@@ -9,6 +9,14 @@
     <%= f.text_area :description, id: "editor", autofocus: true, required: true %>
   </div>
 
+  <%# if article.new_record? %>
+    <div class="checkbox">
+      <label>
+        <%= f.check_box :can_reprinted %> 授权平台公众号全文转载？
+      </label>
+    </div>
+  <%# end %>
+
   <div class="actions">
     <%= f.submit "提交", class: "btn btn-primary" %>
   </div>

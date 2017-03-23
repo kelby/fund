@@ -1,0 +1,3 @@
+<% if @agreement.blank? || @agreement.destroyed? %>
+  $("#article-agreement-box").html("<%= j(render 'articles/agreement', article: @article) %>")
+<% end %>

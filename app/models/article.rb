@@ -11,6 +11,7 @@
 #  view_times     :integer          default(0)
 #  comments_count :integer          default(0)
 #  slug           :string(255)
+#  can_reprinted  :boolean          default(TRUE)
 #
 
 class Article < ApplicationRecord

@@ -1,0 +1,3 @@
+<% if @agreement.persisted? %>
+  $("#article-agreement-box").html("<%= j(render 'articles/un_agreement', article: @article, agreement: @agreement) %>")
+<% end %>

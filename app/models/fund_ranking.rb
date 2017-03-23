@@ -7,8 +7,8 @@
 #  code                                  :string(255)
 #  name                                  :string(255)
 #  dwjz                                  :decimal(15, 4)
-#  three_year_rating                     :integer
-#  five_year_rating                      :integer
+#  three_year_rating                     :integer          default(0)
+#  five_year_rating                      :integer          default(0)
 #  last_week_total_return                :decimal(15, 4)
 #  last_week_ranking                     :integer
 #  last_month_total_return               :decimal(15, 4)

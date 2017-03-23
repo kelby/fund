@@ -10,17 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170319011351) do
+ActiveRecord::Schema.define(version: 20170323000327) do
+
+  create_table "agreement_articles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.integer  "user_id"
+    t.integer  "article_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "article_id"], name: "index_agreement_articles_on_user_id_and_article_id", using: :btree
+  end
 
   create_table "articles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string   "title"
-    t.text     "description",    limit: 65535
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
+    t.text     "description",              limit: 65535
+    t.datetime "created_at",                                            null: false
+    t.datetime "updated_at",                                            null: false
     t.integer  "user_id"
-    t.integer  "view_times",                   default: 0
-    t.integer  "comments_count",               default: 0
+    t.integer  "view_times",                             default: 0
+    t.integer  "comments_count",                         default: 0
     t.string   "slug"
+    t.boolean  "can_reprinted",                          default: true
+    t.integer  "agreement_articles_count",               default: 0,    null: false
     t.index ["user_id"], name: "index_articles_on_user_id", using: :btree
   end
 
@@ -243,8 +253,8 @@ ActiveRecord::Schema.define(version: 20170319011351) do
     t.string   "code"
     t.string   "name"
     t.decimal  "dwjz",                                  precision: 15, scale: 4
-    t.integer  "three_year_rating"
-    t.integer  "five_year_rating"
+    t.integer  "three_year_rating",                                              default: 0
+    t.integer  "five_year_rating",                                               default: 0
     t.decimal  "last_week_total_return",                precision: 15, scale: 4
     t.integer  "last_week_ranking"
     t.decimal  "last_month_total_return",               precision: 15, scale: 4

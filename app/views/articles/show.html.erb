@@ -8,6 +8,12 @@
 
     <h1 class="title">
       <%= @article.title %>
+
+      <% if can? :edit, @article %>
+        <small class="pull-right">
+          <%= link_to '编辑', edit_article_path(@article) %>
+        </small>
+      <% end %>
     </h1>
 
     <div class="media">
@@ -28,11 +34,17 @@
       </div>
     </div>
 
-    <% if can? :edit, @article %>
-      <%= link_to 'Edit', edit_article_path(@article) %>
-    <% end %>
 
-    <%#= link_to 'Back', articles_path %>
+    <div class="text-center" id="article-agreement-box">
+      <% agreement = AgreementArticle.find_by(user_id: current_user.id, article_id: @article.id) if user_signed_in? %>
+
+      <% if user_signed_in? && agreement.present? %>
+        <%= render 'articles/un_agreement', article: @article, agreement: agreement %>
+      <% else %>
+        <%= render 'articles/agreement', article: @article %>
+      <% end %>
+    </div>
+
 
     <!-- 评价 -->
       <% if @comments.present? %>
