@@ -32,6 +32,7 @@
 #  mold_type            :integer          default("mold_not_set")
 #  fund_chai_fens_count :integer          default(0), not null
 #  fund_fen_hongs_count :integer          default(0), not null
+#  top_at               :datetime
 #
 
 require 'elasticsearch/model'

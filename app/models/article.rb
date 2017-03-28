@@ -2,16 +2,17 @@
 #
 # Table name: articles
 #
-#  id             :integer          not null, primary key
-#  title          :string(255)
-#  description    :text(65535)
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
-#  user_id        :integer
-#  view_times     :integer          default(0)
-#  comments_count :integer          default(0)
-#  slug           :string(255)
-#  can_reprinted  :boolean          default(TRUE)
+#  id                       :integer          not null, primary key
+#  title                    :string(255)
+#  description              :text(65535)
+#  created_at               :datetime         not null
+#  updated_at               :datetime         not null
+#  user_id                  :integer
+#  view_times               :integer          default(0)
+#  comments_count           :integer          default(0)
+#  slug                     :string(255)
+#  can_reprinted            :boolean          default(TRUE)
+#  agreement_articles_count :integer          default(0), not null
 #
 
 class Article < ApplicationRecord

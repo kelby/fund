@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170323000327) do
+ActiveRecord::Schema.define(version: 20170328131806) do
 
   create_table "agreement_articles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.integer  "user_id"
@@ -456,6 +456,7 @@ ActiveRecord::Schema.define(version: 20170323000327) do
     t.integer  "mold_type",                                                   default: 0
     t.integer  "fund_chai_fens_count",                                        default: 0, null: false
     t.integer  "fund_fen_hongs_count",                                        default: 0, null: false
+    t.datetime "top_at"
     t.index ["code"], name: "index_projects_on_code", using: :btree
   end
 
