@@ -13,6 +13,10 @@ class ApplicationController < ActionController::Base
 
   add_flash_types :danger
 
+  def default_url_options(options={})
+    { :secure => true }
+  end
+
   private
   def get_recommend_episode
     @today_episode ||= Episode.online.recommend_before_today.last
