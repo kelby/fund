@@ -58,10 +58,11 @@
         </small>
       <% end %>
 
-      <small class="pull-right">
-        <%#= @catalog.projects.count %>
-        <%= @catalog_sina_info.header_info['kefu'] %>
-      </small>
+      <% if @catalog_sina_info.present? %>
+        <small class="pull-right">
+          <%= @catalog_sina_info.header_info['kefu'] %>
+        </small>
+      <% end %>
     </h2>
   </div>
 
