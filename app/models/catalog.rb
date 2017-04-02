@@ -55,6 +55,11 @@ class Catalog < ApplicationRecord
   has_many :catalog_developers
   has_many :developers, through: :catalog_developers
 
+  has_many :online_catalog_developers, -> {online}, class_name: 'CatalogDeveloper'
+  has_many :online_developers, through: :online_catalog_developers, source: :developer
+  has_many :offline_catalog_developers, -> {offline}, class_name: 'CatalogDeveloper'
+  has_many :offline_developers, through: :offline_catalog_developers, source: :developer
+
   has_one :catalog_sina_info
   has_one :catalog_eastmoney_info
   # END

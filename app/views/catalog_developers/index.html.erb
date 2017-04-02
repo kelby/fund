@@ -1,0 +1,54 @@
+<% content_for :title_content do %>
+  <%= @catalog.short_name %>名下基金经理
+<% end %>
+
+<% content_for :description_content do %>
+  共有 <%= @online_developers.size + @offline_developers.size %> 人，其中 <%= @online_developers.size %> 人在任，<%= @offline_developers.size %> 人已离任。
+<% end %>
+
+<% set_meta_tags title: yield(:title_content), description: yield(:description_content) %>
+
+<h1>
+  <%= content_for :title_content %>
+
+  <small>
+    <%= content_for :description_content %>
+  </small>
+
+  <small class="pull-right">
+    <%= link_to "返回基金公司", @catalog %>
+  </small>
+</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Avatar</th>
+      <th>就职于某基金公司</th>
+      <th>管理基金数量</th>
+      <th>当前状态</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <%= render partial: 'catalog_developers/developer', collection: @online_developers, locals: {status: 'online'} %>
+  </tbody>
+</table>
+
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Avatar</th>
+      <th>就职于某基金公司</th>
+      <th>管理基金数量</th>
+      <th>当前状态</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <%= render partial: 'catalog_developers/developer', collection: @offline_developers, locals: {status: 'offline'} %>
+  </tbody>
+</table>

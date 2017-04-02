@@ -23,4 +23,6 @@ class CatalogDeveloper < ApplicationRecord
   validates_uniqueness_of :catalog_id, scope: :developer_id
 
   enum status: { online: 0, offline: 1 }
+
+  STATUS_HASH = {'online' => "在任", 'offline' => "离任"}
 end

@@ -1,0 +1,27 @@
+<tr>
+  <td>
+    <%= link_to developer.name, developer %>
+  </td>
+
+  <td>
+    <%= link_to developer do %>
+      <%= image_tag(developer.avatar_url(:thumb), height: '50', width: '50') %>
+    <% end %>
+  </td>
+
+  <td>
+    <% developer.catalogs.each do |catalog| %>
+      <%= link_to catalog.code, catalog %>
+      -
+      <%= catalog.name %>
+    <% end %>
+  </td>
+
+  <td>
+    <%= developer.developer_projects.count %>
+  </td>
+
+  <td>
+    <%= CatalogDeveloper::STATUS_HASH[status] %>
+  </td>
+</tr>

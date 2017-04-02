@@ -1,0 +1,13 @@
+<li class="list-group-item">
+  <%= link_to developer do %>
+    <%= image_tag developer.avatar_url(:thumb), size: "50", alt: developer.name %>
+    -
+    <%= developer.name %>
+  <% end %>
+
+  <% if developer.offline? %>
+    <small class="pull-right">
+      已离职
+    </small>
+  <% end %>
+</li>

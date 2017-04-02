@@ -156,7 +156,9 @@ Rails.application.routes.draw do
   get ':author/:name/popularity', to: "repos#popularity", as: :popularity_repo
 
 
-  resources :catalogs, path: "company"
+  resources :catalogs, path: "company" do
+    resources :catalog_developers, path: 'managers', only: [:index]
+  end
   resources :categories
 
   get 'home/index'

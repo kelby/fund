@@ -4,6 +4,7 @@
   <%= stylesheet_link_tag 'catalogs' %>
 <% end %>
 
+<!-- 面包屑 -->
 <ol class="breadcrumb bg-color-white catalog-category-etc">
   <li>
     <%= link_to "基金公司", catalogs_path %>
@@ -20,6 +21,7 @@
   <% end %>
 </ol>
 
+<!-- logo及简介 -->
 <% if @catalog_sina_info.present? %>
   <div class="media">
     <div class="media-left">
@@ -27,6 +29,7 @@
         <%= image_tag @catalog.cover_url, class: "media-object", alt: @catalog.name %>
       <% end %>
     </div>
+
     <div class="media-body">
       <h4 class="media-heading">
         <%= @catalog_sina_info.header_info['name_with_ltd'] %>
@@ -37,6 +40,7 @@
   </div>
 <% end %>
 
+<!-- 基本信息 -->
 <div class="panel panel-default show-catalog">
   <div class="panel-heading">
     <h2 class="panel-title top-catalog">
@@ -55,7 +59,8 @@
       <% end %>
 
       <small class="pull-right">
-        <%= @catalog.projects.count %>
+        <%#= @catalog.projects.count %>
+        <%= @catalog_sina_info.header_info['kefu'] %>
       </small>
     </h2>
   </div>
@@ -74,6 +79,28 @@
           <%= value %>
         </li>
       <% end %>
+
+      <% @catalog_eastmoney_info.body_info.each_pair do |key, value| %>
+        <% if key =~ /总经理|客服|办公地址/ %>
+          <% next %>
+        <% end %>
+
+        <li class="list-group-item col-md-3">
+          <%= key %>
+          <%= value %>
+        </li>
+      <% end %>
+
+      <% @catalog_eastmoney_info.table_info.each_pair do |key, value| %>
+        <% if key =~ /天相评级/ %>
+          <% next %>
+        <% end %>
+
+        <li class="list-group-item col-md-3">
+          <%= key %>
+          <%= value %>
+        </li>
+      <% end %>
     </ul>
   <% end %>
 
@@ -84,6 +111,7 @@
   <% end %>
 </div>
 
+<!-- 旗下基金 -->
 <div class="panel panel-default">
   <div class="panel-heading">
     本基金公司旗下共有 <%= @projects.confirm_lineal.size %> 支基金
@@ -102,39 +130,30 @@
   </div>
 </div>
 
-
+<!-- 旗下经理 -->
 <div class="panel panel-default">
   <div class="panel-heading">
-    本基金公司旗下共有 <%= @catalog.catalog_developers.size %> 名基金经理
+    当前本基金公司旗下共有 <%= @catalog.online_developers.size %> 名基金经理
+
+    <small class="pull-right">
+      <%= link_to "查看所有经理", catalog_catalog_developers_path(@catalog) %>
+    </small>
   </div>
 
   <div class="panel-body">
-    <% if @catalog.catalog_developers.blank? %>
+    <% if @catalog.online_developers.blank? %>
       <div class="text-center text-muted">
         没有
       </div>
     <% else %>
       <ul class="media-list">
-        <% @catalog.developers.each do |developer| %>
-          <li class="list-group-item">
-            <%= link_to developer do %>
-              <%= image_tag developer.avatar_url(:thumb), size: "50", alt: developer.name %>
-              -
-              <%= developer.name %>
-            <% end %>
-
-            <% if developer.offline? %>
-              <small class="pull-right">
-                已离职
-              </small>
-            <% end %>
-          </li>
-        <% end %>
+        <%= render partial: 'catalogs/developer', collection: @catalog.online_developers %>
       </ul>
     <% end %>
   </div>
 </div>
 
+<!-- 新浪和天天信息 -->
 <% if can? :edit, @catalog %>
   <% if @catalog_sina_info.present? %>
     <div class="panel panel-default">
