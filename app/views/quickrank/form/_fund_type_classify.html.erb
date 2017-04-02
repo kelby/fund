@@ -1,0 +1,16 @@
+<div class="form-group">
+  <label>基金类型：</label>
+
+  <div style="display: inline-block;">
+
+    <% FundRanking.fund_type_classifies.each do |type_method, type_number| %>
+      <% if @fund_rankings.send(type_method).present? %>
+        <%= label_tag "fund_type_classify_#{type_number}" do %>
+          <%= check_box_tag "fund_type_classify_#{type_number}" %>
+          <%= FundRanking::FUND_TYPE_SORT_HASH.invert[type_number] %>
+        <% end %>
+      <% end %>
+    <% end %>
+
+  </div>
+</div>

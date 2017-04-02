@@ -16,6 +16,11 @@
     <%= render "quickrank/form/project_category" %>
   <% end %>
 
+  <% if defined?(fund_type_classify) && fund_type_classify %>
+    <%= render "quickrank/form/fund_type_classify" %>
+  <% end %>
+
+
   <div class="form-group clearfix">
     <select name="company_id" id="company_id" style="width:180px;">
       <option selected="selected" value="">--基金公司--</option>
