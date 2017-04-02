@@ -32,7 +32,11 @@
 
               <!-- <i class="fa fa-external-link"></i> -->
               任职起始日期：
-              <%= @developer.take_office_date.strftime("%F") %>
+              <% if @developer.take_office_date.present? %>
+                <%= @developer.take_office_date.strftime("%F") %>
+              <% else %>
+                --
+              <% end %>
 
           </span>
         </div>
