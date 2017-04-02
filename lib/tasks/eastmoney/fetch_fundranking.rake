@@ -1,7 +1,7 @@
 namespace :fetch_fundranking do
   # save
   desc "Task description"
-  task :task_name => [:dependent, :tasks] do
+  task :task_name => [:environment] do
     url = "http://fund.eastmoney.com/data/fundranking.html#tlof;c0;r;szzf;pn10000;ddesc;qsd20160219;qed20170219;qdii;zq;gg;gzbd;gzfs;bbzt;sfbb"
 
     headless = Headless.new
@@ -33,7 +33,7 @@ namespace :fetch_fundranking do
   
   # save
   desc "Task description"
-  task :task_name => [:dependent, :tasks] do
+  task :task_name => [:environment] do
     type_hash = {}
 
 
