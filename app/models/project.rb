@@ -197,6 +197,12 @@ class Project < ApplicationRecord
   acts_as_taggable
   # END
 
+  def self.touch_up_top_at(project_id)
+    project = Project.find(project_id)
+
+    project.touch(:top_at)
+  end
+
   def api_begin_net_worth(begin_date)
     begin_date = begin_date.to_time.strftime("%F")
 
