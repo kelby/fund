@@ -42,6 +42,10 @@ every 1.day, :at => '13:13 am' do
   rake "fund_toolbox:set_up_from_yield_type_with_date_range"
 end
 
+every 1.day, :at => '19:30 pm' do
+  rake "eastmoney:touch_top_at_from_month_fundranking"
+end
+
 =begin
 every 1.hours do
   runner "Project.delay_set_popularity"
