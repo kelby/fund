@@ -43,7 +43,7 @@ namespace :eastmoney do
   end
 
   desc "Task description"
-  task :task_name => [:dependent, :tasks] do
+  task :set_fund_zcpz_from_dir => [:environment] do
     # sb ||= SpiderBase.new
     number = 0
 

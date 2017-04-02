@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170328131806) do
+ActiveRecord::Schema.define(version: 20170402095900) do
 
   create_table "agreement_articles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.integer  "user_id"
@@ -41,8 +41,9 @@ ActiveRecord::Schema.define(version: 20170328131806) do
     t.decimal  "bond_ratio",  precision: 15, scale: 4
     t.decimal  "cash_ratio",  precision: 15, scale: 4
     t.decimal  "net_asset",   precision: 15, scale: 4
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
+    t.integer  "origin",                               default: 0, null: false
     t.index ["project_id", "record_at"], name: "index_asset_allocations_on_project_id_and_record_at", using: :btree
     t.index ["project_id"], name: "index_asset_allocations_on_project_id", using: :btree
   end

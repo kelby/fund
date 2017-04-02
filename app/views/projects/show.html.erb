@@ -135,7 +135,8 @@
         </td>
         <td>
           基金规模：
-          <%= @project.net_asset %>亿元（<%= @project.record_at.strftime("%F") if @project.record_at.present? %>）
+          <%= @project.net_asset %>亿元
+          （<%= @project.record_at.strftime("%F") if @project.record_at.present? %>）
         </td>
         <td>
           基金经理：
