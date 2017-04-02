@@ -78,7 +78,12 @@ class IndexReportsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_index_report
       get_code = params[:id].split("-").first
+
       @index_report = IndexReport.find_by(code: get_code)
+
+      if @index_report.blank?
+        @index_report = IndexReport.find(params[:id])
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
