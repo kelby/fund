@@ -81,26 +81,28 @@
         </li>
       <% end %>
 
-      <% @catalog_eastmoney_info.body_info.each_pair do |key, value| %>
-        <% if key =~ /总经理|客服|办公地址/ %>
-          <% next %>
+      <% if @catalog_eastmoney_info.present? %>
+        <% @catalog_eastmoney_info.body_info.each_pair do |key, value| %>
+          <% if key =~ /总经理|客服|办公地址/ %>
+            <% next %>
+          <% end %>
+
+          <li class="list-group-item col-md-3">
+            <%= key %>
+            <%= value %>
+          </li>
         <% end %>
 
-        <li class="list-group-item col-md-3">
-          <%= key %>
-          <%= value %>
-        </li>
-      <% end %>
+        <% @catalog_eastmoney_info.table_info.each_pair do |key, value| %>
+          <% if key =~ /天相评级/ %>
+            <% next %>
+          <% end %>
 
-      <% @catalog_eastmoney_info.table_info.each_pair do |key, value| %>
-        <% if key =~ /天相评级/ %>
-          <% next %>
+          <li class="list-group-item col-md-3">
+            <%= key %>
+            <%= value %>
+          </li>
         <% end %>
-
-        <li class="list-group-item col-md-3">
-          <%= key %>
-          <%= value %>
-        </li>
       <% end %>
     </ul>
   <% end %>
