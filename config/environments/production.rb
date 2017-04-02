@@ -97,4 +97,6 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  config.session_store :cookie_store, key: '_fund_toolbox_session_', expire_after: 20.years , domain: '.fund-toolbox.com'
 end
