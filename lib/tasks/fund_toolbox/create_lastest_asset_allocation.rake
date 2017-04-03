@@ -25,7 +25,7 @@ namespace :fund_toolbox do
             record_at = ele_text.scan(/\d{4}-\d{2}-\d{2}/)[0]
             origin = 'fund_show_page'
 
-            project.create_asset_allocations(net_asset: net_asset, record_at: record_at, origin: origin)
+            project.asset_allocations.create(net_asset: net_asset, record_at: record_at, origin: origin)
           end
         end
       end
