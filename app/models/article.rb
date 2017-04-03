@@ -13,6 +13,7 @@
 #  slug                     :string(255)
 #  can_reprinted            :boolean          default(TRUE)
 #  agreement_articles_count :integer          default(0), not null
+#  status                   :integer          default("online"), not null
 #
 
 class Article < ApplicationRecord
@@ -29,6 +30,7 @@ class Article < ApplicationRecord
   before_create :set_slug
   # END
 
+  enum status: { online: 0, offline: 11 }
 
   def to_param
     "#{self.id}-#{self.slug}"

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170402095900) do
+ActiveRecord::Schema.define(version: 20170403061323) do
 
   create_table "agreement_articles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.integer  "user_id"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 20170402095900) do
     t.string   "slug"
     t.boolean  "can_reprinted",                          default: true
     t.integer  "agreement_articles_count",               default: 0,    null: false
+    t.integer  "status",                                 default: 0,    null: false
     t.index ["user_id"], name: "index_articles_on_user_id", using: :btree
   end
 
