@@ -21,10 +21,18 @@
             <li><a href="#">German</a></li>
           </ul>
         </li>
+
         <li class="topbar-devider"></li>
-        <li><a href="page_faq.html">注册</a></li>
+
+        <li>
+          <%= link_to "注册", new_user_registration_path %>
+        </li>
+
         <li class="topbar-devider"></li>
-        <li><a href="page_login.html">登录</a></li>
+
+        <li>
+          <%= link_to "登录", new_user_session_path %>
+        </li>
       </ul>
     </div>
     <!-- End Topbar -->
