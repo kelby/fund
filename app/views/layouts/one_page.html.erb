@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
+<head>
+  <%= display_meta_tags site: "基金工具箱", reverse: true, separator: "-" %>
+
+  <!-- Meta -->
+  <%= csrf_meta_tags %>
+
+  <!-- <meta charset="utf-8"> -->
+  <meta content="IE=edge" http-equiv=X-UA-Compatible>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- <meta name="description" content=""> -->
+  <!-- <meta name="author" content=""> -->
+
+  <!-- Favicon -->
+  <!-- <link rel="shortcut icon" href="favicon.ico"> -->
+
+  <!-- Web Fonts -->
+  <!-- <link rel='stylesheet' type='text/css' href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600&amp;subset=cyrillic,latin'> -->
+
+  <!-- CSS Global Compulsory -->
+  <!-- <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css"> -->
+  <!-- <link rel="stylesheet" href="assets/css/style.css"> -->
+  <%= stylesheet_link_tag    'one_page', media: 'all' %>
+
+  <!-- CSS Header and Footer -->
+  <!-- <link rel="stylesheet" href="assets/css/headers/header-default.css"> -->
+  <!-- <link rel="stylesheet" href="assets/css/footers/footer-v1.css"> -->
+  <%= stylesheet_link_tag    'headers/header-default', media: 'all' %>
+  <%= stylesheet_link_tag    'footers/footer-v1', media: 'all' %>
+
+  <!-- CSS Implementing Plugins -->
+  <%= stylesheet_link_tag    'plugins/animate', media: 'all' %>
+  <!-- <link rel="stylesheet" href="assets/plugins/animate.css"> -->
+  <!-- <link rel="stylesheet" href="assets/plugins/line-icons/line-icons.css"> -->
+  <!-- <link rel="stylesheet" href="assets/plugins/font-awesome/css/font-awesome.min.css"> -->
+
+  <!-- CSS Page Style -->
+  <!-- <link rel="stylesheet" href="assets/css/pages/blog.css"> -->
+  <!-- <link rel="stylesheet" href="assets/css/pages/blog_magazine.css"> -->
+  <!-- 在对应页面单独引入即可 -->
+
+  <!-- CSS Theme -->
+  <!-- <link rel="stylesheet" href="assets/css/theme-colors/default.css" id="style_color"> -->
+  <%= stylesheet_link_tag    'theme-colors/teal', media: 'all' %>
+  <!-- <link rel="stylesheet" href="assets/css/theme-skins/dark.css"> -->
+
+  <!-- CSS Customization -->
+  <!-- <link rel="stylesheet" href="assets/css/custom.css"> -->
+  <!-- layout_css_link_yield -->
+  <%= yield(:layout_css_link_yield) %>
+  <!-- content_css_link_yield -->
+  <%= yield(:content_css_link_yield) %>
+
+  <!-- JS Global Compulsory -->
+  <%= javascript_include_tag 'one_page' %>
+
+  <!-- layout_js_link_yield -->
+  <%= yield(:layout_js_link_yield) %>
+
+  <!-- Third plugins -->
+  <meta name="google-site-verification" content="okJ_w2UII_kjLd1S_I3X4SzGmjfyi81XE7a-NH_LzLw" />
+</head>
+
+<body>
+  <div class="wrapper">
+    <!--=== Header ===-->
+    <%= render "layouts/one_page/header" %>
+    <!--=== End Header ===-->
+
+    <!-- 全局通知 -->
+    <%= render "layouts/notice_or_alert" %>
+
+    <!--=== Breadcrumbs ===-->
+    <%= yield :breadcrumbs %>
+    <!--=== End Breadcrumbs ===-->
+
+    <%= yield :prefix %>
+
+    <!--=== Content Part ===-->
+      <!-- <div class="container content"> -->
+        <%= yield %>
+      <!-- </div> --> <!--/container-->
+    <!--=== End Content Part ===-->
+
+    <%= yield :postfix %>
+
+    <!--=== Footer Version 1 ===-->
+    <%= render "layouts/one_page/footer" %>
+    <!--=== End Footer Version 1 ===-->
+  </div><!--/wrapper-->
+
+  <!-- JS Global Compulsory -->
+  <!-- <script type="text/javascript" src="assets/plugins/jquery/jquery.min.js"></script> -->
+  <!-- <script type="text/javascript" src="assets/plugins/jquery/jquery-migrate.min.js"></script> -->
+  <!-- <script type="text/javascript" src="assets/plugins/bootstrap/js/bootstrap.min.js"></script> -->
+  <!-- 位置上移到 head，因为它们是全局必须的，并且其它插件对其有依赖关系 -->
+
+  <!-- JS Implementing Plugins -->
+  <!-- <script type="text/javascript" src="assets/plugins/back-to-top.js"></script> -->
+  <!-- <script type="text/javascript" src="assets/plugins/smoothScroll.js"></script> -->
+  <%= javascript_include_tag 'plugins/back-to-top' %>
+  <%= javascript_include_tag 'plugins/smoothScroll' %>
+
+  <!-- JS Customization -->
+  <!-- more js here... -->
+  <!-- <script type="text/javascript" src="assets/js/custom.js"></script> -->
+  <%= yield :javascripts %>
+
+  <!-- JS Page Level -->
+  <!-- <script type="text/javascript" src="assets/js/app.js"></script> -->
+  <%= javascript_include_tag 'one_page/app' %>
+  <!-- <script type="text/javascript" src="assets/js/plugins/style-switcher.js"></script> -->
+  <script type="text/javascript">
+    jQuery(document).ready(function() {
+      App.init();
+      // StyleSwitcher.initStyleSwitcher();
+    });
+  </script>
+
+  <script>
+    $( ".select2" ).select2({
+      theme: "bootstrap"
+    });
+  </script>
+
+  <!--[if lt IE 9]>
+    <script src="/assets/plugins/respond.js"></script>
+    <script src="/assets/plugins/html5shiv.js"></script>
+    <script src="/assets/plugins/placeholder-IE-fixes.js"></script>
+  <![endif]-->
+</body>
+</html>

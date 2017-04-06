@@ -12,4 +12,8 @@ Rails.application.config.assets.precompile += %w( projects.js projects.css
   home.css catalogs.css categories.css project_search.css episodes.css
   bootstrap-datetimepicker.css bootstrap-datetimepicker.js bootstrap-datetimepicker.zh-CN.js
   simditor/simditor.css simditor/all.js simditor/use.js
-  rich_media.css fund_rankings.css quickrank.css)
+  rich_media.css fund_rankings.css quickrank.css
+  one_page.css
+  headers/header-default.css footers/footer-v1.css theme-colors/teal.css plugins/animate.css
+  one_page.js
+  one_page/app.js plugins/back-to-top.js plugins/smoothScroll.js)
