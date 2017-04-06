@@ -765,6 +765,14 @@ body.header-fixed-space-default {
 	text-transform: uppercase;
 }
 
+.header .mega-menu .equal-height-list li h3 a {
+  padding: 0;
+}
+
+.header .mega-menu .equal-height-in:last-child .equal-height-list:last-child li:last-child a {
+  padding-right: 25px;
+}
+
 /*Space for only Big Resolution*/
 @media (min-width: 992px) {
 	.header .mega-menu .big-screen-space {
