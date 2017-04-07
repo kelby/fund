@@ -4,65 +4,67 @@
 
 <% set_meta_tags title: "投资组合" %>
 
-<h1>
-  投资组合
+<div class="container">
+  <h1>
+    投资组合
 
-  <% if @rating_date.present? %>
-    <small class="text-muted">
-      (更新于 <%= @rating_date.strftime("%F") %>)
-    </small>
-  <% end %>
-</h1>
-
-<%= render 'quickrank/nav' %>
-<%= render 'quickrank/form_filter', delivery_style: true, project_category: true, search_type: :quickrank_portfolios %>
-
-<table class="table table-hover quickrank-table">
-  <thead>
-    <tr>
-      <th>#</th>
-      <th>代码</th>
-      <th>基金名称</th>
-
-      <th>股票投资风格箱</th>
-      <th>股票仓位(%)</th>
-      <th>债券仓位(%)</th>
-      <th>前十大持股(%)</th>
-      <th>前五大债券(%)</th>
-      <th>净资产(亿元)</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @quickrank_portfolios.each_with_index do |quickrank_portfolio, index| %>
-      <% page = params[:page].to_i %>
-      <% page = 1 if page.zero? %>
-
-      <tr>
-        <td><%= (index + 1) + (page - 1) * 1000 %></td>
-        <td>
-          <% if quickrank_portfolio.project.present? %>
-            <%= link_to quickrank_portfolio.project_code, quickrank_portfolio.project %>
-          <% else %>
-            <%= quickrank_portfolio.project_code %>
-          <% end %>
-        </td>
-
-        <td>
-          <%= quickrank_portfolio.project_name %>
-        </td>
-
-        <td><%= quickrank_portfolio.delivery_style %></td>
-        <td><%= quickrank_portfolio.stock_ratio %></td>
-        <td><%= quickrank_portfolio.bond_ratio %></td>
-        <td><%= quickrank_portfolio.top_ten_stock_ratio %></td>
-        <td><%= quickrank_portfolio.top_ten_bond_ratio %></td>
-        <td><%= quickrank_portfolio.net_asset %></td>
-      </tr>
+    <% if @rating_date.present? %>
+      <small class="text-muted">
+        (更新于 <%= @rating_date.strftime("%F") %>)
+      </small>
     <% end %>
-  </tbody>
-</table>
+  </h1>
 
-<div class="text-center">
-  <%= magic_paginate @quickrank_portfolios %>
+  <%= render 'quickrank/nav' %>
+  <%= render 'quickrank/form_filter', delivery_style: true, project_category: true, search_type: :quickrank_portfolios %>
+
+  <table class="table table-hover quickrank-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>代码</th>
+        <th>基金名称</th>
+
+        <th>股票投资风格箱</th>
+        <th>股票仓位(%)</th>
+        <th>债券仓位(%)</th>
+        <th>前十大持股(%)</th>
+        <th>前五大债券(%)</th>
+        <th>净资产(亿元)</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @quickrank_portfolios.each_with_index do |quickrank_portfolio, index| %>
+        <% page = params[:page].to_i %>
+        <% page = 1 if page.zero? %>
+
+        <tr>
+          <td><%= (index + 1) + (page - 1) * 1000 %></td>
+          <td>
+            <% if quickrank_portfolio.project.present? %>
+              <%= link_to quickrank_portfolio.project_code, quickrank_portfolio.project %>
+            <% else %>
+              <%= quickrank_portfolio.project_code %>
+            <% end %>
+          </td>
+
+          <td>
+            <%= quickrank_portfolio.project_name %>
+          </td>
+
+          <td><%= quickrank_portfolio.delivery_style %></td>
+          <td><%= quickrank_portfolio.stock_ratio %></td>
+          <td><%= quickrank_portfolio.bond_ratio %></td>
+          <td><%= quickrank_portfolio.top_ten_stock_ratio %></td>
+          <td><%= quickrank_portfolio.top_ten_bond_ratio %></td>
+          <td><%= quickrank_portfolio.net_asset %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div class="text-center">
+    <%= magic_paginate @quickrank_portfolios %>
+  </div>
 </div>

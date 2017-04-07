@@ -4,245 +4,247 @@
   <%= stylesheet_link_tag 'catalogs' %>
 <% end %>
 
-<!-- 面包屑 -->
-<ol class="breadcrumb bg-color-white catalog-category-etc">
-  <li>
-    <%= link_to "基金公司", catalogs_path %>
-  </li>
+<div class="container">
+  <!-- 面包屑 -->
+  <ol class="breadcrumb bg-color-white catalog-category-etc">
+    <li>
+      <%= link_to "基金公司", catalogs_path %>
+    </li>
 
-  <li class="active">
-    <%= @catalog.name %>
-  </li>
+    <li class="active">
+      <%= @catalog.name %>
+    </li>
 
-  <% if can? :edit, @catalog %>
-    <section class="pull-right">
-      <%= link_to "编辑", edit_catalog_path(@catalog) %>
-    </section>
-  <% end %>
-</ol>
-
-<!-- logo及简介 -->
-<% if @catalog_sina_info.present? %>
-  <div class="media">
-    <div class="media-left">
-      <%= link_to @catalog do %>
-        <%= image_tag @catalog.cover_url, class: "media-object", alt: @catalog.name %>
-      <% end %>
-    </div>
-
-    <div class="media-body">
-      <h4 class="media-heading">
-        <%= @catalog_sina_info.header_info['name_with_ltd'] %>
-      </h4>
-
-      <%= @catalog.description %>
-    </div>
-  </div>
-<% end %>
-
-<!-- 基本信息 -->
-<div class="panel panel-default show-catalog">
-  <div class="panel-heading">
-    <h2 class="panel-title top-catalog">
-      <%= link_to catalog_path(@catalog) do %>
-        <%= @catalog.name %>
-
-        <small>
-          简称：<%= @catalog.short_name %>
-        </small>
-      <% end %>
-
-      <% if @catalog.sketch.present? %>
-        <small>
-          <%= @catalog.sketch %>
-        </small>
-      <% end %>
-
-      <% if @catalog_sina_info.present? %>
-        <small class="pull-right">
-          <%= @catalog_sina_info.header_info['kefu'] %>
-        </small>
-      <% end %>
-    </h2>
-  </div>
-
-  <% if @catalog_sina_info.present? %>
-    <ul class="list-group clearfix">
-      <% if @catalog.set_up_at.present? %>
-        <li class="list-group-item col-md-3">
-          成立日期: <%= @catalog.set_up_at.strftime("%F") %>
-        </li>
-      <% end %>
-
-      <% @catalog_sina_info.body_info.each_pair do |key, value| %>
-        <li class="list-group-item col-md-3">
-          <%= key %>
-          <%= value %>
-        </li>
-      <% end %>
-
-      <% if @catalog_eastmoney_info.present? %>
-        <% @catalog_eastmoney_info.body_info.each_pair do |key, value| %>
-          <% if key =~ /总经理|客服|办公地址/ %>
-            <% next %>
-          <% end %>
-
-          <li class="list-group-item col-md-3">
-            <%= key %>
-            <%= value %>
-          </li>
-        <% end %>
-
-        <% @catalog_eastmoney_info.table_info.each_pair do |key, value| %>
-          <% if key =~ /天相评级/ %>
-            <% next %>
-          <% end %>
-
-          <li class="list-group-item col-md-3">
-            <%= key %>
-            <%= value %>
-          </li>
-        <% end %>
-      <% end %>
-    </ul>
-  <% end %>
-
-  <% if @catalog.footnote.present? %>
-    <div class="panel-footer">
-      <%= simple_format @catalog.footnote, {}, wrapper_tag: false %>
-    </div>
-  <% end %>
-</div>
-
-<!-- 旗下基金 -->
-<div class="panel panel-default">
-  <div class="panel-heading">
-    本基金公司旗下共有 <%= @projects.confirm_lineal.size %> 支基金
-  </div>
-
-  <div class="panel-body">
-    <% if @projects.blank? %>
-      <div class="text-center text-muted">
-        没有搜索到结果
-      </div>
-    <% else %>
-      <ul class="media-list">
-        <%= render partial: "projects/media_list_item", collection: @projects, as: :project %>
-      </ul>
+    <% if can? :edit, @catalog %>
+      <section class="pull-right">
+        <%= link_to "编辑", edit_catalog_path(@catalog) %>
+      </section>
     <% end %>
-  </div>
-</div>
+  </ol>
 
-<!-- 旗下经理 -->
-<div class="panel panel-default">
-  <div class="panel-heading">
-    当前本基金公司旗下共有 <%= @catalog.online_developers.size %> 名基金经理
-
-    <small class="pull-right">
-      <%= link_to "查看所有经理", catalog_catalog_developers_path(@catalog) %>
-    </small>
-  </div>
-
-  <div class="panel-body">
-    <% if @catalog.online_developers.blank? %>
-      <div class="text-center text-muted">
-        没有
-      </div>
-    <% else %>
-      <ul class="media-list">
-        <%= render partial: 'catalogs/developer', collection: @catalog.online_developers %>
-      </ul>
-    <% end %>
-  </div>
-</div>
-
-<!-- 新浪和天天信息 -->
-<% if can? :edit, @catalog %>
+  <!-- logo及简介 -->
   <% if @catalog_sina_info.present? %>
-    <div class="panel panel-default">
-      <div class="panel-heading">Header info</div>
-
-      <ul class="list-group">
-        <% @catalog_sina_info.header_info.each_pair do |key, value| %>
-          <li class="list-group-item">
-            <%= key %>
-            <br>
-            <%= value %>
-          </li>
+    <div class="media">
+      <div class="media-left">
+        <%= link_to @catalog do %>
+          <%= image_tag @catalog.cover_url, class: "media-object", alt: @catalog.name %>
         <% end %>
-      </ul>
+      </div>
+
+      <div class="media-body">
+        <h4 class="media-heading">
+          <%= @catalog_sina_info.header_info['name_with_ltd'] %>
+        </h4>
+
+        <%= @catalog.description %>
+      </div>
+    </div>
+  <% end %>
+
+  <!-- 基本信息 -->
+  <div class="panel panel-default show-catalog">
+    <div class="panel-heading">
+      <h2 class="panel-title top-catalog">
+        <%= link_to catalog_path(@catalog) do %>
+          <%= @catalog.name %>
+
+          <small>
+            简称：<%= @catalog.short_name %>
+          </small>
+        <% end %>
+
+        <% if @catalog.sketch.present? %>
+          <small>
+            <%= @catalog.sketch %>
+          </small>
+        <% end %>
+
+        <% if @catalog_sina_info.present? %>
+          <small class="pull-right">
+            <%= @catalog_sina_info.header_info['kefu'] %>
+          </small>
+        <% end %>
+      </h2>
     </div>
 
-    <div class="panel panel-default">
-      <div class="panel-heading">Body info</div>
+    <% if @catalog_sina_info.present? %>
+      <ul class="list-group clearfix">
+        <% if @catalog.set_up_at.present? %>
+          <li class="list-group-item col-md-3">
+            成立日期: <%= @catalog.set_up_at.strftime("%F") %>
+          </li>
+        <% end %>
 
-      <ul class="list-group">
         <% @catalog_sina_info.body_info.each_pair do |key, value| %>
-          <li class="list-group-item">
+          <li class="list-group-item col-md-3">
             <%= key %>
-            <br>
             <%= value %>
           </li>
         <% end %>
-      </ul>
-    </div>
 
-    <div class="panel panel-default">
-      <div class="panel-heading">Table info</div>
+        <% if @catalog_eastmoney_info.present? %>
+          <% @catalog_eastmoney_info.body_info.each_pair do |key, value| %>
+            <% if key =~ /总经理|客服|办公地址/ %>
+              <% next %>
+            <% end %>
 
-      <ul class="list-group">
-        <% @catalog_sina_info.table_info.each_pair do |key, value| %>
-          <li class="list-group-item">
-            <%= key %>
-            <br>
-            <%= value %>
-          </li>
+            <li class="list-group-item col-md-3">
+              <%= key %>
+              <%= value %>
+            </li>
+          <% end %>
+
+          <% @catalog_eastmoney_info.table_info.each_pair do |key, value| %>
+            <% if key =~ /天相评级/ %>
+              <% next %>
+            <% end %>
+
+            <li class="list-group-item col-md-3">
+              <%= key %>
+              <%= value %>
+            </li>
+          <% end %>
         <% end %>
       </ul>
+    <% end %>
+
+    <% if @catalog.footnote.present? %>
+      <div class="panel-footer">
+        <%= simple_format @catalog.footnote, {}, wrapper_tag: false %>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- 旗下基金 -->
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      本基金公司旗下共有 <%= @projects.confirm_lineal.size %> 支基金
     </div>
+
+    <div class="panel-body">
+      <% if @projects.blank? %>
+        <div class="text-center text-muted">
+          没有搜索到结果
+        </div>
+      <% else %>
+        <ul class="media-list">
+          <%= render partial: "projects/media_list_item", collection: @projects, as: :project %>
+        </ul>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- 旗下经理 -->
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      当前本基金公司旗下共有 <%= @catalog.online_developers.size %> 名基金经理
+
+      <small class="pull-right">
+        <%= link_to "查看所有经理", catalog_catalog_developers_path(@catalog) %>
+      </small>
+    </div>
+
+    <div class="panel-body">
+      <% if @catalog.online_developers.blank? %>
+        <div class="text-center text-muted">
+          没有
+        </div>
+      <% else %>
+        <ul class="media-list">
+          <%= render partial: 'catalogs/developer', collection: @catalog.online_developers %>
+        </ul>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- 新浪和天天信息 -->
+  <% if can? :edit, @catalog %>
+    <% if @catalog_sina_info.present? %>
+      <div class="panel panel-default">
+        <div class="panel-heading">Header info</div>
+
+        <ul class="list-group">
+          <% @catalog_sina_info.header_info.each_pair do |key, value| %>
+            <li class="list-group-item">
+              <%= key %>
+              <br>
+              <%= value %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">Body info</div>
+
+        <ul class="list-group">
+          <% @catalog_sina_info.body_info.each_pair do |key, value| %>
+            <li class="list-group-item">
+              <%= key %>
+              <br>
+              <%= value %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">Table info</div>
+
+        <ul class="list-group">
+          <% @catalog_sina_info.table_info.each_pair do |key, value| %>
+            <li class="list-group-item">
+              <%= key %>
+              <br>
+              <%= value %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <% if @catalog_eastmoney_info.present? %>
+      <div class="panel panel-default">
+        <div class="panel-heading">Header info</div>
+
+        <ul class="list-group">
+          <% @catalog_eastmoney_info.header_info.each_pair do |key, value| %>
+            <li class="list-group-item">
+              <%= key %>
+              <br>
+              <%= value %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">Body info</div>
+
+        <ul class="list-group">
+          <% @catalog_eastmoney_info.body_info.each_pair do |key, value| %>
+            <li class="list-group-item">
+              <%= key %>
+              <br>
+              <%= value %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">Table info</div>
+
+        <ul class="list-group">
+          <% @catalog_eastmoney_info.table_info.each_pair do |key, value| %>
+            <li class="list-group-item">
+              <%= key %>
+              <br>
+              <%= value %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
   <% end %>
-
-  <% if @catalog_eastmoney_info.present? %>
-    <div class="panel panel-default">
-      <div class="panel-heading">Header info</div>
-
-      <ul class="list-group">
-        <% @catalog_eastmoney_info.header_info.each_pair do |key, value| %>
-          <li class="list-group-item">
-            <%= key %>
-            <br>
-            <%= value %>
-          </li>
-        <% end %>
-      </ul>
-    </div>
-
-    <div class="panel panel-default">
-      <div class="panel-heading">Body info</div>
-
-      <ul class="list-group">
-        <% @catalog_eastmoney_info.body_info.each_pair do |key, value| %>
-          <li class="list-group-item">
-            <%= key %>
-            <br>
-            <%= value %>
-          </li>
-        <% end %>
-      </ul>
-    </div>
-
-    <div class="panel panel-default">
-      <div class="panel-heading">Table info</div>
-
-      <ul class="list-group">
-        <% @catalog_eastmoney_info.table_info.each_pair do |key, value| %>
-          <li class="list-group-item">
-            <%= key %>
-            <br>
-            <%= value %>
-          </li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-<% end %>
+</div>

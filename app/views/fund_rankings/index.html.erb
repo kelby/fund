@@ -4,22 +4,24 @@
 
 <% set_meta_tags title: "晨星历史数据" %>
 
-<h1>
-  晨星历史数据
+<div class="container">
+  <h1>
+    晨星历史数据
 
-  <% if @rating_date.present? %>
-    <small class="text-muted">
-      (更新于 <%= @rating_date.strftime("%F") %>)
-    </small>
-  <% end %>
+    <% if @rating_date.present? %>
+      <small class="text-muted">
+        (更新于 <%= @rating_date.strftime("%F") %>)
+      </small>
+    <% end %>
 
-  <%= render 'fund_rankings/history' %>
-</h1>
+    <%= render 'fund_rankings/history' %>
+  </h1>
 
-<%= render 'quickrank/nav' %>
-<%= render 'quickrank/form_filter', delivery_style: false, project_category: false, search_type: :fund_rankings, fund_type_classify: true %>
+  <%= render 'quickrank/nav' %>
+  <%= render 'quickrank/form_filter', delivery_style: false, project_category: false, search_type: :fund_rankings, fund_type_classify: true %>
+</div>
 
-<table class="table">
+<table class="table table-hover">
   <thead class="header-box">
     <tr align="center" bgcolor="#EEEEEE">
       <th rowspan="2">基金代码</th>
@@ -63,7 +65,6 @@
 
 
   <tbody>
-
     <% FundRanking.fund_type_classifies.each do |type_method, type_number| %>
       <% if @fund_rankings.send(type_method).present? %>
         <tr align="left" bgcolor="#FFFFFF">

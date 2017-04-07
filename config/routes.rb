@@ -187,5 +187,5 @@ Rails.application.routes.draw do
 
   get 'projects/:code-:slug', to: "projects#repo", as: :repo
 
-  get ':name', to: "developers#show", as: :show_developer
+  # get ':name', to: "developers#show", as: :show_developer
 end

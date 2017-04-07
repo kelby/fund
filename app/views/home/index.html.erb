@@ -5,13 +5,57 @@
 <% end %>
 
 <% content_for :prefix do %>
-  <div class="container bg-color-white prefix">
+  <!-- <div class="container bg-color-white prefix">
     <h1 class="slogan">
       <%#= image_tag "demo-WechatIMG5.jpeg" %>
-      <%= Settings.website.slogan %>
+      <%#= Settings.website.slogan %>
     </h1>
-  </div>
+  </div> -->
 <% end %>
+
+<div class="container content">
+  <div class="title-v1">
+    <h2>
+      <%= Settings.website.slogan %>
+    </h2>
+
+    <p>
+      多年基金实战经验，经历牛熊洗礼，我们更<strong>专业</strong>，移动互联时代，结合多年经验加技术，我们更<strong>现代</strong>，<br>
+      用数据说话，用业绩证明，我们是您的朋友，我们是您<strong>可靠</strong>选择。
+    </p>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 content-boxes-v3 margin-bottom-40">
+      <div class="clearfix margin-bottom-30">
+        <i class="icon-custom icon-md rounded-x icon-bg-u icon-line icon-trophy fa fa-connectdevelop"></i>
+        <div class="content-boxes-in-v3">
+          <h2 class="heading-sm">专业</h2>
+          <p>投资指数基金，是一般人做投资的最好选择，会超过大部分的投资人，从过往历史上也可以得出这个结论，过去20年傻傻的拿着指数基金的回报，远远超过90% 的专业投资人。</p>
+        </div>
+      </div>
+      <div class="clearfix margin-bottom-30">
+        <i class="icon-custom icon-md rounded-x icon-bg-u icon-line icon-directions fa fa-cc-mastercard"></i>
+        <div class="content-boxes-in-v3">
+          <h2 class="heading-sm">现代</h2>
+          <p>互联网企业与基金公司跨界合作，抓住人们不同用途的闲置资金，进行细分市场的短期理财。这些产品降低了基金投资门槛，申购赎回操作方便，具备较好的流动性特征。</p>
+        </div>
+      </div>
+      <div class="clearfix margin-bottom-30">
+        <i class="icon-custom icon-md rounded-x icon-bg-u icon-line icon-diamond fa fa-line-chart"></i>
+        <div class="content-boxes-in-v3">
+          <h2 class="heading-sm">可靠</h2>
+          <p>营运各种基金资产。投资者投资于基金，犹如聘请一个专业化的投资顾问，既省力又安全可靠，且可获得较高的收益。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <%= image_tag "pexels-photo-159888.jpeg", class: "img-responsive" %>
+    </div>
+  </div>
+</div>
+
 
 
 <% if @episode.present? %>
@@ -99,25 +143,25 @@
     <div class="panel-heading">全部基金分类</div>
 
     <div class="panel-body">
-    <% CustomTag.all.each_slice(6) do |tags| %>
+      <% CustomTag.all.each_slice(6) do |tags| %>
 
-      <dl class="clearfix">
-        <% tags.each do |tag| %>
-         <dt class="col-md-1 col-xs-6 no-padding">
-            <%= link_to tag_path(tag), target: "_blank" do %>
-             <%= tag.name %>
-           <% end %>
-         </dt>
+        <dl class="clearfix">
+          <% tags.each do |tag| %>
+           <dt class="col-md-1 col-xs-6 no-padding">
+              <%= link_to tag_path(tag), target: "_blank" do %>
+               <%= tag.name %>
+             <% end %>
+           </dt>
 
-         <dd class="col-md-1 col-xs-6">
-          <span class="badge">
-            <%= tag.taggings_count %>
-          </span>
-         </dd>
-        <% end %>
-      </dl>
+           <dd class="col-md-1 col-xs-6">
+            <span class="badge">
+              <%= tag.taggings_count %>
+            </span>
+           </dd>
+          <% end %>
+        </dl>
 
-    <% end %>
+      <% end %>
     </div>
   </div>
 </div>
