@@ -7,8 +7,8 @@
 */
 
 /*Import Global Compulsory CSS Files*/
-@import url(app.css);
-@import url(blocks.css);
+@import url(one-page/app.css);
+@import url(one-page/blocks.css);
 
 /*Import CSS Plugins*/
 /*@import url(plugins/style-switcher.css);*/
