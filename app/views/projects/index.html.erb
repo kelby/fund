@@ -4,31 +4,32 @@
   <%= stylesheet_link_tag 'projects' %>
 <% end %>
 
+<div class="container">
+  <div class="title-box">
 
-<div class="title-box">
+    <h1>
+      股票型、混合型、债券型、指数型、保本型、QDII、LOF等基金数据。
 
-  <h1>
-    股票型、混合型、债券型、指数型、保本型、QDII、LOF等基金数据。
+      <!-- <small> -->
+      <!-- </small> -->
 
-    <!-- <small> -->
-    <!-- </small> -->
+      <small class="pull-right">
+        <%= @projects.unscope(:limit, :offset).count %>
+        <%#= link_to 'New Project', new_project_path %>
+      </small>
+    </h1>
 
-    <small class="pull-right">
-      <%= @projects.unscope(:limit, :offset).count %>
-      <%#= link_to 'New Project', new_project_path %>
-    </small>
-  </h1>
-
-</div>
-
-
-<div class="bg-with-white clearfix projects-wraper">
-  <%= render partial: "projects/item", collection: @projects, as: :project %>
-</div>
+  </div>
 
 
-<div class="col-md-12">
-  <div class="text-center">
-    <%= magic_paginate @projects %>
+  <div class="bg-with-white clearfix projects-wraper">
+    <%= render partial: "projects/item", collection: @projects, as: :project %>
+  </div>
+
+
+  <div class="col-md-12">
+    <div class="text-center">
+      <%= magic_paginate @projects %>
+    </div>
   </div>
 </div>

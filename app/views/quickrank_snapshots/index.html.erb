@@ -4,90 +4,92 @@
 
 <% set_meta_tags title: "基金龙虎榜" %>
 
-<h1>
-  基金龙虎榜
+<div class="container">
+  <h1>
+    基金龙虎榜
 
-  <% if @rating_date.present? %>
-    <small class="text-muted">
-      (更新于 <%= @rating_date.strftime("%F") %>)
-    </small>
-  <% end %>
-</h1>
-
-<%= render 'quickrank/nav' %>
-<%= render 'quickrank/form_filter', delivery_style: true, project_category: true, search_type: :quickrank_snapshots %>
-
-<table class="table table-hover quickrank-table">
-  <thead>
-    <tr>
-      <th>#</th>
-      <th>代码</th>
-      <th>基金名称</th>
-      <th>基金分类</th>
-      <th>
-        晨星评级
-        <br>
-       （三年）
-      </th>
-      <th>
-        晨星评级
-        <br>
-       （五年）
-      </th>
-      <th>净值日期</th>
-      <th>单位净值（元）</th>
-      <th>净值日变动（元）</th>
-      <th>今年以来回报（%）</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @quickrank_snapshots.each_with_index do |quickrank_snapshot, index| %>
-      <% page = params[:page].to_i %>
-      <% page = 1 if page.zero? %>
-
-      <tr>
-        <td><%= (index + 1) + (page - 1) * 1000 %></td>
-        <td>
-          <% if quickrank_snapshot.project.present? %>
-            <%= link_to quickrank_snapshot.project_code, quickrank_snapshot.project %>
-          <% else %>
-            <%= quickrank_snapshot.project_code %>
-          <% end %>
-        </td>
-
-        <td>
-          <%= quickrank_snapshot.project_name %>
-        </td>
-
-        <td>
-          <%= quickrank_snapshot.project_category %>
-        </td>
-
-        <td>
-          <%= quickrank_snapshot.star_rating_three_year %>
-        </td>
-
-        <td>
-          <%= quickrank_snapshot.star_rating_five_year %>
-        </td>
-
-        <td>
-          <%= quickrank_snapshot.record_at.strftime("%F") if quickrank_snapshot.record_at.present? %>
-        </td>
-
-        <td><%= quickrank_snapshot.dwjz %></td>
-
-        <td>
-          <%= quickrank_snapshot.iopv %>
-        </td>
-
-        <td class="<%= accnav_color(quickrank_snapshot.yield_rate) %>"><%= quickrank_snapshot.yield_rate %></td>
-      </tr>
+    <% if @rating_date.present? %>
+      <small class="text-muted">
+        (更新于 <%= @rating_date.strftime("%F") %>)
+      </small>
     <% end %>
-  </tbody>
-</table>
+  </h1>
 
-<div class="text-center">
-  <%= magic_paginate @quickrank_snapshots %>
+  <%= render 'quickrank/nav' %>
+  <%= render 'quickrank/form_filter', delivery_style: true, project_category: true, search_type: :quickrank_snapshots %>
+
+  <table class="table table-hover quickrank-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>代码</th>
+        <th>基金名称</th>
+        <th>基金分类</th>
+        <th>
+          晨星评级
+          <br>
+         （三年）
+        </th>
+        <th>
+          晨星评级
+          <br>
+         （五年）
+        </th>
+        <th>净值日期</th>
+        <th>单位净值（元）</th>
+        <th>净值日变动（元）</th>
+        <th>今年以来回报（%）</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @quickrank_snapshots.each_with_index do |quickrank_snapshot, index| %>
+        <% page = params[:page].to_i %>
+        <% page = 1 if page.zero? %>
+
+        <tr>
+          <td><%= (index + 1) + (page - 1) * 1000 %></td>
+          <td>
+            <% if quickrank_snapshot.project.present? %>
+              <%= link_to quickrank_snapshot.project_code, quickrank_snapshot.project %>
+            <% else %>
+              <%= quickrank_snapshot.project_code %>
+            <% end %>
+          </td>
+
+          <td>
+            <%= quickrank_snapshot.project_name %>
+          </td>
+
+          <td>
+            <%= quickrank_snapshot.project_category %>
+          </td>
+
+          <td>
+            <%= quickrank_snapshot.star_rating_three_year %>
+          </td>
+
+          <td>
+            <%= quickrank_snapshot.star_rating_five_year %>
+          </td>
+
+          <td>
+            <%= quickrank_snapshot.record_at.strftime("%F") if quickrank_snapshot.record_at.present? %>
+          </td>
+
+          <td><%= quickrank_snapshot.dwjz %></td>
+
+          <td>
+            <%= quickrank_snapshot.iopv %>
+          </td>
+
+          <td class="<%= accnav_color(quickrank_snapshot.yield_rate) %>"><%= quickrank_snapshot.yield_rate %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div class="text-center">
+    <%= magic_paginate @quickrank_snapshots %>
+  </div>
 </div>

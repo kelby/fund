@@ -55,49 +55,26 @@
             基金
           </a>
           <ul class="dropdown-menu">
-            <li><a href="index.html">基金净值</a></li>
-            <li><a href="index.html">基金排行</a></li>
-            <li><a href="index.html">基金列表</a></li>
+            <li>
+              <%= link_to "基金净值", "javascript:void(0);" %>
+            </li>
+            <li>
+              <%= link_to "基金排行", "javascript:void(0);" %>
+            </li>
+            <li>
+              <%= link_to "基金列表", projects_path %>
+            </li>
           </ul>
         </li>
         <!-- End Home -->
 
-        <!-- Pages -->
-        <li class="dropdown">
-          <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
-            基金公司
-          </a>
-          <ul class="dropdown-menu">
-            <% Catalog.pluck(:initial).uniq.each do |initial| %>
-            <!-- About Pages -->
-            <li class="dropdown-submenu">
-              <a href="javascript:void(0);"><%= initial.upcase %></a>
-              <ul class="dropdown-menu">
-                <% Catalog.where(initial: initial).each do |catalog| %>
-                  <li>
-                    <%= link_to catalog.name, catalog %>
-                  </li>
-                <% end %>
-              </ul>
-            </li>
-            <!-- End About Pages -->
-            <% end %>
-
-            <!-- Invoice Page -->
-            <li>
-              <%= link_to "查看全部", catalogs_path %>
-            </li>
-            <!-- End Invoice Page -->
-          </ul>
-        </li>
-        <!-- End Pages -->
-
         <!-- Blog -->
-        <li class="dropdown active">
-          <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+        <li class="">
+          <%= link_to "基金经理", developers_path %>
+          <!-- <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
             基金经理
-          </a>
-          <ul class="dropdown-menu">
+          </a> -->
+          <!-- <ul class="dropdown-menu">
             <li class="dropdown-submenu">
               <a href="javascript:void(0);">Blog Large Image</a>
               <ul class="dropdown-menu">
@@ -134,9 +111,39 @@
             </li>
             <li><a href="blog_masonry_3col.html">Masonry Grid Blog</a></li>
             <li><a href="blog_timeline.html">Blog Timeline</a></li>
-          </ul>
+          </ul> -->
         </li>
         <!-- End Blog -->
+
+        <!-- Pages -->
+        <li class="dropdown">
+          <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+            基金公司
+          </a>
+          <ul class="dropdown-menu">
+            <% Catalog.pluck(:initial).uniq.each do |initial| %>
+            <!-- About Pages -->
+            <li class="dropdown-submenu">
+              <a href="javascript:void(0);"><%= initial.upcase %></a>
+              <ul class="dropdown-menu">
+                <% Catalog.where(initial: initial).each do |catalog| %>
+                  <li>
+                    <%= link_to catalog.name, catalog %>
+                  </li>
+                <% end %>
+              </ul>
+            </li>
+            <!-- End About Pages -->
+            <% end %>
+
+            <!-- Invoice Page -->
+            <li>
+              <%= link_to "查看全部", catalogs_path %>
+            </li>
+            <!-- End Invoice Page -->
+          </ul>
+        </li>
+        <!-- End Pages -->
 
         <!-- Shortcodes -->
         <li class="dropdown mega-menu-fullwidth">
@@ -180,155 +187,10 @@
         </li>
         <!-- End Shortcodes -->
 
-        <!-- Features -->
-        <li class="dropdown">
-          <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
-            文章
-          </a>
-          <ul class="dropdown-menu">
-            <li class="dropdown-submenu">
-              <a href="javascript:void(0);">Headers</a>
-              <ul class="dropdown-menu">
-                <li><a href="feature_header_default.html">Header Default</a></li>
-                <li><a href="feature_header_default_no_topbar.html">Header Default without Topbar</a></li>
-                <li><a href="feature_header_default_centered.html">Header Default Centered</a></li>
-                <li><a href="feature_header_default_fixed.html">Header Default Fixed (Sticky)</a></li>
-                <li><a href="feature_header_default_login_popup.html">Header Default Login Popup</a></li>
-                <li><a href="feature_header_v1.html">Header v1</a></li>
-                <li><a href="feature_header_v2.html">Header v2</a></li>
-                <li><a href="feature_header_v3.html">Header v3</a></li>
-                <li><a href="feature_header_v4.html">Header v4</a></li>
-                <li><a href="feature_header_v4_logo_centered.html">Header v4 Centered Logo</a></li>
-                <li><a href="feature_header_v5.html">Header v5</a></li>
-                <li><a href="feature_header_v6_transparent.html">Header v6 Transparent</a></li>
-                <li><a href="feature_header_v6_semi_dark_transparent.html">Header v6 Dark Transparent</a></li>
-                <li><a href="feature_header_v6_semi_white_transparent.html">Header v6 White Transparent</a></li>
-                <li><a href="feature_header_v6_border_bottom.html">Header v6 Border Bottom</a></li>
-                <li><a href="feature_header_v6_classic_dark.html">Header v6 Classic Dark</a></li>
-                <li><a href="feature_header_v6_classic_white.html">Header v6 Classic White</a></li>
-                <li><a href="feature_header_v6_dark_dropdown.html">Header v6 Dark Dropdown</a></li>
-                <li><a href="feature_header_v6_dark_scroll.html">Header v6 Dark on Scroll</a></li>
-                <li><a href="feature_header_v6_dark_search.html">Header v6 Dark Search</a></li>
-                <li><a href="feature_header_v6_dark_res_nav.html">Header v6 Dark in Responsive</a></li>
-                <li><a href="page_home12.html">Header v7 Left Sidebar</a></li>
-                <li><a href="page_home13.html">Header v7 Right Sidebar</a></li>
-                <li><a href="feature_header_v8.html">Header v8</a></li>
-              </ul>
-            </li>
-            <li class="dropdown-submenu">
-              <a href="javascript:void(0);">Footers</a>
-              <ul class="dropdown-menu">
-                <li><a href="feature_footer_default.html#footer-default">Footer Default</a></li>
-                <li><a href="feature_footer_v1.html#footer-v1">Footer v1</a></li>
-                <li><a href="feature_footer_v2.html#footer-v2">Footer v2</a></li>
-                <li><a href="feature_footer_v3.html#footer-v3">Footer v3</a></li>
-                <li><a href="feature_footer_v4.html#footer-v4">Footer v4</a></li>
-                <li><a href="feature_footer_v5.html#footer-v5">Footer v5</a></li>
-                <li><a href="feature_footer_v6.html#footer-v6">Footer v6</a></li>
-                <li><a href="feature_footer_v7.html#footer-v7">Footer v7</a></li>
-                <li><a href="feature_footer_v8.html#footer-v8">Footer v8</a></li>
-              </ul>
-            </li>
-            <li><a href="feature_gallery.html">Gallery Examples</a></li>
-            <li><a href="feature_animations.html">Animations on Scroll</a></li>
-            <li><a href="feature_parallax_counters.html">Parallax Counters</a></li>
-            <li><a href="feature_testimonials_quotes.html">Testimonials and Quotes</a></li>
-            <li><a href="feature_icon_blocks.html">Icon Blocks</a></li>
-            <li><a href="feature_team_blocks.html">Team Blocks</a></li>
-            <li><a href="feature_news_blocks.html">News Blocks</a></li>
-            <li><a href="feature_parallax_blocks.html">Parallax Blocks</a></li>
-            <li><a href="feature_funny_boxes.html">Funny Boxes</a></li>
-            <li><a href="feature_call_to_actions.html">Call To Action</a></li>
-          </ul>
-        </li>
-        <!-- End Features -->
-
-        <!-- Portfolio -->
-        <li class="dropdown">
-          <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
-            指数系列
-          </a>
-          <ul class="dropdown-menu">
-            <li class="dropdown-submenu">
-              <a href="javascript:void(0);">No Space Boxed</a>
-              <ul class="dropdown-menu">
-                <li><a href="portfolio_2_columns_grid_no_space.html">2 Columns</a></li>
-                <li><a href="portfolio_3_columns_grid_no_space.html">3 Columns</a></li>
-                <li><a href="portfolio_4_columns_grid_no_space.html">4 Columns</a></li>
-              </ul>
-            </li>
-            <li class="dropdown-submenu">
-              <a href="javascript:void(0);">Grid Boxed</a>
-              <ul class="dropdown-menu">
-                <li><a href="portfolio_2_columns_grid.html">2 Columns</a></li>
-                <li><a href="portfolio_3_columns_grid.html">3 Columns</a></li>
-                <li><a href="portfolio_4_columns_grid.html">4 Columns</a></li>
-              </ul>
-            </li>
-            <li class="dropdown-submenu">
-              <a href="javascript:void(0);">Grid Text Boxed</a>
-              <ul class="dropdown-menu">
-                <li><a href="portfolio_2_columns_grid_text.html">2 Columns</a></li>
-                <li><a href="portfolio_3_columns_grid_text.html">3 Columns</a></li>
-                <li><a href="portfolio_4_columns_grid_text.html">4 Columns</a></li>
-              </ul>
-            </li>
-            <li class="dropdown-submenu">
-              <a href="javascript:void(0);">No Space Full Width</a>
-              <ul class="dropdown-menu">
-                <li><a href="portfolio_2_columns_fullwidth_no_space.html">2 Columns</a></li>
-                <li><a href="portfolio_3_columns_fullwidth_no_space.html">3 Columns</a></li>
-                <li><a href="portfolio_4_columns_fullwidth_no_space.html">4 Columns</a></li>
-                <li><a href="portfolio_5_columns_fullwidth_no_space.html">5 Columns</a></li>
-                <li><a href="portfolio_6_columns_fullwidth_no_space.html">6 Columns</a></li>
-              </ul>
-            </li>
-            <li class="dropdown-submenu">
-              <a href="javascript:void(0);">Grid Full Width</a>
-              <ul class="dropdown-menu">
-                <li><a href="portfolio_2_columns_fullwidth.html">2 Columns</a></li>
-                <li><a href="portfolio_3_columns_fullwidth.html">3 Columns</a></li>
-                <li><a href="portfolio_4_columns_fullwidth.html">4 Columns</a></li>
-                <li><a href="portfolio_5_columns_fullwidth.html">5 Columns</a></li>
-                <li><a href="portfolio_6_columns_fullwidth.html">6 Columns</a></li>
-              </ul>
-            </li>
-            <li class="dropdown-submenu">
-              <a href="javascript:void(0);">Grid Text Full Width</a>
-              <ul class="dropdown-menu">
-                <li><a href="portfolio_2_columns_fullwidth_text.html">2 Columns</a></li>
-                <li><a href="portfolio_3_columns_fullwidth_text.html">3 Columns</a></li>
-                <li><a href="portfolio_4_columns_fullwidth_text.html">4 Columns</a></li>
-                <li><a href="portfolio_5_columns_fullwidth_text.html">5 Columns</a></li>
-                <li><a href="portfolio_6_columns_fullwidth_text.html">6 Columns</a></li>
-              </ul>
-            </li>
-            <li><a href="portfolio_hover_colors.html">Portfolio Hover Colors</a></li>
-            <li class="dropdown-submenu">
-              <a href="javascript:void(0);">Portfolio Items</a>
-              <ul class="dropdown-menu">
-                <li><a href="portfolio_single_item.html">Single Item</a></li>
-                <li><a href="portfolio_old_item.html">Basic Item 1</a></li>
-                <li><a href="portfolio_old_item1.html">Basic Item 2</a></li>
-              </ul>
-            </li>
-            <li class="dropdown-submenu">
-              <a href="javascript:void(0);">Portfolio Basic Pages</a>
-              <ul class="dropdown-menu">
-                <li><a href="portfolio_old_text_blocks.html">Basic Grid Text</a></li>
-                <li><a href="portfolio_old_2_column.html">Basic 2 Columns</a></li>
-                <li><a href="portfolio_old_3_column.html">Basic 3 Columns</a></li>
-                <li><a href="portfolio_old_4_column.html">Basic 4 Columns</a></li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-        <!-- End Portfolio -->
-
         <!-- Demo Pages -->
         <li class="dropdown mega-menu-fullwidth">
           <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
-            基金公司
+            文章
           </a>
           <ul class="dropdown-menu">
             <li>
@@ -337,48 +199,28 @@
                   <div class="row equal-height">
                     <div class="col-md-3 equal-height-in">
                       <ul class="list-unstyled equal-height-list">
-                        <li><a href="One-Pages/Accounting/index.html">Accounting</a></li>
-                        <li><a href="One-Pages/Agency/index.html">Agency</a></li>
-                        <li><a href="One-Pages/Architecture/index.html">Architecture</a></li>
-                        <li><a href="One-Pages/Business/index.html">Business</a></li>
-                        <li><a href="One-Pages/Charity/index.html">Charity</a></li>
-                        <li><a href="Landing-Pages/Consulting/index.html">Consulting</a></li>
-                        <li><a href="One-Pages/Courses/index.html">Courses</a></li>
+                        <li><a href="javascript:void(0);">Accounting</a></li>
+                        <li><a href="javascript:void(0);">Agency</a></li>
+                        <li><a href="javascript:void(0);">Architecture</a></li>
+                        <li><a href="javascript:void(0);">Business</a></li>
+                        <li><a href="javascript:void(0);">Charity</a></li>
+                        <li><a href="javascript:void(0);">Consulting</a></li>
+                        <li><a href="javascript:void(0);">Courses</a></li>
                       </ul>
                     </div>
 
                     <div class="col-md-3 equal-height-in">
                       <ul class="list-unstyled equal-height-list">
-                        <li><a href="One-Pages/Construction/index.html">Construction</a></li>
-                        <li><a href="One-Pages/Event/index.html">Event <small class="color-red">New</small></a></li>
-                        <li><a href="One-Pages/Gym/index.html">Gym</a></li>
-                        <li><a href="One-Pages/Lawyer/index.html">Lawyer</a></li>
-                        <li><a href="One-Pages/App/index.html">Mobile App</a></li>
-                        <li><a href="One-Pages/Music/index.html">Music</a></li>
-                        <li><a href="One-Pages/Photographer/index.html">Photographer</a></li>
+                        <li><a href="javascript:void(0);">Construction</a></li>
+                        <li><a href="javascript:void(0);">Event <small class="color-red">New</small></a></li>
+                        <li><a href="javascript:void(0);">Gym</a></li>
+                        <li><a href="javascript:void(0);">Lawyer</a></li>
+                        <li><a href="javascript:void(0);">Mobile App</a></li>
+                        <li><a href="javascript:void(0);">Music</a></li>
+                        <li><a href="javascript:void(0);">Photographer</a></li>
                       </ul>
                     </div>
-                    <div class="col-md-3 equal-height-in">
-                      <ul class="list-unstyled equal-height-list">
-                        <li><a href="One-Pages/Restaurant/index.html">Restaurant</a></li>
-                        <li><a href="One-Pages/RealEstate/index.html">Real Estate</a></li>
-                        <li><a href="One-Pages/Shipping/index.html">Shipping</a></li>
-                        <li><a href="One-Pages/Spa/index.html">Spa</a></li>
-                        <li><a href="One-Pages/Travel/index.html">Travel</a></li>
-                        <li><a href="Landing-Pages/Wealth/index.html">Wealth</a></li>
-                        <li><a href="One-Pages/Wedding/index.html">Wedding</a></li>
-                      </ul>
-                    </div>
-                    <div class="col-md-3 equal-height-in">
-                      <ul class="list-unstyled equal-height-list">
-                        <li><a href="One-Pages/Hero-Fashion/index.html">Hero Fashion</a></li>
-                        <li><a href="One-Pages/Hero-Gym/index.html">Hero Gym</a></li>
-                        <li><a href="One-Pages/Hero-Photography/index.html">Hero Photography</a></li>
-                        <li><a href="One-Pages/Hero-Restaurant/index.html">Hero Restaurant</a></li>
-                        <li><a href="One-Pages/Hero-WebApp/index-dark.html">Hero Web App Dark</a></li>
-                        <li><a href="One-Pages/Hero-WebApp/index.html">Hero Web App Light</a></li>
-                      </ul>
-                    </div>
+
                   </div>
                 </div>
               </div>
@@ -386,6 +228,28 @@
           </ul>
         </li>
         <!-- End Demo Pages -->
+
+        <!-- Features -->
+        <li class="dropdown">
+          <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+            评级数据
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <%= link_to "基金龙虎榜", snapshot_quickrank_index_path %>
+            </li>
+            <li>
+              <%= link_to "业绩和风险", performance_quickrank_index_path %>
+            </li>
+            <li>
+              <%= link_to "投资组合", portfolio_quickrank_index_path %>
+            </li>
+            <li>
+              <%= link_to "晨星历史数据", history_quickrank_index_path %>
+            </li>
+          </ul>
+        </li>
+        <!-- End Features -->
 
         <!-- Search Block -->
         <li>

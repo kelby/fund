@@ -4,7 +4,7 @@
   <%= stylesheet_link_tag 'projects' %>
 <% end %>
 
-
+<div class="container">
 <%# if @project.category.present? %>
   <div class="panel panel-default popular-projects">
     <ol class="breadcrumb catalog-category-etc">
@@ -267,7 +267,7 @@
       <%= render 'comments/form', comment: @comment, commentable: @project %>
     </div>
   </div>
-<!-- </div> -->
+</div>
 
 <% content_for :javascripts do %>
   <%= javascript_include_tag 'projects' %>
