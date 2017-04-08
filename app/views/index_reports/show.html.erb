@@ -1,78 +1,80 @@
 <% set_meta_tags title: "#{@index_report.name}(#{@index_report.code})", description: @index_report.intro %>
 
-<ol class="breadcrumb no-padding-left">
-  <li>
-    <%= link_to index_reports_path(filter_type: 'catalog', filter_code: @index_report.catalog) do %>
-      <%= @index_report.catalog %>
-    <% end %>
-  </li>
-  <li>
-    <%= link_to index_reports_path(filter_type: 'category', filter_code: @index_report.category) do %>
-      <%= @index_report.category %>
-    <% end %>
-  </li>
-  <li class="active"><%= @index_report.name %></li>
-</ol>
+<div class="container">
+  <ol class="breadcrumb no-padding-left">
+    <li>
+      <%= link_to index_reports_path(filter_type: 'catalog', filter_code: @index_report.catalog) do %>
+        <%= @index_report.catalog %>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to index_reports_path(filter_type: 'category', filter_code: @index_report.category) do %>
+        <%= @index_report.category %>
+      <% end %>
+    </li>
+    <li class="active"><%= @index_report.name %></li>
+  </ol>
 
-<h1>
-  <%= @index_report.name %>
-</h1>
+  <h1>
+    <%= @index_report.name %>
+  </h1>
 
 
-<p>
-  <strong>Category intro:</strong>
-  <%= @index_report.category_intro %>
-</p>
-
-<p>
-  <strong>Intro:</strong>
-  <%= @index_report.intro %>
-</p>
-
-<% if can? :edit, @index_report %>
   <p>
-    <strong>Website:</strong>
-    <%= @index_report.website %>
+    <strong>Category intro:</strong>
+    <%= @index_report.category_intro %>
   </p>
-<% end %>
 
-<p>
-  <strong>Code:</strong>
-  <%= @index_report.code %>
-</p>
+  <p>
+    <strong>Intro:</strong>
+    <%= @index_report.intro %>
+  </p>
 
-<p>
-  <strong>Set up at:</strong>
-  <%= @index_report.set_up_at %>
-</p>
+  <% if can? :edit, @index_report %>
+    <p>
+      <strong>Website:</strong>
+      <%= @index_report.website %>
+    </p>
+  <% end %>
 
-<% if can? :edit, @index_report %>
-  <%= link_to 'Edit', edit_index_report_path(@index_report) %>
-<% end %>
+  <p>
+    <strong>Code:</strong>
+    <%= @index_report.code %>
+  </p>
 
-<hr>
+  <p>
+    <strong>Set up at:</strong>
+    <%= @index_report.set_up_at %>
+  </p>
 
-<div class="panel panel-default">
-  <div class="panel-heading">
-    可能关联的基金
+  <% if can? :edit, @index_report %>
+    <%= link_to 'Edit', edit_index_report_path(@index_report) %>
+  <% end %>
 
-    <small>
-      <%= Project.where("name LIKE ?", "%#{@index_report.name}%").count %>
-    </small>
-  </div>
+  <hr>
 
-  <ul class="list-group">
-    <% Project.where("name LIKE ?", "%#{@index_report.name}%").each do |project| %>
-      <li class="list-group-item">
-        <%= link_to project.code, project %>
-        <%= link_to project, target: "_blank" do %>
-          <%= project.name %>
-        <% end %>
-      </li>
-    <% end %>
-  </ul>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      可能关联的基金
 
-  <div class="panel-footer">
-    共有 <%= Project.joins(:fund_jbgk).where("fund_jbgks.benchmark LIKE ?", "%#{@index_report.name}%").distinct.count %> 支基金其作为“业绩比较基准”因子。
+      <small>
+        <%= Project.where("name LIKE ?", "%#{@index_report.name}%").count %>
+      </small>
+    </div>
+
+    <ul class="list-group">
+      <% Project.where("name LIKE ?", "%#{@index_report.name}%").each do |project| %>
+        <li class="list-group-item">
+          <%= link_to project.code, project %>
+          <%= link_to project, target: "_blank" do %>
+            <%= project.name %>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+
+    <div class="panel-footer">
+      共有 <%= Project.joins(:fund_jbgk).where("fund_jbgks.benchmark LIKE ?", "%#{@index_report.name}%").distinct.count %> 支基金其作为“业绩比较基准”因子。
+    </div>
   </div>
 </div>

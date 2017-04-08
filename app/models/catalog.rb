@@ -87,6 +87,7 @@ class Catalog < ApplicationRecord
     z: 26 }
 
   scope :has_projects, -> { where("projects_count > ?", 0) }
+  scope :with_cover, -> {where.not(cover: nil)}
   # END
 
 

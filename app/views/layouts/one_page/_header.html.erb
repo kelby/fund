@@ -167,13 +167,13 @@
 
                           <% IndexReport.where(catalog: catalog).pluck(:category).uniq.each do |category| %>
                             <li>
-                              <a href="shortcode_typo_general.html">
+                              <%= link_to index_reports_path(filter_type: 'category', filter_code: category) do %>
                                 <%= category %>
 
                                 <span class="badge pull-right">
                                   <%= IndexReport.where(catalog: catalog, category: category).count %>
                                 </span>
-                              </a>
+                              <% end %>
                             </li>
                           <% end %>
                         </ul>

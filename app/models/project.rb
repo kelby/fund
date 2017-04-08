@@ -111,6 +111,10 @@ class Project < ApplicationRecord
   has_one :last_seven_year_yield, ->{where(yield_type: FundYield.yield_types['last_seven_year'])}, class_name: 'FundYield'
   has_one :last_ten_year_yield, ->{where(yield_type: FundYield.yield_types['last_ten_year'])}, class_name: 'FundYield'
   has_one :since_the_inception_yield, ->{where(yield_type: FundYield.yield_types['since_the_inception'])}, class_name: 'FundYield'
+
+  has_many :quickrank_performances
+  has_many :quickrank_portfolios
+  has_many :quickrank_snapshots
   # END
 
 

@@ -1,11 +1,13 @@
 <% set_meta_tags title: @developer.name, description: @developer.description %>
 
-<div class="row developers">
-  <div class="sidebar col-md-4" id='sidebar'>
-    <%= render "sidebar", developer: @developer %>
-  </div>
+<div class="container">
+  <div class="row developers">
+    <div class="sidebar col-md-4" id='sidebar'>
+      <%= render "sidebar", developer: @developer %>
+    </div>
 
-  <div class="col-md-8">
-    <%= render "developers/content", developer: @developer %>
+    <div class="col-md-8">
+      <%= render "developers/content", developer: @developer %>
+    </div>
   </div>
 </div>

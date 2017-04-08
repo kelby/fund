@@ -1,98 +1,99 @@
 <% set_meta_tags title: "指数系列", description: "中证系列指数，上证系列指数，中华交易服务系列指数，深证系列指数，三板系列指数" %>
 
-<h1>
-  指数系列
+<div class="container">
+  <h1>
+    指数系列
 
-  <small>
-    <%= @index_reports.unscope(:limit, :offset).count %>
-  </small>
-</h1>
+    <small>
+      <%= @index_reports.unscope(:limit, :offset).count %>
+    </small>
+  </h1>
 
-<ul class="nav nav-pills">
-  <% IndexReport.pluck(:catalog).uniq.each do |catalog| %>
-    <li>
-      <%= link_to catalog, index_reports_path(filter_type: 'catalog', filter_code: catalog) %>
-    </li>
-  <% end %>
-</ul>
-
-<br>
-
-<div class="col-md-3 no-padding-left">
-  <div class="panel-group" id="accordion">
+  <ul class="nav nav-pills">
     <% IndexReport.pluck(:catalog).uniq.each do |catalog| %>
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#<%= Pinyin.t(catalog, splitter: '-') %>-box">
-              <%= catalog %>
-            </a>
-          </h4>
-        </div>
-
-        <div id="<%= Pinyin.t(catalog, splitter: '-') %>-box" class="panel-collapse collapse">
-          <div class="list-group">
-            <% IndexReport.where(catalog: catalog).pluck(:category).uniq.each do |category| %>
-              <%= link_to index_reports_path(filter_type: 'category', filter_code: category), class: "list-group-item" do %>
-                <%= category %>
-              <% end %>
-
-              <div class="list-group">
-                <% IndexReport.where(catalog: catalog, category: category).distinct.each do |index_report| %>
-                  <%= link_to index_report, class: "list-group-item" do %>
-                    <%= index_report.name %>
-                  <% end %>
-                <% end %>
-              </div>
-            <% end %>
-          </div>
-        </div>
-      </div>
+      <li>
+        <%= link_to catalog, index_reports_path(filter_type: 'catalog', filter_code: catalog) %>
+      </li>
     <% end %>
-  </div>
-</div>
-
-<div class="col-md-9">
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Catalog</th>
-        <th>Category</th>
-
-        <th>Name</th>
-
-
-        <th>Code</th>
-        <th>Set up at</th>
-
-      </tr>
-    </thead>
-
-    <tbody>
-      <% @index_reports.each do |index_report| %>
-        <tr>
-          <td>
-            <%= link_to index_report.catalog, index_reports_path(filter_type: 'catalog', filter_code: index_report.catalog) %>
-          </td>
-          <td><%= link_to index_report.category, index_reports_path(filter_type: 'category', filter_code: index_report.category) %></td>
-
-          <td><%= link_to index_report.name, index_report %></td>
-
-
-          <td><%= index_report.code %></td>
-          <td><%= index_report.set_up_at %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+  </ul>
 
   <br>
 
-  <div class="text-center">
-    <%= magic_paginate @index_reports %>
+  <div class="col-md-3 no-padding-left">
+    <div class="panel-group" id="accordion">
+      <% IndexReport.pluck(:catalog).uniq.each do |catalog| %>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#<%= Pinyin.t(catalog, splitter: '-') %>-box">
+                <%= catalog %>
+              </a>
+            </h4>
+          </div>
+
+          <div id="<%= Pinyin.t(catalog, splitter: '-') %>-box" class="panel-collapse collapse">
+            <div class="list-group">
+              <% IndexReport.where(catalog: catalog).pluck(:category).uniq.each do |category| %>
+                <%= link_to index_reports_path(filter_type: 'category', filter_code: category), class: "list-group-item" do %>
+                  <%= category %>
+                <% end %>
+
+                <div class="list-group">
+                  <% IndexReport.where(catalog: catalog, category: category).distinct.each do |index_report| %>
+                    <%= link_to index_report, class: "list-group-item" do %>
+                      <%= index_report.name %>
+                    <% end %>
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="col-md-9">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>指数</th>
+          <th>系列</th>
+
+          <th>名字</th>
+
+
+          <th>代码</th>
+          <th>成立日</th>
+
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @index_reports.each do |index_report| %>
+          <tr>
+            <td>
+              <%= link_to index_report.catalog, index_reports_path(filter_type: 'catalog', filter_code: index_report.catalog) %>
+            </td>
+            <td><%= link_to index_report.category, index_reports_path(filter_type: 'category', filter_code: index_report.category) %></td>
+
+            <td><%= link_to index_report.name, index_report %></td>
+
+
+            <td><%= index_report.code %></td>
+            <td><%= index_report.set_up_at %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <br>
+
+    <div class="text-center">
+      <%= magic_paginate @index_reports %>
+    </div>
   </div>
 </div>
-
 
 <style>
  .panel-collapse>.list-group .list-group-item:first-child {border-top-right-radius: 0;border-top-left-radius: 0;}
