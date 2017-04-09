@@ -74,11 +74,26 @@ SitemapGenerator::Sitemap.create do
     add article_path(article), :lastmod => article.updated_at, :changefreq => 'weekly'
   end
 
-  # 植物详情
+  # 标签详情
   CustomTag.find_each do |tag|
     add tag_path(tag), :changefreq => 'weekly'
   end
 
+  # 指数
+  IndexReport::CATALOG_HASH.each_pair do |catalog_en, catalog_cn|
+    # 指数 catalog
+    add catalog_slug_index_reports_path(catalog_en), :changefreq => 'weekly', :priority => 0.5
+
+    IndexReport.category_hash_under(catalog_en).each_pair do |category_en, category_cn|
+      # 指数 category
+      add catalog_slug_category_slug_index_reports_path(catalog_en, category_en), :changefreq => 'weekly', :priority => 0.5
+    end
+  end
+
+  IndexReport.find_each do |index_report|
+    # 指数详情
+    add index_report_path(index_report), :changefreq => 'weekly', :priority => 0.5
+  end
 
   # 晨星历史数据
   add history_quickrank_index_path, :priority => 0.9

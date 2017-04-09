@@ -31,6 +31,8 @@ class IndexReport < ApplicationRecord
     "shen-zheng" => "深证系列指数",
     "san-ban" => "三板系列指数"}
 
+  scope :has_catalog_category, -> { where.not(catalog_slug: nil, category_slug: nil) }
+
   def self.category_cn_array(catalog_en)
     @category_cn_array = self.where(catalog_slug: catalog_en).pluck(:category)
   end
