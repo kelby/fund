@@ -27,36 +27,36 @@
 
   <div class="col-md-3 no-padding-left">
     <div class="panel-group" id="accordion">
-      <% IndexReport::CATALOG_HASH.each_pair do |catalog_en, catalog_cn| %>
+      <%# IndexReport::CATALOG_HASH.each_pair do |catalog_en, catalog_cn| %>
       <%# IndexReport.pluck(:catalog).uniq.each do |catalog| %>
-        <div class="panel panel-default">
+        <!-- <div class="panel panel-default">
           <div class="panel-heading">
             <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#accordion" href="#<%= catalog_en %>-box">
-                <%= catalog_cn %>
+              <a data-toggle="collapse" data-parent="#accordion" href="#<%#= catalog_en %>-box">
+                <%#= catalog_cn %>
               </a>
             </h4>
-          </div>
+          </div> -->
 
-          <div id="<%= catalog_en %>-box" class="panel-collapse collapse">
+          <!-- <div id="<%#= catalog_en %>-box" class="panel-collapse collapse">
             <div class="list-group">
-              <% IndexReport.where(catalog_slug: catalog_en).pluck(:category_slug, :category).uniq.each do |category_en, category_cn| %>
-                <%= link_to catalog_slug_category_slug_index_reports_path(catalog_en, category_en), class: "list-group-item" do %>
-                  <%= category_cn %>
-                <% end %>
+              <%# IndexReport.where(catalog_slug: catalog_en).pluck(:category_slug, :category).uniq.each do |category_en, category_cn| %>
+                <%#= link_to catalog_slug_category_slug_index_reports_path(catalog_en, category_en), class: "list-group-item" do %>
+                  <%#= category_cn %>
+                <%# end %>
 
                 <div class="list-group">
-                  <% IndexReport.where(catalog_slug: catalog_en, category_slug: category_en).distinct.each do |index_report| %>
-                    <%= link_to index_report, class: "list-group-item" do %>
-                      <%= index_report.name %>
-                    <% end %>
-                  <% end %>
+                  <%# IndexReport.where(catalog_slug: catalog_en, category_slug: category_en).distinct.each do |index_report| %>
+                    <%#= link_to index_report, class: "list-group-item" do %>
+                      <%#= index_report.name %>
+                    <%# end %>
+                  <%# end %>
                 </div>
-              <% end %>
+              <%# end %>
             </div>
           </div>
-        </div>
-      <% end %>
+        </div> -->
+      <%# end %>
     </div>
   </div>
 
@@ -80,10 +80,10 @@
         <% @index_reports.each do |index_report| %>
           <tr>
             <td>
-              <%= link_to index_report.catalog, catalog_slug_index_reports_path(index_report.catalog_slug) %>
+              <%= link_to index_report.catalog_name, catalog_slug_index_reports_path(index_report.catalog_slug) %>
             </td>
             <td>
-              <%= link_to index_report.category, catalog_slug_category_slug_index_reports_path(index_report.catalog_slug, index_report.category_slug) %>
+              <%= link_to index_report.category_name, catalog_slug_category_slug_index_reports_path(index_report.catalog_slug, index_report.category_slug) %>
             </td>
 
             <td><%= link_to index_report.name, index_report %></td>

@@ -4,12 +4,12 @@
   <ol class="breadcrumb no-padding-left">
     <li>
       <%= link_to catalog_slug_index_reports_path(@index_report.catalog_slug) do %>
-        <%= @index_report.catalog %>
+        <%= @index_report.catalog_name %>
       <% end %>
     </li>
     <li>
       <%= link_to catalog_slug_category_slug_index_reports_path(@index_report.catalog_slug, @index_report.category_slug) do %>
-        <%= @index_report.category %>
+        <%= @index_report.category_name %>
       <% end %>
     </li>
     <li class="active"><%= @index_report.name %></li>

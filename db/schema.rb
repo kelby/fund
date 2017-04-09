@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170409082851) do
+ActiveRecord::Schema.define(version: 20170409120313) do
 
   create_table "agreement_articles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.integer  "user_id"
@@ -338,39 +338,39 @@ ActiveRecord::Schema.define(version: 20170409082851) do
   create_table "index_catalogs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string   "name"
     t.string   "website"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.string   "slug"
+    t.integer  "index_categories_count", default: 0, null: false
+    t.integer  "index_reports_count",    default: 0, null: false
     t.index ["name"], name: "index_index_catalogs_on_name", using: :btree
   end
 
   create_table "index_categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string   "name"
     t.string   "website"
+    t.text     "intro",               limit: 65535
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
+    t.string   "slug"
+    t.integer  "index_reports_count",               default: 0, null: false
     t.integer  "index_catalog_id"
-    t.text     "intro",            limit: 65535
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-    t.index ["index_catalog_id"], name: "index_index_categories_on_index_catalog_id", using: :btree
     t.index ["name"], name: "index_index_categories_on_name", using: :btree
   end
 
   create_table "index_reports", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
-    t.string   "catalog"
-    t.string   "category"
-    t.string   "category_intro"
     t.string   "name"
-    t.text     "intro",          limit: 16777215
+    t.text     "intro",             limit: 16777215
     t.string   "website"
     t.string   "code"
     t.date     "set_up_at"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
     t.string   "slug"
-    t.string   "catalog_slug"
-    t.string   "category_slug"
-    t.index ["catalog_slug", "category_slug"], name: "index_index_reports_on_catalog_slug_and_category_slug", using: :btree
-    t.index ["catalog_slug"], name: "index_index_reports_on_catalog_slug", using: :btree
-    t.index ["category_slug"], name: "index_index_reports_on_category_slug", using: :btree
+    t.integer  "index_catalog_id"
+    t.integer  "index_category_id"
+    t.index ["index_catalog_id"], name: "index_index_reports_on_index_catalog_id", using: :btree
+    t.index ["index_category_id"], name: "index_index_reports_on_index_category_id", using: :btree
   end
 
   create_table "kinsfolks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
