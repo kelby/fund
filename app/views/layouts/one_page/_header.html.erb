@@ -9,7 +9,7 @@
     <!-- Topbar -->
     <div class="topbar">
       <ul class="loginbar pull-right">
-        <li class="hoverSelector">
+        <!-- <li class="hoverSelector">
           <i class="fa fa-globe"></i>
           <a>Languages</a>
           <ul class="languages hoverSelectorBlock">
@@ -22,7 +22,7 @@
           </ul>
         </li>
 
-        <li class="topbar-devider"></li>
+        <li class="topbar-devider"></li> -->
 
         <li>
           <%= link_to "注册", new_user_registration_path %>
@@ -155,23 +155,22 @@
               <div class="mega-menu-content disable-icons">
                 <div class="container">
                   <div class="row equal-height">
-                    <% IndexReport.pluck(:catalog).uniq.each do |catalog| %>
+                    <% IndexReport::CATALOG_HASH.each_pair do |catalog_en, catalog_cn| %>
                       <div class="col-md-3 equal-height-in">
                         <ul class="list-unstyled equal-height-list">
                           <li>
-                            <h3><%#= link_to catalog,  %>
-                              <!-- index_reports_path(filter_type: 'category', filter_code: category) -->
-                              <%= link_to catalog, index_reports_path(filter_type: 'catalog', filter_code: catalog) %>
+                            <h3>
+                              <%= link_to catalog_cn, catalog_slug_index_reports_path(catalog_en) %>
                             </h3>
                           </li>
 
-                          <% IndexReport.where(catalog: catalog).pluck(:category).uniq.each do |category| %>
+                          <% IndexReport.category_hash_under(catalog_en).each_pair do |category_en, category_cn| %>
                             <li>
-                              <%= link_to index_reports_path(filter_type: 'category', filter_code: category) do %>
-                                <%= category %>
+                              <%= link_to catalog_slug_category_slug_index_reports_path(catalog_en, category_en) do %>
+                                <%= category_cn %>
 
-                                <span class="badge pull-right">
-                                  <%= IndexReport.where(catalog: catalog, category: category).count %>
+                                <span class="pull-right">
+                                  <%= IndexReport.where(catalog_slug: catalog_en, category_slug: category_en).count %>
                                 </span>
                               <% end %>
                             </li>

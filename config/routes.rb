@@ -50,6 +50,13 @@ Rails.application.routes.draw do
     resources :agreement_articles, only: [:create, :destroy]
   end
 
+  resources :index_reports, only: :index do
+    collection do
+      get ":catalog_slug", to: "index_reports#catalog", as: :catalog_slug
+      get ":catalog_slug/:category_slug", to: "index_reports#category", as: :catalog_slug_category_slug
+    end
+  end
+
   resources :index_reports, path: 'index_report'
 
   # resources :index_catalogs

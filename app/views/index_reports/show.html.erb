@@ -3,12 +3,12 @@
 <div class="container">
   <ol class="breadcrumb no-padding-left">
     <li>
-      <%= link_to index_reports_path(filter_type: 'catalog', filter_code: @index_report.catalog) do %>
+      <%= link_to catalog_slug_index_reports_path(@index_report.catalog_slug) do %>
         <%= @index_report.catalog %>
       <% end %>
     </li>
     <li>
-      <%= link_to index_reports_path(filter_type: 'category', filter_code: @index_report.category) do %>
+      <%= link_to catalog_slug_category_slug_index_reports_path(@index_report.catalog_slug, @index_report.category_slug) do %>
         <%= @index_report.category %>
       <% end %>
     </li>

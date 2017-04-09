@@ -2,18 +2,28 @@ class IndexReportsController < ApplicationController
   before_action :authenticate_user!, only: [:create, :edit, :update, :destroy]
   before_action :set_index_report, only: [:show, :edit, :update, :destroy]
 
+  def catalog
+    @index_reports = IndexReport.where(catalog_slug: params[:catalog_slug]).page(params[:page]).per(50)
+
+    @title = @index_reports.first.catalog
+    render :index
+  end
+
+  def category
+    @index_reports = IndexReport.where(catalog_slug: params[:catalog_slug], category_slug: params[:category_slug]).page(params[:page]).per(50)
+
+    @title = @index_reports.first.category
+    @description = @index_reports.first.category_intro
+
+    render :index
+  end
+
   # GET /index_reports
   # GET /index_reports.json
   def index
     @index_reports = IndexReport.all.page(params[:page]).per(50)
 
-    if params[:filter_type].present? && params[:filter_code].present?
-      filter = {}
-
-      filter[params[:filter_type]] = params[:filter_code]
-
-      @index_reports = @index_reports.where(filter)
-    end
+    @title = "指数系列"
   end
 
   # GET /index_reports/1

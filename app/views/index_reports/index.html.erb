@@ -1,18 +1,24 @@
-<% set_meta_tags title: "指数系列", description: "中证系列指数，上证系列指数，中华交易服务系列指数，深证系列指数，三板系列指数" %>
+<% meta_description = (@description.presence || "中证系列指数，上证系列指数，中华交易服务系列指数，深证系列指数，三板系列指数") %>
+
+<% set_meta_tags title: @title, description: meta_description %>
 
 <div class="container">
   <h1>
-    指数系列
+    <%= @title %>
 
     <small>
       <%= @index_reports.unscope(:limit, :offset).count %>
     </small>
   </h1>
 
+  <% if @description.present? %>
+    <%= simple_format @description %>
+  <% end %>
+
   <ul class="nav nav-pills">
-    <% IndexReport.pluck(:catalog).uniq.each do |catalog| %>
+    <% IndexReport::CATALOG_HASH.each_pair do |catalog_en, catalog_cn| %>
       <li>
-        <%= link_to catalog, index_reports_path(filter_type: 'catalog', filter_code: catalog) %>
+        <%= link_to catalog_cn, catalog_slug_index_reports_path(catalog_en) %>
       </li>
     <% end %>
   </ul>
@@ -21,25 +27,26 @@
 
   <div class="col-md-3 no-padding-left">
     <div class="panel-group" id="accordion">
-      <% IndexReport.pluck(:catalog).uniq.each do |catalog| %>
+      <% IndexReport::CATALOG_HASH.each_pair do |catalog_en, catalog_cn| %>
+      <%# IndexReport.pluck(:catalog).uniq.each do |catalog| %>
         <div class="panel panel-default">
           <div class="panel-heading">
             <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#accordion" href="#<%= Pinyin.t(catalog, splitter: '-') %>-box">
-                <%= catalog %>
+              <a data-toggle="collapse" data-parent="#accordion" href="#<%= catalog_en %>-box">
+                <%= catalog_cn %>
               </a>
             </h4>
           </div>
 
-          <div id="<%= Pinyin.t(catalog, splitter: '-') %>-box" class="panel-collapse collapse">
+          <div id="<%= catalog_en %>-box" class="panel-collapse collapse">
             <div class="list-group">
-              <% IndexReport.where(catalog: catalog).pluck(:category).uniq.each do |category| %>
-                <%= link_to index_reports_path(filter_type: 'category', filter_code: category), class: "list-group-item" do %>
-                  <%= category %>
+              <% IndexReport.where(catalog_slug: catalog_en).pluck(:category_slug, :category).uniq.each do |category_en, category_cn| %>
+                <%= link_to catalog_slug_category_slug_index_reports_path(catalog_en, category_en), class: "list-group-item" do %>
+                  <%= category_cn %>
                 <% end %>
 
                 <div class="list-group">
-                  <% IndexReport.where(catalog: catalog, category: category).distinct.each do |index_report| %>
+                  <% IndexReport.where(catalog_slug: catalog_en, category_slug: category_en).distinct.each do |index_report| %>
                     <%= link_to index_report, class: "list-group-item" do %>
                       <%= index_report.name %>
                     <% end %>
@@ -57,8 +64,8 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th>指数</th>
           <th>系列</th>
+          <th>指数</th>
 
           <th>名字</th>
 
@@ -73,12 +80,13 @@
         <% @index_reports.each do |index_report| %>
           <tr>
             <td>
-              <%= link_to index_report.catalog, index_reports_path(filter_type: 'catalog', filter_code: index_report.catalog) %>
+              <%= link_to index_report.catalog, catalog_slug_index_reports_path(index_report.catalog_slug) %>
             </td>
-            <td><%= link_to index_report.category, index_reports_path(filter_type: 'category', filter_code: index_report.category) %></td>
+            <td>
+              <%= link_to index_report.category, catalog_slug_category_slug_index_reports_path(index_report.catalog_slug, index_report.category_slug) %>
+            </td>
 
             <td><%= link_to index_report.name, index_report %></td>
-
 
             <td><%= index_report.code %></td>
             <td><%= index_report.set_up_at %></td>
