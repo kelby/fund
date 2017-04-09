@@ -16,6 +16,9 @@ namespace :csindex do
 
     base_url = "http://www.csindex.com.cn"
 
+    fund_dir = Rails.public_path.join("stock/csindex/list")
+    FileUtils::mkdir_p(fund_dir)
+
     catalogs.each_with_index do |catalog, index|
       sb ||= SpiderBase.new
       index ||= 0
@@ -29,10 +32,6 @@ namespace :csindex do
 
       doc = fetch_content.doc;
 
-
-
-      fund_dir = Rails.public_path.join("stock/csindex/list")
-      FileUtils::mkdir_p(fund_dir)
 
       file_name_with_path = fund_dir.join("#{type}.html")
 
@@ -90,13 +89,23 @@ namespace :csindex do
             _code = ary.assoc('code').last
 
 
-            IndexReport.create(catalog: catalog,
-              category: category,
-              category_intro: category_intro,
-              name: aa.text.strip,
-              set_up_at: bb.text.strip,
-              website: website,
-              code: _code)
+            # IndexReport.create(catalog: catalog,
+              # category: category,
+              # category_intro: category_intro,
+            index_catalog = IndexCatalog.find_by(name: catalog)
+            index_category = index_catalog.index_categories.find_or_create_by(name: category) do |x|
+              x.slug = Pinyin.t(name, splitter: '-').parameterize
+              x.intro = category_intro
+            end
+
+            index_report = IndexReport.find_or_create_by(name: aa.text.strip, website: website, code: _code) do |x|
+              x.set_up_at = bb.text.strip)
+            end
+
+            index_report.index_catalog_id ||= index_catalog.id
+            index_report.index_category_id ||= index_category.id
+
+            index_report.save
           end
 
 
@@ -132,10 +141,10 @@ namespace :csindex do
 
               website = "#{base_url}#{website_value}"
 
-              IndexReport.create(catalog: catalog,
-                category: category,
-                category_intro: category_intro,
-                name: aa.text.strip,
+              # IndexReport.create(catalog: catalog,
+                # category: category,
+                # category_intro: category_intro,
+              IndexReport.create(name: aa.text.strip,
                 set_up_at: bb.text.strip,
                 website: website)
             end

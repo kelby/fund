@@ -23,6 +23,7 @@
 class IndexReport < ApplicationRecord
   validates_presence_of :name
   validates_uniqueness_of :website
+  validates_uniqueness_of :code
 
   before_create :set_slug
   before_create :set_catalog_category_slug
