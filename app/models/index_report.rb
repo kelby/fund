@@ -76,8 +76,8 @@ class IndexReport < ApplicationRecord
 
   def self.init_parents_datas
     self.all.find_each do |index_report|
-      index_report.index_catalog_id = ::IndexCatalog.find_by(slug: index_report.catalog_slug).id
-      index_report.index_category_id = ::IndexCategory.find_by(slug: index_report.category_slug).id
+      index_report.index_catalog_id = ::IndexCatalog.find_by(slug: index_report[:catalog_slug]).id
+      index_report.index_category_id = ::IndexCategory.find_by(slug: index_report[:category_slug]).id
 
       index_report.save
     end

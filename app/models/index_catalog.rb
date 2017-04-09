@@ -14,6 +14,7 @@
 
 class IndexCatalog < ApplicationRecord
   validates_presence_of :name
+  validates_uniqueness_of :name
 
   has_many :index_categories
   has_many :index_reports

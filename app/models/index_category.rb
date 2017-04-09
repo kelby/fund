@@ -15,6 +15,7 @@
 
 class IndexCategory < ApplicationRecord
   validates_presence_of :name
+  validates_uniqueness_of :name
 
   has_many :index_reports
   belongs_to :index_catalog
