@@ -4,6 +4,9 @@
 * Website: http://htmlstream.com
 */
 
+//= require social-share-button
+//= require social-share-button/wechat
+
 var App = function () {
   // We extend jQuery by method hasAttr
   jQuery.fn.hasAttr = function(name) {

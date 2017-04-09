@@ -331,6 +331,8 @@ GEM
       redis (~> 3.2, >= 3.2.1)
     sitemap_generator (5.2.0)
       builder (~> 3.0)
+    social-share-button (0.10.0)
+      coffee-rails
     spring (2.0.0)
       activesupport (>= 4.2)
     spring-watcher-listen (2.0.1)
@@ -429,6 +431,7 @@ DEPENDENCIES
   sidekiq
   sinatra!
   sitemap_generator
+  social-share-button
   spring
   spring-watcher-listen (~> 2.0.0)
   tzinfo-data
@@ -438,4 +441,4 @@ DEPENDENCIES
   whenever
 
 BUNDLED WITH
-   1.11.2
+   1.13.7
