@@ -28,8 +28,8 @@ class IndexReport < ApplicationRecord
   before_create :set_slug
   # before_create :set_catalog_category_slug
 
-  belongs_to :index_catalog
-  belongs_to :index_category
+  belongs_to :index_catalog, counter_cache: true
+  belongs_to :index_category, counter_cache: true
 
   delegate :name, to: :index_catalog, prefix: :catalog
   delegate :slug, to: :index_catalog, prefix: :catalog
