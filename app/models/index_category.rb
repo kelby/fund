@@ -28,7 +28,7 @@ class IndexCategory < ApplicationRecord
       category = ::IndexCategory.create(name: name, slug: Pinyin.t(name, splitter: '-').parameterize)
 
       category.index_catalog_id = IndexCatalog.find_by(slug: report[:catalog_slug]).id
-      category.intro = report.category_intro
+      category.intro = report[:category_intro]
 
       category.save
     end
