@@ -25,9 +25,9 @@ class IndexCategory < ApplicationRecord
     ::IndexReport.pluck(:category).uniq.each do |name|
       report = ::IndexReport.find_by(category: name)
 
-      category = self.create(name: name, slug: Pinyin.t(name, splitter: '-').parameterize)
+      category = ::IndexCategory.create(name: name, slug: Pinyin.t(name, splitter: '-').parameterize)
 
-      category.index_catalog_id = IndexCatalog.find_by(slug: report.catalog_slug).id
+      category.index_catalog_id = IndexCatalog.find_by(slug: report[:catalog_slug]).id
       category.intro = report.category_intro
 
       category.save
