@@ -26,7 +26,7 @@ class IndexReport < ApplicationRecord
   validates_uniqueness_of :code
 
   before_create :set_slug
-  before_create :set_catalog_category_slug
+  # before_create :set_catalog_category_slug
 
   belongs_to :index_catalog
   belongs_to :index_category
@@ -63,18 +63,18 @@ class IndexReport < ApplicationRecord
     self.slug = Pinyin.t(self.name, splitter: '')
   end
 
-  def set_catalog_slug
-    self.catalog_slug = ::IndexReport::CATALOG_HASH.select{|key, value| self.catalog.match(value) }.keys[0]
-  end
+  # def set_catalog_slug
+  #   self.catalog_slug = ::IndexReport::CATALOG_HASH.select{|key, value| self.catalog.match(value) }.keys[0]
+  # end
 
-  def set_category_slug
-    self.category_slug = Pinyin.t(category, splitter: '-').parameterize
-  end
+  # def set_category_slug
+  #   self.category_slug = Pinyin.t(category, splitter: '-').parameterize
+  # end
 
-  def set_catalog_category_slug
-    set_catalog_slug
-    set_category_slug
-  end
+  # def set_catalog_category_slug
+    # set_catalog_slug
+    # set_category_slug
+  # end
 
   def to_param
     "#{self.code}-#{self.slug}"
