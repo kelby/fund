@@ -71,6 +71,11 @@ class IndexReport < ApplicationRecord
     self.category_slug = Pinyin.t(category, splitter: '-').parameterize
   end
 
+  def set_catalog_category_slug
+    set_catalog_slug
+    set_category_slug
+  end
+
   def to_param
     "#{self.code}-#{self.slug}"
   end

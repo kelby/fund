@@ -93,13 +93,14 @@ namespace :csindex do
               # category: category,
               # category_intro: category_intro,
             index_catalog = IndexCatalog.find_by(name: catalog)
+
             index_category = index_catalog.index_categories.find_or_create_by(name: category) do |x|
-              x.slug = Pinyin.t(name, splitter: '-').parameterize
+              x.slug = Pinyin.t(category, splitter: '-').parameterize
               x.intro = category_intro
             end
 
-            index_report = IndexReport.find_or_create_by(name: aa.text.strip, website: website, code: _code) do |x|
-              x.set_up_at = bb.text.strip)
+            index_report = IndexReport.find_or_create_by({name: aa.text.strip, website: website, code: _code}) do |x|
+              x.set_up_at = bb.text.strip
             end
 
             index_report.index_catalog_id ||= index_catalog.id
