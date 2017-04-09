@@ -23,23 +23,23 @@
   </ol>
 
   <!-- logo及简介 -->
-  <% if @catalog_sina_info.present? %>
-    <div class="media">
-      <div class="media-left">
-        <%= link_to @catalog do %>
-          <%= image_tag @catalog.cover_url, class: "media-object", alt: @catalog.name %>
-        <% end %>
-      </div>
+  <div class="media">
+    <div class="media-left">
+      <%= link_to @catalog do %>
+        <%= image_tag @catalog.cover_url, class: "media-object", alt: @catalog.name %>
+      <% end %>
+    </div>
 
-      <div class="media-body">
+    <div class="media-body">
+      <% if @catalog_sina_info.present? %>
         <h4 class="media-heading">
           <%= @catalog_sina_info.header_info['name_with_ltd'] %>
         </h4>
+      <% end %>
 
-        <%= @catalog.description %>
-      </div>
+      <%= @catalog.description %>
     </div>
-  <% end %>
+  </div>
 
   <!-- 基本信息 -->
   <div class="panel panel-default show-catalog">
