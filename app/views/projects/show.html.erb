@@ -5,7 +5,7 @@
 <% end %>
 
 <div class="container">
-<%# if @project.category.present? %>
+
   <div class="panel panel-default popular-projects">
     <ol class="breadcrumb catalog-category-etc">
       <li class="normal">
@@ -34,172 +34,172 @@
 
     <%#= render "projects/popular_item" %>
   </div>
-<%# end %>
 
-<div class="panel panel-default">
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>更新日期</th>
-        <th>单位净值</th>
-        <th>累计净值</th>
-        <th>日增长率</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @project.net_worths.order(record_at: :desc).limit(6).each do |net_worth| %>
+
+  <div class="panel panel-default">
+    <table class="table table-striped">
+      <thead>
         <tr>
-          <th scope="row"><%= net_worth.record_at.strftime("%F") %></th>
-          <td><%= net_worth.dwjz %></td>
-          <td><%= net_worth.ljjz %></td>
-
-          <td class="<%= net_worth.accnav_color %>">
-            <%= net_worth.accnav %>%
-          </td>
+          <th>更新日期</th>
+          <th>单位净值</th>
+          <th>累计净值</th>
+          <th>日增长率</th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
+      </thead>
+      <tbody>
+        <% @project.net_worths.order(record_at: :desc).limit(6).each do |net_worth| %>
+          <tr>
+            <th scope="row"><%= net_worth.record_at.strftime("%F") %></th>
+            <td><%= net_worth.dwjz %></td>
+            <td><%= net_worth.ljjz %></td>
 
-<div class="panel panel-default">
-  <dl>
-    <dt class="col-md-1">近1月：</dt>
-    <dd class="col-md-1 <%= accnav_color(@project.last_one_month_yield.try(:yield_rate))%>">
-      <%= @project.last_one_month_yield.try(:yield_rate) %>%
-    </dd>
-
-    <dt class="col-md-1">近3月：</dt>
-    <dd class="col-md-1 <%= accnav_color(@project.last_three_month_yield.try(:yield_rate))%>">
-      <%= @project.last_three_month_yield.try(:yield_rate) %>%
-    </dd>
-
-    <dt class="col-md-1">近6月：</dt>
-    <dd class="col-md-1 <%= accnav_color(@project.last_six_month_yield.try(:yield_rate))%>">
-      <%= @project.last_six_month_yield.try(:yield_rate) %>%
-    </dd>
-
-    <dt class="col-md-1">近1年：</dt>
-    <dd class="col-md-1 <%= accnav_color(@project.last_one_year_yield.try(:yield_rate))%>">
-      <%= @project.last_one_year_yield.try(:yield_rate) %>%
-    </dd>
-
-    <dt class="col-md-1">近3年：</dt>
-    <dd class="col-md-1 <%= accnav_color(@project.last_three_year_yield.try(:yield_rate))%>">
-      <%= @project.last_three_year_yield.try(:yield_rate) %>%
-    </dd>
-
-    <dt class="col-md-1">成立来：</dt>
-    <dd class="col-md-1 <%= accnav_color(@project.since_the_inception_yield.try(:yield_rate))%>">
-      <%= @project.since_the_inception_yield.try(:yield_rate) %>%
-    </dd>
-
-  </dl>
-
-  <% first_net_worth = @project.net_worths.order(record_at: :desc).limit(6).first %>
-  <% last_net_worth = @project.net_worths.order(record_at: :desc).limit(6).last %>
-
-  <% if first_net_worth.present? && last_net_worth.present? %>
-    <div class="panel-footer">
-      近一周增长率：
-
-      (
-      <%= first_net_worth.dwjz %>
-      -
-      <%= last_net_worth.dwjz %>
-      )
-      /
-      <%= last_net_worth.dwjz %>
-
-      =
-
-      <%= ((first_net_worth.dwjz * 1000 - last_net_worth.dwjz * 1000) / (last_net_worth.dwjz * 1000).to_f * 100).round(2) %>
-
-      %
-
-      <small class="pull-right">
-        <%= link_to "计算公式", calculus_project_path(@project) %>
-      </small>
-    </div>
-  <% end %>
-</div>
-
-<div class="panel panel-default">
-
-  <table class="table">
-    <tbody>
-      <tr>
-        <td>
-          基金类型：
-          <%= render partial: 'projects/show/tag_item', collection: @project.tags, as: :tag, spacer_template: 'projects/show/tag_item_spacer_template' %>
-        </td>
-        <td>
-          基金规模：
-          <%= @project.net_asset %>亿元
-          （<%= @project.record_at.strftime("%F") if @project.record_at.present? %>）
-        </td>
-        <td>
-          基金经理：
-          <% @online_developers.each do |developer| %>
-            <%= link_to developer.name, developer %>
-          <% end %>
-
-          <small class="pull-right">
-            <%= link_to "所有记录", managers_project_path(@project) %>
-          </small>
-        </td>
-      </tr>
-      <tr>
-          <td>
-            <span class="letterSpace01">成 立 日</span>：
-
-            <% if @project.set_up_at.present? %>
-              <%= @project.set_up_at.strftime("%F") %>
-            <% else %>
-              --
-            <% end %>
-          </td>
-
-        <td>
-          <span class="letterSpace01">基金公司</span>：
-          <%= link_to @project.catalog do %>
-            <%= @project.catalog.short_name %>
-          <% end %>
-        </td>
-        <td>
-          基金评级
-          <span class="floatleft">：</span>
-          <span class="jjpj">暂无评级</span>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-<div class="project-wraper clearfix">
-  <%= render "projects/show/project", project: @project %>
-
-  <div class="panel-footer clearfix col-md-9 append-panel-footer">
-    <div class="opts">
-
-      <%= render "projects/status", project: @project %>
-
-
-      &nbsp;&nbsp;
-
-      <%= link_to "涨跌分布", distribute_project_path(@project) %>
-
-      <span class="pull-right view-times">
-        <%= @project.view_times %> 次查看
-      </span>
-    </div>
+            <td class="<%= net_worth.accnav_color %>">
+              <%= net_worth.accnav %>%
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
   </div>
 
-</div>
+  <div class="panel panel-default">
+    <dl>
+      <dt class="col-md-1">近1月：</dt>
+      <dd class="col-md-1 <%= accnav_color(@project.last_one_month_yield.try(:yield_rate))%>">
+        <%= @project.last_one_month_yield.try(:yield_rate) %>%
+      </dd>
+
+      <dt class="col-md-1">近3月：</dt>
+      <dd class="col-md-1 <%= accnav_color(@project.last_three_month_yield.try(:yield_rate))%>">
+        <%= @project.last_three_month_yield.try(:yield_rate) %>%
+      </dd>
+
+      <dt class="col-md-1">近6月：</dt>
+      <dd class="col-md-1 <%= accnav_color(@project.last_six_month_yield.try(:yield_rate))%>">
+        <%= @project.last_six_month_yield.try(:yield_rate) %>%
+      </dd>
+
+      <dt class="col-md-1">近1年：</dt>
+      <dd class="col-md-1 <%= accnav_color(@project.last_one_year_yield.try(:yield_rate))%>">
+        <%= @project.last_one_year_yield.try(:yield_rate) %>%
+      </dd>
+
+      <dt class="col-md-1">近3年：</dt>
+      <dd class="col-md-1 <%= accnav_color(@project.last_three_year_yield.try(:yield_rate))%>">
+        <%= @project.last_three_year_yield.try(:yield_rate) %>%
+      </dd>
+
+      <dt class="col-md-1">成立来：</dt>
+      <dd class="col-md-1 <%= accnav_color(@project.since_the_inception_yield.try(:yield_rate))%>">
+        <%= @project.since_the_inception_yield.try(:yield_rate) %>%
+      </dd>
+
+    </dl>
+
+    <% first_net_worth = @project.net_worths.order(record_at: :desc).limit(6).first %>
+    <% last_net_worth = @project.net_worths.order(record_at: :desc).limit(6).last %>
+
+    <% if first_net_worth.present? && last_net_worth.present? %>
+      <div class="panel-footer">
+        近一周增长率：
+
+        (
+        <%= first_net_worth.dwjz %>
+        -
+        <%= last_net_worth.dwjz %>
+        )
+        /
+        <%= last_net_worth.dwjz %>
+
+        =
+
+        <%= ((first_net_worth.dwjz * 1000 - last_net_worth.dwjz * 1000) / (last_net_worth.dwjz * 1000).to_f * 100).round(2) %>
+
+        %
+
+        <small class="pull-right">
+          <%= link_to "计算公式", calculus_project_path(@project) %>
+        </small>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="panel panel-default">
+
+    <table class="table">
+      <tbody>
+        <tr>
+          <td>
+            基金类型：
+            <%= render partial: 'projects/show/tag_item', collection: @project.tags, as: :tag, spacer_template: 'projects/show/tag_item_spacer_template' %>
+          </td>
+          <td>
+            基金规模：
+            <%= @project.net_asset %>亿元
+            （<%= @project.record_at.strftime("%F") if @project.record_at.present? %>）
+          </td>
+          <td>
+            基金经理：
+            <% @online_developers.each do |developer| %>
+              <%= link_to developer.name, developer %>
+            <% end %>
+
+            <small class="pull-right">
+              <%= link_to "所有记录", managers_project_path(@project) %>
+            </small>
+          </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="letterSpace01">成 立 日</span>：
+
+              <% if @project.set_up_at.present? %>
+                <%= @project.set_up_at.strftime("%F") %>
+              <% else %>
+                --
+              <% end %>
+            </td>
+
+          <td>
+            <span class="letterSpace01">基金公司</span>：
+            <%= link_to @project.catalog do %>
+              <%= @project.catalog.short_name %>
+            <% end %>
+          </td>
+          <td>
+            基金评级
+            <span class="floatleft">：</span>
+            <span class="jjpj">暂无评级</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="project-wraper clearfix">
+    <%= render "projects/show/project", project: @project %>
+
+    <div class="panel-footer clearfix col-md-9 append-panel-footer">
+      <div class="opts">
+
+        <%= render "projects/status", project: @project %>
 
 
-<!-- 评价 -->
-<!-- <div class="col-md-12 clearfix"> -->
+        &nbsp;&nbsp;
+
+        <%= link_to "涨跌分布", distribute_project_path(@project) %>
+
+        <span class="pull-right view-times">
+          <%= @project.view_times %> 次查看
+        </span>
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- 评价 -->
+  <!-- <div class="col-md-12 clearfix"> -->
   <% if @comments.present? %>
     <!-- <div class="panel panel-default">
       <div class="panel-heading">

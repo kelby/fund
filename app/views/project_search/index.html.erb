@@ -8,57 +8,58 @@
   <%= stylesheet_link_tag 'project_search' %>
 <% end %>
 
+<div class="container">
+  <div class="x">
+    <ul class="nav nav-tabs">
+      <li class="<%= active_tab(search_projects_path) %>">
+        <%= link_to search_projects_path(q: params[:q]) do %>
+          全部
+        <% end %>
+      </li>
 
-<div class="x">
-  <ul class="nav nav-tabs">
-    <li class="<%= active_tab(search_projects_path) %>">
-      <%= link_to search_projects_path(q: params[:q]) do %>
-        全部
-      <% end %>
-    </li>
+      <li class="<%= active_tab(search_gem_projects_path) %>">
+        <%= link_to search_gem_projects_path(q: params[:q]) do %>
+          <%= Catalog::TOP_PLURAL['gemspec'] %>
+        <% end %>
+      </li>
 
-    <li class="<%= active_tab(search_gem_projects_path) %>">
-      <%= link_to search_gem_projects_path(q: params[:q]) do %>
-        <%= Catalog::TOP_PLURAL['gemspec'] %>
-      <% end %>
-    </li>
+      <!-- <li class="<%#= active_tab(search_package_projects_path) %>">
+        <%#= link_to search_package_projects_path(q: params[:q]) do %>
+          Package
+        <%# end %>
+      </li> -->
 
-    <!-- <li class="<%#= active_tab(search_package_projects_path) %>">
-      <%#= link_to search_package_projects_path(q: params[:q]) do %>
-        Package
-      <%# end %>
-    </li> -->
-
-    <li class="<%= active_tab(search_pod_projects_path) %>">
-      <%= link_to search_pod_projects_path(q: params[:q]) do %>
-        <%= Catalog::TOP_PLURAL['pod'] %>
-      <% end %>
-    </li>
-  </ul>
-</div>
-
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <% if params[:q].present? %>
-      搜索 "<%= params[:q] %>"，找到约 <%= @count %> 条结果
-    <% end %>
+      <li class="<%= active_tab(search_pod_projects_path) %>">
+        <%= link_to search_pod_projects_path(q: params[:q]) do %>
+          <%= Catalog::TOP_PLURAL['pod'] %>
+        <% end %>
+      </li>
+    </ul>
   </div>
 
-  <div class="panel-body content">
-    <% if @projects.blank? %>
-      <div class="text-center text-muted">
-        没有搜索到结果
-      </div>
-    <% else %>
-      <ul class="media-list">
-        <%= render partial: "projects/media_list_item", collection: @projects, as: :project %>
-      </ul>
-    <% end %>
-  </div>
-
-  <% if @count > 20 %>
-    <div class="panel-footer">
-      <%= magic_paginate @projects %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <% if params[:q].present? %>
+        搜索 "<%= params[:q] %>"，找到约 <%= @count %> 条结果
+      <% end %>
     </div>
-  <% end %>
+
+    <div class="panel-body content">
+      <% if @projects.blank? %>
+        <div class="text-center text-muted">
+          没有搜索到结果
+        </div>
+      <% else %>
+        <ul class="media-list">
+          <%= render partial: "projects/media_list_item", collection: @projects, as: :project %>
+        </ul>
+      <% end %>
+    </div>
+
+    <% if @count > 20 %>
+      <div class="panel-footer">
+        <%= magic_paginate @projects %>
+      </div>
+    <% end %>
+  </div>
 </div>

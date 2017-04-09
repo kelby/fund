@@ -1,55 +1,54 @@
 <% set_meta_tags title: "基金经理列表" %>
 
 <div class="container">
-<h1>
-  基金经理
+  <h1>
+    基金经理
 
-  <small>
-    <%= @developers.unscope(:limit, :offset).count %>
-  </small>
-</h1>
+    <small>
+      <%= @developers.unscope(:limit, :offset).count %>
+    </small>
+  </h1>
 
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Avatar</th>
-      <th>就职于某基金公司</th>
-      <th>管理基金数量</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @developers.each do |developer| %>
+  <table class="table table-striped">
+    <thead>
       <tr>
-        <td>
-          <%= link_to developer.name, developer %>
-        </td>
-
-        <td>
-          <%= link_to developer do %>
-            <%= image_tag(developer.avatar_url(:thumb), height: '50', width: '50') %>
-          <% end %>
-        </td>
-
-        <td>
-          <% developer.catalogs.each do |catalog| %>
-            <%= link_to catalog.code, catalog %>
-            -
-            <%= catalog.name %>
-          <% end %>
-        </td>
-
-        <td>
-          <%= developer.developer_projects.count %>
-        </td>
+        <th>Name</th>
+        <th>Avatar</th>
+        <th>就职于某基金公司</th>
+        <th>管理基金数量</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
-<div class="text-center">
-  <%= magic_paginate @developers %>
-</div>
+    <tbody>
+      <% @developers.each do |developer| %>
+        <tr>
+          <td>
+            <%= link_to developer.name, developer %>
+          </td>
 
+          <td>
+            <%= link_to developer do %>
+              <%= image_tag(developer.avatar_url(:thumb), height: '50', width: '50') %>
+            <% end %>
+          </td>
+
+          <td>
+            <% developer.catalogs.each do |catalog| %>
+              <%= link_to catalog.code, catalog %>
+              -
+              <%= catalog.name %>
+            <% end %>
+          </td>
+
+          <td>
+            <%= developer.developer_projects.count %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div class="text-center">
+    <%= magic_paginate @developers %>
+  </div>
 </div>

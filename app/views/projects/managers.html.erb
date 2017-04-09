@@ -1,41 +1,43 @@
 <% set_meta_tags title: "#{@project.name}(#{@project.code}) 所有经理就职记录"%>
 
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <%= @project.name %>(<%= @project.code %>)
-    所有经理就职记录
+<div class="container">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <%= @project.name %>(<%= @project.code %>)
+      所有经理就职记录
 
-    <small class="pull-right">
-      <%= link_to "返回基金", @project %>
-    </small>
-  </div>
+      <small class="pull-right">
+        <%= link_to "返回基金", @project %>
+      </small>
+    </div>
 
-  <table class="table">
-    <thead>
-      <tr>
-        <th class="first">起始期</th>
-        <th>截止期</th>
-        <th>基金经理</th>
-        <th>任职期间</th>
-        <th>任职回报</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @project.developer_projects.includes(:developer).each do |dp| %>
+    <table class="table">
+      <thead>
         <tr>
-          <td><%= dp.beginning_work_date %></td>
-          <td><%= dp.end_of_work_date.presence || '--' %></td>
-          <td><%= link_to dp.developer.name, dp.developer, target: "_blank" %></td>
-          <td><%= dp.term_of_office %></td>
-          <td><%= dp.as_return %>%</td>
-
-          <td>
-            <% if can? :delete, dp %>
-              <%= link_to 'Destroy', dp, method: :delete, data: { confirm: 'Are you sure?' } %>
-            <% end %>
-          </td>
+          <th class="first">起始期</th>
+          <th>截止期</th>
+          <th>基金经理</th>
+          <th>任职期间</th>
+          <th>任职回报</th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        <% @project.developer_projects.includes(:developer).each do |dp| %>
+          <tr>
+            <td><%= dp.beginning_work_date %></td>
+            <td><%= dp.end_of_work_date.presence || '--' %></td>
+            <td><%= link_to dp.developer.name, dp.developer, target: "_blank" %></td>
+            <td><%= dp.term_of_office %></td>
+            <td><%= dp.as_return %>%</td>
+
+            <td>
+              <% if can? :delete, dp %>
+                <%= link_to 'Destroy', dp, method: :delete, data: { confirm: 'Are you sure?' } %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>

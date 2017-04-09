@@ -1,7 +1,6 @@
 <% set_meta_tags title: "#{@project.name}(#{@project.code}) 的增长率、收益计算", description: @project.description %>
 
-<!-- <div class="panel panel-default popular-projects"> -->
-
+<div class="container">
 
   <div class="panel panel-default">
     <div class="panel-body">
@@ -13,69 +12,65 @@
     </div>
   </div>
 
-  <%#= render "projects/popular_item" %>
-<!-- </div> -->
+  <% @fund_yields.each do |fund_yield| %>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <%= FundYield::YIELD_TYPE_HASH[fund_yield.yield_type] %>
 
+        <small>
+          分红：<%= fund_yield.fund_fen_hongs_count %> 次
+        </small>
 
-
-<% @fund_yields.each do |fund_yield| %>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <%= FundYield::YIELD_TYPE_HASH[fund_yield.yield_type] %>
-
-      <small>
-        分红：<%= fund_yield.fund_fen_hongs_count %> 次
-      </small>
-
-      <small>
-        拆分：<%= fund_yield.fund_chai_fens_count %> 次
-      </small>
-    </div>
-
-    <ul class="list-group">
-      <li class="list-group-item">
-        初始日期：
-        <%= fund_yield.beginning_day %>
-      </li>
-
-      <li class="list-group-item">
-        变更日期：
-        <%= fund_yield.end_day %>
-      </li>
-
-      <li class="list-group-item">
-        初始净值：
-        <%= fund_yield.beginning_net_worth %>
-      </li>
-
-      <li class="list-group-item">
-        变更净值：
-        <%= fund_yield.end_net_worth %>
-      </li>
-
-      <li class="list-group-item">
-        收益率：
-        <span class="<%= fund_yield.yield_rate_color %>">
-          <%= fund_yield.yield_rate %>
-          %
-        </span>
-      </li>
-    </ul>
-
-    <% if fund_yield.fund_fen_hongs.present? || fund_yield.fund_chai_fens.present? %>
-      <div class="panel-footer">
-        <% fund_yield.fund_fen_hongs.desc.each do |fund_fen_hong| %>
-          分红：
-          <%= fund_fen_hong.ex_dividend_at %>, <%= fund_fen_hong.dwjz %>, <%= fund_fen_hong.bonus_per %>
-          <br>
-        <% end %>
-
-        <% fund_yield.fund_chai_fens.desc.each do |fund_chai_fen| %>
-          拆分、折算：
-          <%= fund_chai_fen.break_convert_at %>, <%= fund_chai_fen.break_type %>, <%= fund_chai_fen.human_break_ratio %>
-          <br>
-        <% end %>
+        <small>
+          拆分：<%= fund_yield.fund_chai_fens_count %> 次
+        </small>
       </div>
-    <% end %>
-  </div>
-<% end %>
+
+      <ul class="list-group">
+        <li class="list-group-item">
+          初始日期：
+          <%= fund_yield.beginning_day %>
+        </li>
+
+        <li class="list-group-item">
+          变更日期：
+          <%= fund_yield.end_day %>
+        </li>
+
+        <li class="list-group-item">
+          初始净值：
+          <%= fund_yield.beginning_net_worth %>
+        </li>
+
+        <li class="list-group-item">
+          变更净值：
+          <%= fund_yield.end_net_worth %>
+        </li>
+
+        <li class="list-group-item">
+          收益率：
+          <span class="<%= fund_yield.yield_rate_color %>">
+            <%= fund_yield.yield_rate %>
+            %
+          </span>
+        </li>
+      </ul>
+
+      <% if fund_yield.fund_fen_hongs.present? || fund_yield.fund_chai_fens.present? %>
+        <div class="panel-footer">
+          <% fund_yield.fund_fen_hongs.desc.each do |fund_fen_hong| %>
+            分红：
+            <%= fund_fen_hong.ex_dividend_at %>, <%= fund_fen_hong.dwjz %>, <%= fund_fen_hong.bonus_per %>
+            <br>
+          <% end %>
+
+          <% fund_yield.fund_chai_fens.desc.each do |fund_chai_fen| %>
+            拆分、折算：
+            <%= fund_chai_fen.break_convert_at %>, <%= fund_chai_fen.break_type %>, <%= fund_chai_fen.human_break_ratio %>
+            <br>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
