@@ -3,17 +3,17 @@ class IndexReportsController < ApplicationController
   before_action :set_index_report, only: [:show, :edit, :update, :destroy]
 
   def catalog
-    _catalog = IndexCatalog.find_by(slug: params[:catalog_slug])
+    @catalog = IndexCatalog.find_by(slug: params[:catalog_slug])
 
-    @index_reports = _catalog.index_reports.page(params[:page]).per(50)
+    @index_reports = @catalog.index_reports.page(params[:page]).per(50)
 
-    @title = _catalog.name
+    @title = @catalog.name
     render :index
   end
 
   def category
-    _catalog = IndexCatalog.find_by(slug: params[:catalog_slug])
-    _category = _catalog.index_categories.find_by(slug: params[:category_slug])
+    @catalog = IndexCatalog.find_by(slug: params[:catalog_slug])
+    _category = @catalog.index_categories.find_by(slug: params[:category_slug])
 
     @index_reports = _category.index_reports.page(params[:page]).per(50)
 

@@ -7,7 +7,12 @@
     <%= @title %>
 
     <small>
-      <%= @index_reports.unscope(:limit, :offset).count %>
+      <% if params[:action] == 'catalog' %>
+        本系列包含<%= @catalog.index_categories_count %>细分类目，
+      <% end %>
+
+      包含
+      <%= @index_reports.unscope(:limit, :offset).count %>指数。
     </small>
   </h1>
 
