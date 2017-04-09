@@ -47,7 +47,7 @@ environment ENV.fetch("RAILS_ENV") { "development" }
 plugin :tmp_restart
 
 
-daemonize Rails.env.production?
+# daemonize Rails.env.production?
 
 workers 3
 preload_app!
