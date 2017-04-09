@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170403061323) do
+ActiveRecord::Schema.define(version: 20170409024315) do
 
   create_table "agreement_articles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.integer  "user_id"
@@ -568,6 +568,15 @@ ActiveRecord::Schema.define(version: 20170403061323) do
     t.datetime "updated_at"
     t.index ["assetable_type", "assetable_id"], name: "idx_redactor_assetable", using: :btree
     t.index ["assetable_type", "type", "assetable_id"], name: "idx_redactor_assetable_type", using: :btree
+  end
+
+  create_table "sites", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.string   "title"
+    t.string   "slug"
+    t.text     "description", limit: 65535
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.index ["slug"], name: "index_sites_on_slug", using: :btree
   end
 
   create_table "stocks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|

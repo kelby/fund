@@ -37,11 +37,26 @@
         <div class="col-md-3 md-margin-bottom-40">
           <div class="headline"><h2>基金工具箱</h2></div>
           <ul class="list-unstyled link-list">
-            <li><a href="#">关于我们</a><i class="fa fa-angle-right"></i></li>
-            <li><a href="#">常见问题</a><i class="fa fa-angle-right"></i></li>
-            <li><a href="#">商务合作</a><i class="fa fa-angle-right"></i></li>
-            <li><a href="#">意见反馈</a><i class="fa fa-angle-right"></i></li>
-            <li><a href="#">友情链接</a><i class="fa fa-angle-right"></i></li>
+            <li>
+              <%= link_to "关于我们", site_path(:about_us) %>
+              <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+              <%= link_to "常见问题", site_path(:faq) %>
+              <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+              <%= link_to "商务合作", site_path(:business) %>
+              <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+              <%= link_to "意见反馈", site_path(:feedback) %>
+              <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+              <%= link_to "友情链接", site_path(:friends) %>
+              <i class="fa fa-angle-right"></i>
+            </li>
           </ul>
         </div><!--/col-md-3-->
         <!-- End Link List -->
@@ -72,7 +87,7 @@
         <div class="col-md-6">
           <p>
             2017 &copy; All Rights Reserved.
-            <%= link_to "数据来源", "" %> | <%= link_to "免责声明", "disclaimer" %>
+            <%= link_to "数据来源", site_path(:data_sources) %> | <%= link_to "免责声明", site_path(:disclaimer) %>
           </p>
         </div>
 

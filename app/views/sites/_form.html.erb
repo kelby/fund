@@ -1,0 +1,32 @@
+<%= form_for site, class: "form" do |f| %>
+  <% if site.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(site.errors.count, "error") %> prohibited this site from being saved:</h2>
+
+      <ul>
+      <% site.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="for-group">
+    <%= f.label :title %>
+    <%= f.text_field :title, class: "form-control" %>
+  </div>
+
+  <div class="for-group">
+    <%= f.label :slug %>
+    <%= f.text_field :slug, class: "form-control" %>
+  </div>
+
+  <div class="for-group">
+    <%= f.label :description %>
+    <%= f.text_area :description, class: "form-control", rows: 15 %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "提交", class: "btn btn-primary", data: {disable_with: "正在提交"} %>
+  </div>
+<% end %>
