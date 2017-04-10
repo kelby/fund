@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @article_catalog.name %>
+</p>
+
+<p>
+  <strong>Slug:</strong>
+  <%= @article_catalog.slug %>
+</p>
+
+<%= link_to 'Edit', edit_article_catalog_path(@article_catalog) %> |
+<%= link_to 'Back', article_catalogs_path %>

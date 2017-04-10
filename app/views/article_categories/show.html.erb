@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @article_category.name %>
+</p>
+
+<p>
+  <strong>Slug:</strong>
+  <%= @article_category.slug %>
+</p>
+
+<p>
+  <strong>Cover:</strong>
+  <%= @article_category.cover %>
+</p>
+
+<p>
+  <strong>Intro:</strong>
+  <%= @article_category.intro %>
+</p>
+
+<p>
+  <strong>Article catalog:</strong>
+  <%= @article_category.article_catalog_id %>
+</p>
+
+<%= link_to 'Edit', edit_article_category_path(@article_category) %> |
+<%= link_to 'Back', article_categories_path %>

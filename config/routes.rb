@@ -1,6 +1,8 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  resources :article_catalogs
+  resources :article_categories
   resources :sites, path: "site"
   # get 'quickrank_performances/index'
 

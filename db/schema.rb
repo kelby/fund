@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170409120313) do
+ActiveRecord::Schema.define(version: 20170410020113) do
 
   create_table "agreement_articles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.integer  "user_id"
@@ -18,6 +18,25 @@ ActiveRecord::Schema.define(version: 20170409120313) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id", "article_id"], name: "index_agreement_articles_on_user_id_and_article_id", using: :btree
+  end
+
+  create_table "article_catalogs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.string   "name"
+    t.string   "slug"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "article_categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.string   "name"
+    t.string   "slug"
+    t.string   "cover"
+    t.string   "intro"
+    t.integer  "article_catalog_id"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.integer  "articles_count",     default: 0, null: false
+    t.index ["article_catalog_id"], name: "index_article_categories_on_article_catalog_id", using: :btree
   end
 
   create_table "articles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
@@ -32,6 +51,8 @@ ActiveRecord::Schema.define(version: 20170409120313) do
     t.boolean  "can_reprinted",                          default: true
     t.integer  "agreement_articles_count",               default: 0,    null: false
     t.integer  "status",                                 default: 0,    null: false
+    t.integer  "article_category_id"
+    t.index ["article_category_id"], name: "index_articles_on_article_category_id", using: :btree
     t.index ["user_id"], name: "index_articles_on_user_id", using: :btree
   end
 

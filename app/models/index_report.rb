@@ -3,9 +3,6 @@
 # Table name: index_reports
 #
 #  id                :integer          not null, primary key
-#  catalog           :string(255)
-#  category          :string(255)
-#  category_intro    :string(255)
 #  name              :string(255)
 #  intro             :text(16777215)
 #  website           :string(255)
@@ -14,8 +11,6 @@
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  slug              :string(255)
-#  catalog_slug      :string(255)
-#  category_slug     :string(255)
 #  index_catalog_id  :integer
 #  index_category_id :integer
 #

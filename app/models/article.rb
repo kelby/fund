@@ -14,6 +14,7 @@
 #  can_reprinted            :boolean          default(TRUE)
 #  agreement_articles_count :integer          default(0), not null
 #  status                   :integer          default("online"), not null
+#  article_category_id      :integer
 #
 
 class Article < ApplicationRecord
@@ -23,6 +24,8 @@ class Article < ApplicationRecord
   # Associations
   belongs_to :user
   has_many :comments, as: :commentable
+
+  belongs_to :article_category
   # END
 
 
