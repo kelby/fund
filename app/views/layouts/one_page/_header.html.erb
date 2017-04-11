@@ -191,32 +191,47 @@
           <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
             文章
           </a>
-          <ul class="dropdown-menu">
+          <ul class="dropdown-menu col-md-6" style="left: inherit;">
             <li>
               <div class="mega-menu-content disable-icons">
                 <div class="container">
                   <div class="row equal-height">
                     <div class="col-md-3 equal-height-in">
                       <ul class="list-unstyled equal-height-list">
-                        <li><a href="javascript:void(0);">Accounting</a></li>
-                        <li><a href="javascript:void(0);">Agency</a></li>
-                        <li><a href="javascript:void(0);">Architecture</a></li>
-                        <li><a href="javascript:void(0);">Business</a></li>
-                        <li><a href="javascript:void(0);">Charity</a></li>
-                        <li><a href="javascript:void(0);">Consulting</a></li>
-                        <li><a href="javascript:void(0);">Courses</a></li>
+                        <% ArticleCategory.order(top_at: :desc).limit(7).each do |category| %>
+                          <li>
+                            <%= link_to category.name, category %>
+                          </li>
+                        <% end %>
                       </ul>
                     </div>
 
                     <div class="col-md-3 equal-height-in">
                       <ul class="list-unstyled equal-height-list">
-                        <li><a href="javascript:void(0);">Construction</a></li>
-                        <li><a href="javascript:void(0);">Event <small class="color-red">New</small></a></li>
-                        <li><a href="javascript:void(0);">Gym</a></li>
-                        <li><a href="javascript:void(0);">Lawyer</a></li>
-                        <li><a href="javascript:void(0);">Mobile App</a></li>
-                        <li><a href="javascript:void(0);">Music</a></li>
-                        <li><a href="javascript:void(0);">Photographer</a></li>
+                        <% ArticleCategory.order(top_at: :desc).offset(7).limit(5).each do |category| %>
+                          <li>
+                            <%= link_to category.name, category %>
+                          </li>
+                        <% end %>
+
+                        <li>
+                          <%= link_to articles_path do %>
+                            查看全部
+                            &nbsp;
+                            <small class="color-red">
+                              <i class="fa fa-free-code-camp" aria-hidden="true"></i>
+                            </small>
+                          <% end %>
+                        </li>
+                        <li>
+                          <%= link_to new_article_path do %>
+                            新建文章
+                            &nbsp;
+                            <small class="color-red">
+                              <i class="fa fa-free-code-camp" aria-hidden="true"></i>
+                            </small>
+                          <% end %>
+                        </li>
                       </ul>
                     </div>
 

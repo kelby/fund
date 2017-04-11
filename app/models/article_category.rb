@@ -11,6 +11,7 @@
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  articles_count     :integer          default(0), not null
+#  top_at             :datetime
 #
 
 class ArticleCategory < ApplicationRecord

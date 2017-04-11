@@ -1,35 +1,35 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <h1>Article Categories</h1>
 
-<h1>Article Categories</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Slug</th>
-      <th>Cover</th>
-      <th>Intro</th>
-      <th>Article catalog</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @article_categories.each do |article_category| %>
+  <table>
+    <thead>
       <tr>
-        <td><%= article_category.name %></td>
-        <td><%= article_category.slug %></td>
-        <td><%= article_category.cover %></td>
-        <td><%= article_category.intro %></td>
-        <td><%= article_category.article_catalog_id %></td>
-        <td><%= link_to 'Show', article_category %></td>
-        <td><%= link_to 'Edit', edit_article_category_path(article_category) %></td>
-        <td><%= link_to 'Destroy', article_category, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>Name</th>
+        <th>Slug</th>
+        <th>Cover</th>
+        <th>Intro</th>
+        <th>Article catalog</th>
+        <th colspan="3"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
-<br>
+    <tbody>
+      <% @article_categories.each do |article_category| %>
+        <tr>
+          <td><%= article_category.name %></td>
+          <td><%= article_category.slug %></td>
+          <td><%= article_category.cover %></td>
+          <td><%= article_category.intro %></td>
+          <td><%= article_category.article_catalog_id %></td>
+          <td><%= link_to 'Show', article_category %></td>
+          <td><%= link_to 'Edit', edit_article_category_path(article_category) %></td>
+          <td><%= link_to 'Destroy', article_category, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
-<%= link_to 'New Article Category', new_article_category_path %>
+  <br>
+
+  <%= link_to 'New Article Category', new_article_category_path %>
+</div>
