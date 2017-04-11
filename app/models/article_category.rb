@@ -51,5 +51,9 @@ class ArticleCategory < ApplicationRecord
       end
     end
   end
+
+  def to_param
+    self.slug
+  end
 end
 
