@@ -1,6 +1,6 @@
 <% set_meta_tags title: @tag.name, description: @tag.description %>
 
-<div class="container">
+<div class="container content">
   <div class="panel panel-default">
     <div class="panel-heading">
       <%= @tag.name %>
@@ -22,16 +22,11 @@
       </div>
     <% end %>
 
-    <ul class="list-group">
-      <% @projects.each do |project| %>
-      <li class="list-group-item">
-        <%= link_to project do %>
-          <%= project.code %>
-          <%= project.name %>
-        <% end %>
-      </li>
-      <% end %>
-    </ul>
+    <% cache @projects do %>
+      <ul class="list-group">
+        <%= render partial: "tags/project", collection: @projects %>
+      </ul>
+    <% end %>
   </div>
 
 
