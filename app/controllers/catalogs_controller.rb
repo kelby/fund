@@ -30,6 +30,7 @@ class CatalogsController < ApplicationController
     # @swift_catalogs = SwiftCatalog.online
 
     @catalogs = Catalog.where(type: [nil, ''])
+    @with_cover_catalogs = @catalogs.with_cover
   end
 
   # GET /catalogs/1

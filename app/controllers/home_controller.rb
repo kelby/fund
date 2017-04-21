@@ -3,5 +3,6 @@ class HomeController < ApplicationController
   layout 'one_page'
 
   def index
+    @tags = CustomTag.all
   end
 end

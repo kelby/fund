@@ -1,0 +1,11 @@
+<dt class="col-md-1 col-xs-6 no-padding">
+   <%= link_to tag_path(tag), target: "_blank" do %>
+    <%= tag.name %>
+  <% end %>
+</dt>
+
+<dd class="col-md-1 col-xs-6">
+ <span class="badge">
+   <%= tag.taggings_count %>
+ </span>
+</dd>

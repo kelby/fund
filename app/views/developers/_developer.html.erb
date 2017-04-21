@@ -1,0 +1,19 @@
+<tr>
+  <td>
+    <%= link_to developer.name, developer %>
+  </td>
+
+  <td>
+    <%= link_to developer do %>
+      <%= image_tag(developer.avatar_url(:thumb), height: '50', width: '50', alt: developer.name) %>
+    <% end %>
+  </td>
+
+  <td>
+    <%= render partial: "developers/catalog", collection: developer.catalogs %>
+  </td>
+
+  <td>
+    <%= developer.developer_projects.count %>
+  </td>
+</tr>

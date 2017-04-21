@@ -2,7 +2,7 @@
 
 <% set_meta_tags title: @title, description: meta_description %>
 
-<div class="container">
+<div class="container content">
   <h1>
     <%= @title %>
 
@@ -20,13 +20,15 @@
     <%= simple_format @description %>
   <% end %>
 
-  <ul class="nav nav-pills">
-    <% IndexReport::CATALOG_HASH.each_pair do |catalog_en, catalog_cn| %>
-      <li>
-        <%= link_to catalog_cn, catalog_slug_index_reports_path(catalog_en) %>
-      </li>
-    <% end %>
-  </ul>
+  <% cache IndexReport::CATALOG_HASH.keys do %>
+    <ul class="nav nav-pills">
+      <% IndexReport::CATALOG_HASH.each_pair do |catalog_en, catalog_cn| %>
+        <li>
+          <%= link_to catalog_cn, catalog_slug_index_reports_path(catalog_en) %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
 
   <br>
 
@@ -65,47 +67,35 @@
     </div>
   </div>
 
-  <div class="col-md-9">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>系列</th>
-          <th>指数</th>
-
-          <th>名字</th>
-
-
-          <th>代码</th>
-          <th>成立日</th>
-
-        </tr>
-      </thead>
-
-      <tbody>
-        <% @index_reports.each do |index_report| %>
+  <% cache @index_reports do %>
+    <div class="col-md-9">
+      <table class="table table-striped">
+        <thead>
           <tr>
-            <td>
-              <%= link_to index_report.catalog_name, catalog_slug_index_reports_path(index_report.catalog_slug) %>
-            </td>
-            <td>
-              <%= link_to index_report.category_name, catalog_slug_category_slug_index_reports_path(index_report.catalog_slug, index_report.category_slug) %>
-            </td>
+            <th>系列</th>
+            <th>指数</th>
 
-            <td><%= link_to index_report.name, index_report %></td>
+            <th>名字</th>
 
-            <td><%= index_report.code %></td>
-            <td><%= index_report.set_up_at %></td>
+
+            <th>代码</th>
+            <th>成立日</th>
+
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
 
-    <br>
+        <tbody>
+          <%= render partial: "index_reports/index_report", collection: @index_reports %>
+        </tbody>
+      </table>
 
-    <div class="text-center">
-      <%= magic_paginate @index_reports %>
+      <br>
+
+      <div class="text-center">
+        <%= magic_paginate @index_reports %>
+      </div>
     </div>
-  </div>
+  <% end %>
 </div>
 
 <style>

@@ -4,7 +4,7 @@
   <%= stylesheet_link_tag 'catalogs' %>
 <% end %>
 
-<div class="container">
+<div class="container content">
   <!-- 面包屑 -->
   <ol class="breadcrumb bg-color-white catalog-category-etc">
     <li>
@@ -116,46 +116,50 @@
   </div>
 
   <!-- 旗下基金 -->
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      本基金公司旗下共有 <%= @projects.confirm_lineal.size %> 支基金
-    </div>
+  <% cache @projects do %>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        本基金公司旗下共有 <%= @projects.confirm_lineal.size %> 支基金
+      </div>
 
-    <div class="panel-body">
-      <% if @projects.blank? %>
-        <div class="text-center text-muted">
-          没有搜索到结果
-        </div>
-      <% else %>
-        <ul class="media-list">
-          <%= render partial: "projects/media_list_item", collection: @projects, as: :project %>
-        </ul>
-      <% end %>
+      <div class="panel-body">
+        <% if @projects.blank? %>
+          <div class="text-center text-muted">
+            没有搜索到结果
+          </div>
+        <% else %>
+          <ul class="media-list">
+            <%= render partial: "projects/media_list_item", collection: @projects, as: :project %>
+          </ul>
+        <% end %>
+      </div>
     </div>
-  </div>
+  <% end %>
 
   <!-- 旗下经理 -->
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      当前本基金公司旗下共有 <%= @catalog.online_developers.size %> 名基金经理
+  <% cache @catalog.online_developers do %>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        当前本基金公司旗下共有 <%= @catalog.online_developers.size %> 名基金经理
 
-      <small class="pull-right">
-        <%= link_to "查看所有经理", catalog_catalog_developers_path(@catalog) %>
-      </small>
-    </div>
+        <small class="pull-right">
+          <%= link_to "查看所有经理", catalog_catalog_developers_path(@catalog) %>
+        </small>
+      </div>
 
-    <div class="panel-body">
-      <% if @catalog.online_developers.blank? %>
-        <div class="text-center text-muted">
-          没有
-        </div>
-      <% else %>
-        <ul class="media-list">
-          <%= render partial: 'catalogs/developer', collection: @catalog.online_developers %>
-        </ul>
-      <% end %>
+      <div class="panel-body">
+        <% if @catalog.online_developers.blank? %>
+          <div class="text-center text-muted">
+            没有
+          </div>
+        <% else %>
+          <ul class="media-list">
+            <%= render partial: 'catalogs/developer', collection: @catalog.online_developers %>
+          </ul>
+        <% end %>
+      </div>
     </div>
-  </div>
+  <% end %>
 
   <!-- 新浪和天天信息 -->
   <% if can? :edit, @catalog %>

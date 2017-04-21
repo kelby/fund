@@ -4,7 +4,7 @@
 
 <% set_meta_tags title: "基金龙虎榜" %>
 
-<div class="container">
+<div class="container content-xs">
   <h1>
     基金龙虎榜
 
@@ -42,51 +42,53 @@
       </tr>
     </thead>
 
-    <tbody>
-      <% @quickrank_snapshots.each_with_index do |quickrank_snapshot, index| %>
-        <% page = params[:page].to_i %>
-        <% page = 1 if page.zero? %>
+    <% cache @quickrank_snapshots do %>
+      <tbody>
+        <% @quickrank_snapshots.each_with_index do |quickrank_snapshot, index| %>
+          <% page = params[:page].to_i %>
+          <% page = 1 if page.zero? %>
 
-        <tr>
-          <td><%= (index + 1) + (page - 1) * 1000 %></td>
-          <td>
-            <% if quickrank_snapshot.project.present? %>
-              <%= link_to quickrank_snapshot.project_code, quickrank_snapshot.project %>
-            <% else %>
-              <%= quickrank_snapshot.project_code %>
-            <% end %>
-          </td>
+          <tr>
+            <td><%= (index + 1) + (page - 1) * 1000 %></td>
+            <td>
+              <% if quickrank_snapshot.project.present? %>
+                <%= link_to quickrank_snapshot.project_code, quickrank_snapshot.project %>
+              <% else %>
+                <%= quickrank_snapshot.project_code %>
+              <% end %>
+            </td>
 
-          <td>
-            <%= quickrank_snapshot.project_name %>
-          </td>
+            <td>
+              <%= quickrank_snapshot.project_name %>
+            </td>
 
-          <td>
-            <%= quickrank_snapshot.project_category %>
-          </td>
+            <td>
+              <%= quickrank_snapshot.project_category %>
+            </td>
 
-          <td>
-            <%= quickrank_snapshot.star_rating_three_year %>
-          </td>
+            <td>
+              <%= quickrank_snapshot.star_rating_three_year %>
+            </td>
 
-          <td>
-            <%= quickrank_snapshot.star_rating_five_year %>
-          </td>
+            <td>
+              <%= quickrank_snapshot.star_rating_five_year %>
+            </td>
 
-          <td>
-            <%= quickrank_snapshot.record_at.strftime("%F") if quickrank_snapshot.record_at.present? %>
-          </td>
+            <td>
+              <%= quickrank_snapshot.record_at.strftime("%F") if quickrank_snapshot.record_at.present? %>
+            </td>
 
-          <td><%= quickrank_snapshot.dwjz %></td>
+            <td><%= quickrank_snapshot.dwjz %></td>
 
-          <td>
-            <%= quickrank_snapshot.iopv %>
-          </td>
+            <td>
+              <%= quickrank_snapshot.iopv %>
+            </td>
 
-          <td class="<%= accnav_color(quickrank_snapshot.yield_rate) %>"><%= quickrank_snapshot.yield_rate %></td>
-        </tr>
-      <% end %>
-    </tbody>
+            <td class="<%= accnav_color(quickrank_snapshot.yield_rate) %>"><%= quickrank_snapshot.yield_rate %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    <% end %>
   </table>
 
   <div class="text-center">

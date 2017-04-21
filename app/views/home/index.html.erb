@@ -51,7 +51,7 @@
     </div>
 
     <div class="col-md-6">
-      <%= image_tag "pexels-photo-159888.jpg", class: "img-responsive" %>
+      <%= image_tag "pexels-photo-159888.jpg", class: "img-responsive", alt: "基金工具官网" %>
     </div>
   </div>
 </div>
@@ -139,31 +139,21 @@
     </div>
   </div>
 
-  <div class="panel panel-default">
-    <div class="panel-heading">全部基金分类</div>
+  <% cache @tags do %>
+    <div class="panel panel-default">
+      <div class="panel-heading">全部基金分类</div>
 
-    <div class="panel-body">
-      <% CustomTag.all.each_slice(6) do |tags| %>
+      <div class="panel-body">
+        <% @tags.each_slice(6) do |tags| %>
 
-        <dl class="clearfix">
-          <% tags.each do |tag| %>
-           <dt class="col-md-1 col-xs-6 no-padding">
-              <%= link_to tag_path(tag), target: "_blank" do %>
-               <%= tag.name %>
-             <% end %>
-           </dt>
+          <dl class="clearfix">
+            <%= render partial: "home/tag", collection: tags %>
+          </dl>
 
-           <dd class="col-md-1 col-xs-6">
-            <span class="badge">
-              <%= tag.taggings_count %>
-            </span>
-           </dd>
-          <% end %>
-        </dl>
-
-      <% end %>
+        <% end %>
+      </div>
     </div>
-  </div>
+  <% end %>
 </div>
 
 

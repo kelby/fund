@@ -1,0 +1,13 @@
+<tr>
+  <td>
+    <%= link_to index_report.catalog_name, catalog_slug_index_reports_path(index_report.catalog_slug) %>
+  </td>
+  <td>
+    <%= link_to index_report.category_name, catalog_slug_category_slug_index_reports_path(index_report.catalog_slug, index_report.category_slug) %>
+  </td>
+
+  <td><%= link_to index_report.name, index_report %></td>
+
+  <td><%= index_report.code %></td>
+  <td><%= index_report.set_up_at %></td>
+</tr>

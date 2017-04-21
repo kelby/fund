@@ -1,6 +1,6 @@
-<% set_meta_tags title: "基金经理列表" %>
+<% set_meta_tags title: "基金经理", description: "基金经理（英语：Fund Manager 或 Money Manager），是管理共同基金、对冲基金或捐赠基金的具有专业知识的金融人才，负责为基金资产寻找投资渠道，制订投资策略，并与基金股东或委托人共享投资收益。" %>
 
-<div class="container">
+<div class="container content">
   <h1>
     基金经理
 
@@ -20,31 +20,7 @@
     </thead>
 
     <tbody>
-      <% @developers.each do |developer| %>
-        <tr>
-          <td>
-            <%= link_to developer.name, developer %>
-          </td>
-
-          <td>
-            <%= link_to developer do %>
-              <%= image_tag(developer.avatar_url(:thumb), height: '50', width: '50') %>
-            <% end %>
-          </td>
-
-          <td>
-            <% developer.catalogs.each do |catalog| %>
-              <%= link_to catalog.code, catalog %>
-              -
-              <%= catalog.name %>
-            <% end %>
-          </td>
-
-          <td>
-            <%= developer.developer_projects.count %>
-          </td>
-        </tr>
-      <% end %>
+      <%= render partial: 'developers/developer', collection: @developers %>
     </tbody>
   </table>
 

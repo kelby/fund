@@ -16,6 +16,7 @@
  *= require font-awesome
  *= require select2
  *= require select2-bootstrap
+ *= require common
  *= require_self
  */
 
@@ -79,10 +80,6 @@ li.project-item:last-child {
     border: none;
     /*border-bottom: 1px solid #eeeeee;*/
   /*}*/
-}
-
-.clearfix {
-  clear: both;
 }
 
 /*h1, h2, h3, h4, h5 {
@@ -161,25 +158,4 @@ h1, h2, h3, h4, h5 {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
   }
-}
-
-.half-thumb {
-  width: 50px;
-  height: 50px;
-}
-
-.radius-50 {
-  border-radius: 50%;
-}
-
-.green {
-  color: green;
-}
-
-.red {
-  color: red;
-}
-
-.bg-with-white {
-  background-color: white;
 }

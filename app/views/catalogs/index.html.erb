@@ -8,114 +8,97 @@
   <%= stylesheet_link_tag 'owl-carousel/owl.carousel' %>
 <% end %>
 
-<div class="container">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h2>
-        基金公司一览
-        <small>
-          首字母拼音排序
-        </small>
+<div class="container content">
+  <% cache [@catalogs, 'initial'] do %>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h2>
+          基金公司一览
+          <small>
+            首字母拼音排序
+          </small>
 
-        <small class="pull-right">
-          <%= Catalog.unscope(:limit, :offset).count %>
-        </small>
-      </h2>
+          <small class="pull-right">
+            <%= Catalog.unscope(:limit, :offset).count %>
+          </small>
+        </h2>
+      </div>
+
+      <div class="panel-body">
+        <% Catalog.group(:initial).count.each_pair do |initial, count| %>
+          <div class="col-md-2">
+            <% catalogs = Catalog.where(initial: initial) %>
+
+            <%= initial.camelcase %>
+
+            <ul>
+              <% catalogs.each do |catalog| %>
+              <li>
+                <%= link_to catalog.short_name, catalog %>
+              </li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <% cache @catalogs do %>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h2>
+          基金公司列表
+
+          <small>
+            <%= @catalogs.size %>
+          </small>
+        </h2>
+      </div>
+
+      <div class="panel-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>id</th>
+              <th>Name</th>
+              <!-- <th>Slug</th> -->
+              <!-- <th>Code</th> -->
+              <th>Categories</th>
+              <!-- <th colspan="3"></th> -->
+            </tr>
+          </thead>
+
+          <tbody>
+            <%= render partial: 'catalogs/catalog', collection: @catalogs %>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="panel-footer">
+        我们尽量为您提供最详细的基金公司资料、基金公司旗下基金、基金公司旗下基金经理，基金公司网站、基金公司联系方式、基金公司规模等信息。
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<% cache @with_cover_catalogs do %>
+  <div class="container content">
+    <!-- Owl Clients v1 -->
+    <div class="headline">
+      <h2>最受欢迎的基金公司</h2>
     </div>
 
-    <div class="panel-body">
-      <% Catalog.group(:initial).count.each_pair do |initial, count| %>
-        <div class="col-md-2">
-          <% catalogs = Catalog.where(initial: initial) %>
-
-          <%= initial.camelcase %>
-
-          <ul>
-            <% catalogs.each do |catalog| %>
-            <li>
-              <%= link_to catalog.short_name, catalog %>
-            </li>
-            <% end %>
-          </ul>
+    <div class="owl-clients-v1">
+      <% @with_cover_catalogs.each do |catalog| %>
+        <div class="item">
+          <%= image_tag catalog.cover, alt: catalog.name %>
         </div>
       <% end %>
     </div>
+    <!-- End Owl Clients v1 -->
   </div>
-
-
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h2>
-        基金公司列表
-
-        <small>
-          <%= @catalogs.size %>
-        </small>
-      </h2>
-    </div>
-
-    <div class="panel-body">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>id</th>
-            <th>Name</th>
-            <!-- <th>Slug</th> -->
-            <!-- <th>Code</th> -->
-            <th>Categories</th>
-            <!-- <th colspan="3"></th> -->
-          </tr>
-        </thead>
-
-        <tbody>
-          <%= render partial: 'catalogs/catalog', collection: @catalogs %>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="panel-footer">
-      <!--  -->
-    </div>
-  </div>
-</div>
-
-<div class="container content">
-  <!-- Owl Clients v1 -->
-  <div class="headline"><h2>Our Clients</h2></div>
-  <div class="owl-clients-v1">
-    <% Catalog.with_cover.each do |catalog| %>
-    <div class="item">
-      <!-- <img src="assets/img/clients4/1.png" alt=""> -->
-      <%= image_tag catalog.cover %>
-    </div>
-    <% end %>
-    <!-- <div class="item">
-      <img src="assets/img/clients4/2.png" alt="">
-    </div>
-    <div class="item">
-      <img src="assets/img/clients4/3.png" alt="">
-    </div>
-    <div class="item">
-      <img src="assets/img/clients4/4.png" alt="">
-    </div>
-    <div class="item">
-      <img src="assets/img/clients4/5.png" alt="">
-    </div>
-    <div class="item">
-      <img src="assets/img/clients4/6.png" alt="">
-    </div>
-    <div class="item">
-      <img src="assets/img/clients4/7.png" alt="">
-    </div>
-    <div class="item">
-      <img src="assets/img/clients4/8.png" alt="">
-    </div>
-    <div class="item">
-      <img src="assets/img/clients4/9.png" alt="">
-    </div> -->
-  </div>
-  <!-- End Owl Clients v1 -->
-</div>
+<% end %>
 
 <% content_for :layout_js_link_yield do %>
   <%= javascript_include_tag 'owl-carousel/owl.carousel' %>
