@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170411014107) do
+ActiveRecord::Schema.define(version: 20170422163218) do
 
   create_table "agreement_articles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.integer  "user_id"
@@ -332,6 +332,118 @@ ActiveRecord::Schema.define(version: 20170411014107) do
     t.datetime "updated_at",                                                null: false
     t.index ["project_id", "yield_type"], name: "index_fund_yields_on_project_id_and_yield_type", using: :btree
     t.index ["project_id"], name: "index_fund_yields_on_project_id", using: :btree
+  end
+
+  create_table "fundcompanies", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.integer  "project_id"
+    t.integer  "morningstar_number"
+    t.string   "morningstar_name"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.index ["morningstar_number"], name: "index_fundcompanies_on_morningstar_number", using: :btree
+    t.index ["project_id"], name: "index_fundcompanies_on_project_id", using: :btree
+  end
+
+  create_table "fundcompany_assets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.integer  "fundcompany_id"
+    t.string   "name"
+    t.decimal  "scale",          precision: 10
+    t.decimal  "stock",          precision: 10
+    t.decimal  "bond",           precision: 10
+    t.decimal  "cash",           precision: 10
+    t.decimal  "other",          precision: 10
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.index ["fundcompany_id"], name: "index_fundcompany_assets_on_fundcompany_id", using: :btree
+  end
+
+  create_table "fundcompany_best_returns", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.integer  "fundcompany_id"
+    t.string   "name"
+    t.integer  "return_inception_id"
+    t.decimal  "return_inception",               precision: 10
+    t.integer  "three_year_return_inception_id"
+    t.decimal  "three_year_return_inception",    precision: 10
+    t.integer  "this_year_return_inception_id"
+    t.decimal  "this_year_return_inception",     precision: 10
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
+    t.index ["fundcompany_id"], name: "index_fundcompany_best_returns_on_fundcompany_id", using: :btree
+  end
+
+  create_table "fundcompany_infos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.integer  "fundcompany_id"
+    t.string   "name"
+    t.string   "city"
+    t.string   "address"
+    t.string   "zip_code"
+    t.string   "telphone"
+    t.string   "website"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["fundcompany_id"], name: "index_fundcompany_infos_on_fundcompany_id", using: :btree
+  end
+
+  create_table "fundcompany_managers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.integer  "fundcompany_id"
+    t.string   "name"
+    t.integer  "managers_count"
+    t.decimal  "scale_manager_avg",        precision: 10
+    t.string   "tenure_avg"
+    t.integer  "three_years_tenure_count"
+    t.decimal  "retention_rate",           precision: 10
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+    t.index ["fundcompany_id"], name: "index_fundcompany_managers_on_fundcompany_id", using: :btree
+  end
+
+  create_table "fundcompany_performances", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.integer  "fundcompany_id"
+    t.string   "name"
+    t.integer  "rank_pre_one_four"
+    t.integer  "rank_pre_one_two"
+    t.integer  "rank_post_one_four"
+    t.integer  "rank_post_one_two"
+    t.integer  "return_lt_zero"
+    t.integer  "return_zero_to_ten"
+    t.integer  "return_ten_to_twenty"
+    t.integer  "return_twenty_to_thirty"
+    t.integer  "return_thirty_to_fifty"
+    t.integer  "return_gt_fifty"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.index ["fundcompany_id"], name: "index_fundcompany_performances_on_fundcompany_id", using: :btree
+  end
+
+  create_table "fundcompany_snapshots", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.integer  "fundcompany_id"
+    t.string   "name"
+    t.string   "city"
+    t.date     "set_up_at"
+    t.decimal  "scale",                            precision: 10
+    t.integer  "funds_count"
+    t.integer  "managers_count"
+    t.string   "tenure_avg"
+    t.integer  "this_year_best_fund_id"
+    t.decimal  "this_year_best_fund_total_return", precision: 10
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
+    t.index ["fundcompany_id"], name: "index_fundcompany_snapshots_on_fundcompany_id", using: :btree
+  end
+
+  create_table "fundcompany_stars", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.integer  "fundcompany_id"
+    t.string   "name"
+    t.integer  "funds_count"
+    t.integer  "five_star_count"
+    t.integer  "four_star_count"
+    t.integer  "three_star_count"
+    t.integer  "two_star_count"
+    t.integer  "one_star_count"
+    t.integer  "none_star_count"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.index ["fundcompany_id"], name: "index_fundcompany_stars_on_fundcompany_id", using: :btree
   end
 
   create_table "gem_infos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|

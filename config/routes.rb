@@ -10,6 +10,14 @@ Rails.application.routes.draw do
 
   # get 'quickrank_snapshots/index'
 
+  resources :fundcompany, path: 'company', only: [] do
+    collection do
+      get :star
+      get :best_return
+      get :performance
+    end
+  end
+
   resources :quickrank do
     collection do
       # get ":date_history", to: "quickrank#date_history", as: :date_history

@@ -121,6 +121,16 @@
             基金公司
           </a>
           <ul class="dropdown-menu">
+            <li>
+              <%= link_to "星级分布", star_fundcompany_index_path %>
+            </li>
+            <li>
+              <%= link_to "最佳业绩", best_return_fundcompany_index_path %>
+            </li>
+            <li>
+              <%= link_to "业绩分布", performance_fundcompany_index_path %>
+            </li>
+
             <% Catalog.pluck(:initial).uniq.each do |initial| %>
             <!-- About Pages -->
             <li class="dropdown-submenu">
