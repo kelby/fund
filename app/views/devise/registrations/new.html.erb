@@ -13,24 +13,33 @@
         <div class="reg-header">
           <h2>注册</h2>
           <p>
-            之前已经注册？点击
+            已有账号？点此
             <%= link_to "登录", new_session_path(resource_name), class: "color-green" %>
           </p>
         </div>
 
         <div class="form-group">
-          <%= f.label :username %>
+          <%= f.label :username do %>
+            <i class="fa fa-user-o" aria-hidden="true"></i>
+            用户名
+          <% end %>
+
           <%= f.text_field :username, autofocus: true, class: "form-control" %>
         </div>
 
         <div class="form-group">
-          <%= f.label :email %>
+          <%= f.label :email do %>
+            <i class="fa fa-envelope" aria-hidden="true"></i>
+            邮箱
+          <% end %>
+
           <%= f.email_field :email, class: "form-control" %>
         </div>
 
         <div class="row">
           <div class="col-sm-6">
             <%= f.label :password do %>
+              <i class="fa fa-lock" aria-hidden="true"></i>
               密码<span class="color-red">*</span>
             <% end %>
 
@@ -39,6 +48,7 @@
 
           <div class="col-sm-6">
             <%= f.label :password_confirmation do %>
+              <i class="fa fa-lock" aria-hidden="true"></i>
               密码确认<span class="color-red">*</span>
             <% end %>
 
@@ -47,8 +57,18 @@
         </div>
 
         <div class="form-group">
-          <%= label_tag :_rucaptcha, "验证码" %><br />
-          <%= rucaptcha_image_tag alt: '验证码' %>
+          <%= label_tag :_rucaptcha do %>
+            <i class="fa fa-yoast"></i>
+            验证码
+          <% end %>
+
+          <div class="verify-code">
+            <a class="rucaptcha-image-box" href="javascript:void(0)">
+              <%= rucaptcha_image_tag(alt: '验证码') %>
+              <i class="fa fa-refresh" aria-hidden="true"></i>
+            </a>
+          </div>
+
           <%= rucaptcha_input_tag class: 'form-control', placeholder: '请输入验证码' %>
         </div>
 

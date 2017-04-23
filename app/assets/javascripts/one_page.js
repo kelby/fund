@@ -16,3 +16,28 @@
 //= require bootstrap-sprockets
 //= require ie10-viewport-bug-workaround
 //= require select2-full
+
+$(document).on("click", "a.rucaptcha-image-box", function(e){
+  reLoadRucaptchaImage(e)
+});
+
+var reLoadRucaptchaImage = function(e) {
+  var btn, currentSrc, img;
+
+  btn = $(e.currentTarget);
+  // console.log(btn)
+  // console.log('end btn')
+
+
+  img = btn.find('img:first');
+  // console.log(img)
+  // console.log('end img')
+
+
+  currentSrc = img.attr('src');
+  // console.log(currentSrc)
+  // console.log('end currentSrc')
+
+  img.attr('src', currentSrc.split('?')[0] + '?' + (new Date()).getTime());
+  return false;
+}
