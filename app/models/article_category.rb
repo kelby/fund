@@ -55,5 +55,13 @@ class ArticleCategory < ApplicationRecord
   def to_param
     self.slug
   end
+
+  def parent_name
+    self.article_catalog.name
+  end
+
+  def self.select_container
+    self.all.includes(:article_catalog).map{|x| ["#{x.parent_name}/#{x.name}", x.id]}
+  end
 end
 

@@ -5,6 +5,14 @@
 
 <div class="bg-with-white">
   <div class="rich_media_inner">
+    <ol class="breadcrumb no-padding-left">
+      <li>
+        <%= link_to "文章列表", articles_path %>
+      </li>
+      <li>
+        <%= link_to @article.article_category.name, @article.article_category %>
+      </li>
+    </ol>
 
     <h1 class="title">
       <%= @article.title %>

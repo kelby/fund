@@ -18,4 +18,5 @@ Rails.application.config.assets.precompile += %w( projects.js projects.css
   one_page.js
   one_page/app.js plugins/back-to-top.js plugins/smoothScroll.js
   owl-carousel/owl.carousel.css owl-carousel/owl.carousel.js owl-carousel/owl-carousel.js
-  pages/page_log_reg_v1.css )
+  pages/page_log_reg_v1.css
+  select2.css select2.js select2-zh-CN.js)

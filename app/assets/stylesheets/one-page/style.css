@@ -89,3 +89,37 @@ a:hover {
 select::-ms-expand {
   display: none;
 }
+
+
+/* Custom
+---------------------------------- */
+
+.bg-color-white { background-color: #fff !important;}
+
+.no-padding-left {
+  padding-left: 0;
+}
+
+.no-padding-right {
+  padding-right: 0;
+}
+
+.no-padding {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+@media (max-width: 767px) {
+  .xs-no-padding {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .xs-full-width {
+    width: 100%;
+  }
+}
+
+.full-width {
+  width: 100%;
+}

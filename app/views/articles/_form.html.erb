@@ -1,16 +1,25 @@
+<% content_for :layout_css_link_yield do %>
+  <%= stylesheet_link_tag 'select2' %>
+<% end %>
+
 <%= form_for(article) do |f| %>
   <div class="form-group">
     <%= f.label :title, "标题" %>
     <%= f.text_field :title, class: "form-control", required: true %>
   </div>
 
-  <div class="field">
+  <div class="form-group margin-bottom-20">
     <%= f.label :description, "正文内容" %>
     <%= f.text_area :description, id: "editor", autofocus: true, required: true %>
   </div>
 
+  <div class="form-group margin-bottom-20">
+    <%= f.label :article_category_id, "分类" %>
+    <%= f.select :article_category_id, options_for_select(ArticleCategory.select_container, article.article_category_id), {}, {class: "form-control", required: true} %>
+  </div>
+
   <%# if article.new_record? %>
-    <div class="checkbox">
+    <div class="checkbox margin-bottom-20">
       <label>
         <%= f.check_box :can_reprinted %> 授权平台公众号全文转载？
       </label>
@@ -22,4 +31,15 @@
   </div>
 <% end %>
 
+<% content_for :layout_js_link_yield do %>
+  <%= javascript_include_tag 'select2' %>
+  <%= javascript_include_tag 'select2-zh-CN' %>
+<% end %>
+
 <%= javascript_include_tag 'simditor/use' %>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("#article_article_category_id").select2();
+  });
+</script>
