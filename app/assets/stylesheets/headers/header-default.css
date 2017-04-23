@@ -54,7 +54,7 @@ body.header-fixed-space-default {
 .header .topbar ul.loginbar > li > a,
 .header .topbar ul.loginbar > li > a:hover {
 	color: #7c8082;
-	font-size: 11px;
+	font-size: 13px;
 	text-transform: uppercase;
 }
 
@@ -1105,4 +1105,13 @@ body.header-fixed-space-default {
 .boxed-layout.header-fixed .header.header-sticky {
 	left: inherit;
 	width: inherit;
+}
+
+/*--------------------------------------------------
+    [10. Custom]
+----------------------------------------------------*/
+img.xs-avatar {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
 }
