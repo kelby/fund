@@ -1,14 +1,15 @@
-<h1>
-  Editing Comment
+<div class="container content">
+  <h1>
+    Editing Comment
 
-  <small>
-    <%= link_to 'Back', polymorphic_path(@commentable, anchor: "floor-#{@comment.floor}") %>
-  </small>
+    <small>
+      <%= link_to 'Back', polymorphic_path(@commentable, anchor: "floor-#{@comment.floor}") %>
+    </small>
 
-  <small class="pull-right">
-    <%= link_to '删除', @comment, method: :delete, data: { confirm: 'Are you sure?' } %>
-  </small>
-</h1>
+    <small class="pull-right">
+      <%= link_to '删除', @comment, method: :delete, data: { confirm: 'Are you sure?' } %>
+    </small>
+  </h1>
 
-<%= render 'form', comment: @comment, commentable: @commentable %>
-
+  <%= render 'form', comment: @comment, commentable: @commentable %>
+</div>
