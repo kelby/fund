@@ -26,6 +26,8 @@ require 'capistrano/rails/migrations'
 # require 'capistrano/passenger'
 
 require 'capistrano/puma'
+install_plugin Capistrano::Puma  # Default puma tasks
+
 require 'capistrano/puma/workers'
 require 'capistrano/puma/nginx'
 require 'capistrano/secrets_yml'
