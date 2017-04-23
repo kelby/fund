@@ -297,7 +297,7 @@ class Catalog < ApplicationRecord
   end
 
   def to_param
-    "#{self.id}-#{self.slug}"
+    self.slug.presence || self.id
   end
 
   def full_name

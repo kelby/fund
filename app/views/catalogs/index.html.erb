@@ -29,15 +29,17 @@
           <div class="col-md-2">
             <% catalogs = Catalog.where(initial: initial) %>
 
-            <%= initial.camelcase %>
+            <% cache catalogs do %>
+              <%= initial.camelcase %>
 
-            <ul>
-              <% catalogs.each do |catalog| %>
-              <li>
-                <%= link_to catalog.short_name, catalog %>
-              </li>
-              <% end %>
-            </ul>
+              <ul class="catalog-initial-box">
+                <% catalogs.each do |catalog| %>
+                  <li>
+                    <%= link_to catalog.short_name, catalog %>
+                  </li>
+                <% end %>
+              </ul>
+            <% end %>
           </div>
         <% end %>
       </div>
