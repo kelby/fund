@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170422163218) do
+ActiveRecord::Schema.define(version: 20170423100122) do
 
   create_table "agreement_articles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.integer  "user_id"
@@ -335,13 +335,12 @@ ActiveRecord::Schema.define(version: 20170422163218) do
   end
 
   create_table "fundcompanies", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
-    t.integer  "project_id"
+    t.integer  "catalog_id"
     t.integer  "morningstar_number"
     t.string   "morningstar_name"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
-    t.index ["morningstar_number"], name: "index_fundcompanies_on_morningstar_number", using: :btree
-    t.index ["project_id"], name: "index_fundcompanies_on_project_id", using: :btree
+    t.index ["catalog_id"], name: "index_fundcompanies_on_catalog_id", using: :btree
   end
 
   create_table "fundcompany_assets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|

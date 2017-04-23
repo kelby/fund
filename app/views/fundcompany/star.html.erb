@@ -14,4 +14,37 @@
   (只) 未评级基金
   (只)
   </p>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>序号</th>
+        <th>基金公司</th>
+        <th>旗下基金(只)</th>
+        <th>五星基金(只)</th>
+        <th>四星基金(只)</th>
+        <th>三星基金(只)</th>
+        <th>两星基金(只)</th>
+        <th>一星基金(只)</th>
+        <th>未评级基金(只)</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% FundcompanyStar.find_each.with_index do |item, index| %>
+        <tr>
+          <td><%= index + 1 %></td>
+          <td><%= item.name %></td>
+          <td><%= item.funds_count %></td>
+          <td><%= item.five_star_count %></td>
+          <td><%= item.four_star_count %></td>
+          <td><%= item.three_star_count %></td>
+          <td><%= item.two_star_count %></td>
+          <td><%= item.one_star_count %></td>
+          <td><%= item.none_star_count %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
 </div>

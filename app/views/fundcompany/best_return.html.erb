@@ -9,4 +9,37 @@
   (%) 今年以来业绩最佳  回报率
   (%)
   </p>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>序号</th>
+        <th>基金公司</th>
+
+        <th>设立以来业绩最佳</th>
+        <th>回报率(%)</th>
+        <th>最近三年业绩最佳</th>
+        <th>回报率(%)</th>
+        <th>今年以来业绩最佳</th>
+        <th>回报率(%)</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% FundcompanyBestReturn.find_each.with_index do |item, index| %>
+        <tr>
+          <td><%= index + 1 %></td>
+          <td><%= item.name %></td>
+
+          <td><%= item.return_inception_id %></td>
+          <td><%= item.return_inception %></td>
+          <td><%= item.three_year_return_inception_id %></td>
+          <td><%= item.three_year_return_inception %></td>
+          <td><%= item.this_year_return_inception_id %></td>
+          <td><%= item.this_year_return_inception %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
 </div>

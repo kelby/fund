@@ -16,4 +16,45 @@
   30~50%  回报率
   >50%
   </p>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>序号</th>
+        <th>基金公司</th>
+
+        <th>同类排名 前1/4</th>
+        <th>同类排名 前1/2</th>
+        <th>同类排名 后1/2</th>
+        <th>同类排名 后1/4</th>
+        <th>回报率 &lt;0%</th>
+        <th>回报率 0~10%</th>
+        <th>回报率 10~20%</th>
+        <th>回报率 20~30%</th>
+        <th>回报率 30~50%</th>
+        <th>回报率 &gt;50%</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% FundcompanyPerformance.find_each.with_index do |item, index| %>
+        <tr>
+          <td><%= index + 1 %></td>
+          <td><%= item.name %></td>
+
+          <td><%= item.rank_pre_one_four %></td>
+          <td><%= item.rank_pre_one_two %></td>
+          <td><%= item.rank_post_one_four %></td>
+          <td><%= item.rank_post_one_two %></td>
+          <td><%= item.return_lt_zero %></td>
+          <td><%= item.return_zero_to_ten %></td>
+          <td><%= item.return_ten_to_twenty %></td>
+          <td><%= item.return_twenty_to_thirty %></td>
+          <td><%= item.return_thirty_to_fifty %></td>
+          <td><%= item.return_gt_fifty %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
 </div>
