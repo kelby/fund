@@ -151,7 +151,7 @@ class User < ApplicationRecord
   end
 
   def to_param
-    name
+    self.username.presence || self.id
   end
 
   def delay_set_avatar

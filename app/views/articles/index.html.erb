@@ -13,30 +13,7 @@
     </h1>
 
     <ul class="media-list">
-      <% @articles.each do |article| %>
-        <li class="media">
-          <div class="media-body">
-            <h4 class="media-heading">
-              <%= link_to article do %>
-                <%= article.title %>
-              <% end %>
-            </h4>
-
-            <%= truncate(sanitize(article.description, tags: %w(em), attributes: %w(href)), length: 150, omission: '...') %>
-            <%= link_to "查看全文", article %>
-          </div>
-
-          <div class="media-footer">
-            <section class="pull-left">
-              <%= link_to article.user.username, article.user %> · <%= time_ago_in_words(article.created_at) %>
-            </section>
-
-            <section class="pull-right">
-              <%= article.agreement_articles_count %> 赞 · <%= article.comments_count %> 条评论 · <%= article.view_times %> 次浏览
-            </section>
-          </div>
-        </li>
-      <% end %>
+      <%= render partial: "articles/article", collection: @articles %>
     </ul>
   </div>
 </div>

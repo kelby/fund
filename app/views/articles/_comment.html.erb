@@ -1,0 +1,41 @@
+<div class="panel panel-default">
+  <div class="panel-heading" name="floor-<%= comment.floor %>" id="floor-<%= comment.floor %>">
+    <%= link_to user_path(comment.user) do %>
+      <%= image_tag comment.user.avatar_url(:thumb), class: "half-thumb radius-50", alt: comment.user.username %>
+    <% end %>
+
+    <%= link_to user_path(comment.user) do %>
+      <%= comment.user.name %>
+
+      <% if comment.user.has_full_name? %>
+        (<%= comment.user.show_full_name %>)
+      <% end %>
+    <% end %>
+
+    <small>
+      <%= time_ago_in_words(comment.created_at) %> ago.
+    </small>
+
+    <% if can? :edit, comment %>
+      <%= link_to "编辑", edit_comment_path(comment) %>
+      <%= link_to '删除', comment, method: :delete, data: { confirm: 'Are you sure?' } %>
+    <% end %>
+
+    <%= link_to "", class: "pull-right", style: "margin-left: 15px;" do %>
+      <i class="fa fa-heart"></i>
+
+      <% if comment.user_favor_comments.size > 0 %>
+        <%= comment.user_favor_comments.size %>
+        个赞
+      <% end %>
+    <% end %>
+
+    <span class="pull-right">
+      <%= link_to "##{comment.floor}楼", "#floor-#{comment.floor}" %>
+    </span>
+
+  </div>
+  <div class="panel-body">
+    <%= simple_format comment.content %>
+  </div>
+</div>

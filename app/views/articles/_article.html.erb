@@ -1,0 +1,47 @@
+<li class="media">
+  <div class="media-left">
+    <%= link_to article.user do %>
+      <%= image_tag article.user.avatar_url, class: "media-object half-thumb radius-50", alt: article.user.username %>
+    <% end %>
+  </div>
+
+  <div class="media-body">
+    <h4 class="media-heading">
+      <%= link_to article do %>
+        <%= article.title %>
+      <% end %>
+    </h4>
+
+    <%#= truncate(sanitize(article.description, tags: %w(em), attributes: %w(href)), length: 150, omission: '...') %>
+
+    <% if article.agreement_articles_count > 0 %>
+      <%= article.agreement_articles_count %> 赞 · 
+    <% end %>
+
+    <%= link_to article.article_category do %>
+      <%= article.article_category.name %> · 
+    <% end %>
+
+    <%= link_to article.user do %>
+      <%= article.user.username %>
+    <% end %>
+
+    <% if article.comments.present? %>
+       · 
+      <%= time_ago_in_words(article.comments.last.created_at) %>前 · 
+
+      最后回复来自
+      <%= link_to article.comments.last.user do %>
+        <%= article.comments.last.user.username %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <% if article.comments.present? %>
+    <div class="media-left media-middle">
+      <%= link_to article_path(article, anchor: "floor-#{article.comments.last.floor}") do %>
+        <span class="badge"><%= article.comments_count %></span>
+      <% end %>
+    </div>
+  <% end %>
+</li>
