@@ -1,38 +1,72 @@
 <% set_meta_tags title: "登录 - Log in" %>
 
-<div class="container">
-  <div class="col-md-12 sign_in">
-    <h2>Log in</h2>
+<% content_for :content_css_link_yield do %>
+  <%= stylesheet_link_tag "pages/page_log_reg_v1" %>
+<% end %>
 
-    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-      <div class="form-group">
-        <%= f.label :email %>
-        <%= f.email_field :email, autofocus: true, class: "form-control" %>
-      </div>
-    
-      <div class="form-group">
-        <%= f.label :password %>
-        <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
-      </div>
+<!--=== Content Part ===-->
+<div class="container content">
+  <div class="row">
+    <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+      <%= form_for resource, as: resource_name, url: session_path(resource_name), html: {class: "reg-page"} do |f| %>
 
-      <div class="form-group">
-        <%= label_tag :_rucaptcha, "验证码" %><br />
-        <%= rucaptcha_image_tag(alt: 'Captcha') %>
-        <%= rucaptcha_input_tag(class: 'form-control', placeholder: 'Input Captcha') %>
-      </div>
-    
-      <% if devise_mapping.rememberable? -%>
-        <div class="field">
-          <%= f.check_box :remember_me %>
-          <%= f.label :remember_me %>
+        <div class="reg-header">
+          <h2>登录</h2>
         </div>
-      <% end -%>
-    
-      <div class="actions">
-        <%= f.submit "Log in", class: "btn btn-primary" %>
-      </div>
-    <% end %>
 
-    <%= render "devise/shared/links" %>
-  </div>
-</div>
+        <div class="form-group margin-bottom-20">
+          <%= f.label :email do %>
+            <i class="fa fa-envelope"></i>
+            邮箱
+          <% end %>
+
+          <%= f.email_field :email, autofocus: true, class: "form-control", placeholder: "邮箱" %>
+        </div>
+
+        <div class="form-group margin-bottom-20">
+          <%= f.label :password do %>
+            <i class="fa fa-lock"></i>
+            密码
+          <% end %>
+
+          <%= f.password_field :password, autocomplete: "off", class: "form-control", placeholder: "密码" %>
+        </div>
+
+        <div class="form-group margin-bottom-20">
+          <%= label_tag :_rucaptcha do %>
+            <i class="fa fa-yoast"></i>
+            验证码
+          <% end %>
+
+          <div>
+            <%= rucaptcha_image_tag(alt: 'Captcha') %>
+            <i class="fa fa-refresh" aria-hidden="true"></i>
+          </div>
+
+          <%= rucaptcha_input_tag class: 'form-control', placeholder: '请输入验证码' %>
+        </div>
+
+        <div class="row margin-bottom-20">
+          <div class="col-md-6">
+            <%= f.check_box :remember_me %>
+            <%= f.label :remember_me %>
+
+          </div>
+
+          <div class="col-md-6">
+            <%= f.submit "提交", class: "btn-u pull-right" %>
+          </div>
+        </div>
+
+        <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+          <%= link_to "注册", new_registration_path(resource_name) %>
+        <% end -%>
+
+        <hr>
+
+        <%= link_to "忘记密码？", new_password_path(resource_name), class: "color-green" %>
+      <% end %>
+    </div>
+  </div><!--/row-->
+</div><!--/container-->
+<!--=== End Content Part ===-->

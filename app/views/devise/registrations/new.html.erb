@@ -1,46 +1,66 @@
 <% set_meta_tags title: "注册 - Sign up" %>
 
-<div class="container">
-  <div class="col-md-12 sign_up">
-    <h2>Sign up</h2>
+<% content_for :content_css_link_yield do %>
+  <%= stylesheet_link_tag "pages/page_log_reg_v1" %>
+<% end %>
 
-    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-      <%= devise_error_messages! %>
-    
-      <div class="form-group">
-        <%= f.label :username %>
-        <%= f.text_field :username, autofocus: true, class: "form-control" %>
-      </div>
-    
-      <div class="form-group">
-        <%= f.label :email %>
-        <%= f.email_field :email, class: "form-control" %>
-      </div>
-    
-      <div class="form-group">
-        <%= f.label :password %>
-        <% if @minimum_password_length %>
-        <em>(<%= @minimum_password_length %> characters minimum)</em>
-        <% end %><br />
-        <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
-      </div>
-    
-      <div class="form-group">
-        <%= f.label :password_confirmation %>
-        <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control" %>
-      </div>
+<!--=== Content Part ===-->
+<div class="container content">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+      <%= form_for resource, as: resource_name, url: registration_path(resource_name), html: {class: "reg-page"} do |f| %>
 
-      <div class="form-group">
-        <%= label_tag :_rucaptcha, "验证码" %><br />
-        <%= rucaptcha_input_tag(class: 'form-control', placeholder: 'Input Captcha') %>
-        <%= rucaptcha_image_tag(alt: 'Captcha') %>
-      </div>
-    
-      <div class="actions">
-        <%= f.submit "Sign up", class: "btn btn-primary" %>
-      </div>
-    <% end %>
+        <div class="reg-header">
+          <h2>注册</h2>
+          <p>
+            之前已经注册？点击
+            <%= link_to "登录", new_session_path(resource_name), class: "color-green" %>
+          </p>
+        </div>
 
-    <%= render "devise/shared/links" %>
+        <div class="form-group">
+          <%= f.label :username %>
+          <%= f.text_field :username, autofocus: true, class: "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :email %>
+          <%= f.email_field :email, class: "form-control" %>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-6">
+            <%= f.label :password do %>
+              密码<span class="color-red">*</span>
+            <% end %>
+
+            <%= f.password_field :password, autocomplete: "off", class: "form-control margin-bottom-20" %>
+          </div>
+
+          <div class="col-sm-6">
+            <%= f.label :password_confirmation do %>
+              密码确认<span class="color-red">*</span>
+            <% end %>
+
+            <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control margin-bottom-20" %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= label_tag :_rucaptcha, "验证码" %><br />
+          <%= rucaptcha_image_tag alt: '验证码' %>
+          <%= rucaptcha_input_tag class: 'form-control', placeholder: '请输入验证码' %>
+        </div>
+
+        <hr>
+
+        <div class="row">
+          <div class="col-lg-12 text-right">
+            <%= f.submit "提交", class: "btn btn-u" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
   </div>
-</div>
+</div><!--/container-->
+<!--=== End Content Part ===-->
