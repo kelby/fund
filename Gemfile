@@ -49,6 +49,7 @@ group :development do
   gem 'capistrano-rbenv', '~> 2.0'
   gem 'capistrano-bundler', '~> 1.2'
   gem 'capistrano-secrets-yml', '~> 1.0.0'
+  gem 'capistrano-sidekiq'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -77,8 +78,6 @@ gem 'rails_admin', '~> 1.0'
 gem 'redcarpet'
 
 gem 'sidekiq'
-
-gem 'capistrano-sidekiq', group: :development
 
 # https://github.com/redis/redis-rb
 gem 'redis', '~>3.2'

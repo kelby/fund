@@ -3,11 +3,13 @@
 # Defines a single server with a list of roles and multiple properties.
 # You can define all roles on a single server, or split them:
 
-server '139.162.102.224', user: 'deployer', roles: %w{app db web} #, my_property: :my_value
+server 'www.fund-tools.com', user: 'deployer', roles: %w{app db web} #, my_property: :my_value
 # server 'example.com', user: 'deploy', roles: %w{app web}, other_property: :other_value
 # server 'db.example.com', user: 'deploy', roles: %w{db}
 
 set :rbenv_ruby, '2.3.3'
+
+set :sidekiq_pid, File.join(shared_path, 'tmp', 'pids', 'sidekiq.pid') # ensure this path exists in production before deploying.
 
 # role-based syntax
 # ==================
