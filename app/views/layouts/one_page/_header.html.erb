@@ -71,12 +71,27 @@
             基金
           </a>
           <ul class="dropdown-menu">
-            <li>
-              <%= link_to "基金净值", "javascript:void(0);" %>
+            <!-- <li>
+              <%#= link_to "基金净值", "javascript:void(0);" %>
             </li>
             <li>
-              <%= link_to "基金排行", "javascript:void(0);" %>
+              <%#= link_to "基金排行", "javascript:void(0);" %>
+            </li> -->
+
+            <li>
+              <%= link_to "基金龙虎榜", snapshot_quickrank_index_path %>
             </li>
+            <li>
+              <%= link_to "业绩和风险", performance_quickrank_index_path %>
+            </li>
+            <li>
+              <%= link_to "投资组合", portfolio_quickrank_index_path %>
+            </li>
+
+            <li>
+              <%= link_to "晨星历史数据", history_quickrank_index_path %>
+            </li>
+
             <li>
               <%= link_to "基金列表", projects_path %>
             </li>
@@ -164,7 +179,7 @@
 
             <!-- Invoice Page -->
             <li>
-              <%= link_to "查看全部", catalogs_path %>
+              <%= link_to "公司列表", catalogs_path %>
             </li>
             <!-- End Invoice Page -->
           </ul>
@@ -242,7 +257,7 @@
 
                         <li>
                           <%= link_to articles_path do %>
-                            查看全部
+                            文章列表
                             &nbsp;
                             <small class="color-red">
                               <i class="fa fa-free-code-camp" aria-hidden="true"></i>
@@ -270,25 +285,25 @@
         <!-- End Demo Pages -->
 
         <!-- Features -->
-        <li class="dropdown">
+        <!-- <li class="dropdown">
           <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
             评级数据
           </a>
           <ul class="dropdown-menu">
             <li>
-              <%= link_to "基金龙虎榜", snapshot_quickrank_index_path %>
+              <%#= link_to "基金龙虎榜", snapshot_quickrank_index_path %>
             </li>
             <li>
-              <%= link_to "业绩和风险", performance_quickrank_index_path %>
+              <%#= link_to "业绩和风险", performance_quickrank_index_path %>
             </li>
             <li>
-              <%= link_to "投资组合", portfolio_quickrank_index_path %>
+              <%#= link_to "投资组合", portfolio_quickrank_index_path %>
             </li>
             <li>
-              <%= link_to "晨星历史数据", history_quickrank_index_path %>
+              <%#= link_to "晨星历史数据", history_quickrank_index_path %>
             </li>
           </ul>
-        </li>
+        </li> -->
         <!-- End Features -->
 
         <!-- Search Block -->
