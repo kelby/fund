@@ -1,3 +1,5 @@
 website:
   slogan: "基金工具箱：基金数据可视化，以及基于数据的基金推荐。"
   author: "ZhenKuan<leekelby@gmail.com>"
+
+website_host: "https://www.fund-tools.com"

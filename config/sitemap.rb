@@ -1,5 +1,5 @@
 # Set the host name for URL creation
-SitemapGenerator::Sitemap.default_host = "https://fund-toolbox.com"
+SitemapGenerator::Sitemap.default_host = Settings.website_host
 
 SitemapGenerator::Sitemap.create do
   # Put links creation logic here.
