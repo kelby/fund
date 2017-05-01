@@ -5,3 +5,6 @@ omniauth:
   google_oauth2:
     client_id: ''
     client_secret: ''
+
+google_site_verification: "VkqA9xhi3sZifZI2FdjaTTSYM2mnpMsWi_GrEcpaBUQ"
+ms_bing_site_verification: "944C230EABA5576D5E7758710D52AA1B"

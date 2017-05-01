@@ -61,9 +61,9 @@
   <%= yield(:layout_js_link_yield) %>
 
   <!-- Third plugins -->
-  <meta name="google-site-verification" content="okJ_w2UII_kjLd1S_I3X4SzGmjfyi81XE7a-NH_LzLw" />
+  <meta name="google-site-verification" content="<%= Settings.google_site_verification %>" />
   <!-- Bing search -->
-  <meta name="msvalidate.01" content="944C230EABA5576D5E7758710D52AA1B" />
+  <meta name="msvalidate.01" content="<%= Settings.ms_bing_site_verification %>" />
 </head>
 
 <body>
