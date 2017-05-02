@@ -147,3 +147,9 @@ gem 'acts-as-taggable-on', '~> 4.0'
 gem 'social-share-button'
 
 gem 'rails-i18n'#, '~> 5.0.0' # For 5.0.x
+
+# a fast, pure Ruby Markdown superset converter
+gem 'kramdown'
+# Note: 这两个解析器二选一，目前暂时使用 redcarpet
+# The safe Markdown parser, reloaded.
+gem 'redcarpet'

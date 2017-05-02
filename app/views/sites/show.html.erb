@@ -1,11 +1,24 @@
-<div class="container">
-  <p class="text-center">
-    <h1>
-    <%= @site.title %>
-    </h1>
-  </p>
+<%= stylesheet_link_tag 'rich_media' %>
 
-  <p>
-    <%= format_content @site.description %>
-  </p>
+<%= stylesheet_link_tag 'simditor/simditor' %>
+
+<div class="bg-with-white">
+  <div class="rich_media_inner">
+    <h1 class="title text-center">
+      <%= @site.title %>
+
+      <% if can? :edit, @site %>
+        <small class="pull-right">
+          <%= link_to '编辑', edit_site_path(@site) %>
+        </small>
+      <% end %>
+    </h1>
+
+    <div class="article-content simditor">
+      <div class="simditor-body">
+        <%= format_content markdown.render(@site.description), 'article-content' %>
+        <%#= format_content Kramdown::Document.new(@site.description).to_html, 'article-content' %>
+      </div>
+    </div>
+  </div>
 </div>
