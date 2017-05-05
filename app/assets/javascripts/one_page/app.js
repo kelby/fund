@@ -244,9 +244,9 @@ var App = function () {
   return {
     init: function () {
       handleBootstrap();
-      handleSearch();
-      handleSearchV1();
-      handleSearchV2();
+      // handleSearch();
+      // handleSearchV1();
+      // handleSearchV2();
       handleTopBar();
       handleTopBarSubMenu();
       handleToggle();

@@ -647,7 +647,7 @@ body.header-fixed-space-default {
 	.header .nav .search-open {
 		top: 5px;
 		padding: 0;
-		left: 48px;
+		left: 0;
 		border-top: none;
 		box-shadow: none;
 		background: none;
@@ -667,6 +667,16 @@ body.header-fixed-space-default {
 .header .mega-menu .dropdown,
 .header .mega-menu .collapse {
   	position: static;
+}
+
+.header .nav.navbar-nav {
+  margin-left: 12%;
+}
+
+@media (max-width: 991px) {
+  .header .nav.navbar-nav {
+    margin-left: 0;
+  }
 }
 
 .header .mega-menu .navbar-inner,
