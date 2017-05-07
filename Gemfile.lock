@@ -166,6 +166,8 @@ GEM
     ffi (1.9.14)
     font-awesome-rails (4.7.0.0)
       railties (>= 3.2, < 5.1)
+    font-awesome-sass (4.7.0)
+      sass (>= 3.2)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
     haml (4.0.7)
@@ -405,7 +407,7 @@ DEPENDENCIES
   elasticsearch-model
   elasticsearch-rails
   exception_notification
-  font-awesome-rails
+  font-awesome-sass (~> 4.7.0)
   headless
   hiredis (~> 0.4.5)
   jbuilder (~> 2.5)

@@ -14,8 +14,11 @@
  *= require 'one-page/plugin-bootstrap'
  *= require 'one-page/style'
  *= require 'ie10-viewport-bug-workaround'
- *= require font-awesome
+ * require font-awesome
  *= require select2
  *= require select2-bootstrap
  *= require_self
  */
+
+@import "font-awesome-sprockets";
+@import "font-awesome";
