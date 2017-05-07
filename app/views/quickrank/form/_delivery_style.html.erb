@@ -3,54 +3,54 @@
     基金风格：
   </label>
 
-  <div style="display: inline-block;">
+  <div class="inline-block delivery-style-box">
     <%= label_tag "delivery_style_1" do %>
-      <%= check_box_tag "delivery_style", 1, checked_delivery_style(1), id: 'delivery_style_1' %>
+      <%= check_box_tag "delivery_style[]", 1, checked_delivery_style(1), id: 'delivery_style_1' %>
       大盘价值
     <% end %>
 
     <%= label_tag "delivery_style_2" do %>
-      <%= check_box_tag "delivery_style", 2, checked_delivery_style(2), id: 'delivery_style_2' %>
+      <%= check_box_tag "delivery_style[]", 2, checked_delivery_style(2), id: 'delivery_style_2' %>
       大盘平衡
     <% end %>
 
     <%= label_tag "delivery_style_3" do %>
-      <%= check_box_tag "delivery_style", 3, checked_delivery_style(3), id: 'delivery_style_3' %>
+      <%= check_box_tag "delivery_style[]", 3, checked_delivery_style(3), id: 'delivery_style_3' %>
       大盘成长
     <% end %>
 
     <%= label_tag "delivery_style_4" do %>
-      <%= check_box_tag "delivery_style", 4, checked_delivery_style(4), id: 'delivery_style_4' %>
+      <%= check_box_tag "delivery_style[]", 4, checked_delivery_style(4), id: 'delivery_style_4' %>
       中盘价值
     <% end %>
 
     <%= label_tag "delivery_style_5" do %>
-      <%= check_box_tag "delivery_style", 5, checked_delivery_style(5), id: 'delivery_style_5' %>
+      <%= check_box_tag "delivery_style[]", 5, checked_delivery_style(5), id: 'delivery_style_5' %>
       中盘平衡
     <% end %>
 
     <%= label_tag "delivery_style_6" do %>
-      <%= check_box_tag "delivery_style", 6, checked_delivery_style(6), id: 'delivery_style_6' %>
+      <%= check_box_tag "delivery_style[]", 6, checked_delivery_style(6), id: 'delivery_style_6' %>
       中盘成长
     <% end %>
 
     <%= label_tag "delivery_style_7" do %>
-      <%= check_box_tag "delivery_style", 7, checked_delivery_style(7), id: 'delivery_style_7' %>
+      <%= check_box_tag "delivery_style[]", 7, checked_delivery_style(7), id: 'delivery_style_7' %>
       小盘价值
     <% end %>
 
     <%= label_tag "delivery_style_8" do %>
-      <%= check_box_tag "delivery_style", 8, checked_delivery_style(8), id: 'delivery_style_8' %>
+      <%= check_box_tag "delivery_style[]", 8, checked_delivery_style(8), id: 'delivery_style_8' %>
       小盘平衡
     <% end %>
 
     <%= label_tag "delivery_style_9" do %>
-      <%= check_box_tag "delivery_style", 9, checked_delivery_style(9), id: 'delivery_style_9' %>
+      <%= check_box_tag "delivery_style[]", 9, checked_delivery_style(9), id: 'delivery_style_9' %>
       小盘成长
     <% end %>
 
     <%= label_tag "delivery_style_0" do %>
-      <%= check_box_tag "delivery_style", 0, checked_delivery_style(0), id: 'delivery_style_0' %>
+      <%= check_box_tag "delivery_style[]", 0, checked_delivery_style(0), id: 'delivery_style_0' %>
       --
     <% end %>
   </div>

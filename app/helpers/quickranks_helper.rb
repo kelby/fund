@@ -4,9 +4,9 @@ module QuickranksHelper
       return false
     end
 
-    rating_value = params[rating_type].to_i
+    rating_value = params[rating_type].map &:to_i
 
-    rating_value == item
+    rating_value.include? item
   end
 
   def checked_delivery_style(item)
@@ -14,8 +14,8 @@ module QuickranksHelper
       return false
     end
 
-    rating_value = params['delivery_style'].to_i
+    rating_value = params['delivery_style'].map &:to_i
 
-    rating_value == item
+    rating_value.include? item
   end
 end

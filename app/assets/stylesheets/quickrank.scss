@@ -8,3 +8,13 @@ table.quickrank-table {
     }
   }
 }
+
+.delivery-style-box {
+  label {
+    margin-left: 10px;
+  }
+
+  label:first-child {
+    margin-left: 0;
+  }
+}

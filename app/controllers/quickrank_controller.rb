@@ -74,12 +74,50 @@ class QuickrankController < ApplicationController
     end
   end
 
+  # 基金龙虎榜
+  def search_quickrank_snapshots
+    @rating_date = QuickrankSnapshot.pluck(:rating_date).uniq.max
+
+    @quickrank_snapshots = QuickrankSnapshot.where(rating_date: @rating_date).includes(:project).page(params[:page]).per(1000)
+
+    if params[:three_year_rating].present?
+      @quickrank_snapshots = @quickrank_snapshots.where(star_rating_three_year: params[:three_year_rating])
+    end
+
+    if params[:five_year_rating].present?
+      @quickrank_snapshots = @quickrank_snapshots.where(star_rating_five_year: params[:five_year_rating])
+    end
+
+    if params[:delivery_style].present?
+      project_ids = QuickrankPortfolio.where(rating_date: @rating_date).where(delivery_style: params[:delivery_style]).pluck(:project_id)
+
+      @quickrank_snapshots = @quickrank_snapshots.where(project_id: project_ids)
+    end
+  end
+
+  # 业绩和风险
   def search_quickrank_performances
     @rating_date = QuickrankPerformance.pluck(:rating_date).uniq.max
 
     @quickrank_performances = QuickrankPerformance.where(rating_date: @rating_date).includes(:project).page(params[:page]).per(1000)
+
+    if params[:three_year_rating].present?
+      three_year_rating_project_ids = @quickrank_snapshots = QuickrankSnapshot.where(rating_date: @rating_date).pluck(:project_id)
+      @quickrank_performances = @quickrank_performances.where(project_id: three_year_rating_project_ids)
+    end
+
+    if params[:five_year_rating].present?
+      five_year_rating_project_ids = @quickrank_snapshots = QuickrankSnapshot.where(rating_date: @rating_date).pluck(:project_id)
+      @quickrank_performances = @quickrank_performances.where(project_id: five_year_rating_project_ids)
+    end
+
+    if params[:delivery_style].present?
+      project_ids = QuickrankPortfolio.where(rating_date: @rating_date).where(delivery_style: params[:delivery_style]).pluck(:project_id)
+      @quickrank_performances = @quickrank_performances.where(project_id: project_ids)
+    end
   end
 
+  # 投资组合
   def search_quickrank_portfolios
     @rating_date = QuickrankPortfolio.pluck(:rating_date).uniq.max
 
@@ -94,11 +132,5 @@ class QuickrankController < ApplicationController
         @quickrank_portfolios = @quickrank_portfolios.where(delivery_style: delivery_style)
       end
     end
-  end
-
-  def search_quickrank_snapshots
-    @rating_date = QuickrankSnapshot.pluck(:rating_date).uniq.max
-
-    @quickrank_snapshots = QuickrankSnapshot.where(rating_date: @rating_date).includes(:project).page(params[:page]).per(1000)
   end
 end
