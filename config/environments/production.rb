@@ -100,10 +100,13 @@ Rails.application.configure do
 
   config.session_store :cookie_store, key: '_fund_toolbox_session_', expire_after: 20.years #, domain: '.fund-tools.com'
 
-  config.middleware.insert_before 0, Rack::Cors do
-    allow do
-      origins '*.fund-tools.com'
-      resource '*', :headers => :any, :methods => [:get, :post, :options]
-    end
-  end
+  # config.middleware.insert_before 0, Rack::Cors do
+  #   allow do
+  #     origins '*.fund-tools.com'
+  #     resource '*', :headers => :any, :methods => [:get, :post, :options]
+  #   end
+  # end
+
+  config.assets.paths << Rails.root.join("app", "assets")
+  config.assets.precompile += %w( .svg .eot .woff .ttf .woff2)
 end
