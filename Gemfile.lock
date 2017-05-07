@@ -247,6 +247,7 @@ GEM
     posix-spawn (0.3.11)
     puma (3.6.0)
     rack (2.0.1)
+    rack-cors (0.4.1)
     rack-pjax (1.0.0)
       nokogiri (~> 1.5)
       rack (>= 1.1)
@@ -420,6 +421,7 @@ DEPENDENCIES
   omniauth-google-oauth2
   paranoia (~> 2.2)
   puma (~> 3.0)
+  rack-cors
   rails (~> 5.0.2)
   rails-i18n
   rails_admin (~> 1.0)

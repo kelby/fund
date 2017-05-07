@@ -153,3 +153,6 @@ gem 'kramdown'
 # Note: 这两个解析器二选一，目前暂时使用 redcarpet
 # The safe Markdown parser, reloaded.
 gem 'redcarpet'
+
+# Rack Middleware for handling Cross-Origin Resource Sharing (CORS)
+gem 'rack-cors', :require => 'rack/cors'

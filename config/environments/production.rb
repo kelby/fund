@@ -99,4 +99,11 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.session_store :cookie_store, key: '_fund_toolbox_session_', expire_after: 20.years #, domain: '.fund-tools.com'
+
+  config.middleware.insert_before 0, Rack::Cors do
+    allow do
+      origins '*.fund-tools.com'
+      resource '*', :headers => :any, :methods => [:get, :post, :options]
+    end
+  end
 end
