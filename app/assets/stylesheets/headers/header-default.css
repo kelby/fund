@@ -55,7 +55,7 @@ body.header-fixed-space-default {
 .header .topbar ul.loginbar > li > a:hover {
 	color: #7c8082;
 	font-size: 13px;
-	text-transform: uppercase;
+	/*text-transform: uppercase;*/
 }
 
 .header .topbar ul.loginbar li i.fa {

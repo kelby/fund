@@ -26,8 +26,8 @@
 
         <% if user_signed_in? %>
           <li>
-            <%= link_to account_path do %>
-              <%= image_tag current_user.avatar_url(:xs), class: "xs-avatar" %>
+            <%= link_to account_path, title: current_user.username do %>
+              <%= image_tag current_user.avatar_url(:xs), class: "xs-avatar", alt: current_user.username %>
 
               <%= current_user.username %>
             <% end %>
@@ -163,18 +163,18 @@
             </li>
 
             <% Catalog.pluck(:initial).uniq.each do |initial| %>
-            <!-- About Pages -->
-            <li class="dropdown-submenu">
-              <a href="javascript:void(0);"><%= initial.upcase %></a>
-              <ul class="dropdown-menu">
-                <% Catalog.where(initial: initial).each do |catalog| %>
-                  <li>
-                    <%= link_to catalog.name, catalog %>
-                  </li>
-                <% end %>
-              </ul>
-            </li>
-            <!-- End About Pages -->
+              <!-- About Pages -->
+              <li class="dropdown-submenu">
+                <a href="javascript:void(0);"><%= initial.upcase %></a>
+                <ul class="dropdown-menu">
+                  <% Catalog.where(initial: initial).each do |catalog| %>
+                    <li>
+                      <%= link_to catalog.name, catalog %>
+                    </li>
+                  <% end %>
+                </ul>
+              </li>
+              <!-- End About Pages -->
             <% end %>
 
             <!-- Invoice Page -->

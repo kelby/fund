@@ -146,7 +146,7 @@
       <div class="panel-body">
         <% @tags.each_slice(6) do |tags| %>
 
-          <dl class="clearfix">
+          <dl class="clearfix home-tags">
             <%= render partial: "home/tag", collection: tags %>
           </dl>
 

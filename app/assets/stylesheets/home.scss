@@ -18,6 +18,12 @@
   body > .home.container {
     margin-top: 20px;
   }
+
+  dl.home-tags {
+    dt, dd {
+      margin-bottom: 10px;
+    }
+  }
 }
 
 .home {
