@@ -124,19 +124,21 @@ namespace :morningstar do
         tds_ele = x.css("td")
 
         name = tds_ele[1].css("a").text
-        return_inception_id
+        return_inception_fund = tds_ele[2].css("a").text
         return_inception = tds_ele[3].text
-        three_year_return_inception_id
-        three_year_return_inception = tds_ele[3].text
-        this_year_return_inception_id
-        this_year_return_inception = tds_ele[3].text
+        three_year_return_inception_fund = tds_ele[4].css("a").text
+        three_year_return_inception = tds_ele[5].text
+        this_year_return_inception_fund = tds_ele[6].css("a").text
+        this_year_return_inception = tds_ele[7].text
+
+        # _return_inception_id = Project.find_by(name: _return_inception_id).id
 
         FundcompanyBestReturn.create(name: name,
-          return_inception_id: return_inception_id,
+          return_inception_fund: return_inception_fund,
           return_inception: return_inception,
-          three_year_return_inception_id: three_year_return_inception_id,
+          three_year_return_inception_fund: three_year_return_inception_fund,
           three_year_return_inception: three_year_return_inception,
-          this_year_return_inception_id: this_year_return_inception_id,
+          this_year_return_inception_fund: this_year_return_inception_fund,
           this_year_return_inception: this_year_return_inception)
       end
     end

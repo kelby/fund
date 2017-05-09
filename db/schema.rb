@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170423100122) do
+ActiveRecord::Schema.define(version: 20170509160020) do
 
   create_table "agreement_articles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.integer  "user_id"
@@ -360,13 +360,16 @@ ActiveRecord::Schema.define(version: 20170423100122) do
     t.integer  "fundcompany_id"
     t.string   "name"
     t.integer  "return_inception_id"
-    t.decimal  "return_inception",               precision: 10
+    t.decimal  "return_inception",                 precision: 15, scale: 4
     t.integer  "three_year_return_inception_id"
-    t.decimal  "three_year_return_inception",    precision: 10
+    t.decimal  "three_year_return_inception",      precision: 15, scale: 4
     t.integer  "this_year_return_inception_id"
-    t.decimal  "this_year_return_inception",     precision: 10
-    t.datetime "created_at",                                    null: false
-    t.datetime "updated_at",                                    null: false
+    t.decimal  "this_year_return_inception",       precision: 15, scale: 4
+    t.datetime "created_at",                                                null: false
+    t.datetime "updated_at",                                                null: false
+    t.string   "return_inception_fund"
+    t.string   "three_year_return_inception_fund"
+    t.string   "this_year_return_inception_fund"
     t.index ["fundcompany_id"], name: "index_fundcompany_best_returns_on_fundcompany_id", using: :btree
   end
 
