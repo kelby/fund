@@ -16,6 +16,8 @@
 #
 
 class IndexReport < ApplicationRecord
+  include Searchable
+
   validates_presence_of :name
   validates_uniqueness_of :website
   validates_uniqueness_of :code
@@ -82,5 +84,15 @@ class IndexReport < ApplicationRecord
 
       index_report.save
     end
+  end
+
+  mapping do
+    indexes :id, type: :integer
+
+    indexes :name
+  end
+
+  def as_indexed_json(options={})
+    self.as_json(only: [:id, :name])
   end
 end

@@ -27,6 +27,8 @@
 #
 
 class Developer < ApplicationRecord
+  include Searchable
+
   # Associations
   has_many :catalog_developers
   # 就职过的基金公司（两者是多对多关联，虽然一个基金经理就职过多个基金公司的情况比较少，但仍然是多对多）
@@ -153,5 +155,19 @@ class Developer < ApplicationRecord
 
   def set_slug
     self.slug = Pinyin.t(self.name, splitter: '')
+  end
+
+  mapping do
+    indexes :id, type: :integer
+
+    indexes :name
+  end
+
+  def as_indexed_json(options={})
+    self.as_json(
+      only: [:id, :name],
+
+      include: { catalog: { only: [:name, :slug]}}
+    )
   end
 end

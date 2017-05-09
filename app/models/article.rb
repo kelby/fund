@@ -18,6 +18,8 @@
 #
 
 class Article < ApplicationRecord
+  include Searchable
+
   validates_presence_of :title, :description
 
 
@@ -41,5 +43,15 @@ class Article < ApplicationRecord
 
   def set_slug
     self.slug = Pinyin.t(self.title, splitter: '-')
+  end
+
+  mapping do
+    indexes :id, type: :integer
+
+    indexes :title
+  end
+
+  def as_indexed_json(options={})
+    self.as_json(only: [:id, :title])
   end
 end

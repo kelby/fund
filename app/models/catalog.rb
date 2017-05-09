@@ -35,6 +35,8 @@
 # scale
 # scale_record_at
 class Catalog < ApplicationRecord
+  include Searchable
+
   # Validates
   validates_uniqueness_of :name #, scope: :type
   validates_uniqueness_of :short_name, allow_blank: true
@@ -306,5 +308,17 @@ class Catalog < ApplicationRecord
 
   def set_initial
     self.initial = Pinyin.t(self.short_name).first
+  end
+
+  mapping do
+    indexes :id, type: :integer
+
+    indexes :name
+    indexes :slug
+    indexes :short_name
+  end
+
+  def as_indexed_json(options={})
+    self.as_json(only: [:id, :name, :slug, :short_name])
   end
 end
