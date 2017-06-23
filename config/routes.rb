@@ -10,6 +10,8 @@ Rails.application.routes.draw do
 
   # get 'quickrank_snapshots/index'
 
+  get :search, to: "pages#search"
+
   resources :fundcompany, path: 'company', only: [] do
     collection do
       get :star

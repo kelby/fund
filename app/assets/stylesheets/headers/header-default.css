@@ -679,6 +679,12 @@ body.header-fixed-space-default {
   }
 }
 
+@media (max-width: 767px) {
+  .header .navbar-collapse .nav.navbar-nav li.fund-box {
+    margin-top: 42px;
+  }
+}
+
 .header .mega-menu .navbar-inner,
 .header .mega-menu .container {
   	position: relative;
