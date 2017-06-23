@@ -663,11 +663,12 @@ class Project < ApplicationRecord
     indexes :id, type: :integer
 
     indexes :name
+    indexes :code
   end
 
   def as_indexed_json(options={})
     self.as_json(
-      only: [:id, :name],
+      only: [:id, :name, :code],
 
       include: { catalog: { only: [:name, :slug]}}
     )

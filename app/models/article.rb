@@ -49,9 +49,10 @@ class Article < ApplicationRecord
     indexes :id, type: :integer
 
     indexes :title
+    indexes :description
   end
 
   def as_indexed_json(options={})
-    self.as_json(only: [:id, :title])
+    self.as_json(only: [:id, :title, :description])
   end
 end

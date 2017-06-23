@@ -90,9 +90,10 @@ class IndexReport < ApplicationRecord
     indexes :id, type: :integer
 
     indexes :name
+    indexes :intro
   end
 
   def as_indexed_json(options={})
-    self.as_json(only: [:id, :name])
+    self.as_json(only: [:id, :name, :intro])
   end
 end
